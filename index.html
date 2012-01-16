@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/json2.js"></script>
+		<script src="libs/backbone.js"></script>
+		<script type="text/javascript">
+			var App = {
+				collections : {},
+				models : {},
+				views : {},
+				mixins : {},
+				init : function () {
+					var collection = new App.collections.Tags();
+					App.views.tags = new App.views.Tags({collection:collection});
+					new App.views.Pagination({collection:collection});
+				}
+			};
+		</script>
+		<script src="utils/pagination.js"></script>
+		<script src="models/tag.js"></script>
+		<script src="collections/tags.js"></script>
+		<script src="views/tags.js"></script>
+		<script src="views/pagination.js"></script>
+		<script type="text/javascript">
+			$(App.init);
+		</script>
+	</head>
+	<body>
+
+		<script type="text/html" id="tmpPagination">
+			<span class="cell last pages">
+				<% if (page != 1) { %>
+					<a href="#" class="first">First</a>
+					<a href="#" class="prev">Previous</a>
+				<% } %>
+				<% _.each (pageSet, function (p) { %>
+					<% if (page == p) { %>
+						<span class="page selected"><%= p %></span>
+					<% } else { %>
+						<a href="#" class="page"><%= p %></a>
+					<% } %>
+				<% }); %>
+				<% if (lastPage != page) { %>
+					<a href="#" class="next">Next</a>
+					<a href="#" class="last">Last</a>
+				<% } %>
+			</span>
+
+			<span class="cell howmany">
+				Show
+				<a href="#" class="selected">20</a>
+				|
+				<a href="#" class="">50</a>
+				|
+				<a href="#" class="">100</a>
+			</span>
+
+			<span class="cell first records">
+				<span class="current"><%= startRecord %></span>
+				-
+				<span class="perpage"><%= endRecord %></span>
+				of
+				<span class="total"><%= totalRecords %></span>
+							shown
+			</span>
+		</script>
+
+		<p>This project is based on prior work by @bmsterling. It will be getting heavily refactored and is primarily being used for experimentation at the moment - @addyosmani</p>
+	</body>
+</html>
