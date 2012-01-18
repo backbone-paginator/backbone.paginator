@@ -1,6 +1,6 @@
-(function (views) {
+(function ( views ) {
 	views.Tags = Backbone.View.extend({
-		tagName : 'ul',
+		el : '#content',
 		initialize : function () {
 			_.bindAll (this, 'render', 'addAll', 'addOne');
 			var self = this;
@@ -11,21 +11,18 @@
 				silent:true
 			});
 			self.collection.bind('reset', self.addAll);
-			$(self.el).appendTo('body');
+			
+
 		},
 		addAll : function () {
-			var self = this;
-
-			$(self.el).empty();
-			self.collection.each (self.addOne);
+			$(this.el).empty();
+			this.collection.each (this.addOne);
 		},
 
 		addOne : function (model) {
-			var self = this;
-
 			var view = new Tag({model:model});
 			view.render();
-			$(self.el).append(view.el);
+			$(this.el).append(view.el);
 		}
 	});
 
@@ -35,5 +32,5 @@
 			$(this.el).html(this.model.get('name'));
 		}
 	});
-})(App.views);
+})( App.views );
 

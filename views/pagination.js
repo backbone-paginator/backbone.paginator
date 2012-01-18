@@ -1,4 +1,4 @@
-(function (views) {
+(function ( views ) {
 	views.Pagination = Backbone.View.extend({
 
 		events : {
@@ -13,68 +13,45 @@
 		tagName : 'aside',
 		initialize : function () {
 			_.bindAll (this, 'render');
-			var self = this;
-
-			self.tmpl = _.template($('#tmpPagination').html());
-			self.collection.bind('reset', this.render);
-			$(self.el).appendTo('body');
+			this.tmpl = _.template($('#tmpPagination').html());
+			this.collection.bind('reset', this.render);
+			$(this.el).appendTo('#pagination');
 		},
 		render : function () {
-            var self;
-            self = this;
-
-			var html = this.tmpl(self.collection.info());
+			var html = this.tmpl(this.collection.info());
 			$(this.el).html(html);
 		},
 
 		gotoFirst : function (e) {
 			e.preventDefault();
-
-			var self = this;
-
-			self.collection.goTo(1);
+			this.collection.goTo(1);
 		},
 
 		gotoPrev : function (e) {
 			e.preventDefault();
-
-			var self = this;
-
-			self.collection.previousPage();
+			this.collection.previousPage();
 		},
 
 		gotoNext : function (e) {
 			e.preventDefault();
-
-			var self = this;
-
-			self.collection.nextPage();
+			this.collection.nextPage();
 		},
 
 		gotoLast : function (e) {
 			e.preventDefault();
-
-			var self = this;
-
-			self.collection.goTo(self.collection.information.lastPage);
+			this.collection.goTo(this.collection.information.lastPage);
 		},
 
 		gotoPage : function (e) {
 			e.preventDefault();
-
-			var self = this;
 			var page = $(e.target).text();
-
-			self.collection.goTo(page);
+			this.collection.goTo(page);
 		},
 
 		changeCount : function (e) {
 			e.preventDefault();
-
-			var self = this;
 			var per = $(e.target).text();
-
-			self.collection.howManyPer(per);
+			this.collection.howManyPer(per);
 		}
 	});
-})(App.views);
+})( App.views );

@@ -2,34 +2,30 @@
 <html lang="en-US">
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="libs/underscore.js"></script>
-		<script src="libs/json2.js"></script>
-		<script src="libs/backbone.js"></script>
-		<script type="text/javascript">
-			var App = {
-				collections : {},
-				models : {},
-				views : {},
-				mixins : {},
-				init : function () {
-					var collection = new App.collections.Tags();
-					App.views.tags = new App.views.Tags({collection:collection});
-					new App.views.Pagination({collection:collection});
-				}
-			};
-		</script>
-		<script src="utils/pagination.js"></script>
-		<script src="models/tag.js"></script>
-		<script src="collections/tags.js"></script>
-		<script src="views/tags.js"></script>
-		<script src="views/pagination.js"></script>
-		<script type="text/javascript">
-			$(App.init);
-		</script>
+		<title>Backbone.js pagination</title>
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 	</head>
 	<body>
+
+		<div class="container">
+
+
+		  <p>&nbsp;</p>
+		  <div class="page-header">
+		    <h1>Backbone.js Pagination <small>an example</small></h1>
+		  </div>
+
+			<ul id="content">
+			</ul>
+
+			<ul id="pagination">
+			</ul>
+		
+			<p>
+			This project is based on prior work by @bmsterling and is being heavily refactored by @addyosmani
+			</p>
+
+		</div>
 
 		<script type="text/html" id="tmpPagination">
 			<span class="cell last pages">
@@ -69,6 +65,20 @@
 			</span>
 		</script>
 
-		<p>This project is based on prior work by @bmsterling. It will be getting heavily refactored and is primarily being used for experimentation at the moment - @addyosmani</p>
+		
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/json2.js"></script>
+		<script src="libs/backbone.js"></script>
+		<script src="app.js"></script>
+		<script src="utils/pagination.js"></script>
+		<script src="models/tag.js"></script>
+		<script src="collections/tags.js"></script>
+		<script src="views/tags.js"></script>
+		<script src="views/pagination.js"></script>
+
+
+
+
 	</body>
 </html>

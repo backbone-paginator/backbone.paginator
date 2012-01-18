@@ -1,8 +1,5 @@
-(function (mixins) {
-	/**
-	 * @class
-	 * Pagination
-	 */
+(function ( mixins ) {
+
 	mixins.Pagination = {
 		/**  how many items to show per page */
 		perPage : 20,
@@ -14,37 +11,28 @@
 		 *
 		 */
 		nextPage : function () {
-			var self = this;
-
-			self.page = ++self.page;
-			self.pager();
+			this.page = ++this.page;
+			this.pager();
 		},
 
 		previousPage : function () {
-			var self = this;
-
-			self.page = --self.page || 1;
-			self.pager();
+			this.page = --this.page || 1;
+			this.pager();
 		},
 
 		goTo : function (page) {
-			var self = this;
-
-			self.page = parseInt(page,10);
-			self.pager();
+			this.page = parseInt(page,10);
+			this.pager();
 		},
 
 		howManyPer : function (perPage) {
-			var self = this;
-			self.page = 1;
-			self.perPage = perPage;
-			self.pager();
+			this.page = 1;
+			this.perPage = perPage;
+			this.pager();
 		},
 
 		setSort : function (column, direction) {
-			var self = this;
-
-			self.pager(column, direction);
+			this.pager(column, direction);
 		},
 
 		pager : function (sort, direction) {
@@ -133,6 +121,8 @@
 
 		setPagination : function (info) {
 			var pages = [];
+
+
 			// How many adjacent pages should be shown on each side?
 			var ADJACENT = 3;
 			var ADJACENTx2 = ADJACENT*2;
@@ -175,4 +165,4 @@
 		}
 	};
 
-})(App.mixins);
+})( App.mixins );
