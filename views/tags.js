@@ -2,16 +2,23 @@
 	views.Tags = Backbone.View.extend({
 		el : '#content',
 		initialize : function () {
+
+			
+			//drop this in favor of third arg approach
 			_.bindAll (this, 'render', 'addAll', 'addOne');
+
 			var self = this;
-			self.collection.fetch({
-				success : function () {
+			var tags = self.collection;
+
+			tags.fetch({
+				success: function(){
 					self.collection.pager();
 				},
 				silent:true
 			});
+
 			self.collection.bind('reset', self.addAll);
-			
+		
 
 		},
 		addAll : function () {
@@ -29,7 +36,7 @@
 	var Tag = Backbone.View.extend({
 		tagName : 'li',
 		render : function () {
-			$(this.el).html(this.model.get('name'));
+			$(this.el).html(this.model.get('text'));
 		}
 	});
 })( App.views );

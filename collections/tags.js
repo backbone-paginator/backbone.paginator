@@ -1,10 +1,11 @@
 (function ( collections , pagination , model ) {
 	collections.Tags = Backbone.Collection.extend({
 		model : model,
-		url : 'tags.json',
-		
+		url: 'search.json',
+
 		parse : function (resp) {
-			var tags = resp.tags;
+			//var tags = resp.tags;
+			var tags = resp.results;
 			return tags;
 		}
 	});

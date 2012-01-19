@@ -22,12 +22,16 @@
 			</ul>
 		
 			<p>
-			This project is based on prior work by @bmsterling and is being heavily refactored by @addyosmani
+			This project is based on prior work by @bmsterling and is being heavily refactored by @addyosmani.
+			<p>
+				Missing: sort, filtering, server-side paging sync.
+			</p>
 			</p>
 
 		</div>
 
 		<script type="text/html" id="tmpPagination">
+		 <div class="breadcrumb">
 			<span class="cell last pages">
 				<% if (page != 1) { %>
 					<a href="#" class="first">First</a>
@@ -63,6 +67,12 @@
 				<span class="total"><%= totalRecords %></span>
 							shown
 			</span>
+
+			<span class="cell sort">
+				<a href="#" class="sortAlphabetUp">Sort (Asc)</a>
+				<a href="#" class="sortAlphabetDown">Sort (Desc)</a>
+			</span>
+		  </div>
 		</script>
 
 		

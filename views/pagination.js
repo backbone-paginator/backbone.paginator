@@ -7,15 +7,19 @@
 			'click a.next'         : 'gotoNext',
 			'click a.last'         : 'gotoLast',
 			'click a.page'         : 'gotoPage',
-			'click .howmany a'     : 'changeCount'
+			'click .howmany a'     : 'changeCount',
+			'click a.sortAlphabetUp' : 'sortAlphabetAscending',
+			'click a.sortAlphabetDown': 'sortAlphabetDescending'
 		},
 
 		tagName : 'aside',
 		initialize : function () {
-			_.bindAll (this, 'render');
+
+			this.collection.bind('reset', this.render, this);
+			this.collection.bind('change', this.render, this);
 			this.tmpl = _.template($('#tmpPagination').html());
-			this.collection.bind('reset', this.render);
 			$(this.el).appendTo('#pagination');
+
 		},
 		render : function () {
 			var html = this.tmpl(this.collection.info());
@@ -52,6 +56,37 @@
 			e.preventDefault();
 			var per = $(e.target).text();
 			this.collection.howManyPer(per);
+		},
+
+		sortAlphabetAscending: function(e){
+		    e.preventDefault();
+			this.collection.comparator = function(model) {
+     			var str = model.get("text");
+     			str = str.toLowerCase();
+     			str = str.split();
+				str = _.map(str, function(letter) { 
+				    return String.fromCharCode((letter.charCodeAt(0))); 
+				  });         
+				 return str;
+			}
+
+			this.collection.pager();
+			
+		},
+
+		sortAlphabetDescending: function(e){
+			e.preventDefault();
+			this.collection.comparator = function(model) {
+     			var str = model.get("text");
+     			str = str.toLowerCase();
+     			str = str.split();
+				str = _.map(str, function(letter) { 
+				    return String.fromCharCode(-(letter.charCodeAt(0))); 
+				  });         
+				 return str;
+			}
+			this.collection.pager();
+
 		}
 	});
 })( App.views );
