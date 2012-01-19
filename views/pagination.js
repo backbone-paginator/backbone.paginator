@@ -61,7 +61,8 @@
 		sortAlphabetAscending: function(e){
 		    e.preventDefault();
 			this.collection.comparator = function(model) {
-     			var str = model.get("text");
+     			//var str = model.get("text");
+     			var str = model.get($('#sortByOption').val());
      			str = str.toLowerCase();
      			str = str.split();
 				str = _.map(str, function(letter) { 
@@ -77,7 +78,8 @@
 		sortAlphabetDescending: function(e){
 			e.preventDefault();
 			this.collection.comparator = function(model) {
-     			var str = model.get("text");
+     			//var str = model.get("text");
+     			var str = model.get($('#sortByOption').val());
      			str = str.toLowerCase();
      			str = str.split();
 				str = _.map(str, function(letter) { 

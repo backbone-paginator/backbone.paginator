@@ -4,7 +4,6 @@
 		url: 'search.json',
 
 		parse : function (resp) {
-			//var tags = resp.tags;
 			var tags = resp.results;
 			return tags;
 		}
