@@ -1,11 +1,17 @@
 (function ( mixins ) {
 
 	mixins.Pagination = {
-		/**  how many items to show per page */
+		/**  how many items to show per page in the view */
 		perPage : 20,
 
-		/** page to start off on */
+		/*how many results to query from the service*/
+		queryPerPage: 30,
+
+		/** page to start off on for pagination in the view */
 		page : 1,
+
+		/**current page to query on the server*/
+		queryPage: 1,
 
 		/**
 		 *
@@ -31,6 +37,9 @@
 			this.pager();
 		},
 
+		/*
+sort is the key to sort on.
+		*/
 		setSort : function (column, direction) {
 			this.pager(column, direction);
 		},

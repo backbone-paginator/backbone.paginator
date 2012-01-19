@@ -9,7 +9,9 @@
 			'click a.page'         : 'gotoPage',
 			'click .howmany a'     : 'changeCount',
 			'click a.sortAlphabetUp' : 'sortAlphabetAscending',
-			'click a.sortAlphabetDown': 'sortAlphabetDescending'
+			'click a.sortAlphabetDown': 'sortAlphabetDescending',
+			'click a.servernext': 'nextServerPage',
+			'click a.serverprevious' : 'previousServerPage'
 		},
 
 		tagName : 'aside',
@@ -60,16 +62,19 @@
 
 		sortAlphabetAscending: function(e){
 		    e.preventDefault();
+
+		    var sorter = $('#sortByOption').val();
+
 			this.collection.comparator = function(model) {
-     			//var str = model.get("text");
-     			var str = model.get($('#sortByOption').val());
+				var str = model.get(sorter);
      			str = str.toLowerCase();
      			str = str.split();
 				str = _.map(str, function(letter) { 
 				    return String.fromCharCode((letter.charCodeAt(0))); 
 				  });         
 				 return str;
-			}
+				}
+	
 
 			this.collection.pager();
 			
@@ -77,9 +82,10 @@
 
 		sortAlphabetDescending: function(e){
 			e.preventDefault();
+		    var sorter = $('#sortByOption').val();
+		   
 			this.collection.comparator = function(model) {
-     			//var str = model.get("text");
-     			var str = model.get($('#sortByOption').val());
+				var str = model.get(sorter);
      			str = str.toLowerCase();
      			str = str.split();
 				str = _.map(str, function(letter) { 
@@ -87,8 +93,22 @@
 				  });         
 				 return str;
 			}
+
 			this.collection.pager();
 
+		},
+
+		nextServerPage: function(e){
+			e.preventDefault();
+			this.collection.queryPage += 1;
+			this.collection.fetch({data: {page: (this.collection.queryPage)}});
+
+		},
+
+		previousServerPage : function(e){
+			e.preventDefault();
+			this.collection.queryPage -= 1;
+			this.collection.fetch({data: {page: (this.collection.queryPage)}});
 		}
 	});
 })( App.views );

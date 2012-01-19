@@ -23,15 +23,15 @@
 		
 			<p>
 			This project is based on initial prior work by @bmsterling and is being heavily refactored and extended by @addyosmani.
-			<p>
-				Done (cleanup), Sort (partial, need more sort options), Todos: filtering, server-side paging sync. Need to add templating to the tweet views so that its clear what fields are being sorted.
-			</p>
 			</p>
 
 		</div>
 
 		<script type="text/html" id="tmpPagination">
 		 <div class="breadcrumb">
+
+		 Data returned:
+
 			<span class="cell last pages">
 				<% if (page != 1) { %>
 					<a href="#" class="first">First</a>
@@ -74,10 +74,19 @@
 			</span>
 
 			<select id="sortByOption">
-			 	<option value="text" selected>text</option>
+			    <option value="default" selected>None</option>
+			 	<option value="text">text</option>
 			 	<option value="from_user">from_user</option>
 			</select>
 
+		  </div>
+
+		  <div class="breadcrumb">
+		    Ajax query for next/prev pages:
+		  	<span class="cell ">
+		  		<a href="#" class="serverprevious">Previous</a>
+		  		<a href="#" class="servernext">Next</a>
+		  	</span>
 		  </div>
 		</script>
 
