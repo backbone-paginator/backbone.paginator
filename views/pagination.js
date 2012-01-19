@@ -62,39 +62,18 @@
 
 		sortAlphabetAscending: function(e){
 		    e.preventDefault();
-
-		    var sorter = $('#sortByOption').val();
-
-			this.collection.comparator = function(model) {
-				var str = model.get(sorter);
-     			str = str.toLowerCase();
-     			str = str.split();
-				str = _.map(str, function(letter) { 
-				    return String.fromCharCode((letter.charCodeAt(0))); 
-				  });         
-				 return str;
-				}
-	
-
-			this.collection.pager();
+		    var sorter = $('#sortByOption'),
+		    sorterVal = sorter.val();
+			this.collection.pager(sorterVal, 'asc');
+			$('#sortByOption').val(sorterVal);
 			
 		},
 
 		sortAlphabetDescending: function(e){
 			e.preventDefault();
 		    var sorter = $('#sortByOption').val();
-		   
-			this.collection.comparator = function(model) {
-				var str = model.get(sorter);
-     			str = str.toLowerCase();
-     			str = str.split();
-				str = _.map(str, function(letter) { 
-				    return String.fromCharCode(-(letter.charCodeAt(0))); 
-				  });         
-				 return str;
-			}
-
-			this.collection.pager();
+			this.collection.pager(sorter, 'desc');
+			$('#sortByOption').val(sorter);
 
 		},
 

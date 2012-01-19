@@ -37,9 +37,8 @@
 			this.pager();
 		},
 
-		/*
-sort is the key to sort on.
-		*/
+
+		//column is the key to sort on
 		setSort : function (column, direction) {
 			this.pager(column, direction);
 		},
@@ -56,7 +55,7 @@ sort is the key to sort on.
 			self.models = self.orgmodels;
 
 			if (sort) {
-				self.models = self._sort(self.models, sort);
+				self.models = self._sort(self.models, sort, direction);
 			}
 
 			self.reset(
@@ -64,7 +63,7 @@ sort is the key to sort on.
 			);
 		},
 
-		_sort : function (models, sort) {
+		_sort : function (models, sort, direction) {
 			models = models.sort(function(a,b) {
 				var a = a.get(sort),
 					b = b.get(sort);
