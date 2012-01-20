@@ -18,3 +18,7 @@ This project seeks to provide a stable, comprehensive pagination component for B
 ##Credits
 
 This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a extra pieces (code cleanup, sort by fields, ajax/query pagination, requests etc.)
+
+##Project status
+
+I currently consider this work to be in an experimental phase. Once we've nailed down the structure of the pagination component, tests and further documentation will be added.
