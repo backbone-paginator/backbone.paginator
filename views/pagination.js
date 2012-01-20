@@ -2,16 +2,16 @@
 	views.Pagination = Backbone.View.extend({
 
 		events : {
-			'click a.first'        : 'gotoFirst',
-			'click a.prev'         : 'gotoPrev',
-			'click a.next'         : 'gotoNext',
-			'click a.last'         : 'gotoLast',
-			'click a.page'         : 'gotoPage',
-			'click .howmany a'     : 'changeCount',
-			'click a.sortAlphabetUp' : 'sortAlphabetAscending',
-			'click a.sortAlphabetDown': 'sortAlphabetDescending',
-			'click a.servernext': 'nextServerPage',
-			'click a.serverprevious' : 'previousServerPage'
+			'click a.first'        		: 'gotoFirst',
+			'click a.prev'         		: 'gotoPrev',
+			'click a.next'        		: 'gotoNext',
+			'click a.last'         		: 'gotoLast',
+			'click a.page'         		: 'gotoPage',
+			'click .howmany a'     		: 'changeCount',
+			'click a.sortAsc' 			: 'sortByAscending',
+			'click a.sortDsc'			: 'sortByDescending',
+			'click a.servernext'		: 'nextResultPage',
+			'click a.serverprevious' 	: 'previousResultPage'
 		},
 
 		tagName : 'aside',
@@ -60,31 +60,40 @@
 			this.collection.howManyPer(per);
 		},
 
-		sortAlphabetAscending: function(e){
+		sortByAscending: function(e){
 		    e.preventDefault();
-			var sortSelector =  $('#sortByOption'),
-		        sorter = sortSelector.val();
-			this.collection.pager(sorterVal, 'asc');
-			sortSelector.val(sorterVal);
+		    var currentSort = this.getSortOption();
+			this.collection.pager(currentSort, 'asc');
+
+			// reset only this field as the pagination is
+			// being refreshed
+			this.preserveSortOption(currentSort);
 			
 		},
 
-		sortAlphabetDescending: function(e){
-			e.preventDefault();
-			var sortSelector =  $('#sortByOption'),
-		        sorter = sortSelector.val();
-			this.collection.pager(sorter, 'desc');
-			sortSelector.val(sorter);
-
+		getSortOption: function(){
+			var sel = $('#sortByOption').val();
+			return sel;	
 		},
 
-		nextServerPage: function(e){
+		preserveSortOption: function(option){
+			$('#sortByOption').val(option);
+		},
+
+		sortByDescending: function(e){
+			e.preventDefault();
+		    var currentSort = this.getSortOption();
+			this.collection.pager(currentSort, 'desc');
+			this.preserveSortOption(currentSort);
+		},
+
+		nextResultPage: function(e){
 			e.preventDefault();
 			this.collection.requestNextPage();
 
 		},
 
-		previousServerPage : function(e){
+		previousResultPage : function(e){
 			e.preventDefault();
 			this.collection.requestPreviousPage();
 		}

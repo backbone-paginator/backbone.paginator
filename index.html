@@ -11,7 +11,7 @@
 
 		  <p>&nbsp;</p>
 		  <div class="page-header">
-		    <h1>Backbone.js Paginator <small>an example of pagination</small></h1>
+		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
 		  </div>
 
 		  	<h3>Tweets</h3>
@@ -30,7 +30,7 @@
 
 			<h3>Credits</h3>
 			<p>
-			This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces.
+			This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces (code cleanup, sort by fields, ajax pagination etc.).
 			</p>
 
 		</div>
@@ -77,8 +77,8 @@
 			</span>
 
 			<span class="cell sort">
-				<a href="#" class="sortAlphabetUp">Sort (Asc)</a>
-				<a href="#" class="sortAlphabetDown">Sort (Desc)</a>
+				<a href="#" class="sortAsc">Sort (Asc)</a>
+				<a href="#" class="sortDsc">Sort (Desc)</a>
 			</span>
 
 			<select id="sortByOption">
@@ -92,8 +92,14 @@
 		  <div class="breadcrumb">
 		    Ajax query for next/prev pages:
 		  	<span class="cell ">
-		  		<a href="#" class="serverprevious">Previous</a>
-		  		<a href="#" class="servernext">Next</a>
+
+				<% if (queryPage > 1) { %>
+					<a href="#" class="serverprevious">Previous</a>
+				<% } %>
+
+				<% if (queryPage < queryTotalPages) { %>
+					<a href="#" class="servernext">Next</a>
+				<% } %>
 
 		  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
 
