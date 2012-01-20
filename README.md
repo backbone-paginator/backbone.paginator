@@ -1,5 +1,6 @@
-This project seeks to provide a stable, comprehensive pagination component for Backbone.js. Until the README has been updated to provide more information, please see the index/demo page for further info on the project.
+This project seeks to provide a stable, comprehensive pagination component for Backbone.js. Please try out the demo then take a look at backbone.paginator.js and the accompanying models, collections and views to see how it could be used.
 
+##API
 
 * ```Paginator.page```: The first 'page' to display in the paginated view
 * ```Paginator.perPage```: The number of results to display per 'page' 
@@ -12,3 +13,8 @@ This project seeks to provide a stable, comprehensive pagination component for B
 * ```Paginator.setSort(key, direction)```: Sort by a specific key in a direction ('asc'/'desc')
 * ```Paginator.requestNextPage()```: Request the next page of results from the service
 * ```Paginator.requestPreviousPage()```: Request the previous page of results from the service
+
+
+##Credits
+
+This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a extra pieces (code cleanup, sort by fields, ajax/query pagination, requests etc.)
