@@ -4,14 +4,17 @@
 		/**  how many items to show per page in the view */
 		perPage : 20,
 
-		/*how many results to query from the service*/
-		queryPerPage: 30,
-
 		/** page to start off on for pagination in the view */
 		page : 1,
 
-		/**current page to query on the server*/
+		/**current page to query from the service*/
 		queryPage: 1,
+
+		/*how many results to query from the service*/
+		queryPerPage: 30,
+
+		/*maximum number of pages that can be queried from the server*/
+		queryMaxPages:10,
 
 		/**
 		 *
@@ -122,6 +125,11 @@
 			}
 
 			info.pageSet = self.setPagination(info);
+
+			//experimental
+			info.queryMaxPages = self.queryMaxPages;
+			info.queryPage     = self.queryPage;
+			//
 
 			self.information = info;
 			return info;

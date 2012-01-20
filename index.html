@@ -38,7 +38,7 @@
 		<script type="text/html" id="tmpPagination">
 		 <div class="breadcrumb">
 
-		 Data returned:
+		 Results returned:
 
 			<span class="cell last pages">
 				<% if (page != 1) { %>
@@ -94,8 +94,14 @@
 		  	<span class="cell ">
 		  		<a href="#" class="serverprevious">Previous</a>
 		  		<a href="#" class="servernext">Next</a>
+
+		  		Current server page: <%= queryPage %> / <%= queryMaxPages %>
+
 		  	</span>
 		  </div>
+
+	
+
 		</script>
 
 
