@@ -20,5 +20,5 @@
 	});
 
 	_.extend(collections.Tags.prototype, pagination);
-})( App.collections, App.mixins.Pagination, App.models.Tag );
+})( App.collections, App.mixins.Paginator, App.models.Tag );
 
