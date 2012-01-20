@@ -14,7 +14,7 @@
 		queryPerPage: 30,
 
 		/*maximum number of pages that can be queried from the server*/
-		queryMaxPages:10,
+		queryTotalPages:10,
 
 		/**
 		 *
@@ -126,10 +126,9 @@
 
 			info.pageSet = self.setPagination(info);
 
-			//experimental
-			info.queryMaxPages = self.queryMaxPages;
+			info.queryTotalPages = self.queryTotalPages;
 			info.queryPage     = self.queryPage;
-			//
+
 
 			self.information = info;
 			return info;

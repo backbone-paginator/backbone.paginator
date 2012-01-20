@@ -62,18 +62,19 @@
 
 		sortAlphabetAscending: function(e){
 		    e.preventDefault();
-		    var sorter = $('#sortByOption'),
-		    sorterVal = sorter.val();
+			var sortSelector =  $('#sortByOption'),
+		        sorter = sortSelector.val();
 			this.collection.pager(sorterVal, 'asc');
-			$('#sortByOption').val(sorterVal);
+			sortSelector.val(sorterVal);
 			
 		},
 
 		sortAlphabetDescending: function(e){
 			e.preventDefault();
-		    var sorter = $('#sortByOption').val();
+			var sortSelector =  $('#sortByOption'),
+		        sorter = sortSelector.val();
 			this.collection.pager(sorter, 'desc');
-			$('#sortByOption').val(sorter);
+			sortSelector.val(sorter);
 
 		},
 

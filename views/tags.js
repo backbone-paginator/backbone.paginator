@@ -3,7 +3,7 @@
 		el : '#content',
 		initialize : function () {
 
-			//drop this in favor of third arg approach
+			//todo: drop this in favor of third arg approach
 			_.bindAll (this, 'render', 'addAll', 'addOne');
 
 			var self = this;
@@ -17,8 +17,7 @@
 			});
 
 			self.collection.bind('reset', self.addAll);
-		
-
+			
 		},
 		addAll : function () {
 			$(this.el).empty();
