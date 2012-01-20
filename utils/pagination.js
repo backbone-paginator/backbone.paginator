@@ -38,7 +38,7 @@
 		},
 
 
-		//column is the key to sort on
+		// where column is the key to sort on
 		setSort : function (column, direction) {
 			this.pager(column, direction);
 		},
@@ -125,6 +125,24 @@
 
 			self.information = info;
 			return info;
+		},
+
+		// methods for fetching next/previous pages outside
+		// of the internally managed collection
+
+		requestNextPage: function(){
+			if(this.queryPage >= 0){
+				this.queryPage += 1;
+			}
+
+			this.fetch({data: {page: this.queryPage}});
+		},
+
+		requestPreviousPage: function(){
+			if(this.queryPage >= 0){
+				this.queryPage -= 1;
+			}
+			this.fetch({data: {page: this.queryPage}});	
 		},
 
 		setPagination : function (info) {

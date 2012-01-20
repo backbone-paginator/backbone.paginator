@@ -79,15 +79,13 @@
 
 		nextServerPage: function(e){
 			e.preventDefault();
-			this.collection.queryPage += 1;
-			this.collection.fetch({data: {page: (this.collection.queryPage)}});
+			this.collection.requestNextPage();
 
 		},
 
 		previousServerPage : function(e){
 			e.preventDefault();
-			this.collection.queryPage -= 1;
-			this.collection.fetch({data: {page: (this.collection.queryPage)}});
+			this.collection.requestPreviousPage();
 		}
 	});
 })( App.views );

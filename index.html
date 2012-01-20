@@ -9,20 +9,28 @@
 
 		<div class="container">
 
-
 		  <p>&nbsp;</p>
 		  <div class="page-header">
-		    <h1>Backbone.js Pagination <small>an example</small></h1>
+		    <h1>Backbone.js Paginator <small>an example of pagination</small></h1>
 		  </div>
 
+		  	<h3>Tweets</h3>
 			<ul id="content">
 			</ul>
 
 			<ul id="pagination">
 			</ul>
 		
+			<h3>Paginating a collection returned from a single query</h3>
+			<p>Above you can see two toolbars. The first is paginated, allowing you to see how a paginated collection of data looks once returned from the server (imagine we've returned a large payload). The number of items <em>queried</em> from the service (Twitter) and the number of items <em>visible</em> per view/page can be configured easily via the <code>Paginator</code>. You can also set which <em>page</em> in the returned data-set to display by default as well as the <em>first page</em> to query from the service.</p>
 			<p>
-			This project is based on initial prior work by @bmsterling and is being heavily refactored and extended by @addyosmani.
+
+			<h3>Ajax integration</h3>
+			<p>At present, the Paginator (see toolbar 2) keeps track of the current page being queried from your backend. It also implements simple methods for fetching the next or previous pages (regardless of how far in either direction these go). In terms of paginating this data, it really depends on the nature of the source. In Twitter's case, the number of maximum results for a search query is unknown so we can either assume the maximum request limit (200) or fake this. Your own backend may expose true totals, at which point, you may wish to decide whether to just have pagination at this level instead.</p>
+
+			<h3>Credits</h3>
+			<p>
+			This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces.
 			</p>
 
 		</div>
