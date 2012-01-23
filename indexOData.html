@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<title>Backbone.js pagination</title>
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+	</head>
+	<body>
+
+		<div class="container">
+
+		  <p>&nbsp;</p>
+		  <div class="page-header">
+		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
+		  </div>
+
+		  	<h3>Movies</h3>
+			<ul id="content">
+			</ul>
+
+			<ul id="pagination">
+			</ul>
+		
+			<h3>Paginating a collection returned from a single query</h3>
+			<p>Above you can see two toolbars. The first is paginated, allowing you to see how a paginated collection of data looks once returned from the server (imagine we've returned a large payload). The number of items <em>queried</em> from the service (Twitter) and the number of items <em>visible</em> per view/page can be configured easily via the <code>Paginator</code>. You can also set which <em>page</em> in the returned data-set to display by default as well as the <em>first page</em> to query from the service.</p>
+			<p>
+
+			<h3>Ajax integration</h3>
+			<p>At present, the Paginator (see toolbar 2) keeps track of the current page being queried from your backend. It also implements simple methods for fetching the next or previous pages (regardless of how far in either direction these go). In terms of paginating this data, it really depends on the nature of the source. In Twitter's case, the number of maximum results for a search query is unknown so we can either assume the maximum request limit (200) or fake this. Your own backend may expose true totals, at which point, you may wish to decide whether to just have pagination at this level instead.</p>
+
+			<h3>Credits</h3>
+			<p>
+			This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces (code cleanup, sort by fields, ajax pagination etc.).
+			</p>
+
+		</div>
+
+		<script type="text/html" id="tmpPagination">
+		 <div class="breadcrumb">
+
+		 <span>Results returned:</span>
+
+			<span class="cell last pages">
+				<% if (page != 1) { %>
+					<a href="#" class="first">First</a>
+					<a href="#" class="prev">Previous</a>
+				<% } %>
+				<% _.each (pageSet, function (p) { %>
+					<% if (page == p) { %>
+						<span class="page selected"><%= p %></span>
+					<% } else { %>
+						<a href="#" class="page"><%= p %></a>
+					<% } %>
+				<% }); %>
+				<% if (lastPage != page) { %>
+					<a href="#" class="next">Next</a>
+					<a href="#" class="last">Last</a>
+				<% } %>
+			</span>
+
+			<span class="cell howmany">
+				Show
+				<a href="#" class="selected">20</a>
+				|
+				<a href="#" class="">50</a>
+				|
+				<a href="#" class="">100</a>
+			</span>
+
+			<span class="cell first records">
+				<span class="current"><%= startRecord %></span>
+				-
+				<span class="perpage"><%= endRecord %></span>
+				of
+				<span class="total"><%= totalRecords %></span>
+							shown
+			</span>
+
+			<span class="cell sort">
+				<a href="#" class="sortAsc">Sort (Asc)</a>
+				<a href="#" class="sortDsc">Sort (Desc)</a>
+			</span>
+
+			<select id="sortByOption">
+			    <option value="cid">cid</option>
+			 	<option value="text">text</option>
+			 	<option value="from_user">from_user</option>
+			</select>
+
+		  </div>
+
+		  <div class="breadcrumb">
+		    Ajax query for next/prev pages:
+		  	<span class="cell ">
+
+				<% if (queryPage > 1) { %>
+					<a href="#" class="serverprevious">Previous</a>
+				<% } %>
+
+				<% if (queryPage < queryTotalPages) { %>
+					<a href="#" class="servernext">Next</a>
+				<% } %>
+
+		  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
+
+		  	</span>
+		  </div>
+
+	
+
+		</script>
+
+
+		
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/json2.js"></script>
+		<script src="libs/backbone.js"></script>
+		<script src="app.js"></script>
+		<script src="utils/backbone.paginator.js"></script>
+		<script src="models/tag.js"></script>
+		<script src="collections/tagsOData.js"></script>
+		<script src="views/movies.js"></script>
+		<script src="views/pagination.js"></script>
+
+
+
+
+	</body>
+</html>
