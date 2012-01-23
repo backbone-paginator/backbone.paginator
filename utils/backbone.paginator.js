@@ -5,42 +5,67 @@
 (function ( mixins ) {
 
 	mixins.Paginator = {
-		/**  how many items to show per page in the view */
-		perPage : 20,
 
-		/** page to start off on for pagination in the view */
-		page : 1,
+		/*Parameters to pass back to the server*/
+		queryParams:{
+		
+			/**current page to query from the service*/
+			page: 1,
 
-		/**current page to query from the service*/
-		queryPage: 1,
+			/*how many results to query from the service*/
+			perPage: 30,
 
-		/*how many results to query from the service*/
-		queryPerPage: 30,
+			/*maximum number of pages that can be queried from the server*/
+			totalPages:10,
 
-		/*maximum number of pages that can be queried from the server*/
-		queryTotalPages:10,
+			/*sort direction*/
+			sortDirection: 'asc',
 
-		/**
-		 *
-		 */
+			/*sort field*/
+
+			sortField: 'name',
+
+			/*query*/
+			query: 'batman'
+
+		},
+
+		/*Work against the result set retrieved so far*/
+		cParams:{
+
+			/**  how many items to show per page in the view */
+			perPage : 20,
+
+			/** page to start off on for pagination in the view */
+			page : 1,
+
+			/*sort field*/
+			sortField: 'text',
+
+			/*sort direction*/
+			sortDirection: 'asc'
+
+		},
+
+
 		nextPage : function () {
-			this.page = ++this.page;
+			this.cParams.page = ++this.cParams.page;
 			this.pager();
 		},
 
 		previousPage : function () {
-			this.page = --this.page || 1;
+			this.cParams.page = --this.cParams.page || 1;
 			this.pager();
 		},
 
 		goTo : function (page) {
-			this.page = parseInt(page,10);
+			this.cParams.page = parseInt(page,10);
 			this.pager();
 		},
 
 		howManyPer : function (perPage) {
-			this.page = 1;
-			this.perPage = perPage;
+			this.cParams.page = 1;
+			this.cParams.perPage = perPage;
 			this.pager();
 		},
 
@@ -52,8 +77,8 @@
 
 		pager : function (sort, direction) {
 			var self = this,
-				start = (self.page-1)*this.perPage,
-				stop  = start+self.perPage;
+				start = (self.cParams.page-1)*this.cParams.perPage,
+				stop  = start+self.cParams.perPage;
 
 			if (self.orgmodels === undefined) {
 				self.orgmodels = self.models;
@@ -108,30 +133,30 @@
 
 			info = {
 				totalRecords  : totalRecords,
-				page          : self.page,
-				perPage       : self.perPage,
+				page          : self.cParams.page,
+				perPage       : self.cParams.perPage,
 				totalPages    : totalPages,
 				lastPage      : totalPages,
 				lastPagem1    : totalPages-1,
 				previous      : false,
 				next          : false,
 				page_set      : [],
-				startRecord   : (self.page - 1) * self.perPage + 1,
-				endRecord     : Math.min(totalRecords, self.page * self.perPage)
+				startRecord   : (self.cParams.page - 1) * self.cParams.perPage + 1,
+				endRecord     : Math.min(totalRecords, self.cParams.page * self.cParams.perPage)
 			};
 
 			if (self.page > 1) {
-				info.prev = self.page - 1;
+				info.prev = self.cParams.page - 1;
 			}
 
 			if (self.page < info.totalPages) {
-				info.next = self.page + 1;
+				info.next = self.cParams.page + 1;
 			}
 
 			info.pageSet = self.setPagination(info);
 
-			info.queryTotalPages = self.queryTotalPages;
-			info.queryPage     = self.queryPage;
+			info.queryTotalPages = self.queryParams.totalPages;
+			info.queryPage     = self.queryParams.page;
 
 
 			self.information = info;
@@ -142,18 +167,21 @@
 		// of the internally managed collection
 
 		requestNextPage: function(){
-			if(this.queryPage >= 0){
-				this.queryPage += 1;
+			if(this.queryParams.page >= 0){
+				this.queryParams.page += 1;
 			}
 
-			this.fetch({data: {page: this.queryPage}});
+			//needs to be updated so any parameters we want
+			//to push back to the server-side are configured
+			//and pushed via queryParams
+			this.fetch({data: {page: this.queryParams.page}});
 		},
 
 		requestPreviousPage: function(){
-			if(this.queryPage >= 0){
-				this.queryPage -= 1;
+			if(this.queryParams.page >= 0){
+				this.queryParams.page -= 1;
 			}
-			this.fetch({data: {page: this.queryPage}});	
+			this.fetch({data: {page: this.queryParams.page}});	
 		},
 
 		setPagination : function (info) {

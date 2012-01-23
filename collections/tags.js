@@ -3,7 +3,7 @@
 		model : model,
 
 		/*by using the &callback=? option, Backbone will switch to JSONP for us*/
-		url: 'http://search.twitter.com/search.json?q=batman' + '&rpp=' + pagination.queryPerPage + ' &include_entities=true&result_type=recent&callback=?',
+		url: 'http://search.twitter.com/search.json?q=' + pagination.queryParams.query + '&rpp=' + pagination.queryParams.perPage + ' &include_entities=true&result_type=recent&callback=?',
 
 		parse : function ( response ) {
 			var tags = response.results;

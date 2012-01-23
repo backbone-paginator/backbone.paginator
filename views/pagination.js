@@ -90,7 +90,6 @@
 		nextResultPage: function(e){
 			e.preventDefault();
 			this.collection.requestNextPage();
-
 		},
 
 		previousResultPage : function(e){
