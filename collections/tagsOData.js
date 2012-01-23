@@ -2,9 +2,6 @@
     collections.Tags = Backbone.Collection.extend({
         model : model,
 
-        /*  Using only &callback=? produces an error messages "invalid label".
-            Using sync in addition to set required Ajax params */
-
         url : 'http://odata.netflix.com/v2/Catalog/Titles?' +
             '$top=30&' +
             '$skip=0&' +
@@ -29,12 +26,6 @@
         parse : function (response) {
             var tags = response.d.results;
 
-            /*
-             uncomment if you wish to return the total
-             number of available results that are available
-
-
-             */
             this.queryTotalPages = response.d.__count;
 
             return tags;
