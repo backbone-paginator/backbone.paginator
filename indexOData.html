@@ -14,9 +14,9 @@
 		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
 		  </div>
 
-		  	<h3>Movies</h3>
-			<ul id="content">
-			</ul>
+		  	<h3>Data</h3>
+			<ol id="content">
+			</ol>
 
 			<ul id="pagination">
 			</ul>
@@ -38,7 +38,7 @@
 		<script type="text/html" id="tmpPagination">
 		 <div class="breadcrumb">
 
-		 <span>Results returned:</span>
+		 <span>Actions on the results returned:</span>
 
 			<span class="cell last pages">
 				<% if (page != 1) { %>
@@ -83,8 +83,7 @@
 
 			<select id="sortByOption">
 			    <option value="cid">cid</option>
-			 	<option value="text">text</option>
-			 	<option value="from_user">from_user</option>
+			 	<option value="name">name</option>
 			</select>
 
 		  </div>
@@ -103,6 +102,17 @@
 
 		  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
 
+
+			<span class="cell sort">
+				<a href="#" class="orderUpdate">Order by:</a>
+			</span>
+
+			<select id="sortByField">
+			    <option value="ReleaseYear">Release year</option>
+			 	<option value="month(Instant/AvailableFrom)">Release month</option>
+			</select>
+
+
 		  	</span>
 		  </div>
 
@@ -118,6 +128,7 @@
 		<script src="libs/backbone.js"></script>
 		<script src="app.js"></script>
 		<script src="utils/backbone.paginator.js"></script>
+		<script src="utils/backbone.paginator.config.js"></script>
 		<script src="models/tag.js"></script>
 		<script src="collections/tagsOData.js"></script>
 		<script src="views/movies.js"></script>

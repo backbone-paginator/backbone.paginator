@@ -11,12 +11,12 @@
 			'click a.sortAsc' 			: 'sortByAscending',
 			'click a.sortDsc'			: 'sortByDescending',
 			'click a.servernext'		: 'nextResultPage',
-			'click a.serverprevious' 	: 'previousResultPage'
+			'click a.serverprevious' 	: 'previousResultPage',
+			'click a.orderUpdate'		: 'updateServerOrder',
 		},
 
 		tagName : 'aside',
 		initialize : function () {
-
 			this.collection.bind('reset', this.render, this);
 			this.collection.bind('change', this.render, this);
 			this.tmpl = _.template($('#tmpPagination').html());
@@ -64,9 +64,6 @@
 		    e.preventDefault();
 		    var currentSort = this.getSortOption();
 			this.collection.pager(currentSort, 'asc');
-
-			// reset only this field as the pagination is
-			// being refreshed
 			this.preserveSortOption(currentSort);
 			
 		},
@@ -85,6 +82,14 @@
 		    var currentSort = this.getSortOption();
 			this.collection.pager(currentSort, 'desc');
 			this.preserveSortOption(currentSort);
+		},
+
+		updateServerOrder: function(e){
+			e.preventDefault();
+			var sort = $('#sortByField').val();
+			this.collection.queryParams.sortField = sort;
+			this.collection.queryMap.orderBy = sort;
+			this.collection.fetch();
 		},
 
 		nextResultPage: function(e){

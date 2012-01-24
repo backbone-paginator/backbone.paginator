@@ -2,35 +2,12 @@
  * Backbone.Paginator
 **/
 
+
 (function ( mixins ) {
 
 	mixins.Paginator = {
 
-		/*Parameters to pass back to the server*/
-		queryParams:{
-		
-			/**current page to query from the service*/
-			page: 1,
-
-			/*how many results to query from the service*/
-			perPage: 30,
-
-			/*maximum number of pages that can be queried from the server*/
-			totalPages:10,
-
-			/*sort direction*/
-			sortDirection: 'asc',
-
-			/*sort field*/
-
-			sortField: 'name',
-
-			/*query*/
-			query: 'batman'
-
-		},
-
-		/*Work against the result set retrieved so far*/
+		/*Work against the result set retrieved so far - defaults*/
 		cParams:{
 
 			/**  how many items to show per page in the view */
@@ -171,18 +148,23 @@
 				this.queryParams.page += 1;
 			}
 
-			//needs to be updated so any parameters we want
-			//to push back to the server-side are configured
-			//and pushed via queryParams
-			this.fetch({data: {page: this.queryParams.page}});
+			
+			//need a better way to skip through
+			//or refresh the set of queryMap k-vs
+			this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
+			this.fetch({});
 		},
 
 		requestPreviousPage: function(){
 			if(this.queryParams.page >= 0){
 				this.queryParams.page -= 1;
 			}
-			this.fetch({data: {page: this.queryParams.page}});	
+
+			this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
+			this.fetch({});
+				
 		},
+
 
 		setPagination : function (info) {
 			var pages = [];
@@ -231,3 +213,8 @@
 	};
 
 })( App.mixins );
+
+
+
+
+
