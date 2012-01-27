@@ -1,8 +1,10 @@
 (function ( mixins ) {
 
-	// @name: Paginator for client-side data
-
+	// @name: clientPaginator
+	//
+	// @tagline: Paginator for client-side data
 	// @description:
+	//
 	// The paginator is responsible for providing pagination
 	// and sort capabilities for a collection of data that has
 	// already been returned by a server. You may wish to use
@@ -10,7 +12,7 @@
 	// e.g return 500 results, allow this data to be paginated
 	// on the client-side
 
-	mixins.Paginator = {
+	mixins.clientPaginator = {
 
 		// @name: cParams
 		// Configures how data returned from the server should be locally paginated in

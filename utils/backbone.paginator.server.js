@@ -1,5 +1,10 @@
 (function ( mixins ) {
 
+		mixins.serverPaginator = {
+		
+		
+		};
+
 		// @name: Paginator.queryParams
 		// @description:
 		// queryParams contains the actual values being passed
@@ -17,7 +22,7 @@
 		// update the totalPages value). If you would prefer
 
 		// Parameters to pass back to the server
-		mixins.Paginator.queryParams = {
+		mixins.serverPaginator.queryParams = {
 		
 			// current page to query from the service
 			page: 1,
@@ -70,21 +75,21 @@
 		// queryParams object with custom string information (see $filter) so this
 		// is fairly flexible.
 
-		mixins.Paginator.queryMap = {
+		mixins.serverPaginator.queryMap = {
 			
-			$top: mixins.Paginator.queryParams.perPage,
+			$top: mixins.serverPaginator.queryParams.perPage,
 
-			$skip: mixins.Paginator.queryParams.page * mixins.Paginator.queryParams.perPage,
+			$skip: mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage,
 
-			orderBy: mixins.Paginator.queryParams.sortField,
+			orderBy: mixins.serverPaginator.queryParams.sortField,
 
-			$inlinecount: mixins.Paginator.queryParams.customParam1,
+			$inlinecount: mixins.serverPaginator.queryParams.customParam1,
 
-			$filter: "substringof%28%27" + mixins.Paginator.queryParams.query + "%27,%20Name%29%20eq%20true",
+			$filter: "substringof%28%27" + mixins.serverPaginator.queryParams.query + "%27,%20Name%29%20eq%20true",
 
-			$format: mixins.Paginator.queryParams.format,
+			$format: mixins.serverPaginator.queryParams.format,
 
-			$callback: mixins.Paginator.queryParams.customParam2
+			$callback: mixins.serverPaginator.queryParams.customParam2
 
 		};
 

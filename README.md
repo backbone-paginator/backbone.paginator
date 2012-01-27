@@ -8,7 +8,7 @@ See ```backbone.paginator.js``` and ```backbone.paginator.config.js``` for comme
 
 ##Credits
 
-This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces (code cleanup, sort by fields, ajax/query pagination, requests etc.)
+The client-side paginator is based on base work by @bmsterling and the server-side + refactoring work (sort, extension) is by me. The idea is to eventually have solid client and server pagination components we can use with Backbone.
 
 ##Project status
 

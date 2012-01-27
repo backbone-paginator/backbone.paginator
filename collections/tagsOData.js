@@ -1,4 +1,4 @@
-(function (collections, pagination, model) {
+(function (collections,clientPaginator, serverPaginator, model) {
     collections.Tags = Backbone.Collection.extend({
         model : model,
 
@@ -10,7 +10,7 @@
                 type : 'GET',
                 dataType : 'jsonp',
                 jsonpCallback : 'callback',
-                data: decodeURIComponent($.param(pagination.queryMap)),
+                data: decodeURIComponent($.param(serverPaginator.queryMap)),
                 url : this.url,
                 processData : false
             }, options);
@@ -28,7 +28,8 @@
 
     });
 
-    _.extend(collections.Tags.prototype, pagination);
+    _.extend(collections.Tags.prototype, clientPaginator);
+    _.extend(collections.Tags.prototype, serverPaginator);
 
-})(App.collections, App.mixins.Paginator, App.models.Tag);
+})(App.collections, App.mixins.clientPaginator, App.mixins.serverPaginator, App.models.Tag);
 

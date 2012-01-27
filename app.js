@@ -6,7 +6,7 @@ var App = {
 	init : function () {
 		var collection = new App.collections.Tags();
 		App.views.tags = new App.views.Tags({collection:collection});
-		new App.views.Pagination({collection:collection});
+		new App.views.clientPagination({collection:collection});
 	}
 };
 

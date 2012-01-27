@@ -1,5 +1,5 @@
 (function ( views ) {
-	views.Pagination = Backbone.View.extend({
+	views.clientPagination = Backbone.View.extend({
 
 		events : {
 			'click a.first'        		: 'gotoFirst',
@@ -16,6 +16,7 @@
 		},
 
 		tagName : 'aside',
+
 		initialize : function () {
 			this.collection.bind('reset', this.render, this);
 			this.collection.bind('change', this.render, this);
@@ -97,26 +98,12 @@
 
 		nextResultPage: function(e){
 			e.preventDefault();
-
 			if(this.collection.queryParams.page >= 0){
 				this.collection.queryParams.page += 1;
-				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
-				/*
-				this.collection.fetch({
-					success: function(q, r){
-						//g = new App.views.Pagination({collection: q});
-						//g.render();
-						App.views.tags.fetchAndPage();
-					}
-				});*/
-				App.views.tags.fetchAndPage({});
+				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;				
+				this.collection.fetch({});
 
 			}
-
-			//
-			//new App.views.Pagination({collection:collection});
-			//
-
 		},
 
 		previousResultPage : function(e){
