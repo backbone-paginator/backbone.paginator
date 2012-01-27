@@ -140,31 +140,6 @@
 			return info;
 		},
 
-		// methods for fetching next/previous pages outside
-		// of the internally managed collection
-
-		requestNextPage: function(){
-			if(this.queryParams.page >= 0){
-				this.queryParams.page += 1;
-			}
-
-			
-			//need a better way to skip through
-			//or refresh the set of queryMap k-vs
-			this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
-			this.fetch({});
-		},
-
-		requestPreviousPage: function(){
-			if(this.queryParams.page >= 0){
-				this.queryParams.page -= 1;
-			}
-
-			this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
-			this.fetch({});
-				
-		},
-
 
 		setPagination : function (info) {
 			var pages = [];

@@ -1,8 +1,20 @@
 (function(mixins){
 
 
-	//http://developer.netflix.com/docs/oData_Catalog
-	
+		// queryParams contains the actual values being passed
+		// back to the server between requests. It uses a set of
+		// standard keynames that the application internally uses
+		// to handle pagination and these can be easily mapped
+		// against the actual variables you need to pass back
+		// between requests in the queryMap. 
+
+		// The reason for a mapper and queryParams object is to 
+		// make it as quick and easy to get pagination setup in 
+		// your application as possible. Values for anything in 
+		// queryParams can be modified via the UI or on a collection 
+		// changing (e.g a new paged set is received and we wish to 
+		// update the totalPages value). If you would prefer
+
 		/*Parameters to pass back to the server*/
 		mixins.Paginator.queryParams = {
 		
@@ -22,13 +34,27 @@
 			sortField: 'ReleaseYear', //or year(Instant/AvailableFrom)
 
 			/*query*/
-			query: 'the'
+			query: 'the',
+
+			/*request format*/
+			format: 'json',
+
+			/*custom parameters for the request that are non-standard*/
+			customParam1: 'allpages',
+
+			customParam2: 'callback'
 
 
 
 		};
 
 
+		// As can be seen below, the queryMap can contain not just direct references
+		// to values in the queryParams object but can also contain mutated values
+		// such as $skip, which is composed by multipying the current page by the 
+		// number of items per page. You can also choose to mix values from the 
+		// queryParams object with custom string information (see $filter) so this
+		// is fairly flexible.
 
 		mixins.Paginator.queryMap = {
 			
@@ -38,13 +64,13 @@
 
 			orderBy: mixins.Paginator.queryParams.sortField,
 
-			$inlinecount: "allpages",
+			$inlinecount: mixins.Paginator.queryParams.customParam1,
 
 			$filter: "substringof%28%27" + mixins.Paginator.queryParams.query + "%27,%20Name%29%20eq%20true",
 
-			$format: "json",
+			$format: mixins.Paginator.queryParams.format,
 
-			$callback: "callback"
+			$callback: mixins.Paginator.queryParams.customParam2
 
 		};
 

@@ -94,12 +94,24 @@
 
 		nextResultPage: function(e){
 			e.preventDefault();
-			this.collection.requestNextPage();
+
+			if(this.collection.queryParams.page >= 0){
+				this.collection.queryParams.page += 1;
+				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
+				this.collection.fetch({});
+			}
+
 		},
 
 		previousResultPage : function(e){
 			e.preventDefault();
-			this.collection.requestPreviousPage();
+			
+			if(this.collection.queryParams.page >= 0){
+				this.collection.queryParams.page -= 1;
+				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
+				this.collection.fetch({});
+			}
+
 		}
 	});
 })( App.views );
