@@ -143,9 +143,8 @@
 
 			info.pageSet = self.setPagination(info);
 
-			info.queryTotalPages = self.queryParams.totalPages;
-			info.queryPage     = self.queryParams.page;
-
+			//info.queryTotalPages = self.queryParams.totalPages;
+			//info.queryPage     = self.queryParams.page;
 
 			self.information = info;
 			return info;
@@ -163,7 +162,7 @@
 			var LPM1 = -1;
 
 			if (LASTPAGE > 1) {
-				//not enough pages to bother breaking it up
+				// not enough pages to bother breaking it up
 				if (LASTPAGE < (7 + ADJACENTx2)) {
 					for (var i=1,l=LASTPAGE; i <= l; i++) {
 						pages.push(i);
@@ -179,13 +178,13 @@
 						}
 					}
 
-					//in middle; hide some front and some back
+					// in middle; hide some front and some back
 					else if(LASTPAGE - ADJACENTx2 > info.page && info.page > ADJACENTx2) {
 						for (var i = info.page - ADJACENT; i <= info.page + ADJACENT; i++) {
 							pages.push(i);				
 						}	
 					}
-					//close to end; only hide early pages
+					// close to end; only hide early pages
 					else{
 						for (var i = LASTPAGE - (2 + ADJACENTx2); i <= LASTPAGE; i++) {
 							pages.push(i);					

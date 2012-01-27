@@ -13,6 +13,7 @@
 		},
 
 		tagName : 'aside',
+	
 
 		initialize : function () {
 			this.collection.bind('reset', this.render, this);

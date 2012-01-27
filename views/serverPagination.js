@@ -11,15 +11,20 @@
 		tagName : 'aside',
 
 		initialize : function () {
+
 			this.collection.bind('reset', this.render, this);
 			this.collection.bind('change', this.render, this);
-
 			this.tmpl = _.template($('#tmpServerPagination').html());
-			$(this.el).appendTo('#pagination');
+			$(this.el).appendTo('#pagination2');
 
 		},
 		render : function () {
-			var html = this.tmpl(this.collection.info());
+			//var html = this.tmpl(this.collection.info());
+
+			console.log('render');
+			//This needs to be done more cleanly.
+			var html = this.tmpl({queryPage: this.collection.queryParams.page, queryTotalPages:this.collection.queryParams.totalPages});
+			//var html = this.tmpl(this.collection.toJSON());
 			$(this.el).html(html);
 		},
 
@@ -32,7 +37,6 @@
 		nextResultPage: function(e){
 			e.preventDefault();
 			this.collection.requestNextPage();
-
 		},
 
 		previousResultPage : function(e){

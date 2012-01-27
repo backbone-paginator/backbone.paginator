@@ -14,12 +14,21 @@
 		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
 		  </div>
 
-		  	<h3>Data</h3>
+		  	<h3>Client-pagination</h3>
 			<ul id="content">
 			</ul>
 
 			<ul id="pagination">
 			</ul>
+
+
+
+			<h3>Server-pagination</h3>
+			<ul id="content2">
+			</ul>
+
+			<div id="pagination2">
+			</div>
 		
 			<h3>Paginating a collection returned from a single query</h3>
 			<p>Above you can see two toolbars. The first is paginated, allowing you to see how a paginated collection of data looks once returned from the server (imagine we've returned a large payload). The number of items <em>queried</em> from the service (Twitter) and the number of items <em>visible</em> per view/page can be configured easily via the <code>Paginator</code>. You can also set which <em>page</em> in the returned data-set to display by default as well as the <em>first page</em> to query from the service.</p>
@@ -90,6 +99,9 @@
 		</script>
 
 
+
+Current problem seems to be template:
+
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 			    Ajax query for next/prev pages:
@@ -126,6 +138,7 @@
 		<script src="libs/json2.js"></script>
 		<script src="libs/backbone.js"></script>
 
+		
 		<script src="app.js"></script>
 
 		<!--Pagination-->
@@ -134,12 +147,17 @@
 
 		<!--Models/Collections-->
 		<script src="models/tag.js"></script>
-		<script src="collections/tagsOData.js"></script>
+		<script src="collections/tagsClient.js"></script>
+		<script src="collections/tagsServer.js"></script>
 
 		<!--Views-->
-		<script src="views/movies.js"></script>
+		<script src="views/moviesClient.js"></script>
+		<script src="views/moviesServer.js"></script>
+
 		<script src="views/clientPagination.js"></script>
 		<script src="views/serverPagination.js"></script>
+
+
 
 
 

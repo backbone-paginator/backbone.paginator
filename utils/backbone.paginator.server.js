@@ -1,11 +1,21 @@
 (function ( mixins ) {
 
+
+		// @name: serverPaginator
+		//
+		// @tagline: Paginator for server-side data
+		// @description:
+		//
+		// The paginator is responsible for providing pagination
+		// and sort capabilities for requests to a server-side
+		// data service.
 		mixins.serverPaginator = {
-		
+	
+
 			requestNextPage: function(){
 				if(this.queryParams.page >= 0){
 					this.queryParams.page += 1;
-					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;				
+					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;	
 					this.fetch({});
 				}
 			},
@@ -27,56 +37,55 @@
 		
 		};
 
-		// @name: Paginator.queryParams
-		// @description:
-		// queryParams contains the actual values being passed
-		// back to the server between requests. It uses a set of
-		// standard key names that the application internally uses
-		// to handle pagination and these can be easily mapped
-		// against the actual variables you need to pass back
-		// between requests in the queryMap. 
-
-		// The reason for a mapper and queryParams object is to 
-		// make it as quick and easy to get pagination setup in 
-		// your application as possible. Values for anything in 
-		// queryParams can be modified via the UI or on a collection 
-		// changing (e.g a new paged set is received and we wish to 
-		// update the totalPages value). If you would prefer
-
-		// Parameters to pass back to the server
-		mixins.serverPaginator.queryParams = {
-		
-			// current page to query from the service
-			page: 1,
-
-			// how many results to query from the service
-			perPage: 30,
-
-			// maximum number of pages that can be queried from the server
-			totalPages: 10, // a default. This should be overridden in the collection's parse()
-
-			// sort direction
-			sortDirection: 'asc',
-
-			// sort field
-			sortField: 'ReleaseYear', //or year(Instant/AvailableFrom)
-
-			// query
-			query: 'the',
-
-			// request format
-			format: 'json',
-
-			// custom parameters for the request that may be specific to your
-			// application
-			customParam1: 'allpages',
-
-			customParam2: 'callback'
 
 
+			// @name: Paginator.queryParams
+			// @description:
+			// queryParams contains the actual values being passed
+			// back to the server between requests. It uses a set of
+			// standard key names that the application internally uses
+			// to handle pagination and these can be easily mapped
+			// against the actual variables you need to pass back
+			// between requests in the queryMap. 
 
-		};
+			// The reason for a mapper and queryParams object is to 
+			// make it as quick and easy to get pagination setup in 
+			// your application as possible. Values for anything in 
+			// queryParams can be modified via the UI or on a collection 
+			// changing (e.g a new paged set is received and we wish to 
+			// update the totalPages value). If you would prefer
 
+			// Parameters to pass back to the server
+			mixins.serverPaginator.queryParams = {
+			
+				// current page to query from the service
+				page: 1,
+
+				// how many results to query from the service
+				perPage: 30,
+
+				// maximum number of pages that can be queried from the server
+				totalPages: 10, // a default. This should be overridden in the collection's parse()
+
+				// sort direction
+				sortDirection: 'asc',
+
+				// sort field
+				sortField: 'ReleaseYear', //or year(Instant/AvailableFrom)
+
+				// query
+				query: 'the',
+
+				// request format
+				format: 'json',
+
+				// custom parameters for the request that may be specific to your
+				// application
+				customParam1: 'allpages',
+
+				customParam2: 'callback'
+
+			};
 
 		// @name: queryMap
 		// @description:

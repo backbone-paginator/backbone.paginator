@@ -3,11 +3,19 @@ var App = {
 	models : {},
 	views : {},
 	mixins : {},
-	init : function () {		
-		var collection = new App.collections.Tags();
-		App.views.tags = new App.views.Tags({collection:collection});
-		App.views.clientPaging = new App.views.clientPagination({collection:collection});
-		App.views.serverPaging = new App.views.serverPagination({collection:collection});
+	init : function () {	
+
+
+		App.collections.tagsClient  = new App.collections.TagsClient();
+		App.collections.tagsServer  = new App.collections.TagsServer();
+
+		//App.views.tagsClient = new App.views.TagsClient({collection:App.collections.tagsClient});
+		App.views.tagsServer = new App.views.TagsServer({collection:App.collections.tagsServer});
+
+		//App.views.clientPaging = new App.views.clientPagination({collection:App.collections.tagsClient});
+		App.views.serverPaging = new App.views.serverPagination({collection:App.collections.tagsServer});
+		//App.views.serverPaging.render();
+
 	}
 };
 
