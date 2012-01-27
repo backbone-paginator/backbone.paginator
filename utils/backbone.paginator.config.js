@@ -1,11 +1,11 @@
-(function(mixins){
+(function( mixins ){
 
 
 		// @name: Paginator.queryParams
 		// @description:
 		// queryParams contains the actual values being passed
 		// back to the server between requests. It uses a set of
-		// standard keynames that the application internally uses
+		// standard key names that the application internally uses
 		// to handle pagination and these can be easily mapped
 		// against the actual variables you need to pass back
 		// between requests in the queryMap. 
@@ -54,6 +54,16 @@
 
 		// @name: queryMap
 		// @description:
+		// queryMap contains name mappings for parameters you'll be passing back
+		// to the server. In the case of this example, we're using NetFlix OData
+		// which uses $top, $skip etc. to define what paginated data should be
+		// returned from their service. If you had your own data service of the form
+		// http://domain.com/api/?query=houses&page=2&sortBy=year, your queryMap
+		// would just contain
+		// query: mixins.Paginator.query
+		// page: mixins.Paginator.page
+		// sortBy: mixins.Paginator.sortField
+
 		// As can be seen below, the queryMap can contain not just direct references
 		// to values in the queryParams object but can also contain mutated values
 		// such as $skip, which is composed by multipying the current page by the 
@@ -81,7 +91,7 @@
 
 
 		// @name: cParams
-		// Configures how data returned from the server should be paginated in
+		// Configures how data returned from the server should be locally paginated in
 		// a view. For example, if the server returns a payload of 50 results
 		// (in the current setup) this will paginate the results with 20 shown
 		// per 'page', beginning with page 1
@@ -105,4 +115,4 @@
 
 
 
-})( App.mixins);
+})( App.mixins );
