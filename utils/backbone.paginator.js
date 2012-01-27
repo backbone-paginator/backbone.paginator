@@ -1,29 +1,18 @@
-/**
- * Backbone.Paginator
-**/
-
-
 (function ( mixins ) {
 
+	// @name: Paginator
+	// @description:
+	// The paginator is responsible for providing pagination
+	// and sort capabilities for a collection. It's main role
+	// in the demo application is showing how this can be applied
+	// to data returned from the server. It is not responsible
+	// for allowing us to page through server-side results as
+	// this is done using the logic in our View along with the
+	// backbone.paginator.config.js's queryMap and queryParams
+	// objects. These are loaded alongside the Paginator in
+	// our collection. 
+
 	mixins.Paginator = {
-
-		/*Work against the result set retrieved so far - defaults*/
-		cParams:{
-
-			/**  how many items to show per page in the view */
-			perPage : 20,
-
-			/** page to start off on for pagination in the view */
-			page : 1,
-
-			/*sort field*/
-			sortField: 'text',
-
-			/*sort direction*/
-			sortDirection: 'asc'
-
-		},
-
 
 		nextPage : function () {
 			this.cParams.page = ++this.cParams.page;
