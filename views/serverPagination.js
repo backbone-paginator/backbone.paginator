@@ -1,5 +1,5 @@
 (function ( views ) {
-	
+
 	views.serverPagination = Backbone.View.extend({
 
 		events : {
@@ -23,34 +23,21 @@
 			$(this.el).html(html);
 		},
 
-
 		updateServerOrder: function(e){
 			e.preventDefault();
 			var sort = $('#sortByField').val();
-			this.collection.queryParams.sortField = sort;
-			this.collection.queryMap.orderBy = sort;
-			this.collection.fetch();
+			this.collection.updateOrder(sort);
 		},
 
 		nextResultPage: function(e){
 			e.preventDefault();
-			if(this.collection.queryParams.page >= 0){
-				this.collection.queryParams.page += 1;
-				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;				
-				this.collection.fetch({});
+			this.collection.requestNextPage();
 
-			}
 		},
 
 		previousResultPage : function(e){
 			e.preventDefault();
-			
-			if(this.collection.queryParams.page >= 0){
-				this.collection.queryParams.page -= 1;
-				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
-				this.collection.fetch({});
-			}
-
+			this.collection.requestPreviousPage();
 		}
 	});
 

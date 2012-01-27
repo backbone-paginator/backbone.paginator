@@ -2,6 +2,28 @@
 
 		mixins.serverPaginator = {
 		
+			requestNextPage: function(){
+				if(this.queryParams.page >= 0){
+					this.queryParams.page += 1;
+					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;				
+					this.fetch({});
+				}
+			},
+
+			requestPreviousPage: function(){
+				if(this.queryParams.page >= 0){
+					this.queryParams.page -= 1;
+					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
+					this.fetch({});
+				}
+			},
+
+			updateOrder: function (column){
+				this.queryParams.sortField = column;
+				this.queryMap.orderBy = column;
+				this.fetch({});
+			}
+
 		
 		};
 
