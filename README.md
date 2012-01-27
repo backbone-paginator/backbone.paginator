@@ -1,3 +1,5 @@
+**This project is being very heavily refactored. Please don't consider using until it's been officially released**
+
 This project seeks to provide a stable, comprehensive pagination component for Backbone.js. Please try out the demo then take a look at backbone.paginator.js and the accompanying models, collections and views to see how it could be used.
 
 ##API

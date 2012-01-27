@@ -1,5 +1,4 @@
-(function( mixins ){
-
+(function ( mixins ) {
 
 		// @name: Paginator.queryParams
 		// @description:
@@ -89,30 +88,7 @@
 
 		};
 
-
-		// @name: cParams
-		// Configures how data returned from the server should be locally paginated in
-		// a view. For example, if the server returns a payload of 50 results
-		// (in the current setup) this will paginate the results with 20 shown
-		// per 'page', beginning with page 1
-
-		mixins.Paginator.cParams = {
-
-			// how many items to show per page in the view?
-			perPage : 20,
-
-			// page to start off on for pagination in the view?
-			page : 1,
-
-			// sort field
-			sortField: 'text',
-
-			// sort direction
-			sortDirection: 'asc'
-
-		};
-
-
-
-
+	
 })( App.mixins );
+
+

@@ -24,6 +24,19 @@
 			this.collection.each (this.addOne);
 		},
 
+		//temp
+		fetchAndPage: function(){
+			var self = this;
+			var tags = self.collection;
+
+			tags.fetch({
+				success: function(){
+					self.collection.pager();
+				},
+				silent:true
+			});	
+		},
+
 		addOne : function (model) {
 			var view = new Tag({model:model});
 			view.render();

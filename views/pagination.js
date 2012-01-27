@@ -84,6 +84,9 @@
 			this.preserveSortOption(currentSort);
 		},
 
+
+		//// Server-side stuff.
+
 		updateServerOrder: function(e){
 			e.preventDefault();
 			var sort = $('#sortByField').val();
@@ -98,8 +101,21 @@
 			if(this.collection.queryParams.page >= 0){
 				this.collection.queryParams.page += 1;
 				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
-				this.collection.fetch({});
+				/*
+				this.collection.fetch({
+					success: function(q, r){
+						//g = new App.views.Pagination({collection: q});
+						//g.render();
+						App.views.tags.fetchAndPage();
+					}
+				});*/
+				App.views.tags.fetchAndPage({});
+
 			}
+
+			//
+			//new App.views.Pagination({collection:collection});
+			//
 
 		},
 
