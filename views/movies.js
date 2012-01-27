@@ -29,6 +29,11 @@
 			var self = this;
 			var tags = self.collection;
 
+			//
+			//this is where the server manipulation code needs to go.
+			//or..it needs to go in a serverPagination view.
+			//
+
 			tags.fetch({
 				success: function(){
 					self.collection.pager();

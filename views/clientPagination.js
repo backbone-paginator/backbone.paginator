@@ -9,10 +9,7 @@
 			'click a.page'         		: 'gotoPage',
 			'click .howmany a'     		: 'changeCount',
 			'click a.sortAsc' 			: 'sortByAscending',
-			'click a.sortDsc'			: 'sortByDescending',
-			'click a.servernext'		: 'nextResultPage',
-			'click a.serverprevious' 	: 'previousResultPage',
-			'click a.orderUpdate'		: 'updateServerOrder',
+			'click a.sortDsc'			: 'sortByDescending'
 		},
 
 		tagName : 'aside',
@@ -20,7 +17,7 @@
 		initialize : function () {
 			this.collection.bind('reset', this.render, this);
 			this.collection.bind('change', this.render, this);
-			this.tmpl = _.template($('#tmpPagination').html());
+			this.tmpl = _.template($('#tmpClientPagination').html());
 			$(this.el).appendTo('#pagination');
 
 		},
@@ -83,38 +80,6 @@
 		    var currentSort = this.getSortOption();
 			this.collection.pager(currentSort, 'desc');
 			this.preserveSortOption(currentSort);
-		},
-
-
-		//// Server-side stuff.
-
-		updateServerOrder: function(e){
-			e.preventDefault();
-			var sort = $('#sortByField').val();
-			this.collection.queryParams.sortField = sort;
-			this.collection.queryMap.orderBy = sort;
-			this.collection.fetch();
-		},
-
-		nextResultPage: function(e){
-			e.preventDefault();
-			if(this.collection.queryParams.page >= 0){
-				this.collection.queryParams.page += 1;
-				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;				
-				this.collection.fetch({});
-
-			}
-		},
-
-		previousResultPage : function(e){
-			e.preventDefault();
-			
-			if(this.collection.queryParams.page >= 0){
-				this.collection.queryParams.page -= 1;
-				this.collection.queryMap.$skip =  this.collection.queryParams.page * this.collection.queryParams.perPage;
-				this.collection.fetch({});
-			}
-
 		}
 	});
 })( App.views );

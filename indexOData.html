@@ -35,7 +35,7 @@
 
 		</div>
 
-		<script type="text/html" id="tmpPagination">
+		<script type="text/html" id="tmpClientPagination">
 		 <div class="breadcrumb">
 
 		 <span>Actions on the results returned:</span>
@@ -87,38 +87,37 @@
 			</select>
 
 		  </div>
-
-		  <div class="breadcrumb">
-		    Ajax query for next/prev pages:
-		  	<span class="cell ">
-
-				<% if (queryPage > 1) { %>
-					<a href="#" class="serverprevious">Previous</a>
-				<% } %>
-
-				<% if (queryPage < queryTotalPages) { %>
-					<a href="#" class="servernext">Next</a>
-				<% } %>
-
-		  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
-
-
-			<span class="cell sort">
-				<a href="#" class="orderUpdate">Order by:</a>
-			</span>
-
-			<select id="sortByField">
-			    <option value="ReleaseYear">Release year</option>
-			 	<option value="month(Instant/AvailableFrom)">Release month</option>
-			</select>
-
-
-		  	</span>
-		  </div>
-
-	
-
 		</script>
+
+
+		<script type="text/html" id="tmpServerPagination">
+			<div class="breadcrumb">
+			    Ajax query for next/prev pages:
+			  	<span class="cell ">
+
+					<% if (queryPage > 1) { %>
+						<a href="#" class="serverprevious">Previous</a>
+					<% } %>
+
+					<% if (queryPage < queryTotalPages) { %>
+						<a href="#" class="servernext">Next</a>
+					<% } %>
+
+			  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
+
+
+				<span class="cell sort">
+					<a href="#" class="orderUpdate">Order by:</a>
+				</span>
+
+				<select id="sortByField">
+				    <option value="ReleaseYear">Release year</option>
+				 	<option value="month(Instant/AvailableFrom)">Release month</option>
+				</select>
+
+			  	</span>
+			  </div>
+		  </script>
 
 
 		
@@ -126,13 +125,21 @@
 		<script src="libs/underscore.js"></script>
 		<script src="libs/json2.js"></script>
 		<script src="libs/backbone.js"></script>
+
 		<script src="app.js"></script>
+
+		<!--Pagination-->
 		<script src="utils/backbone.paginator.client.js"></script>
 		<script src="utils/backbone.paginator.server.js"></script>
+
+		<!--Models/Collections-->
 		<script src="models/tag.js"></script>
 		<script src="collections/tagsOData.js"></script>
+
+		<!--Views-->
 		<script src="views/movies.js"></script>
 		<script src="views/clientPagination.js"></script>
+		<script src="views/serverPagination.js"></script>
 
 
 
