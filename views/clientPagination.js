@@ -1,4 +1,5 @@
 (function ( views ) {
+	
 	views.clientPagination = Backbone.View.extend({
 
 		events : {
@@ -13,7 +14,6 @@
 		},
 
 		tagName : 'aside',
-	
 
 		initialize : function () {
 			this.collection.bind('reset', this.render, this);

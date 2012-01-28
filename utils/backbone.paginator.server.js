@@ -9,6 +9,7 @@
 		// The paginator is responsible for providing pagination
 		// and sort capabilities for requests to a server-side
 		// data service.
+
 		mixins.serverPaginator = {
 	
 
@@ -56,6 +57,7 @@
 			// update the totalPages value). If you would prefer
 
 			// Parameters to pass back to the server
+			
 			mixins.serverPaginator.queryParams = {
 			
 				// current page to query from the service

@@ -44,6 +44,7 @@
 
 		</div>
 
+		<!-- client pagination -->
 		<script type="text/html" id="tmpClientPagination">
 		 <div class="breadcrumb">
 
@@ -100,8 +101,7 @@
 
 
 
-Current problem seems to be template:
-
+		<!-- server pagination -->
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 			    Ajax query for next/prev pages:
@@ -109,7 +109,9 @@ Current problem seems to be template:
 
 					<% if (queryPage > 1) { %>
 						<a href="#" class="serverprevious">Previous</a>
-					<% } %>
+					<% }else{ %>
+						<span>Previous</span>
+					<% }%>
 
 					<% if (queryPage < queryTotalPages) { %>
 						<a href="#" class="servernext">Next</a>
@@ -133,6 +135,8 @@ Current problem seems to be template:
 
 
 		
+		<!-- scripts-->
+
 		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 		<script src="libs/underscore.js"></script>
 		<script src="libs/json2.js"></script>
@@ -146,14 +150,13 @@ Current problem seems to be template:
 		<script src="utils/backbone.paginator.server.js"></script>
 
 		<!--Models/Collections-->
-		<script src="models/tag.js"></script>
-		<script src="collections/tagsClient.js"></script>
-		<script src="collections/tagsServer.js"></script>
+		<script src="models/Tag.js"></script>
+		<script src="collections/TagsClient.js"></script>
+		<script src="collections/TagsServer.js"></script>
 
 		<!--Views-->
-		<script src="views/moviesClient.js"></script>
-		<script src="views/moviesServer.js"></script>
-
+		<script src="views/TagsClient.js"></script>
+		<script src="views/TagsServer.js"></script>
 		<script src="views/clientPagination.js"></script>
 		<script src="views/serverPagination.js"></script>
 

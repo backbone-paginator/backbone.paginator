@@ -1,4 +1,5 @@
 (function (collections, clientPaginator, model) {
+    
     collections.TagsClient = Backbone.Collection.extend({
         model : model,
 

@@ -5,16 +5,15 @@ var App = {
 	mixins : {},
 	init : function () {	
 
+		//Client
+		var clientTags  = new App.collections.TagsClient();
+		App.views.tagsClient = new App.views.TagsClient({collection: clientTags});
+		App.views.clientPaging = new App.views.clientPagination({collection: clientTags});
 
-		App.collections.tagsClient  = new App.collections.TagsClient();
-		App.collections.tagsServer  = new App.collections.TagsServer();
-
-		//App.views.tagsClient = new App.views.TagsClient({collection:App.collections.tagsClient});
-		App.views.tagsServer = new App.views.TagsServer({collection:App.collections.tagsServer});
-
-		//App.views.clientPaging = new App.views.clientPagination({collection:App.collections.tagsClient});
-		App.views.serverPaging = new App.views.serverPagination({collection:App.collections.tagsServer});
-		//App.views.serverPaging.render();
+		//Server
+		var serverTags = new App.collections.TagsServer();
+		App.views.serverView = new App.views.TagsServer({collection: serverTags});
+		App.views.serverPaging = new App.views.serverPagination({collection:serverTags});
 
 	}
 };
@@ -22,3 +21,4 @@ var App = {
 $(function(){
 	App.init();
 });
+

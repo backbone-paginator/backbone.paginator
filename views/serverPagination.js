@@ -14,17 +14,24 @@
 
 			this.collection.bind('reset', this.render, this);
 			this.collection.bind('change', this.render, this);
+
 			this.tmpl = _.template($('#tmpServerPagination').html());
 			$(this.el).appendTo('#pagination2');
 
 		},
+
+
 		render : function () {
 			//var html = this.tmpl(this.collection.info());
+			console.log('render pagig');
+			
+			var totals = {
+				queryPage: 		 this.collection.queryParams.page,
+				queryTotalPages: this.collection.queryParams.totalPages
+			};
 
-			console.log('render');
-			//This needs to be done more cleanly.
-			var html = this.tmpl({queryPage: this.collection.queryParams.page, queryTotalPages:this.collection.queryParams.totalPages});
-			//var html = this.tmpl(this.collection.toJSON());
+
+			var html = this.tmpl(totals);
 			$(this.el).html(html);
 		},
 

@@ -1,8 +1,8 @@
 (function (collections, serverPaginator,  model) {
     
-
     collections.TagsServer = Backbone.Collection.extend({
         model : model,
+
 
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 
@@ -23,6 +23,7 @@
         parse : function (response) {
             // Be sure to change this based on how your results
             // are structured
+            console.log(response);
             var tags = response.d.results;
             this.queryParams.totalPages = response.d.__count;
             return tags;
