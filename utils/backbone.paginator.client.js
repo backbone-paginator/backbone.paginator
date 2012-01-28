@@ -4,7 +4,6 @@
 	//
 	// @tagline: Paginator for client-side data
 	// @description:
-	//
 	// The paginator is responsible for providing pagination
 	// and sort capabilities for a collection of data that has
 	// already been returned by a server. You may wish to use
@@ -142,7 +141,7 @@
 			}
 
 			info.pageSet = self.setPagination(info);
-			
+
 			self.information = info;
 			return info;
 		},

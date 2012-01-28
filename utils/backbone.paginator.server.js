@@ -13,10 +13,13 @@
 		mixins.serverPaginator = {
 	
 
+			// Use with updateMap() to syncronize parameters used internally
+			// with those passed back to the server
+			queryMap:{},
+
 			requestNextPage: function(){
 				if(this.queryParams.page >= 0){
 					this.queryParams.page += 1;
-
 					// customize as needed. For the Netflix API, skipping ahead based on
 					// page * number of results per page was necessary. You may have a
 					// simpler server-side pagination API where just updating 
@@ -30,7 +33,6 @@
 			requestPreviousPage: function(){
 				if(this.queryParams.page >= 0){
 					this.queryParams.page -= 1;
-
 					// customize as needed.
 					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
 					this.pager();
@@ -62,19 +64,56 @@
 			},
 
 			info: function(){
-				return {
-					queryPage: this.queryParams.page,
-					queryTotalPages: this.queryParams.totalPages
-				}	
+				var info = {
+					page: this.queryParams.page,
+					totalPages: this.queryParams.totalPages,
+					lastPage: this.queryParams.totalPages
+				};
+
+				this.information = info;
+				return info;
 			},
 
+
+			// @name: updateMap()
+			// @map: An empty queryMap object
+			// A map (queryMap) contains name mappings for parameters you'll be passing back
+			// to the server. In the case of this example, we're using NetFlix OData
+			// which uses $top, $skip etc. to define what paginated data should be
+			// returned from their service. If you had your own data service of the form
+			// http://domain.com/api/?query=houses&page=2&sortBy=year, your queryMap
+			// would just contain
+			// query: mixins.Paginator.query
+			// page: mixins.Paginator.page
+			// sortBy: mixins.Paginator.sortField
+
+			// The queryMap can contain not just direct references
+			// to values in the queryParams object but can also contain mutated values
+			// such as $skip, which is composed by multipying the current page by the 
+			// number of items per page. You can also choose to mix values from the 
+			// queryParams object with custom string information (see $filter) so this
+			// is fairly flexible.
+
+			updateMap: function( map ){
+				map.$top =  mixins.serverPaginator.queryParams.perPage;
+				$skip =  mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage;
+				map.orderBy = mixins.serverPaginator.queryParams.sortField;
+				map.$inlinecount =  mixins.serverPaginator.queryParams.customParam1;
+				map.$filter =  "substringof%28%27" + mixins.serverPaginator.queryParams.query + "%27,%20Name%29%20eq%20true";
+				map.$format =  mixins.serverPaginator.queryParams.format;
+				map.$callback =  mixins.serverPaginator.queryParams.customParam2;
+			},
+
+
+			// updates the queryMap to take account of the latest parameters in queryParams
+			// then fetches the request from the server
 			pager: function(){
+				this.updateMap(this.queryMap);
 				this.fetch({});
 			}
 
 		
 		};
-
 
 
 			// @name: Paginator.queryParams
@@ -95,6 +134,7 @@
 
 			// Parameters to pass back to the server
 			
+
 			mixins.serverPaginator.queryParams = {
 			
 				// current page to query from the service
@@ -126,42 +166,8 @@
 
 			};
 
-		// @name: queryMap
-		// @description:
-		// queryMap contains name mappings for parameters you'll be passing back
-		// to the server. In the case of this example, we're using NetFlix OData
-		// which uses $top, $skip etc. to define what paginated data should be
-		// returned from their service. If you had your own data service of the form
-		// http://domain.com/api/?query=houses&page=2&sortBy=year, your queryMap
-		// would just contain
-		// query: mixins.Paginator.query
-		// page: mixins.Paginator.page
-		// sortBy: mixins.Paginator.sortField
 
-		// As can be seen below, the queryMap can contain not just direct references
-		// to values in the queryParams object but can also contain mutated values
-		// such as $skip, which is composed by multipying the current page by the 
-		// number of items per page. You can also choose to mix values from the 
-		// queryParams object with custom string information (see $filter) so this
-		// is fairly flexible.
 
-		mixins.serverPaginator.queryMap = {
-			
-			$top: mixins.serverPaginator.queryParams.perPage,
-
-			$skip: mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage,
-
-			orderBy: mixins.serverPaginator.queryParams.sortField,
-
-			$inlinecount: mixins.serverPaginator.queryParams.customParam1,
-
-			$filter: "substringof%28%27" + mixins.serverPaginator.queryParams.query + "%27,%20Name%29%20eq%20true",
-
-			$format: mixins.serverPaginator.queryParams.format,
-
-			$callback: mixins.serverPaginator.queryParams.customParam2
-
-		};
 
 	
 })( App.mixins );

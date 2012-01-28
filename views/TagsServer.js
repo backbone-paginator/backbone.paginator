@@ -8,7 +8,7 @@
 
 			var self = this;
 			var tags = self.collection;
-			tags.fetch();
+			tags.pager();
 
 			self.collection.bind('reset', self.addAll);
 

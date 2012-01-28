@@ -14,7 +14,7 @@
 
 		  <p>&nbsp;</p>
 		  <div class="page-header">
-		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
+		    <h1>Backbone.js Paginator 0.12 <small>a paginator component for Backbone</small></h1>
 		  </div>
 
 		  	<h3>Client-data pagination</h3>
@@ -25,19 +25,22 @@
 			</ul>
 
 
-
 			<h3>Server-data pagination</h3>
 			<ul id="content2">
 			</ul>
 
 			<div id="pagination2">
 			</div>
+
+		  <div class="alert-message block-message warning">
+	        <p>Note: The Netflix OData feed may not return the last page depending the query used and approximation of total results returned. For customization, 'last' functioning is entirely dependant on how your backend returns results.</p>
+	      </div>
 		
 
 			<h3>Credits</h3>
 			<p>
 				<ul>
-					<li>Server-side version and client-side refactor: @addyosmani</li>
+					<li>Server-data version and client-data refactor: @addyosmani</li>
 					<li>Initial work on client-side version: @bmsterling</li>
 				</ul>
 			</p>
@@ -103,21 +106,38 @@
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 
-
 			  	<span class="cell ">
 
-					<% if (queryPage > 1) { %>
+					<% if (page > 1) { %>
 						<a href="#" class="serverprevious">Previous</a>
 					<% }else{ %>
 						<span>Previous</span>
 					<% }%>
 
-					<% if (queryPage < queryTotalPages) { %>
+					<% if (page < totalPages) { %>
 						<a href="#" class="servernext">Next</a>
 					<% } %>
 
-			  		<span>Current server page:</span> <%= queryPage %> / <%= queryTotalPages %>
+					<% if (lastPage != page) { %>
+						<a href="#" class="serverlast">Last</a>
+					<% } %>
 
+
+					<span class="cell serverhowmany">
+						Show
+						<a href="#" class="selected">20</a>
+						|
+						<a href="#" class="">50</a>
+						|
+						<a href="#" class="">100</a>
+					</span>
+
+					<span class="cell first records">
+						<span class="current"><%= page %></span>
+						of
+						<span class="total"><%= totalPages %></span>
+									shown
+					</span>
 
 				<span class="cell sort">
 					<a href="#" class="orderUpdate btn small">Sort by:</a>
@@ -127,8 +147,12 @@
 				    <option value="ReleaseYear">Release year</option>
 				 	<option value="month(Instant/AvailableFrom)">Release month</option>
 				</select>
-
 			  	</span>
+
+
+
+
+
 			  </div>
 		  </script>
 
