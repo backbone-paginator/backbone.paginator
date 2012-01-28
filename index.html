@@ -17,7 +17,7 @@
 		    <h1>Backbone.js Paginator 0.1 <small>a paginator component for Backbone</small></h1>
 		  </div>
 
-		  	<h3>Client-pagination</h3>
+		  	<h3>Client-data pagination</h3>
 			<ul id="content">
 			</ul>
 
@@ -26,24 +26,20 @@
 
 
 
-			<h3>Server-pagination</h3>
+			<h3>Server-data pagination</h3>
 			<ul id="content2">
 			</ul>
 
 			<div id="pagination2">
 			</div>
 		
-			<h3>Paginating a collection returned from a single query</h3>
-			<p>Above you can see two toolbars. The first is paginated, allowing you to see how a paginated collection of data looks once returned from the server (imagine we've returned a large payload). The number of items <em>queried</em> from the service (Twitter) and the number of items <em>visible</em> per view/page can be configured easily via the <code>Paginator</code>. You can also set which <em>page</em> in the returned data-set to display by default as well as the <em>first page</em> to query from the service.</p>
-			<p>
-
-			<h3>Ajax integration</h3>
-			<p>At present, the Paginator (see toolbar 2) keeps track of the current page being queried from your backend. It also implements simple methods for fetching the next or previous pages (regardless of how far in either direction these go). In terms of paginating this data, it really depends on the nature of the source. In Twitter's case, the number of maximum results for a search query is unknown so we can either assume the maximum request limit (200) or fake this. Your own backend may expose true totals, at which point, you may wish to decide whether to just have pagination at this level instead.</p>
 
 			<h3>Credits</h3>
 			<p>
-			* Server-side version and client-side refactor: Addy Osmani
-			* Initial work on client-side version: @bmsterling
+				<ul>
+					<li>Server-side version and client-side refactor: @addyosmani</li>
+					<li>Initial work on client-side version: @bmsterling</li>
+				</ul>
 			</p>
 
 		</div>
@@ -124,7 +120,7 @@
 
 
 				<span class="cell sort">
-					<a href="#" class="orderUpdate btn small">Order by:</a>
+					<a href="#" class="orderUpdate btn small">Sort by:</a>
 				</span>
 
 				<select id="sortByField">

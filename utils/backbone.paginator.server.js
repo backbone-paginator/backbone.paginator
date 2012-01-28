@@ -3,9 +3,9 @@
 
 		// @name: serverPaginator
 		//
-		// @tagline: Paginator for server-side data
-		// @description:
+		// Paginator for server-side data
 		//
+		// @description:
 		// The paginator is responsible for providing pagination
 		// and sort capabilities for requests to a server-side
 		// data service.
@@ -16,22 +16,59 @@
 			requestNextPage: function(){
 				if(this.queryParams.page >= 0){
 					this.queryParams.page += 1;
+
+					// customize as needed. For the Netflix API, skipping ahead based on
+					// page * number of results per page was necessary. You may have a
+					// simpler server-side pagination API where just updating 
+					// mixins.serverPaginator.queryParams.page is all you need to do.
+					// This applies similarly to requestPreviousPage()
 					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;	
-					this.fetch({});
+					this.pager();
 				}
 			},
 
 			requestPreviousPage: function(){
 				if(this.queryParams.page >= 0){
 					this.queryParams.page -= 1;
+
+					// customize as needed.
 					this.queryMap.$skip =  this.queryParams.page * this.queryParams.perPage;
-					this.fetch({});
+					this.pager();
 				}
 			},
 
 			updateOrder: function (column){
-				this.queryParams.sortField = column;
-				this.queryMap.orderBy = column;
+				if(column){
+					this.queryParams.sortField = column;
+					this.queryMap.orderBy = column;
+					this.pager();		
+				}
+
+			},
+
+			goTo: function(page){
+				this.queryParams.page = parseInt(page,10);
+				this.pager();	
+			},
+
+			howManyPer: function(count){
+				this.queryParams.page = 1;
+				this.queryParams.perPage = count;
+				this.pager();
+			},
+
+			sort: function(){
+				
+			},
+
+			info: function(){
+				return {
+					queryPage: this.queryParams.page,
+					queryTotalPages: this.queryParams.totalPages
+				}	
+			},
+
+			pager: function(){
 				this.fetch({});
 			}
 

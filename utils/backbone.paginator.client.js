@@ -142,10 +142,7 @@
 			}
 
 			info.pageSet = self.setPagination(info);
-
-			//info.queryTotalPages = self.queryParams.totalPages;
-			//info.queryPage     = self.queryParams.page;
-
+			
 			self.information = info;
 			return info;
 		},

@@ -23,7 +23,6 @@
         parse : function (response) {
             // Be sure to change this based on how your results
             // are structured
-            console.log(response);
             var tags = response.d.results;
             this.queryParams.totalPages = response.d.__count;
             return tags;

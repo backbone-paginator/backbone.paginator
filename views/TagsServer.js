@@ -4,7 +4,6 @@
 		el : '#content2',
 		initialize : function () {
 
-			//todo: drop this in favor of third arg approach
 			_.bindAll (this, 'render', 'addAll', 'addOne');
 
 			var self = this;
