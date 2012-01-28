@@ -1,10 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
+
 	<head>
+
 		<meta charset="UTF-8">
 		<title>Backbone.js pagination</title>
 		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 	</head>
+
 	<body>
 
 		<div class="container">
@@ -39,7 +42,8 @@
 
 			<h3>Credits</h3>
 			<p>
-			This project is based on initial prior work on a paginator by @bmsterling and has been extended by @addyosmani in both the paginator and views to cover a few extra pieces (code cleanup, sort by fields, ajax pagination etc.).
+			* Server-side version and client-side refactor: Addy Osmani
+			* Initial work on client-side version: @bmsterling
 			</p>
 
 		</div>
@@ -47,8 +51,6 @@
 		<!-- client pagination -->
 		<script type="text/html" id="tmpClientPagination">
 		 <div class="breadcrumb">
-
-		 <span>Actions on the results returned:</span>
 
 			<span class="cell last pages">
 				<% if (page != 1) { %>
@@ -87,8 +89,8 @@
 			</span>
 
 			<span class="cell sort">
-				<a href="#" class="sortAsc">Sort (Asc)</a>
-				<a href="#" class="sortDsc">Sort (Desc)</a>
+				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
+				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
 			</span>
 
 			<select id="sortByOption">
@@ -104,7 +106,8 @@
 		<!-- server pagination -->
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
-			    Ajax query for next/prev pages:
+
+
 			  	<span class="cell ">
 
 					<% if (queryPage > 1) { %>
@@ -121,7 +124,7 @@
 
 
 				<span class="cell sort">
-					<a href="#" class="orderUpdate">Order by:</a>
+					<a href="#" class="orderUpdate btn small">Order by:</a>
 				</span>
 
 				<select id="sortByField">
