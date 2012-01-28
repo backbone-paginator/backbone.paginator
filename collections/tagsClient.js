@@ -1,4 +1,4 @@
-(function (collections, clientPaginator, model) {
+(function ( collections, clientPaginator, model ) {
     
     collections.TagsClient = Backbone.Collection.extend({
         model : model,
@@ -25,7 +25,7 @@
             return $.ajax(params);
         },
 
-        parse : function (response) {
+        parse : function ( response ) {
             // Be sure to change this based on how your results
             // are structured
             var tags = response.d.results;
@@ -35,8 +35,8 @@
 
     });
 
-    _.extend(collections.TagsClient.prototype, clientPaginator);
+    _.extend( collections.TagsClient.prototype, clientPaginator );
 
-})(App.collections, App.mixins.clientPaginator, App.models.Tag);
+})( App.collections , App.mixins.clientPaginator , App.models.Tag );
 
 

@@ -1,4 +1,4 @@
-(function (collections, serverPaginator,  model) {
+(function ( collections, serverPaginator,  model ) {
     
     collections.TagsServer = Backbone.Collection.extend({
         model : model,
@@ -6,7 +6,7 @@
 
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 
-        sync : function (method, model, options) {
+        sync : function ( method, model, options ) {
 
             var params = _.extend({
                 type : 'GET',
@@ -30,9 +30,9 @@
 
     });
 
-    _.extend(collections.TagsServer.prototype, serverPaginator);
+    _.extend( collections.TagsServer.prototype, serverPaginator );
 
 
-})(App.collections, App.mixins.serverPaginator, App.models.Tag);
+})( App.collections, App.mixins.serverPaginator, App.models.Tag );
 
 
