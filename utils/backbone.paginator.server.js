@@ -96,7 +96,7 @@
 
 			updateMap: function( map ){
 				map.$top =  mixins.serverPaginator.queryParams.perPage;
-				$skip =  mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage;
+				map.$skip =  mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage;
 				map.orderBy = mixins.serverPaginator.queryParams.sortField;
 				map.$inlinecount =  mixins.serverPaginator.queryParams.customParam1;
 				map.$filter =  "substringof%28%27" + mixins.serverPaginator.queryParams.query + "%27,%20Name%29%20eq%20true";
