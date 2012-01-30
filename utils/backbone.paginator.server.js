@@ -75,40 +75,9 @@
 			},
 
 
-			// @name: updateMap()
-			// @map: An empty queryMap object
-			// A map (queryMap) contains name mappings for parameters you'll be passing back
-			// to the server. In the case of this example, we're using NetFlix OData
-			// which uses $top, $skip etc. to define what paginated data should be
-			// returned from their service. If you had your own data service of the form
-			// http://domain.com/api/?query=houses&page=2&sortBy=year, your queryMap
-			// would just contain
-			// query: mixins.Paginator.query
-			// page: mixins.Paginator.page
-			// sortBy: mixins.Paginator.sortField
-
-			// The queryMap can contain not just direct references
-			// to values in the queryParams object but can also contain mutated values
-			// such as $skip, which is composed by multipying the current page by the 
-			// number of items per page. You can also choose to mix values from the 
-			// queryParams object with custom string information (see $filter) so this
-			// is fairly flexible.
-
-			updateMap: function( map ){
-				map.$top =  mixins.serverPaginator.queryParams.perPage;
-				map.$skip =  mixins.serverPaginator.queryParams.page * mixins.serverPaginator.queryParams.perPage;
-				map.orderBy = mixins.serverPaginator.queryParams.sortField;
-				map.$inlinecount =  mixins.serverPaginator.queryParams.customParam1;
-				map.$filter =  "substringof%28%27" + mixins.serverPaginator.queryParams.query + "%27,%20Name%29%20eq%20true";
-				map.$format =  mixins.serverPaginator.queryParams.format;
-				map.$callback =  mixins.serverPaginator.queryParams.customParam2;
-			},
-
-
-			// updates the queryMap to take account of the latest parameters in queryParams
-			// then fetches the request from the server
+			// fetches the latest results from the server, taking the most recent
+			// queryParams into account
 			pager: function(){
-				this.updateMap(this.queryMap);
 				this.fetch({});
 			}
 
