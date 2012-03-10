@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<title>Backbone.js pagination</title>
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+	</head>
+
+	<body>
+
+		<div class="container">
+
+		  <p>&nbsp;</p>
+		  <div class="page-header">
+		    <h1>Backbone.js Paginator 0.12 <small>Server-side pagination example</small></h1>
+		  </div>
+
+
+			<h3>NetFlix movies</h3>
+			<ul id="content2">
+			</ul>
+
+			<div id="pagination2">
+			</div>
+
+		  <div class="alert-message block-message warning">
+	        <p>Note: The Netflix OData feed may not return the last page depending the query used and approximation of total results returned. For customization, 'last' functioning is entirely dependant on how your backend returns results.</p>
+	      </div>
+		
+
+		</div>
+
+	
+		<!-- server pagination -->
+		<script type="text/html" id="tmpServerPagination">
+			<div class="breadcrumb">
+
+			  	<span class="cell ">
+
+					<% if (page > 1) { %>
+						<a href="#" class="serverprevious">Previous</a>
+					<% }else{ %>
+						<span>Previous</span>
+					<% }%>
+
+					<% if (page < totalPages) { %>
+						<a href="#" class="servernext">Next</a>
+					<% } %>
+
+					<% if (lastPage != page) { %>
+						<a href="#" class="serverlast">Last</a>
+					<% } %>
+
+
+					<span class="cell serverhowmany">
+						Show
+						<a href="#" class="selected">20</a>
+						|
+						<a href="#" class="">50</a>
+						|
+						<a href="#" class="">100</a>
+					</span>
+
+					<span class="cell first records">
+						<span class="current"><%= page %></span>
+						of
+						<span class="total"><%= totalPages %></span>
+									shown
+					</span>
+
+				<span class="cell sort">
+					<a href="#" class="orderUpdate btn small">Sort by:</a>
+				</span>
+
+				<select id="sortByField">
+				    <option value="ReleaseYear">Release year</option>
+				 	<option value="month(Instant/AvailableFrom)">Release month</option>
+				</select>
+			  	</span>
+
+
+			  </div>
+		  </script>
+
+
+		
+		<!-- scripts-->
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/json2.js"></script>
+		<script src="libs/backbone.js"></script>
+
+		<script src="app.js"></script>
+
+		<!--Pagination-->
+		<script src="utils/backbone.paginator.server.js"></script>
+
+		<!--Models/Collections-->
+		<script src="models/Tag.js"></script>
+		<script src="collections/TagsServer.js"></script>
+
+		<!--Views-->
+		<script src="views/TagsServer.js"></script>
+		<script src="views/serverPagination.js"></script>
+
+
+	</body>
+</html>

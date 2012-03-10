@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<title>Backbone.js pagination</title>
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+	</head>
+
+	<body>
+
+		<div class="container">
+
+		  <p>&nbsp;</p>
+		  <div class="page-header">
+		    <h1>Backbone.js Paginator 0.12 <small>Client-side pagination example</small></h1>
+		  </div>
+
+		  	<h3>NetFlix movies</h3>
+			<ul id="content">
+			</ul>
+
+			<ul id="pagination">
+			</ul>
+
+		</div>
+
+		<!-- client pagination -->
+		<script type="text/html" id="tmpClientPagination">
+		 <div class="breadcrumb">
+
+			<span class="cell last pages">
+				<% if (page != 1) { %>
+					<a href="#" class="first">First</a>
+					<a href="#" class="prev">Previous</a>
+				<% } %>
+				<% _.each (pageSet, function (p) { %>
+					<% if (page == p) { %>
+						<span class="page selected"><%= p %></span>
+					<% } else { %>
+						<a href="#" class="page"><%= p %></a>
+					<% } %>
+				<% }); %>
+				<% if (lastPage != page) { %>
+					<a href="#" class="next">Next</a>
+					<a href="#" class="last">Last</a>
+				<% } %>
+			</span>
+
+			<span class="cell howmany">
+				Show
+				<a href="#" class="selected">20</a>
+				|
+				<a href="#" class="">50</a>
+				|
+				<a href="#" class="">100</a>
+			</span>
+
+			<span class="cell first records">
+				<span class="current"><%= startRecord %></span>
+				-
+				<span class="perpage"><%= endRecord %></span>
+				of
+				<span class="total"><%= totalRecords %></span>
+							shown
+			</span>
+
+			<span class="cell sort">
+				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
+				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
+			</span>
+
+			<select id="sortByOption">
+			    <option value="cid">cid</option>
+			 	<option value="name">name</option>
+			</select>
+
+		  </div>
+		</script>
+
+
+		
+		<!-- scripts-->
+
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="libs/underscore.js"></script>
+		<script src="libs/json2.js"></script>
+		<script src="libs/backbone.js"></script>
+
+		
+		<script src="app.js"></script>
+
+		<!--Pagination-->
+		<script src="utils/backbone.paginator.client.js"></script>
+
+		<!--Models/Collections-->
+		<script src="models/Tag.js"></script>
+		<script src="collections/TagsClient.js"></script>
+		<script src="collections/TagsServer.js"></script>
+
+		<!--Views-->
+		<script src="views/TagsClient.js"></script>
+		<script src="views/clientPagination.js"></script>
+
+	</body>
+</html>
