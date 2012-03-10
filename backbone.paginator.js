@@ -26,13 +26,26 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 		sync: function (method, model, options) {
 
+			var queryMap = {
+				$top: this.queryParams.perPage,
+				$skip: this.queryParams.page * this.queryParams.perPage,
+				orderBy: this.queryParams.sortField,
+				$inlinecount: this.queryParams.customParam1,
+				$filter: "substringof%28%27" + this.queryParams.query + "%27,%20Name%29%20eq%20true",
+				$format: this.queryParams.format,
+				$callback: this.queryParams.customParam2
+			};
+
+
 			var params = _.extend({
 				type: 'GET',
 				dataType: 'jsonp',
 				jsonpCallback: 'callback',
+				data: decodeURIComponent($.param(queryMap)),
 				url: this.url,
 				processData: false
 			}, options);
+
 
 			return $.ajax(params);
 		},
@@ -66,8 +79,8 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 		pager: function (sort, direction) {
 			var self = this,
-				start = (self.queryParams.page - 1) * this.queryParams.perPage,
-				stop = start + self.queryParams.perPage;
+				start = (self.queryParams.page - 1) * this.queryParams.displayPerPage;
+				stop = start + this.queryParams.displayPerPage;
 
 			if (self.orgmodels === undefined) {
 				self.orgmodels = self.models;
@@ -121,15 +134,15 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			info = {
 				totalRecords: totalRecords,
 				page: self.queryParams.page,
-				perPage: self.queryParams.perPage,
+				perPage: this.queryParams.displayPerPage,
 				totalPages: totalPages,
 				lastPage: totalPages,
 				lastPagem1: totalPages - 1,
 				previous: false,
 				next: false,
 				page_set: [],
-				startRecord: (self.queryParams.page - 1) * self.queryParams.perPage + 1,
-				endRecord: Math.min(totalRecords, self.queryParams.page * self.queryParams.perPage)
+				startRecord: (self.queryParams.page - 1) * this.queryParams.displayPerPage + 1,
+				endRecord: Math.min(totalRecords, self.queryParams.page * this.queryParams.displayPerPage)
 			};
 
 			if (self.page > 1) {
@@ -207,9 +220,6 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// Requires a queryParams object to be supplied for URL
 	// parameters. See tagsServer.js for a usage example.
 	Paginator.serverPager = Backbone.Collection.extend({
-
-		queryMap: {},
-		
 
 		sync: function (method, model, options) {
 
