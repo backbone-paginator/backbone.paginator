@@ -1,9 +1,13 @@
+
 var App = {
 	collections : {},
 	models : {},
 	views : {},
 	mixins : {},
 	init : function () {	
+
+		// If not using a specific option, simply delete the client or server
+		// variation below.
 
 		//Client
 		if(!(App.collections.TagsClient==undefined)){
@@ -21,6 +25,8 @@ var App = {
 
 	}
 };
+
+
 
 $(function(){
 	App.init();

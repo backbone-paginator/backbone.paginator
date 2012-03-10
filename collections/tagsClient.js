@@ -1,31 +1,32 @@
-(function ( collections, clientPaginator, model ) {
-    
-    collections.TagsClient = Backbone.Collection.extend({
-        model : model,
+(function (collections, model, paginator) {
 
-        url: 'http://odata.netflix.com/v2/Catalog/Titles?' +
-            '$top=30&' +
-            '$skip=0&' +
-            '$orderby=ReleaseYear&' +
-            '$inlinecount=allpages&' +
-            '$filter=substringof%28%27the%27,%20Name%29%20eq%20true&' +
-            '$format=json&' +
-            '$callback=callback',
+    collections.TagsClient = paginator.clientPager.extend({
+        model: model,
 
-        sync : function (method, model, options) {
+        url: 'http://odata.netflix.com/v2/Catalog/Titles?' + '$top=30&' + '$skip=0&' + '$orderby=ReleaseYear&' + '$inlinecount=allpages&' + '$filter=substringof%28%27the%27,%20Name%29%20eq%20true&' + '$format=json&' + '$callback=callback',
 
-            var params = _.extend({
-                type : 'GET',
-                dataType : 'jsonp',
-                jsonpCallback : 'callback',
-                url : this.url,
-                processData : false
-            }, options);
+        // @name: queryParams
+        // Configures how data returned from the server should be locally paginated in
+        // a view. For example, if the server returns a payload of 50 results
+        // (in the current setup) this will paginate the results with 20 shown
+        // per 'page', beginning with page 1
+        queryParams: {
 
-            return $.ajax(params);
+            // how many items to show per page in the view?
+            perPage: 20,
+
+            // page to start off on for pagination in the view?
+            page: 1,
+
+            // sort field
+            sortField: 'text',
+
+            // sort direction
+            sortDirection: 'asc'
+
         },
 
-        parse : function ( response ) {
+        parse: function (response) {
             // Be sure to change this based on how your results
             // are structured
             var tags = response.d.results;
@@ -35,8 +36,5 @@
 
     });
 
-    _.extend( collections.TagsClient.prototype, clientPaginator );
 
-})( App.collections , App.mixins.clientPaginator , App.models.Tag );
-
-
+})(App.collections, App.mixins.clientPaginator, Backbone.Paginator);
