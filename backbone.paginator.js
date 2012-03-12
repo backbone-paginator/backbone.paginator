@@ -129,7 +129,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			var self = this,
 				info = {},
 				totalRecords = (self.orgmodels) ? self.orgmodels.length : self.length,
-				totalPages = Math.ceil(totalRecords / self.perPage);
+				totalPages = Math.ceil(totalRecords / self.queryParams.perPage);
 
 			info = {
 				totalRecords: totalRecords,
