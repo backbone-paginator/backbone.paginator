@@ -82,11 +82,11 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				start = (self.queryParams.page - 1) * this.queryParams.displayPerPage;
 				stop = start + this.queryParams.displayPerPage;
 
-			if (self.orgmodels === undefined) {
-				self.orgmodels = self.models;
+			if (self.origModels === undefined) {
+				self.origModels = self.models;
 			}
 
-			self.models = self.orgmodels;
+			self.models = self.origModels;
 
 			if (sort) {
 				self.models = self._sort(self.models, sort, direction);
@@ -128,7 +128,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		info: function () {
 			var self = this,
 				info = {},
-				totalRecords = (self.orgmodels) ? self.orgmodels.length : self.length,
+				totalRecords = (self.origModels) ? self.origModels.length : self.length,
 				totalPages = Math.ceil(totalRecords / self.queryParams.perPage);
 
 			info = {
