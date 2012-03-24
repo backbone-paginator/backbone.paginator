@@ -66,8 +66,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		howManyPer: function (perPage) {
-			this.queryParams.page = 1;
-			this.queryParams.perPage = perPage;
+			this.queryParams.displayPerPage = perPage;
 			this.pager();
 		},
 

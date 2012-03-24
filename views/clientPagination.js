@@ -16,8 +16,8 @@
 		tagName: 'aside',
 
 		initialize: function () {
-			this.collection.bind('reset', this.render, this);
-			this.collection.bind('change', this.render, this);
+			this.collection.on('reset', this.render, this);
+			this.collection.on('change', this.render, this);
 			this.tmpl = _.template($('#tmpClientPagination').html());
 			$(this.el).appendTo('#pagination');
 

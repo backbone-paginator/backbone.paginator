@@ -1,4 +1,3 @@
-
 (function ( views ) {
 	views.TagsServer = Backbone.View.extend({
 		el : '#content2',
