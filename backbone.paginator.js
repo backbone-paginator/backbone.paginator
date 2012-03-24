@@ -270,7 +270,6 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				// simpler server-side pagination API where just updating 
 				// mixins.serverPaginator.queryParams.page is all you need to do.
 				// This applies similarly to requestPreviousPage()
-				this.queryMap.$skip = this.queryParams.page * this.queryParams.perPage;
 				this.pager();
 			}
 		},
@@ -279,7 +278,6 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			if (this.queryParams.page >= 0) {
 				this.queryParams.page -= 1;
 				// customize as needed.
-				this.queryMap.$skip = this.queryParams.page * this.queryParams.perPage;
 				this.pager();
 			}
 		},
@@ -287,7 +285,6 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		updateOrder: function (column) {
 			if (column) {
 				this.queryParams.sortField = column;
-				this.queryMap.orderBy = column;
 				this.pager();
 			}
 
