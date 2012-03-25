@@ -1,6 +1,6 @@
 // Backbone.Paginator v0.14
 //
-// Copyright (C)2011 Addy Osmani
+// Copyright (C) 2012 Addy Osmani
 // Distributed under MIT License
 //
 Backbone.Paginator = (function (Backbone, _, $) {
@@ -12,6 +12,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// @name: clientPager
 	//
 	// @tagline: Paginator for client-side data
+	//
 	// @description:
 	// The paginator is responsible for providing pagination
 	// and sort capabilities for a collection of data that has
@@ -19,6 +20,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// the client-side paginator for single data payloads 
 	// e.g return 500 results, allow this data to be paginated
 	// on the client-side
+	//
 	// @dependencies:
 	// Requires a queryParams object to be supplied for URL
 	// parameters. See tagsClient.js for a usage example.
@@ -215,6 +217,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// The paginator is responsible for providing pagination
 	// and sort capabilities for requests to a server-side
 	// data service.
+	//
 	// @dependencies:
 	// Requires a queryParams object to be supplied for URL
 	// parameters. See tagsServer.js for a usage example.

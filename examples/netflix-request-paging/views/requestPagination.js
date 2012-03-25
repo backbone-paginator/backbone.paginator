@@ -63,4 +63,4 @@
 
 	});
 
-})(App.views);
+})( app.views );

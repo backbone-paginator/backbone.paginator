@@ -57,4 +57,4 @@
     });
 
 
-})(App.collections, App.mixins.clientPaginator, Backbone.Paginator);
+})( app.collections, app.mixins.clientPaginator, Backbone.Paginator);

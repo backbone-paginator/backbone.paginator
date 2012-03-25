@@ -83,4 +83,4 @@
 			this.preserveSortOption(currentSort);
 		}
 	});
-})(App.views);
+})( app.views );

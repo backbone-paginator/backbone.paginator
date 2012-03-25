@@ -45,4 +45,4 @@
 
     });
 
-})(App.collections, App.models.Tag, Backbone.Paginator);
+})( app.collections, app.models.Tag, Backbone.Paginator);
