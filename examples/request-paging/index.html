@@ -5,7 +5,7 @@
 
 		<meta charset="UTF-8">
 		<title>Backbone.js pagination</title>
-		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
 	</head>
 
 	<body>
@@ -14,7 +14,7 @@
 
 		  <p>&nbsp;</p>
 		  <div class="page-header">
-		    <h1>Backbone.js Paginator 0.13 <small>Server-side pagination example</small></h1>
+		    <h1>Paginator.requestPager() <small>Paginating requests to and from an API/backend</small></h1>
 		  </div>
 
 
@@ -33,7 +33,7 @@
 		</div>
 
 	
-		<!-- server pagination -->
+		<!-- sample template for pagination UI -->
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 
@@ -88,22 +88,22 @@
 		
 		<!-- scripts-->
 		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="libs/underscore.js"></script>
-		<script src="libs/json2.js"></script>
-		<script src="libs/backbone-min.js"></script>
+		<script src="../libs/underscore.js"></script>
+		<script src="../libs/json2.js"></script>
+		<script src="../libs/backbone-min.js"></script>
 
 		<script src="app.js"></script>
 
-		<!--Pagination-->
-		<script src="backbone.paginator.js"></script>
+		<!--Backbone.Paginator-->
+		<script src="../../backbone.paginator.js"></script>
 
 		<!--Models/Collections-->
 		<script src="models/Tag.js"></script>
-		<script src="collections/tagsServer.js"></script>
+		<script src="collections/tagsRequest.js"></script>
 
 		<!--Views-->
-		<script src="views/TagsServer.js"></script>
-		<script src="views/serverPagination.js"></script>
+		<script src="views/TagsRequest.js"></script>
+		<script src="views/requestPagination.js"></script>
 
 
 	</body>

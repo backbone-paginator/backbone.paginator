@@ -1,4 +1,4 @@
-// Backbone.Paginator v0.13
+// Backbone.Paginator v0.14
 //
 // Copyright (C)2011 Addy Osmani
 // Distributed under MIT License
@@ -6,7 +6,7 @@
 Backbone.Paginator = (function (Backbone, _, $) {
 
 	var Paginator = {};
-	Paginator.version = "0.13";
+	Paginator.version = "0.14";
 
 
 	// @name: clientPager
@@ -207,9 +207,9 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	});
 
 
-	// @name: serverPager
+	// @name: requestPager
 	//
-	// Paginator for server-side data
+	// Paginator for server-side data being requested from a backend/API
 	//
 	// @description:
 	// The paginator is responsible for providing pagination
@@ -218,7 +218,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// @dependencies:
 	// Requires a queryParams object to be supplied for URL
 	// parameters. See tagsServer.js for a usage example.
-	Paginator.serverPager = Backbone.Collection.extend({
+	Paginator.requestPager = Backbone.Collection.extend({
 
 		sync: function (method, model, options) {
 

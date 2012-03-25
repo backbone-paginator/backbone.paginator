@@ -1,6 +1,6 @@
 (function (collections, model, paginator) {
 
-    collections.TagsServer = paginator.serverPager.extend({
+    collections.TagsRequest = paginator.requestPager.extend({
         model: model,
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 

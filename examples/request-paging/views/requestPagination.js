@@ -1,6 +1,6 @@
 (function (views) {
 
-	views.serverPagination = Backbone.View.extend({
+	views.requestPagination = Backbone.View.extend({
 
 		events: {
 			'click a.servernext': 'nextResultPage',

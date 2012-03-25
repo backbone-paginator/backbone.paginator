@@ -1,5 +1,5 @@
 (function ( views ) {
-	views.TagsServer = Backbone.View.extend({
+	views.TagsRequest = Backbone.View.extend({
 		el : '#content2',
 		initialize : function () {
 
