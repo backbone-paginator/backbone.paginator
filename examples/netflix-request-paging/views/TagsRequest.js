@@ -1,6 +1,6 @@
 (function ( views ) {
 	views.TagsRequest = Backbone.View.extend({
-		el : '#content2',
+		el : '#content',
 		initialize : function () {
 
 			_.bindAll (this, 'render', 'addAll', 'addOne');

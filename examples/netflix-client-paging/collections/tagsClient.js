@@ -23,8 +23,6 @@
         // how many results to display per 'client page'
         displayPerPage: '20',
 
-        // maximum number of pages that can be queried from the server
-        totalPages: '10',
         // a default. This should be overridden in the collection's parse()
         // sort direction
         sortDirection: 'asc',
@@ -49,7 +47,7 @@
             // Be sure to change this based on how your results
             // are structured
             var tags = response.d.results;
-            //this.queryParams.totalPages = response.d.__count;
+            //this.totalPages = response.d.__count;
             return tags;
         }
 

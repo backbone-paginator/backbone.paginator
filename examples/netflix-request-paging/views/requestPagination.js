@@ -18,7 +18,7 @@
 			this.collection.on('reset', this.render, this);
 			this.collection.on('change', this.render, this);
 			this.tmpl = _.template($('#tmpServerPagination').html());
-			$(this.el).appendTo('#pagination2');
+			$(this.el).appendTo('#pagination');
 
 		},
 

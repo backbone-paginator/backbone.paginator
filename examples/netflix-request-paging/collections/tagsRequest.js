@@ -19,8 +19,10 @@
         // how many results to query from the service
         perPage: 30,
 
-        // maximum number of pages that can be queried from the server
+        // maximum number of pages that can be queried from the server (default)
+        // in case the server doesn't return a value.
         totalPages: 10,
+
         // a default. This should be overridden in the collection's parse()
         // sort direction
         sortDirection: 'asc',
