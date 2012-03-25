@@ -5,46 +5,45 @@
 
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 
+        // mapping attributes to the parameters supported by your API
+        perPageAttribute: '$top',
+        skipAttribute: '$skip',
+        orderAttribute: 'orderBy',
+        customAttribute1: '$inlinecount',
+        queryAttribute: '$filter',
+        formatAttribute: '$format',
+        customAttribute2: '$callback',
 
-        // @name: queryParams
-        // Configures how data returned from the server should be locally paginated in
-        // a view. For example, if the server returns a payload of 50 results
-        // (in the current setup) this will paginate the results with 20 shown
-        // per 'page', beginning with page 1
+        // current page to query from the service
+        page: '1',
 
-        queryParams: {
+        // how many results to query from the service
+        perPage: '30',
 
-            // current page to query from the service
-            page: 1,
+        // how many results to display per 'client page'
+        displayPerPage: '20',
 
-            // how many results to query from the service
-            perPage: 30,
+        // maximum number of pages that can be queried from the server
+        totalPages: '10',
+        // a default. This should be overridden in the collection's parse()
+        // sort direction
+        sortDirection: 'asc',
 
-            // how many results to display per 'client page'
-            displayPerPage: 20,
+        // sort field
+        sortField: 'ReleaseYear',
+        //or year(Instant/AvailableFrom)
+        // query
+        query: 'substringof%28%27the%27,%20Name%29%20eq%20true', //basically a query for 'the' 
 
-            // maximum number of pages that can be queried from the server
-            totalPages: 10,
-            // a default. This should be overridden in the collection's parse()
-            // sort direction
-            sortDirection: 'asc',
+        // request format
+        format: 'json',
 
-            // sort field
-            sortField: 'ReleaseYear',
-            //or year(Instant/AvailableFrom)
-            // query
-            query: 'the',
+        // custom parameters for the request that may be specific to your
+        // application
+        customParam1: 'allpages',
 
-            // request format
-            format: 'json',
+        customParam2: 'callback',
 
-            // custom parameters for the request that may be specific to your
-            // application
-            customParam1: 'allpages',
-
-            customParam2: 'callback'
-
-        },
 
         parse: function (response) {
             // Be sure to change this based on how your results

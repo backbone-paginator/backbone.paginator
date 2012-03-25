@@ -1,4 +1,4 @@
-##Backbone.Paginator 0.14
+##Backbone.Paginator 0.15
 
 This project seeks to provide stable, comprehensive pagination components for Backbone.js. 
 
@@ -8,7 +8,7 @@ Examples showing pagination, sorting, item limits per page, next/previous naviga
 
 ##Docs
 
-At the moment your best option is to read through the comments in backbone.paginator.js. I will be expanding these into proper docs shortly.
+At the moment your best option is to read through the comments in backbone.paginator.js and the examples. All configuration is done at the collection level (e.g tagsClient.js or tagsRequest.js) so you don't need to edit the pagination component to get this working.
 
 ##Credits
 

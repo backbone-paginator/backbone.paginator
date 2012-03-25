@@ -13,11 +13,10 @@
 		if(!(app.collections.TagsClient==undefined)){
 			var clientTags  = new app.collections.TagsClient();
 			app.views.tagsClient = new app.views.TagsClient({collection: clientTags});
-			app.views.clientPaging = new app.views.clientPagination({collection: clientTags});
+			app.views.clientPaging = new app.views.clientPagination({collection: clientTags,});
+
 		}
 	});
 
 })();
-
-
 
