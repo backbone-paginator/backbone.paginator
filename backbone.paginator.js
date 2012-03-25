@@ -13,12 +13,9 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// @tagline: Paginator for client-side data
 	//
 	// @description:
-	// The paginator is responsible for providing pagination
-	// and sort capabilities for a collection of data that has
-	// already been returned by a server. You may wish to use
-	// the client-side paginator for single data payloads 
-	// e.g return 500 results, allow this data to be paginated
-	// on the client-side
+	// This paginator is responsible for providing pagination
+	// and sort capabilities for a single payload of data
+	// we wish to paginate by the UI for easier browsering.
 	//
 	Paginator.clientPager = Backbone.Collection.extend({
 
@@ -207,15 +204,15 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	// Paginator for server-side data being requested from a backend/API
 	//
 	// @description:
-	// The paginator is responsible for providing pagination
+	// This paginator is responsible for providing pagination
 	// and sort capabilities for requests to a server-side
-	// data service.
+	// data service (e.g an API)
 	//
 	Paginator.requestPager = Backbone.Collection.extend({
 
 		sync: function (method, model, options) {
 
-			var queryMap = {};
+			var queryMap = {}, params;
 				queryMap[this.perPageAttribute] =  this.perPage;
 				queryMap[this.skipAttribute] = this.page * this.perPage;
 				queryMap[this.orderAttribute] =  this.sortField;
@@ -224,18 +221,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				queryMap[this.customAttribute2] = this.customParam2;
 				queryMap[this.queryAttribute] =  this.query;
 
-				/*
-			var queryMap = {
-				$top: this.perPage,
-				$skip: this.page * this.perPage,
-				orderBy: this.sortField,
-				$inlinecount: this.customParam1,
-				$filter: "substringof%28%27" + this.query + "%27,%20Name%29%20eq%20true",
-				$format: this.format,
-				$callback: this.customParam2
-			};*/
-
-			var params = _.extend({
+				params = _.extend({
 				type: 'GET',
 				dataType: 'jsonp',
 				jsonpCallback: 'callback',
@@ -254,7 +240,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				// customize as needed. For the Netflix API, skipping ahead based on
 				// page * number of results per page was necessary. You may have a
 				// simpler server-side pagination API where just updating 
-				// mixins.serverPaginator.queryParams.page is all you need to do.
+				// the 'page' value is all you need to do.
 				// This applies similarly to requestPreviousPage()
 				this.pager();
 			}
@@ -302,8 +288,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			return info;
 		},
 
-		// fetches the latest results from the server, taking the most recent
-		// queryParams into account
+		// fetches the latest results from the server
 		pager: function () {
 			this.fetch({});
 		}
