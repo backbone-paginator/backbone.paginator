@@ -1,17 +1,24 @@
 (function (collections, model, paginator) {
 
     collections.TagsClient = paginator.clientPager.extend({
+        
         model: model,
 
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 
-        // mapping attributes to the parameters supported by your API
+        // map paginator attributes to the parameters supported by your API
         perPageAttribute: '$top',
+
         skipAttribute: '$skip',
+
         orderAttribute: 'orderBy',
+
         customAttribute1: '$inlinecount',
+
         queryAttribute: '$filter',
+
         formatAttribute: '$format',
+
         customAttribute2: '$callback',
 
         // current page to query from the service
@@ -30,6 +37,7 @@
         // sort field
         sortField: 'ReleaseYear',
         //or year(Instant/AvailableFrom)
+        
         // query
         query: 'substringof%28%27the%27,%20Name%29%20eq%20true', //basically a query for 'the' 
 
