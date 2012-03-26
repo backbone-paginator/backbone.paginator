@@ -22,7 +22,6 @@
 
 		},
 
-
 		render: function () {
 			var html = this.tmpl(this.collection.info());
 			$(this.el).html(html);
