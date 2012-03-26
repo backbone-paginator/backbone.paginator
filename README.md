@@ -1,10 +1,6 @@
 ##Backbone.Paginator 0.15
 
-This project seeks to provide stable, comprehensive pagination components for Backbone.js. 
-
-Currently a component supporting both request-level pagination (e.g pagination and sync of URLs requesting data from a server) and UI pagination of data in the client (e.g data returned from the server you wish to further paginate in the UI) is available. These are exposed via `Paginator.requestPager()` and `Paginator.clientPager()` respectively.
-
-Examples showing pagination, sorting, item limits per page, next/previous navigation and more can be found in the `examples` folder.
+This project seeks to provide stable, comprehensive pagination components for Backbone.js. Examples demonstrating pagination, sorting, item limits per page, next/previous navigation and more can be found in the `examples` folder.
 
 ##Components
 
