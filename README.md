@@ -6,25 +6,25 @@ Backbone.Paginator is a set of opinionated components for paginating collections
 
 You can either download the raw source code for the project, fork the repository or use one of these links:
 
-* Production: [production version][min]
-* Development: [development version][max]
+* Production: [production version][min] 3.17K file size (1.5K gzipped)
+* Development: [development version][max] 6.69K file size (2.18K gzipped)
 
 [min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
 
-## Documentation
+## Paginator's pieces
 
 Backbone.Paginator supports two main pagination components:
 
-* **Backbone.Paginator.requestPager** - for pagination of requests between a client and a server-side API
-* **Backbone.Paginator.clientPager** - for pagination of data returned from a server which you would like to further paginate within the UI (e.g 50 results returned, paginate into pages of 20)
+* **Backbone.Paginator.requestPager**: For pagination of requests between a client and a server-side API
+* **Backbone.Paginator.clientPager**: For pagination of data returned from a server which you would like to further paginate within the UI (e.g 60 results are returned, paginate into 3 pages of 20)
 
-###Paginator.requestPager
+##Paginator.requestPager
 
 In this section we're going to walkthrough actually using the requestPager.
 
 ####1. Create a new Paginated collection
-First, we define a new Paginated collection using Backbone.Paginator.requestPager() as follows:
+First, we define a new Paginated collection using `Backbone.Paginator.requestPager()` as follows:
 
 ```javascript
 collections.TagsRequest = Backbone.Paginator.requestPager.extend({
@@ -162,12 +162,12 @@ For your convenience, the following methods are made available for use in your v
 * **Collection.howManyPer(n)** - set the number of items to display per page
 
 
-###Paginator.clientPager
+##Paginator.clientPager
 
 The `clientPager` works similar to the `requestPager`, except that our configuration values influence the pagination of data already returned at a UI-level. Whilst not shown (yet) there is also a lot more UI logic that ties in with the `clientPager`. An example of this can be seen in 'views/clientPagination.js'. 
 
 ####1. Create a new paginated collection with a model and URL
-As with `requestPager`, let's first create a new Paginated `clientPager` collection, with a model and base URL:
+As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.clientPager` collection, with a model and base URL:
 
 ```javascript
     var TagsClient = Backbone.Paginator.clientPager.extend({
