@@ -1,0 +1,46 @@
+{
+  "name": "backbone.paginator",
+  "description": "A set of pagination components for Backbone.js",
+  "version": "0.1.5",
+  "homepage": "http://github.com/addyosmani/backbone.paginator",
+  "author": {
+    "name": "Addy Osmani",
+    "email": "addyosmani@gmail.com",
+    "url": "http://addyosmani.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ghttp://github.com/addyosmani/backbone.paginator"
+  },
+  "bugs": {
+    "url": "https://github.com/addyosmani/backbone.paginator/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/addyosmani/backbone.paginator/blob/master/LICENSE-MIT"
+    }
+  ],
+  "preferGlobal": true,
+  "dependencies": {
+    "backbone" : "~0.5.3",
+    "underscore": "1.3.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.0",
+    "backbone" : "~0.5.3",
+    "underscore": "1.2.4"
+  },
+  "keywords": [
+      "backbone",
+      "pagination",
+      "paginator"
+  ],
+  "engines": {
+    "node": ">= 0.6.6"
+  },
+  "main": "lib/backbone.paginator",
+  "scripts": {
+    "test": "grunt test"
+  }
+}

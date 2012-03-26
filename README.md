@@ -1,6 +1,16 @@
-##Backbone.Paginator 0.15
+# Backbone.Paginator
 
-This project seeks to provide stable, comprehensive pagination components for Backbone.js. Examples demonstrating pagination, sorting, item limits per page, next/previous navigation and more can be found in the `examples` folder.
+A set of pagination components for Backbone.js
+
+## Getting Started
+
+### Releases
+Download the [production version][min] or the [development version][max].
+
+[min]: https://raw.github.com/addyosmani/Backbone.Paginator/master/dist/Backbone.Paginator.min.js
+[max]: https://raw.github.com/addyosmani/Backbone.Paginator/master/dist/Backbone.Paginator.js
+
+## Documentation
 
 ##Components
 
@@ -17,14 +27,14 @@ In this section we're going to walkthrough actually using the requestPager.
 ####1. Create a new Paginated collection
 First, we define a new Paginated collection using Backbone.Paginator.requestPager() as follows:
 
-```
+```javascript
 collections.TagsRequest = Backbone.Paginator.requestPager.extend({
 ```
 ####2: Set the model and base URL for the collection as normal
 
 Within our collection, we then (as normal) specify the model to be used with this collection followed by the URL (or base URL) for the service providing our data (e.g the Netflix API).
 
-```
+```javascript
         model: model,
         url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 
@@ -35,13 +45,13 @@ that are internally used by Backbone.Paginator.
 
 For example: the NetFlix API refers to it's parameter for stating how many results to skip ahead by as `$skip` and it's number of items to return per page as `$top` (amongst others). We determine these by looking at a sample URL pointing at the service:
 
-```
+```javascript
 http://odata.netflix.com/v2/Catalog/Titles?&callback=callback&$top=30&$skip=30&orderBy=ReleaseYear&$inlinecount=allpages&$format=json&$callback=callback&$filter=substringof%28%27the%27,%20Name%29%20eq%20true&_=1332702202090
 ```
 
 We then simply map these parameters to the relevant Paginator equivalents shown on the left hand side of the next snippets to get everything working:
 
-```
+```javascript
         // @param-name for the query field in the 
         // request (e.g query/keywords/search)
         queryAttribute: '$filter',
@@ -83,7 +93,7 @@ e.g: If we want to request the:
 This would look as follows:
 
 
-```
+```javascript
         // current page to query from the service (set 
         // to 1 or 0 if you wish to start from the first page)
         page: 1,
@@ -129,7 +139,7 @@ The last thing we need to do is configure our collection's `parse()` method. We 
 
 You might also notice that we're setting `this.totalPages` to the total page count returned by the API. This allows us to define the maximum number of (result) pages available for the current/last request so that we can clearly display this in the UI. It also allows us to infuence whether clicking say, a 'next' button should proceed with a request or not.
 
-```
+```javascript
         parse: function (response) {
             // Be sure to change this based on how your results
             // are structured (e.g d.results is Netflix specific)
@@ -160,7 +170,7 @@ The `clientPager` works similar to the `requestPager`, except that our configura
 ####1. Create a new paginated collection with a model and URL
 As with `requestPager`, let's first create a new Paginated `clientPager` collection, with a model and base URL:
 
-```
+```javascript
     var TagsClient = Backbone.Paginator.clientPager.extend({
         
         model: model,
@@ -171,7 +181,7 @@ As with `requestPager`, let's first create a new Paginated `clientPager` collect
 ####2. Map the attributes supported by your API (URL)
 We're similarly going to map request parameter names for your API to those supported in the paginator:
 
-```
+```javascript
         perPageAttribute: '$top',
 
         skipAttribute: '$skip',
@@ -191,7 +201,7 @@ We're similarly going to map request parameter names for your API to those suppo
 ####3. Configure how to paginate data at a UI-level
 We then get to configuration for the paginated data in the UI. `perPage` specifies how many results to return from the server whilst `displayPerPage` configures how many of the items in returned results to display per 'page' in the UI. e.g If we request 100 results and only display 20 per page, we have 5 sub-pages of results that can be navigated through in the UI.
 
-```
+```javascript
         // how many results to query from the service
         perPage: '30',
 
@@ -203,7 +213,7 @@ We then get to configuration for the paginated data in the UI. `perPage` specifi
 
 We can then configure default values for the rest of our request parameters:
 
-```
+```javascript
         // current page to query from the service
         page: '1',
         
@@ -232,7 +242,7 @@ We can then configure default values for the rest of our request parameters:
 
 And finally we have our `parse()` method, which in this case isn't concerned with the total number of result pages available on the server as we have our own total count of pages for the paginated data in the UI.
 
-```
+```javascript
  parse: function (response) {
             var tags = response.d.results;
             return tags;
@@ -252,12 +262,16 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.pager(sortBy, sortDirection)** - update sort on the current view
 
 
-##Credits
 
-###2012:
-* Complete project re-write: @addyosmani
 
-###2011:
-* API/server version and client-data refactor: @addyosmani
-* Initial work on client version: @bmsterling
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
+_Also, please don't edit files in the "dist" subdirectory as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
+
+## Release History
+_(Nothing yet)_
+
+## License
+Copyright (c) 2012 Addy Osmani  
+Licensed under the MIT license.
