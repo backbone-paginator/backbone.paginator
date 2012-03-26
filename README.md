@@ -7,8 +7,8 @@ A set of pagination components for Backbone.js
 ### Releases
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/addyosmani/Backbone.Paginator/master/dist/Backbone.Paginator.min.js
-[max]: https://raw.github.com/addyosmani/Backbone.Paginator/master/dist/Backbone.Paginator.js
+[min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
+[max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
 
 ## Documentation
 
@@ -270,7 +270,12 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 _Also, please don't edit files in the "dist" subdirectory as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
 
 ## Release History
-_(Nothing yet)_
+
+* 0.15 - rewrite to simplify the project API, unify components under the same collection hood
+* 0.14 - rewrite of all components
+* 0.13 - initial release of client and request pagers
+* 0.11 - initial work on version to work with requests to a server
+* 0.1 - basic pagination of a single response from the server
 
 ## License
 Copyright (c) 2012 Addy Osmani  
