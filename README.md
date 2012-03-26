@@ -6,8 +6,8 @@ Backbone.Paginator is a set of opinionated components for paginating collections
 
 You can either download the raw source code for the project, fork the repository or use one of these links:
 
-Production: [production version][min]
-Development: [development version][max]
+* Production: [production version][min]
+* Development: [development version][max]
 
 [min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
@@ -19,7 +19,7 @@ Backbone.Paginator supports two main pagination components:
 * **Backbone.Paginator.requestPager** - for pagination of requests between a client and a server-side API
 * **Backbone.Paginator.clientPager** - for pagination of data returned from a server which you would like to further paginate within the UI (e.g 50 results returned, paginate into pages of 20)
 
-###requestPager tutorial
+###Paginator.requestPager
 
 In this section we're going to walkthrough actually using the requestPager.
 
@@ -162,7 +162,7 @@ For your convenience, the following methods are made available for use in your v
 * **Collection.howManyPer(n)** - set the number of items to display per page
 
 
-###clientPager tutorial
+###Paginator.clientPager
 
 The `clientPager` works similar to the `requestPager`, except that our configuration values influence the pagination of data already returned at a UI-level. Whilst not shown (yet) there is also a lot more UI logic that ties in with the `clientPager`. An example of this can be seen in 'views/clientPagination.js'. 
 
@@ -260,8 +260,6 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.nextPage()** - go to the next page
 * **Collection.howManyPer(n)** - set how many items to display per page
 * **Collection.pager(sortBy, sortDirection)** - update sort on the current view
-
-
 
 
 ## Contributing
