@@ -12,12 +12,22 @@ You can either download the raw source code for the project, fork the repository
 [min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
 
+
 ## Paginator's pieces
 
 Backbone.Paginator supports two main pagination components:
 
 * **Backbone.Paginator.requestPager**: For pagination of requests between a client and a server-side API
 * **Backbone.Paginator.clientPager**: For pagination of data returned from a server which you would like to further paginate within the UI (e.g 60 results are returned, paginate into 3 pages of 20)
+
+
+## Live Examples
+
+Previews of both pagination components using the Netflix API can be found below. Fork the repository to
+
+* [requestPager](http://addyosmani.github.com/backbone.paginator/examples/netflix-request-paging/index.html)
+* [clientPager](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
+
 
 ##Paginator.requestPager
 
