@@ -21,12 +21,12 @@
 
 			this.collection.on('reset', this.render, this);
 			this.collection.on('change', this.render, this);
-			$(this.el).appendTo('#pagination');
+			this.$el.appendTo('#pagination');
 
 		},
 		render: function () {
 			var html = this.pagingTemplate(this.collection.info());
-			$(this.el).html(html);
+			this.$el.html(html);
 		},
 
 		gotoFirst: function (e) {
