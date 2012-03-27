@@ -1,6 +1,6 @@
 (function (views) {
 
-	views.clientPagination = Backbone.View.extend({
+	views.PaginationView = Backbone.View.extend({
 
 		events: {
 			'click a.first': 'gotoFirst',
@@ -15,15 +15,17 @@
 
 		tagName: 'aside',
 
+		pagingTemplate: _.template($('#tmpClientPagination').html()),
+
 		initialize: function () {
+
 			this.collection.on('reset', this.render, this);
 			this.collection.on('change', this.render, this);
-			this.tmpl = _.template($('#tmpClientPagination').html());
 			$(this.el).appendTo('#pagination');
 
 		},
 		render: function () {
-			var html = this.tmpl(this.collection.info());
+			var html = this.pagingTemplate(this.collection.info());
 			$(this.el).html(html);
 		},
 
@@ -68,8 +70,7 @@
 		},
 
 		getSortOption: function () {
-			var sel = $('#sortByOption').val();
-			return sel;
+			return $('#sortByOption').val();
 		},
 
 		preserveSortOption: function (option) {

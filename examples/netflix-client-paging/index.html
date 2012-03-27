@@ -18,7 +18,9 @@
 		  </div>
 
 		  	<h3>NetFlix movies</h3>
+
 			<ul id="content">
+			
 			</ul>
 
 			<ul id="pagination">
@@ -26,7 +28,12 @@
 
 		</div>
 
+
 		<!--sample template for pagination UI-->
+		<script type="text/html" id="resultItemTemplate">
+			<span><%= Name %> ( <%= Math.floor(Runtime/60) %> mins) [ <%= Rating %> ]</span>
+		</script>
+
 		<script type="text/html" id="tmpClientPagination">
 		 <div class="breadcrumb">
 
@@ -90,18 +97,20 @@
 		<script src="../libs/json2.js"></script>
 		<script src="../libs/backbone-min.js"></script>
 		
+		<!-- main app -->
 		<script src="app.js"></script>
 
 		<!--Backbone.Paginator-->
 		<script src="../../dist/backbone.paginator.min.js"></script>
 
 		<!--Models/Collections-->
-		<script src="models/Tag.js"></script>
-		<script src="collections/tagsClient.js"></script>
+		<script src="models/Item.js"></script>
+		<script src="collections/PaginatedCollection.js"></script>
 
 		<!--Views-->
-		<script src="views/TagsClient.js"></script>
-		<script src="views/clientPagination.js"></script>
+		<script src="views/ResultView.js"></script>
+		<script src="views/PaginationView.js"></script>
+		<script src="views/AppView.js"></script>
 
 	</body>
 </html>

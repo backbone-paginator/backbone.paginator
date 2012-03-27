@@ -37,7 +37,7 @@ In this section we're going to walkthrough actually using the requestPager.
 First, we define a new Paginated collection using `Backbone.Paginator.requestPager()` as follows:
 
 ```javascript
-collections.TagsRequest = Backbone.Paginator.requestPager.extend({
+var PaginatedCollection = Backbone.Paginator.requestPager.extend({
 ```
 ####2: Set the model and base URL for the collection as normal
 
@@ -180,7 +180,7 @@ The `clientPager` works similar to the `requestPager`, except that our configura
 As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.clientPager` collection, with a model and base URL:
 
 ```javascript
-    var TagsClient = Backbone.Paginator.clientPager.extend({
+    var PaginatedCollection = Backbone.Paginator.clientPager.extend({
         
         model: model,
 

@@ -1,6 +1,6 @@
 (function (collections, model, paginator) {
 
-    collections.TagsClient = paginator.clientPager.extend({
+    collections.PaginatedCollection = paginator.clientPager.extend({
 
         model: model,
 
@@ -70,4 +70,4 @@
     });
 
 
-})( app.collections, app.mixins.clientPaginator, Backbone.Paginator);
+})( app.collections, app.models.Tag, Backbone.Paginator);

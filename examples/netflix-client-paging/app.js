@@ -10,12 +10,9 @@
 
 	// Defer initialization until doc ready.
 	$(function(){
-		if(!(app.collections.TagsClient==undefined)){
-			var clientTags  = new app.collections.TagsClient();
-			app.views.tagsClient = new app.views.TagsClient({collection: clientTags});
-			app.views.clientPaging = new app.views.clientPagination({collection: clientTags,});
-
-		}
+			app.collections.paginatedItems = new app.collections.PaginatedCollection();
+			app.views.app = new app.views.AppView({collection: app.collections.paginatedItems});
+			app.views.pagination = new app.views.PaginationView({collection: app.collections.paginatedItems});
 	});
 
 })();
