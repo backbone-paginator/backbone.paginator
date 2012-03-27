@@ -3,6 +3,7 @@
 		el : '#content',
 		initialize : function () {
 
+			//todo: move towards the 3 sig .on from 0.9.x
 			_.bindAll (this, 'render', 'addAll', 'addOne');
 
 			var self = this;
@@ -33,7 +34,9 @@
 	var TagClient = Backbone.View.extend({
 		tagName : 'li',
 		render : function () {
-			$(this.el).html(this.model.get('Name'));
+
+			//todo: it's late, but this needs to be moved to proper templating..
+			$(this.el).html(this.model.get('Name') + ' (' + Math.floor(this.model.get('Runtime')/60) + ' mins)[' + this.model.get('Rating') + ']');
 		}
 	});
 })( app.views );
