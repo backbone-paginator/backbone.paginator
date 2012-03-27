@@ -23,10 +23,10 @@ Backbone.Paginator supports two main pagination components:
 
 ## Live Examples
 
-Previews of both pagination components using the Netflix API can be found below. Fork the repository to
+Live previews of both pagination components using the Netflix API can be found below. Fork the repository to experiment with these examples further.
 
-* [requestPager](http://addyosmani.github.com/backbone.paginator/examples/netflix-request-paging/index.html)
-* [clientPager](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
+* [Backbone.Paginator.requestPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-request-paging/index.html)
+* [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
 
 
 ##Paginator.requestPager
