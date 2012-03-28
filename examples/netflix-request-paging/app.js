@@ -10,14 +10,10 @@
 
 	// Defer initialization until doc ready.
 	$(function(){
-		if(!(app.collections.TagsRequest==undefined)){
-			var requestTags = new app.collections.TagsRequest();
-			app.views.requestView = new app.views.TagsRequest({collection: requestTags});
-			app.views.requestPaging = new app.views.requestPagination({collection:requestTags});
-		}
+			app.collections.paginatedItems = new app.collections.PaginatedCollection();
+			app.views.app = new app.views.AppView({collection: app.collections.paginatedItems});
+			app.views.pagination = new app.views.PaginatedView({collection:app.collections.paginatedItems});
 	});
 
 })();
-
-
 

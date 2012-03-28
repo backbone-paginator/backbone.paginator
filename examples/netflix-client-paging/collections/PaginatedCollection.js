@@ -47,7 +47,7 @@
         //or year(Instant/AvailableFrom)
         
         // query
-        query: 'substringof%28%27' + 'the' + '%27,%20Name%29%20eq%20true', 
+        query: "substringof('" + escape('the') + "',Name)",
 
         // request format
         format: 'json',

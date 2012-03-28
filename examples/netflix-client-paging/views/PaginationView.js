@@ -66,7 +66,6 @@
 			var currentSort = this.getSortOption();
 			this.collection.pager(currentSort, 'asc');
 			this.preserveSortOption(currentSort);
-
 		},
 
 		getSortOption: function () {

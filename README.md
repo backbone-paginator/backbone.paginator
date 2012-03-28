@@ -71,6 +71,9 @@ We then simply map these parameters to the relevant Paginator equivalents shown 
         // @param-name for how many results the request should skip ahead to
         skipAttribute: '$skip',
 
+        // @param-name for the direction to sort in
+        sortAttribute: '$sort',
+        
         // @param-name for field to sort by
         orderAttribute: 'orderBy',
 
@@ -127,7 +130,7 @@ This would look as follows:
         // what would you like to query (search) from the service?
         // as Netflix reqires additional parameters around the query
         // we simply fill these around our search term
-        query: 'substringof%28%27' + 'superman' +' %27,%20Name%29%20eq%20true',
+        query: "substringof('" + escape('the') + "',Name)",
 
         // what format would you like to request results in?
         format: 'json',
@@ -236,7 +239,7 @@ We can then configure default values for the rest of our request parameters:
         //or year(Instant/AvailableFrom)
         
         // query
-        query: 'substringof%28%27' + 'the' + '%27,%20Name%29%20eq%20true', 
+        query: "substringof('" + escape('the') + "',Name)",
 
         // request format
         format: 'json',

@@ -26,13 +26,19 @@
 			</div>
 
 		  <div class="alert-message block-message warning">
-	        <p>Note: The Netflix OData feed may not return the last page depending the query used and approximation of total results returned. For customization, 'last' functioning is entirely dependant on how your backend returns results.</p>
+	        <p>Note: The Netflix OData feed may not return the last page of results depending the query used and approximation of total results returned (e.g page 30,000 will be unlikely to display). Also note that the Netflix 'orderby' field (that powers sort) is a little buggy on their end. If someone has suggestions for an alternative data source to demonstrate, I'm happy to switch.</p>
 	      </div>
 		
 
 		</div>
 
 	
+		<!--sample template for result item-->
+
+		<script type="text/html" id="resultItemTemplate">
+			<span><%= Name %> ( <%= Math.floor(Runtime/60) %> mins) [ <%= Rating %> ] [ <%= ReleaseYear %> ]</span>
+		</script>
+
 		<!-- sample template for pagination UI -->
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
@@ -75,8 +81,10 @@
 				</span>
 
 				<select id="sortByField">
-				    <option value="ReleaseYear">Release year</option>
+					<option value="cid">Select a field to sort on</option>
+				    <option value="year(Instant/AvailableFrom)">Release year</option>
 				 	<option value="month(Instant/AvailableFrom)">Release month</option>
+				 	<option value="ShortName">Alphabetical</option>
 				</select>
 			  	</span>
 
@@ -95,15 +103,16 @@
 		<script src="app.js"></script>
 
 		<!--Backbone.Paginator-->
-		<script src="../../dist/backbone.paginator.min.js"></script>
+		<script src="../../dist/backbone.paginator.js"></script>
 
 		<!--Models/Collections-->
-		<script src="models/Tag.js"></script>
-		<script src="collections/tagsRequest.js"></script>
+		<script src="models/Item.js"></script>
+		<script src="collections/PaginatedCollection.js"></script>
 
 		<!--Views-->
-		<script src="views/TagsRequest.js"></script>
-		<script src="views/requestPagination.js"></script>
+		<script src="views/ResultView.js"></script>
+		<script src="views/PaginationView.js"></script>
+		<script src="views/AppView.js"></script>
 
 
 	</body>

@@ -3,7 +3,7 @@
         // Create a new collection using one of Backbone.Paginator's
         // pagers. We're going to begin using the requestPager first.
 
-    collections.TagsRequest = paginator.requestPager.extend({
+    collections.PaginatedCollection = paginator.requestPager.extend({
 
         // As usual, let's specify the model to be used
         // with this collection
@@ -38,6 +38,9 @@
         // @param-name for how many results the request should skip ahead to
         skipAttribute: '$skip',
 
+        // @param-name for the direction to sort in
+        sortAttribute: 'sort',
+
         // @param-name for field to sort by
         orderAttribute: 'orderBy',
 
@@ -69,13 +72,14 @@
         totalPages: 10,
 
         // what field should the results be sorted on?
-        sortField: 'ReleaseYear',
+        sortField: 'AverageRating%20desc',//ReleaseYear,ShortName asc, ShortName
         
         // what direction should the results be sorted in?
         sortDirection: 'asc',
 
         // what would you like to query (search) from the service?
-        query: 'substringof%28%27the%27,%20Name%29%20eq%20true',
+        //query: "substringof('" + escape('and') + "',Name)",
+        query: "Type%20eq%20'Movie'",
 
         // what format would you like to request results in?
         format: 'json',
@@ -97,4 +101,4 @@
 
     });
 
-})( app.collections, app.models.Tag, Backbone.Paginator);
+})( app.collections, app.models.Item, Backbone.Paginator);

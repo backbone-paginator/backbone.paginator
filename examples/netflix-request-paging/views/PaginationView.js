@@ -1,6 +1,6 @@
 (function (views) {
 
-	views.requestPagination = Backbone.View.extend({
+	views.PaginatedView = Backbone.View.extend({
 
 		events: {
 			'click a.servernext': 'nextResultPage',
@@ -14,17 +14,20 @@
 
 		tagName: 'aside',
 
+		template: _.template($('#tmpServerPagination').html()),
+
 		initialize: function () {
+
 			this.collection.on('reset', this.render, this);
 			this.collection.on('change', this.render, this);
-			this.tmpl = _.template($('#tmpServerPagination').html());
-			$(this.el).appendTo('#pagination');
+
+			this.$el.appendTo('#pagination');
 
 		},
 
 		render: function () {
-			var html = this.tmpl(this.collection.info());
-			$(this.el).html(html);
+			var html = this.template(this.collection.info());
+			this.$el.html(html);
 		},
 
 		updateSortBy: function (e) {

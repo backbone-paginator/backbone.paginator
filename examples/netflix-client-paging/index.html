@@ -29,10 +29,13 @@
 		</div>
 
 
-		<!--sample template for pagination UI-->
+		<!--sample template for result item-->
+
 		<script type="text/html" id="resultItemTemplate">
-			<span><%= Name %> ( <%= Math.floor(Runtime/60) %> mins) [ <%= Rating %> ]</span>
+			<span><%= Name %> ( <%= Math.floor(Runtime/60) %> mins) [ <%= Rating %> ] [ <%= ReleaseYear %> ]</span>
 		</script>
+
+		<!--sample template for pagination UI-->
 
 		<script type="text/html" id="tmpClientPagination">
 		 <div class="breadcrumb">
@@ -101,7 +104,7 @@
 		<script src="app.js"></script>
 
 		<!--Backbone.Paginator-->
-		<script src="../../dist/backbone.paginator.min.js"></script>
+		<script src="../../dist/backbone.paginator.js"></script>
 
 		<!--Models/Collections-->
 		<script src="models/Item.js"></script>
