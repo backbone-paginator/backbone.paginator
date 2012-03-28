@@ -28,11 +28,23 @@
 
 		</div>
 
-
 		<!--sample template for result item-->
-
 		<script type="text/html" id="resultItemTemplate">
-			<span><%= Name %> ( <%= Math.floor(Runtime/60) %> mins) [ <%= Rating %> ] [ <%= ReleaseYear %> ]</span>
+			<div class="result row">
+					<div class="title">
+					<h4><%= Name %></h4>
+					<div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
+					</div>
+
+					<div class="span12 cover">
+					   <div class="span4">
+					   <img src="<%= BoxArt.MediumUrl %>"/></div>
+					   <div class="synop span8">
+					   	<%= ShortSynopsis %>
+					   	</div>
+					</div>
+
+			</div>
 		</script>
 
 		<!--sample template for pagination UI-->
@@ -58,15 +70,19 @@
 				<% } %>
 			</span>
 
+			<span class="divider">/</span>
+
 			<span class="cell howmany">
 				Show
-				<a href="#" class="selected">20</a>
+				<a href="#" class="selected">3</a>
 				|
-				<a href="#" class="">50</a>
+				<a href="#" class="">9</a>
 				|
-				<a href="#" class="">100</a>
+				<a href="#" class="">12</a>
 			</span>
 
+			<span class="divider">/</span>
+			
 			<span class="cell first records">
 				<span class="current"><%= startRecord %></span>
 				-
@@ -76,10 +92,8 @@
 							shown
 			</span>
 
-			<span class="cell sort">
-				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
-				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
-			</span>
+
+			<span class="divider">/</span>
 
 			<select id="sortByOption">
 				<option value="cid">Select a field to sort on</option>
@@ -87,6 +101,11 @@
 			 	<option value="Runtime">runtime</option>
 			 	<option value="Rating">rating</option>
 			</select>
+
+			<span class="cell sort">
+				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
+				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
+			</span>
 
 		  </div>
 		</script>

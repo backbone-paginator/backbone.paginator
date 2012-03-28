@@ -220,11 +220,11 @@ We then get to configuration for the paginated data in the UI. `perPage` specifi
 
 ```javascript
         // M: how many results to query from the service
-        perPage: '40',
+        perPage: 40,
 
         // N: how many results to display per 'page' within the UI
         // Effectively M/N = the number of pages the data will be split into.
-        displayPerPage: '20',
+        displayPerPage: 20,
 ```
 
 ####4. Configure the rest of the request parameter default values

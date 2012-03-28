@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.5 - 3/28/2012
+/*! backbone.paginator - v0.1.5 - 3/29/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -53,25 +53,32 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		goTo: function (page) {
-			this.page = parseInt(page, 10);
-			this.pager();
+			if(page !== undefined){
+				this.page = parseInt(page, 10);
+				this.pager();
+			}
 		},
 
 		howManyPer: function (perPage) {
-			this.displayPerPage = perPage;
-			this.pager();
+			if(perPage !== undefined){
+				this.displayPerPage = parseInt(perPage, 10);
+				this.pager();
+			}
 		},
 
 
 		// where column is the key to sort on
 		setSort: function (column, direction) {
-			this.pager(column, direction);
+			if(column !==undefined && direction !==undefined){
+				this.pager(column, direction);
+			}
 		},
 
 		pager: function (sort, direction) {
 			var self = this,
-				start = (self.page - 1) * this.displayPerPage,
-				stop = start + this.displayPerPage;
+				disp = this.displayPerPage,
+				start = (self.page - 1) * disp,
+				stop = start + disp;
 
 			if (self.origModels === undefined) {
 				self.origModels = self.models;
@@ -82,9 +89,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			if (sort) {
 				self.models = self._sort(self.models, sort, direction);
 			}
-
-			self.reset(
-			self.models.slice(start, stop));
+			self.reset(self.models.slice(start, stop));
 		},
 
 		_sort: function (models, sort, direction) {
@@ -120,7 +125,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			var self = this,
 				info = {},
 				totalRecords = (self.origModels) ? self.origModels.length : self.length,
-				totalPages = Math.ceil(totalRecords / self.perPage);
+				totalPages = Math.ceil(totalRecords / self.displayPerPage);
 
 			info = {
 				totalRecords: totalRecords,
@@ -156,10 +161,10 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 
 			// How many adjacent pages should be shown on each side?
-			var ADJACENT = 3;
-			var ADJACENTx2 = ADJACENT * 2;
-			var LASTPAGE = Math.ceil(info.totalRecords / info.perPage);
-			var LPM1 = -1;
+			var ADJACENT = 3,
+				ADJACENTx2 = ADJACENT * 2,
+				LASTPAGE = Math.ceil(info.totalRecords / info.perPage),
+				LPM1 = -1;
 
 			if (LASTPAGE > 1) {
 				// not enough pages to bother breaking it up

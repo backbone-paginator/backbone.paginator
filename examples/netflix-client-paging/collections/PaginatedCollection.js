@@ -31,13 +31,13 @@
         customAttribute2: '$callback',
 
         // current page to query from the service
-        page: '1',
+        page: 1,
 
         // how many results to query from the service
-        perPage: '30',
+        perPage: 30,
 
         // how many results to display per 'client page'
-        displayPerPage: '20',
+        displayPerPage: 3,
 
         // sort direction
         sortDirection: 'asc',
@@ -47,7 +47,7 @@
         //or year(Instant/AvailableFrom)
         
         // query
-        query: "substringof('" + escape('the') + "',Name)",
+        query: "substringof('" + escape('america') + "',Name)",
 
         // request format
         format: 'json',
