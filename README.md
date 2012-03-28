@@ -73,7 +73,7 @@ We then simply map these parameters to the relevant Paginator equivalents shown 
 
         // @param-name for the direction to sort in
         sortAttribute: '$sort',
-        
+
         // @param-name for field to sort by
         orderAttribute: 'orderBy',
 
@@ -106,9 +106,12 @@ This would look as follows:
 
 
 ```javascript
-        // current page to query from the service (set 
-        // to 1 or 0 if you wish to start from the first page)
-        page: 1,
+
+        // The lowest page index your API allows to be accessed
+        firstPage: 0, //some begin with 1
+
+        // current page to query from the service
+        page: 5,
 
         // how many results to query from the service 
         // (i.e how many to return per request) perPage: 30,

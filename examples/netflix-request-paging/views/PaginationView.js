@@ -7,6 +7,7 @@
 			'click a.serverprevious': 'previousResultPage',
 			'click a.orderUpdate': 'updateSortBy',
 			'click a.serverlast': 'gotoLast',
+			'click a.serverfirst': 'gotoFirst',
 			'click a.serverpage': 'gotoPage',
 			'click .serverhowmany a': 'changeCount'
 
@@ -32,8 +33,8 @@
 
 		updateSortBy: function (e) {
 			e.preventDefault();
-			var sort = $('#sortByField').val();
-			this.collection.updateOrder(sort);
+			var currentSort = $('#sortByField').val();
+			this.collection.updateOrder(currentSort);
 		},
 
 		nextResultPage: function (e) {
@@ -46,6 +47,11 @@
 			this.collection.requestPreviousPage();
 		},
 
+		gotoFirst: function (e) {
+			e.preventDefault();
+			this.collection.goTo(this.collection.information.firstPage);
+		},
+
 		gotoLast: function (e) {
 			e.preventDefault();
 			this.collection.goTo(this.collection.information.lastPage);
@@ -56,6 +62,7 @@
 			var page = $(e.target).text();
 			this.collection.goTo(page);
 		},
+
 
 		changeCount: function (e) {
 			e.preventDefault();

@@ -18,7 +18,7 @@
 		  </div>
 
 
-			<h3>NetFlix movies</h3>
+			<h3>NetFlix movies starring Nicole Kidman</h3>
 			<ul id="content">
 			</ul>
 
@@ -45,7 +45,7 @@
 
 			  	<span class="cell ">
 
-					<% if (page > 1) { %>
+					<% if (page > firstPage) { %>
 						<a href="#" class="serverprevious">Previous</a>
 					<% }else{ %>
 						<span>Previous</span>
@@ -53,6 +53,10 @@
 
 					<% if (page < totalPages) { %>
 						<a href="#" class="servernext">Next</a>
+					<% } %>
+
+					<% if (firstPage != page) { %>
+						<a href="#" class="serverfirst">First</a>
 					<% } %>
 
 					<% if (lastPage != page) { %>
@@ -70,7 +74,7 @@
 					</span>
 
 					<span class="cell first records">
-						<span class="current"><%= page %></span>
+						<span class="current"><%= page+1 %></span>
 						of
 						<span class="total"><%= totalPages %></span>
 									shown

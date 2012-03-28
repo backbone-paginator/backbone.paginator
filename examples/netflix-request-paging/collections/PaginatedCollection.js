@@ -11,7 +11,7 @@
         
         // followed by the URL (or base URL) for the service
         // providing our data (e.g the Netflix API)
-        url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
+        url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?',
 
         // Next, we're going to map the parameters supported by
         // your API or backend data service back to attributes
@@ -42,7 +42,7 @@
         sortAttribute: 'sort',
 
         // @param-name for field to sort by
-        orderAttribute: 'orderBy',
+        orderAttribute: '$orderby',
 
         // @param-name for the format of the request
         formatAttribute: '$format',
@@ -58,13 +58,15 @@
         // to continue querying with the correct field to sort on, the 
         // right number of items to return per request etc.
 
-        // current page to query from the service (set to 1 or 0 if you
-        // wish to start from the first page)
-        page: 1,
+        // The lowest page index your API allows to be accessed
+        firstPage: 0, //some begin with 1
+
+        // current page to query from the service
+        page: 0,
 
         // how many results to query from the service (i.e how many to return
         // per request)
-        perPage: 30,
+        perPage: 5,
 
         // maximum number of pages that can be queried from the server (only
         // here as a default in case your service doesn't return the total
@@ -72,14 +74,14 @@
         totalPages: 10,
 
         // what field should the results be sorted on?
-        sortField: 'AverageRating%20desc',//ReleaseYear,ShortName asc, ShortName
+        sortField: 'ReleaseYear',//ReleaseYear,ShortName asc, ShortName
         
         // what direction should the results be sorted in?
         sortDirection: 'asc',
 
         // what would you like to query (search) from the service?
         //query: "substringof('" + escape('and') + "',Name)",
-        query: "Type%20eq%20'Movie'",
+        query: "",
 
         // what format would you like to request results in?
         format: 'json',

@@ -235,7 +235,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 
 		requestNextPage: function () {
-			if (this.page >= 0) {
+			if (typeof this.page === "number") {
 				this.page += 1;
 				// customize as needed. For the Netflix API, skipping ahead based on
 				// page * number of results per page was necessary. You may have a
@@ -247,7 +247,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		requestPreviousPage: function () {
-			if (this.page >= 0) {
+			if (typeof this.page === "number") {
 				this.page -= 1;
 				// customize as needed.
 				this.pager();
@@ -268,7 +268,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		howManyPer: function (count) {
-			this.page = 1;
+			this.page = this.firstPage;
 			this.perPage = count;
 			this.pager();
 		},
@@ -280,6 +280,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		info: function () {
 			var info = {
 				page: this.page,
+				firstPage: this.firstPage,
 				totalPages: this.totalPages,
 				lastPage: this.totalPages
 			};
