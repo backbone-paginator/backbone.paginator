@@ -282,7 +282,8 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				page: this.page,
 				firstPage: this.firstPage,
 				totalPages: this.totalPages,
-				lastPage: this.totalPages
+				lastPage: this.totalPages,
+				perPage: this.perPage
 			};
 
 			this.information = info;

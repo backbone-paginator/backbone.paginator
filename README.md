@@ -159,10 +159,12 @@ You might also notice that we're setting `this.totalPages` to the total page cou
             // Be sure to change this based on how your results
             // are structured (e.g d.results is Netflix specific)
             var tags = response.d.results;
-            this.totalPages = response.d.__count;
+            //Normally this.totalPages would equal response.d.__count
+            //but as this particular NetFlix request only returns a
+            //total count of items for the search, we divide.
+            this.totalPages = Math.floor(response.d.__count / this.perPage);
             return tags;
         }
-
     });
 
 });

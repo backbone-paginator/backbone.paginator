@@ -11,6 +11,7 @@
         
         // followed by the URL (or base URL) for the service
         // providing our data (e.g the Netflix API)
+
         url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?',
 
         // Next, we're going to map the parameters supported by
@@ -66,7 +67,7 @@
 
         // how many results to query from the service (i.e how many to return
         // per request)
-        perPage: 5,
+        perPage: 3,
 
         // maximum number of pages that can be queried from the server (only
         // here as a default in case your service doesn't return the total
@@ -97,7 +98,10 @@
             // Be sure to change this based on how your results
             // are structured (e.g d.results is Netflix specific)
             var tags = response.d.results;
-            this.totalPages = response.d.__count;
+            //Normally this.totalPages would equal response.d.__count
+            //but as this particular NetFlix request only returns a
+            //total count of items for the search, we divide.
+            this.totalPages = Math.floor(response.d.__count / this.perPage);
             return tags;
         }
 
