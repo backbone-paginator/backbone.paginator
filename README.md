@@ -6,8 +6,8 @@ Backbone.Paginator is a set of opinionated components for paginating collections
 
 You can either download the raw source code for the project, fork the repository or use one of these links:
 
-* Production: [production version][min] 3.17K file size (1.5K gzipped)
-* Development: [development version][max] 6.69K file size (2.18K gzipped)
+* Production: [production version][min] 3.3K file size (1.1K gzipped)
+* Development: [development version][max] 7.01K file size (2.28K gzipped)
 
 [min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
