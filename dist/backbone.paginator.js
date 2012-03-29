@@ -151,7 +151,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 			info.pageSet = self.setPagination(info);
 
-			self.information = info;
+			self.information = info;			
 			return info;
 		},
 
@@ -240,7 +240,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 
 		requestNextPage: function () {
-			if (typeof this.page === "number") {
+			if (this.page !== undefined) {
 				this.page += 1;
 				// customize as needed. For the Netflix API, skipping ahead based on
 				// page * number of results per page was necessary. You may have a
@@ -252,7 +252,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		requestPreviousPage: function () {
-			if (typeof this.page === "number") {
+			if (this.page !== undefined) {
 				this.page -= 1;
 				// customize as needed.
 				this.pager();
@@ -260,7 +260,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		updateOrder: function (column) {
-			if (column) {
+			if (column !== undefined) {
 				this.sortField = column;
 				this.pager();
 			}
@@ -268,21 +268,26 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		goTo: function (page) {
-			this.page = parseInt(page, 10);
-			this.pager();
+			if(page !== undefined){
+				this.page = parseInt(page, 10);
+				this.pager();				
+			}
 		},
 
 		howManyPer: function (count) {
-			this.page = this.firstPage;
-			this.perPage = count;
-			this.pager();
+			if(count !== undefined){
+				this.page = this.firstPage;
+				this.perPage = count;
+				this.pager();				
+			}
 		},
 
 		sort: function () {
-
+			//assign to as needed.
 		},
 
 		info: function () {
+
 			var info = {
 				page: this.page,
 				firstPage: this.firstPage,

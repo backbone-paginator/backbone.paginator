@@ -50,7 +50,18 @@
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 
-			  	<span class="cell ">
+			  	<span class="cell">
+					<% for(p=0;p<=totalPages;p++){
+					%>
+						<% if (page == p) { %>
+							<span class="page selected"><%= p %></span>
+						<% } else { %>
+							<a href="#" class="page"><%= p %></a>
+						<% } %>	
+					<%	
+					}%>
+
+					<span class="divider">/</span>
 
 					<% if (page > firstPage) { %>
 						<a href="#" class="serverprevious">Previous</a>

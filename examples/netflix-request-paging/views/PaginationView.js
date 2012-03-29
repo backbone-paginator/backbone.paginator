@@ -7,6 +7,7 @@
 			'click a.serverprevious': 'previousResultPage',
 			'click a.orderUpdate': 'updateSortBy',
 			'click a.serverlast': 'gotoLast',
+			'click a.page': 'gotoPage',
 			'click a.serverfirst': 'gotoFirst',
 			'click a.serverpage': 'gotoPage',
 			'click .serverhowmany a': 'changeCount'
@@ -62,7 +63,6 @@
 			var page = $(e.target).text();
 			this.collection.goTo(page);
 		},
-
 
 		changeCount: function (e) {
 			e.preventDefault();
