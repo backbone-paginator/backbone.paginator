@@ -8,7 +8,7 @@ You can either download the raw source code for the project, fork the repository
 
 * Production: [production version][min] 3.3K file size (1.1K gzipped)
 * Development: [development version][max] 7.01K file size (2.28K gzipped)
-* Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/v0.15)
+* Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/v0.151)
 
 [min]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.baginator/master/dist/backbone.paginator.js
@@ -108,22 +108,20 @@ This would look as follows:
 
 ```javascript
 
-        // The lowest page index your API allows to be accessed
-        firstPage: 0, //some begin with 1
-
         // current page to query from the service
         page: 5,
 
-        // how many results to query from the service 
-        // (i.e how many to return per request) perPage: 30,
-        // maximum number of pages that can be queried from 
-        // the server (only here as a default in case your 
-        // service doesn't return the total pages available)
-        totalPages: 10,
+        // The lowest page index your API allows to be accessed
+        firstPage: 0, //some begin with 1
 
         // how many results to query from the service (i.e how many to return
         // per request)
         perPage: 30,
+
+        // maximum number of pages that can be queried from 
+        // the server (only here as a default in case your 
+        // service doesn't return the total pages available)
+        totalPages: 10,
         
         // what field should the results be sorted on?
         sortField: 'ReleaseYear',
@@ -234,7 +232,7 @@ We can then configure default values for the rest of our request parameters:
 
 ```javascript
         // current page to query from the service
-        page: '1',
+        page: 1,
         
         // a default. This should be overridden in the collection's parse()
         // sort direction
