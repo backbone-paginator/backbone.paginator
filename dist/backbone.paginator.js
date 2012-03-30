@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.5 - 3/29/2012
+/*! backbone.paginator - v0.1.5 - 3/30/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 

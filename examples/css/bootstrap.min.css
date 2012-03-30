@@ -361,3 +361,6 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 .result .cover img{ float:left; margin-right:10px;}
 .result .cover .synop{  }
 .result .meta { padding-bottom:5px; color:#404040;}
+
+
+.long { width: 500px; text-align:center;}
