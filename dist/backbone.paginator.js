@@ -43,7 +43,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		nextPage: function () {
-			this.page = this.page++;
+			this.page = ++this.page;
 			this.pager();
 		},
 
