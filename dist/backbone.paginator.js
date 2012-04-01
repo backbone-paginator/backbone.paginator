@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.5 - 3/30/2012
+/*! backbone.paginator - v0.1.54 - 4/1/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -62,12 +62,13 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		howManyPer: function (perPage) {
 			if(perPage !== undefined){
 				this.displayPerPage = parseInt(perPage, 10);
+				this.page = 1;
 				this.pager();
 			}
 		},
 
 
-		// where column is the key to sort on
+		// where 'column' is the key to sort on
 		setSort: function (column, direction) {
 			if(column !==undefined && direction !==undefined){
 				this.pager(column, direction);
@@ -138,7 +139,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 				next: false,
 				page_set: [],
 				startRecord: (self.page - 1) * this.displayPerPage + 1,
-				endRecord: Math.min(totalRecords, self.page * this.displayPerPage)
+				endRecord: Math.min(totalRecords, self.page * this.displayPerPage) 
 			};
 
 			if (self.page > 1) {
