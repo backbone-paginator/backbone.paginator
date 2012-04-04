@@ -1,8 +1,8 @@
-/*! backbone.paginator - v0.1.54 - 4/1/2012
+/*! backbone.paginator - v0.1.54 - 4/4/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
-Backbone.Paginator = (function (Backbone, _, $) {
+Backbone.Paginator = (function ( Backbone, _, $ ) {
 	"use strict";
 
 	var Paginator = {};
@@ -19,7 +19,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	//
 	Paginator.clientPager = Backbone.Collection.extend({
 
-		sync: function (method, model, options) {
+		sync: function ( method, model, options ) {
 
 			var queryMap = {};
 				queryMap[this.perPageAttribute] =  this.perPage;
@@ -52,14 +52,14 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			this.pager();
 		},
 
-		goTo: function (page) {
+		goTo: function ( page ) {
 			if(page !== undefined){
 				this.page = parseInt(page, 10);
 				this.pager();
 			}
 		},
 
-		howManyPer: function (perPage) {
+		howManyPer: function ( perPage ) {
 			if(perPage !== undefined){
 				this.displayPerPage = parseInt(perPage, 10);
 				this.page = 1;
@@ -69,13 +69,13 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 
 		// where 'column' is the key to sort on
-		setSort: function (column, direction) {
+		setSort: function ( column, direction ) {
 			if(column !==undefined && direction !==undefined){
 				this.pager(column, direction);
 			}
 		},
 
-		pager: function (sort, direction) {
+		pager: function ( sort, direction ) {
 			var self = this,
 				disp = this.displayPerPage,
 				start = (self.page - 1) * disp,
@@ -93,7 +93,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 			self.reset(self.models.slice(start, stop));
 		},
 
-		_sort: function (models, sort, direction) {
+		_sort: function ( models, sort, direction ) {
 			models = models.sort(function (a, b) {
 				var ac = a.get(sort),
 					bc = b.get(sort);
@@ -157,7 +157,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 
-		setPagination: function (info) {
+		setPagination: function ( info ) {
 			var pages = [], i = 0, l = 0;
 
 
@@ -216,7 +216,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 	//
 	Paginator.requestPager = Backbone.Collection.extend({
 
-		sync: function (method, model, options) {
+		sync: function ( method, model, options ) {
 
 			var queryMap = {}, params;
 				queryMap[this.perPageAttribute] =  this.perPage;
@@ -241,7 +241,7 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 
 		requestNextPage: function () {
-			if (this.page !== undefined) {
+			if ( this.page !== undefined ) {
 				this.page += 1;
 				// customize as needed. For the Netflix API, skipping ahead based on
 				// page * number of results per page was necessary. You may have a
@@ -253,14 +253,13 @@ Backbone.Paginator = (function (Backbone, _, $) {
 		},
 
 		requestPreviousPage: function () {
-			if (this.page !== undefined) {
+			if ( this.page !== undefined ) {
 				this.page -= 1;
-				// customize as needed.
 				this.pager();
 			}
 		},
 
-		updateOrder: function (column) {
+		updateOrder: function ( column ) {
 			if (column !== undefined) {
 				this.sortField = column;
 				this.pager();
@@ -268,15 +267,15 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 		},
 
-		goTo: function (page) {
+		goTo: function ( page ) {
 			if(page !== undefined){
 				this.page = parseInt(page, 10);
 				this.pager();				
 			}
 		},
 
-		howManyPer: function (count) {
-			if(count !== undefined){
+		howManyPer: function ( count ) {
+			if( count !== undefined ){
 				this.page = this.firstPage;
 				this.perPage = count;
 				this.pager();				
@@ -311,4 +310,4 @@ Backbone.Paginator = (function (Backbone, _, $) {
 
 	return Paginator;
 
-}(Backbone, _, $));
+}( Backbone, _, jQuery ));
