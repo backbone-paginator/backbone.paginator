@@ -84,16 +84,38 @@
 			this.preserveSortOption(currentSort);
 		},
         
+        getFilterField: function () {
+            return $('#filterByOption').val();
+        },
+        
+        getFilterValue: function () {
+            return $('#filterString').val();
+        },
+        
+        preserveFilterField: function (field) {
+            $('#filterByOption').val(field);
+        },
+        
+        preserveFilterValue: function (value) {
+          $('#filterString').val(value);
+        },
+        
         filter: function (e) {
-            fields = $('#filterByOption').val(); 
+            e.preventDefault();
+            
+            var fields = this.getFilterField();
             /*Note that this is an example! 
              * You can create an array like 
              * 
              * fields = ['Name', 'Description', ...];
              */
             
-            filter = $('#filterString').val();
+            var filter = this.getFilterValue();
+
             this.collection.pager('', '', fields, filter);
+            
+            this.preserveFilterField(fields);
+            this.preserveFilterValue(filter);
         }
 	});
 })( app.views );
