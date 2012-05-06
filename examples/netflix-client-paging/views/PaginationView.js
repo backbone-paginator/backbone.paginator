@@ -85,9 +85,15 @@
 		},
         
         filter: function (e) {
-            field = $('#filterByOption').val(); //Note that this is an example! You can create an array like ' field = ['Name', 'Description', ...]; '
+            fields = $('#filterByOption').val(); 
+            /*Note that this is an example! 
+             * You can create an array like 
+             * 
+             * fields = ['Name', 'Description', ...];
+             */
+            
             filter = $('#filterString').val();
-            this.collection.pager('', '', field, filter);
+            this.collection.pager('', '', fields, filter);
         }
 	});
 })( app.views );
