@@ -97,7 +97,7 @@
         },
         
         preserveFilterValue: function (value) {
-          $('#filterString').val(value);
+            $('#filterString').val(value);
         },
         
         filter: function (e) {
