@@ -10,7 +10,8 @@
 			'click a.page': 'gotoPage',
 			'click .howmany a': 'changeCount',
 			'click a.sortAsc': 'sortByAscending',
-			'click a.sortDsc': 'sortByDescending'
+			'click a.sortDsc': 'sortByDescending',
+            'click a.filter': 'filter'
 		},
 
 		tagName: 'aside',
@@ -81,6 +82,12 @@
 			var currentSort = this.getSortOption();
 			this.collection.pager(currentSort, 'desc');
 			this.preserveSortOption(currentSort);
-		}
+		},
+        
+        filter: function (e) {
+            field = $('#filterByOption').val(); //Note that this is an example! You can create an array like ' field = ['Name', 'Description', ...]; '
+            filter = $('#filterString').val();
+            this.collection.pager('', '', field, filter);
+        }
 	});
 })( app.views );
