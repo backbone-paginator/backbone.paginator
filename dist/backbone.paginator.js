@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 4/4/2012
+/*! backbone.paginator - v0.1.54 - 5/7/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -35,7 +35,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				dataType: 'jsonp',
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryMap)),
-				url: this.url,
+				url: getValue(this, 'url') || urlError(),
 				processData: false
 			}, options);
 
@@ -75,7 +75,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			}
 		},
 
-		pager: function ( sort, direction ) {
+		pager: function ( sort, direction, fields, filter ) {
 			var self = this,
 				disp = this.displayPerPage,
 				start = (self.page - 1) * disp,
@@ -90,6 +90,11 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			if (sort) {
 				self.models = self._sort(self.models, sort, direction);
 			}
+			
+			if (filter) {
+				self.models = self._filter(self.models, fields, filter);
+			}
+			
 			self.reset(self.models.slice(start, stop));
 		},
 
@@ -120,6 +125,39 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 
 			return models;
+		},
+    
+		_filter: function ( models, fields, filter ) {
+
+			if( _.isString( fields ) ) {
+				var tmp_s = fields;
+				fields = [];
+				fields.push(tmp_s);
+			}
+			
+			if( filter === '' ) {
+				return models;
+			} else {
+				filter = new RegExp(filter, "im");
+			}
+			
+			var filteredModels = [];
+
+			_.each( models, function( model ) {
+
+				_.each( fields, function( field ) {
+
+					var value = model.get( field );
+
+					if( value && model.get( field ).toString().match( filter ) ) {
+						filteredModels.push(model);
+					}
+
+				});
+
+			});
+
+			return filteredModels;
 		},
 
 		info: function () {
@@ -232,7 +270,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				dataType: 'jsonp',
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryMap)),
-				url: this.url,
+				url: getValue(this, 'url') || urlError(),
 				processData: false
 			}, options);
 
@@ -307,6 +345,20 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 
 	});
+	
+	// Helper function to get a value from a Backbone object as a property
+	// or as a function.
+	var getValue = function(object, prop) {
+		if ( !(object && object[prop]) ) {
+			return null;
+		}
+		return _.isFunction(object[prop]) ? object[prop]() : object[prop];
+	};
+
+	// Throw an error when a URL is needed, and none is supplied.
+	var urlError = function() {
+		throw new Error('A "url" property or function must be specified');
+	};
 
 	return Paginator;
 
