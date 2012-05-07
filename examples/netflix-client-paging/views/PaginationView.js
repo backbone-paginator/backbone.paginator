@@ -11,7 +11,7 @@
 			'click .howmany a': 'changeCount',
 			'click a.sortAsc': 'sortByAscending',
 			'click a.sortDsc': 'sortByDescending',
-            'click a.filter': 'filter'
+			'click a.filter': 'filter'
 		},
 
 		tagName: 'aside',
