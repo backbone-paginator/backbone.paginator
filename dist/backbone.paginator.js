@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/8/2012
+/*! backbone.paginator - v0.1.54 - 5/9/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -116,7 +116,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				
 				if (direction === 'desc') {
 
-					if( ac.match(/[\d\.]*/) && bc.match(/[\d\.]*/) ) {
+					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
+						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/))
+					){
+					
 						if( (ac - 0) < (bc - 0) ) {
 							return 1;
 						}
@@ -134,7 +137,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 					
 				} else {
 
-					if( ac.match(/[\d\.]*/) && bc.match(/[\d\.]*/) ) {
+					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
+						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/)) 
+					){
 						if( (ac - 0) < (bc - 0) ) {
 							return -1;
 						}
