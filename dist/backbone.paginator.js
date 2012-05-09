@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/7/2012
+/*! backbone.paginator - v0.1.54 - 5/9/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -102,23 +102,59 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			models = models.sort(function (a, b) {
 				var ac = a.get(sort),
 					bc = b.get(sort);
-
-				if (direction === 'desc') {
-					if (ac > bc) {
-						return -1;
-					}
-
-					if (ac < bc) {
-						return 1;
-					}
+				
+				if ( !ac || !bc ) {
+					return 0;
 				} else {
-					if (ac < bc) {
-						return -1;
+					/* Make sure that both ac and bc are lowercase strings.
+					* .toString() first so we don't have to worry if ac or bc
+					* have other String-only methods.
+					*/
+					ac = ac.toString().toLowerCase();
+					bc = bc.toString().toLowerCase();
+				}
+				
+				if (direction === 'desc') {
+
+					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
+						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/))
+					){
+					
+						if( (ac - 0) < (bc - 0) ) {
+							return 1;
+						}
+						if( (ac - 0) > (bc - 0) ) {
+							return -1;
+						}
+					} else {
+						if (ac < bc) {
+							return 1;
+						}
+						if (ac > bc) {
+							return -1;
+						}
+					}
+					
+				} else {
+
+					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
+						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/)) 
+					){
+						if( (ac - 0) < (bc - 0) ) {
+							return -1;
+						}
+						if( (ac - 0) > (bc - 0) ) {
+							return 1;
+						}
+					} else {
+						if (ac < bc) {
+							return -1;
+						}
+						if (ac > bc) {
+							return 1;
+						}
 					}
 
-					if (ac > bc) {
-						return 1;
-					}
 				}
 
 				return 0;
