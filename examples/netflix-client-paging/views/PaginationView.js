@@ -65,7 +65,8 @@
 		sortByAscending: function (e) {
 			e.preventDefault();
 			var currentSort = this.getSortOption();
-			this.collection.pager(currentSort, 'asc');
+			this.collection.setSort(currentSort, 'asc');
+			this.collection.pager();
 			this.preserveSortOption(currentSort);
 		},
 
@@ -80,7 +81,8 @@
 		sortByDescending: function (e) {
 			e.preventDefault();
 			var currentSort = this.getSortOption();
-			this.collection.pager(currentSort, 'desc');
+			this.collection.setSort(currentSort, 'desc');
+			this.collection.pager();
 			this.preserveSortOption(currentSort);
 		},
         
@@ -112,7 +114,8 @@
 
 			var filter = this.getFilterValue();
 
-			this.collection.pager('', '', fields, filter);
+			this.collection.setFilter(fields, filter);
+			this.collection.pager();
 
 			this.preserveFilterField(fields);
 			this.preserveFilterValue(filter);
