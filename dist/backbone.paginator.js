@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/9/2012
+/*! backbone.paginator - v0.1.54 - 5/10/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -174,7 +174,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			if( filter === '' ) {
 				return models;
 			} else {
-				filter = new RegExp(filter, "im");
+				filter = filter.match(/\w+/ig);
+				filter = _.uniq(filter);
+				var pattern = "(" + filter.join("|") + ")";
+				var regexp = new RegExp(pattern, "igm");
 			}
 			
 			var filteredModels = [];
@@ -185,8 +188,17 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 					var value = model.get( field );
 
-					if( value && model.get( field ).toString().match( filter ) ) {
-						filteredModels.push(model);
+					if( value ) {
+					
+						var matches = model.get( field ).toString().match( regexp );
+						matches = _.map(matches, function(match) {
+							return match.toString().toLowerCase();
+						});
+						
+						if( _.isEmpty( _.difference(filter, matches) ) ) {
+							filteredModels.push(model);
+						}
+						
 					}
 
 				});
