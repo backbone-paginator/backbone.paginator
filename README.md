@@ -275,7 +275,8 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.previousPage()** - go to the previous page
 * **Collection.nextPage()** - go to the next page
 * **Collection.howManyPer(n)** - set how many items to display per page
-* **Collection.pager(sortBy, sortDirection)** - update sort on the current view
+* **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
+* **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered.
 
 
 ## Contributing
@@ -285,6 +286,7 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 ## Release History
 
+* 0.next - improve sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Some bug fixes.
 * 0.15 - rewrite to simplify the project API, unify components under the same collection hood
 * 0.14 - rewrite of all components
 * 0.13 - initial release of client and request pagers
