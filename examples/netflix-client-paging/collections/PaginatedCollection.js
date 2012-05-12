@@ -70,4 +70,4 @@
     });
 
 
-})( app.collections, app.models.Tag, Backbone.Paginator);
+})( app.collections, app.models.Item, Backbone.Paginator);
