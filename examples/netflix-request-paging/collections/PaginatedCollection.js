@@ -37,8 +37,9 @@
 			// the lowest page index your API allows to be accessed
 			firstPage: 0,
 		
-			// which page should the paginator start from
-			page: 0,
+			// which page should the paginator start from 
+			// (also, the actual page the paginator is on)
+			currentPage: 0,
 			
 			// how many items per page should be shown
 			perPage: 3,
@@ -50,25 +51,25 @@
 		
 		server_api: {
 			// the query field in the request
-			queryAttribute:   { key: '$filter',      value: ''                                             },
+			'$filter': '',
 			
 			// number of items to return per request/page
-			perPageAttribute: { key: '$top',         value: function() { return this.perPage }             },
+			'$top': function() { return this.perPage },
 			
 			// how many results the request should skip ahead to
 			// customize as needed. For the Netflix API, skipping ahead based on
 			// page * number of results per page was necessary.
-			skipAttribute:    { key: '$skip',        value: function() { return this.page * this.perPage } },
+			'$skip': function() { return this.currentPage * this.perPage },
 			
 			// field to sort by
-			orderByAttribute: { key: '$orderby',     value: 'ReleaseYear'                                  },
+			'$orderby': 'ReleaseYear',
 			
 			// what format would you like to request results in?
-			formatAttribute:  { key: '$format',      value: 'json'                                         },
+			'$format': 'json',
 			
 			// custom parameters
-			customAttribute1: { key: '$inlinecount', value: 'allpages'                                     },
-			customAttribute2: { key: '$callback',    value: 'callback'                                     }
+			'$inlinecount': 'allpages',
+			'$callback': 'callback'                                     
 		},
 
 		parse: function (response) {
