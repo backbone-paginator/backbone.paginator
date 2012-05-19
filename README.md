@@ -40,113 +40,83 @@ First, we define a new Paginated collection using `Backbone.Paginator.requestPag
 ```javascript
 var PaginatedCollection = Backbone.Paginator.requestPager.extend({
 ```
-####2: Set the model and base URL for the collection as normal
+####2: Set the model for the collection as normal
 
 Within our collection, we then (as normal) specify the model to be used with this collection followed by the URL (or base URL) for the service providing our data (e.g the Netflix API).
 
 ```javascript
         model: model,
-        url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 ```
-####3. Map the attributes supported by your API (URL)
-Next, we're going to map the request (URL) parameters supported by your API or backend data service back to attributes
-that are internally used by Backbone.Paginator.
+####3. Configure the base URL and the type of the request
 
-For example: the NetFlix API refers to it's parameter for stating how many results to skip ahead by as `$skip` and it's number of items to return per page as `$top` (amongst others). We determine these by looking at a sample URL pointing at the service:
+We need to set a base URL. The `type` of the request if `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
-http://odata.netflix.com/v2/Catalog/Titles?&callback=callback&$top=30&$skip=30&orderBy=ReleaseYear&$inlinecount=allpages&$format=json&$callback=callback&$filter=substringof%28%27the%27,%20Name%29%20eq%20true&_=1332702202090
+		paginator_core: {
+			// the type of the request (GET by default)
+			type: 'GET',
+			
+			// the type of reply (jsonp by default)
+			dataType: 'jsonp',
+		
+			// the URL (or base URL) for the service
+			url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
+		},
 ```
 
-We then simply map these parameters to the relevant Paginator equivalents shown on the left hand side of the next snippets to get everything working:
+####4. Configure how the library will show the results
+
+We need to tell the library how many items per page would we like to see, how many in total, etc...
 
 ```javascript
-        // @param-name for the query field in the 
-        // request (e.g query/keywords/search)
-        queryAttribute: '$filter',
-
-        // @param-name for number of items to return per request/page
-        perPageAttribute: '$top',
-
-        // @param-name for how many results the request should skip ahead to
-        skipAttribute: '$skip',
-
-        // @param-name for the direction to sort in
-        sortAttribute: '$sort',
-
-        // @param-name for field to sort by
-        orderAttribute: 'orderBy',
-
-        // @param-name for the format of the request
-        formatAttribute: '$format',
-
-        // @param-name for a custom attribute 
-        customAttribute1: '$inlinecount',
-
-        // @param-name for another custom attribute
-        customAttribute2: '$callback',
-
+		paginator_ui: {
+			// the lowest page index your API allows to be accessed
+			firstPage: 0,
+		
+			// which page should the paginator start from 
+			// (also, the actual page the paginator is on)
+			currentPage: 0,
+			
+			// how many items per page should be shown
+			perPage: 3,
+			
+			// how much pages in total should be queried
+			// 10 as a default in case your service doesn't return the total
+			totalPages: 10
+		},
 ```
 
-**Note**: you can define support for new custom attributes in Backbone.Paginator if needed (e.g customAttribute1) for those that may be unique to your service.
+####5. Configure the parameters we want to send to the server
 
-####4. Configure the default pagination, query and sort details for the paginator
-Now, let's configure the default values in our collection for these parameters so that as a user navigates through the paginated UI, requests are able to continue querying with the correct field to sort on, the right number of items to return per request etc.
-
-e.g: If we want to request the:
-
-* 1st page of results 
-* for the search query 'superman'
-* in JSON format
-* sorted by release year 
-* in ascending order
-* where only 30 results are returned per request
-
-This would look as follows:
-
+Only the base URL won't be enough for most cases, so you can pass more parameters to the server.
+Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
 
 ```javascript
-
-        // current page to query from the service
-        page: 5,
-
-        // The lowest page index your API allows to be accessed
-        firstPage: 0, //some begin with 1
-
-        // how many results to query from the service (i.e how many to return
-        // per request)
-        perPage: 30,
-
-        // maximum number of pages that can be queried from 
-        // the server (only here as a default in case your 
-        // service doesn't return the total pages available)
-        totalPages: 10,
-        
-        // what field should the results be sorted on?
-        sortField: 'ReleaseYear',
-        
-        // what direction should the results be sorted in?
-        sortDirection: 'asc',
-
-        // what would you like to query (search) from the service?
-        // as Netflix reqires additional parameters around the query
-        // we simply fill these around our search term
-        query: "substringof('" + escape('the') + "',Name)",
-
-        // what format would you like to request results in?
-        format: 'json',
-
-        // what other custom parameters for the request do 
-        // you require
-        // for your application?
-        customParam1: 'allpages',
-
-        customParam2: 'callback',
-
+		server_api: {
+			// the query field in the request
+			'$filter': '',
+			
+			// number of items to return per request/page
+			'$top': function() { return this.perPage },
+			
+			// how many results the request should skip ahead to
+			// customize as needed. For the Netflix API, skipping ahead based on
+			// page * number of results per page was necessary.
+			'$skip': function() { return this.currentPage * this.perPage },
+			
+			// field to sort by
+			'$orderby': 'ReleaseYear',
+			
+			// what format would you like to request results in?
+			'$format': 'json',
+			
+			// custom parameters
+			'$inlinecount': 'allpages',
+			'$callback': 'callback'                                     
+		},
 ```
-As the particular API we're using requires `callback` and `allpages` parameters to also be passed, we simply define the values for these as custom parameters which can be mapped back to requestPager as needed.
 
-####5. Finally, configure Collection.parse() and we're done
+####6. Finally, configure Collection.parse() and we're done
 
 The last thing we need to do is configure our collection's `parse()` method. We want to ensure we're returning the correct part of our JSON response containing the data our collection will be populated with, which below is `response.d.results` (for the Netflix API). 
 
@@ -183,75 +153,81 @@ For your convenience, the following methods are made available for use in your v
 The `clientPager` works similar to the `requestPager`, except that our configuration values influence the pagination of data already returned at a UI-level. Whilst not shown (yet) there is also a lot more UI logic that ties in with the `clientPager`. An example of this can be seen in 'views/clientPagination.js'. 
 
 ####1. Create a new paginated collection with a model and URL
-As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.clientPager` collection, with a model and base URL:
+As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.clientPager` collection, with a model:
 
 ```javascript
     var PaginatedCollection = Backbone.Paginator.clientPager.extend({
         
         model: model,
-
-        url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
 ```
 
-####2. Map the attributes supported by your API (URL)
-We're similarly going to map request parameter names for your API to those supported in the paginator:
+####2. Configure the base URL and the type of the request 
+
+We need to set a base URL. The `type` of the request if `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
-        perPageAttribute: '$top',
-
-        skipAttribute: '$skip',
-
-        orderAttribute: 'orderBy',
-
-        customAttribute1: '$inlinecount',
-
-        queryAttribute: '$filter',
-
-        formatAttribute: '$format',
-
-        customAttribute2: '$callback',
-
+		paginator_core: {
+			// the type of the request (GET by default)
+			type: 'GET',
+			
+			// the type of reply (jsonp by default)
+			dataType: 'jsonp',
+		
+			// the URL (or base URL) for the service
+			url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
+		},
 ```
 
-####3. Configure how to paginate data at a UI-level
-We then get to configuration for the paginated data in the UI. `perPage` specifies how many results to return from the server whilst `displayPerPage` configures how many of the items in returned results to display per 'page' in the UI. e.g If we request 100 results and only display 20 per page, we have 5 sub-pages of results that can be navigated through in the UI.
+####3. Configure how the library will show the results
+
+We need to tell the library how many items per page would we like to see, how many in total, etc...
 
 ```javascript
-        // M: how many results to query from the service
-        perPage: 40,
+		paginator_ui: {
+			// the lowest page index your API allows to be accessed
+			firstPage: 1,
+		
+			// which page should the paginator start from 
+			// (also, the actual page the paginator is on)
+			currentPage: 1,
+			
+			// how many items per page should be shown
+			perPage: 3,
+			
+			// how much pages in total should be queried
+			// 10 as a default in case your service doesn't return the total
+			totalPages: 10
+		},
+``` 
 
-        // N: how many results to display per 'page' within the UI
-        // Effectively M/N = the number of pages the data will be split into.
-        displayPerPage: 20,
-```
+####4. Configure the parameters we want to send to the server
 
-####4. Configure the rest of the request parameter default values
-
-We can then configure default values for the rest of our request parameters:
+Only the base URL won't be enough for most cases, so you can pass more parameters to the server.
+Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
 
 ```javascript
-        // current page to query from the service
-        page: 1,
-        
-        // a default. This should be overridden in the collection's parse()
-        // sort direction
-        sortDirection: 'asc',
-
-        // sort field
-        sortField: 'ReleaseYear',
-        //or year(Instant/AvailableFrom)
-        
-        // query
-        query: "substringof('" + escape('the') + "',Name)",
-
-        // request format
-        format: 'json',
-
-        // custom parameters for the request that may be specific to your
-        // application
-        customParam1: 'allpages',
-
-        customParam2: 'callback',
+		server_api: {
+			// the query field in the request
+			'$filter': 'substringof(\'america\',Name)',
+			
+			// number of items to return per request/page
+			'$top': function() { return this.perPage },
+			
+			// how many results the request should skip ahead to
+			// customize as needed. For the Netflix API, skipping ahead based on
+			// page * number of results per page was necessary.
+			'$skip': function() { return this.currentPage * this.perPage },
+			
+			// field to sort by
+			'$orderby': 'ReleaseYear',
+			
+			// what format would you like to request results in?
+			'$format': 'json',
+			
+			// custom parameters
+			'$inlinecount': 'allpages',
+			'$callback': 'callback'                                     
+		},
 ```
 
 ####5. Finally, configure Collection.parse() and we're done
@@ -259,7 +235,7 @@ We can then configure default values for the rest of our request parameters:
 And finally we have our `parse()` method, which in this case isn't concerned with the total number of result pages available on the server as we have our own total count of pages for the paginated data in the UI.
 
 ```javascript
- parse: function (response) {
+		parse: function (response) {
             var tags = response.d.results;
             return tags;
         }
@@ -286,7 +262,7 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 ## Release History
 
-* 0.next - improve sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Some bug fixes.
+* 0.next - improve sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
 * 0.15 - rewrite to simplify the project API, unify components under the same collection hood
 * 0.14 - rewrite of all components
 * 0.13 - initial release of client and request pagers
