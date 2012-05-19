@@ -44,7 +44,7 @@
 			// how many items per page should be shown
 			perPage: 3,
 			
-			// how much items in total should be queried
+			// how much pages in total should be queried
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10
 		},
