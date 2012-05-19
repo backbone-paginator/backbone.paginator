@@ -1,8 +1,8 @@
 (function (collections, model, paginator) {
 
-    collections.PaginatedCollection = paginator.clientPager.extend({
+	collections.PaginatedCollection = paginator.clientPager.extend({
 
-        model: model,
+		model: model,
 
 		paginator_core: {
 			// the type of the request (GET by default)
@@ -54,15 +54,14 @@
 			'$callback': 'callback'                                     
 		},
 
-        parse: function (response) {
-            // Be sure to change this based on how your results
-            // are structured
-            var tags = response.d.results;
-            //this.totalPages = response.d.__count;
-            return tags;
-        }
+		parse: function (response) {
+			// Be sure to change this based on how your results
+			// are structured
+			var tags = response.d.results;
+			//this.totalPages = response.d.__count;
+			return tags;
+		}
 
-    });
-
+	});
 
 })( app.collections, app.models.Item, Backbone.Paginator);

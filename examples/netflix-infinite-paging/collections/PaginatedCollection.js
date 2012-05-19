@@ -1,24 +1,24 @@
 (function (collections, model, paginator) {
 
-        // Create a new collection using one of Backbone.Paginator's
-        // pagers. We're going to begin using the requestPager first.
+	// Create a new collection using one of Backbone.Paginator's
+	// pagers. We're going to begin using the requestPager first.
 
-    collections.PaginatedCollection = paginator.requestPager.extend({
+	collections.PaginatedCollection = paginator.requestPager.extend({
 
-        // As usual, let's specify the model to be used
-        // with this collection
-        model: model,
+		// As usual, let's specify the model to be used
+		// with this collection
+		model: model,
 
-        // Next, we're going to map the parameters supported by
-        // your API or backend data service back to attributes
-        // that are internally used by Backbone.Paginator. 
+		// Next, we're going to map the parameters supported by
+		// your API or backend data service back to attributes
+		// that are internally used by Backbone.Paginator. 
 
-        // e.g the NetFlix API refers to it's parameter for 
-        // stating how many results to skip ahead by as $skip
-        // and it's number of items to return per page as $top
+		// e.g the NetFlix API refers to it's parameter for 
+		// stating how many results to skip ahead by as $skip
+		// and it's number of items to return per page as $top
 
-        // We simply map these to the relevant Paginator equivalents
-        // shown on the left hand side to get everything working.
+		// We simply map these to the relevant Paginator equivalents
+		// shown on the left hand side to get everything working.
 
 		paginator_core: {
 			// the type of the request (GET by default)
@@ -70,17 +70,17 @@
 			'$callback': 'callback'                                     
 		},
 
-        parse: function (response) {
-            // Be sure to change this based on how your results
-            // are structured (e.g d.results is Netflix specific)
-            var tags = response.d.results;
-            //Normally this.totalPages would equal response.d.__count
-            //but as this particular NetFlix request only returns a
-            //total count of items for the search, we divide.
-            this.totalPages = Math.floor(response.d.__count / this.perPage);
-            return tags;
-        }
+		parse: function (response) {
+			// Be sure to change this based on how your results
+			// are structured (e.g d.results is Netflix specific)
+			var tags = response.d.results;
+			//Normally this.totalPages would equal response.d.__count
+			//but as this particular NetFlix request only returns a
+			//total count of items for the search, we divide.
+			this.totalPages = Math.floor(response.d.__count / this.perPage);
+			return tags;
+		}
 
-    });
+	});
 
 })( app.collections, app.models.Item, Backbone.Paginator);
