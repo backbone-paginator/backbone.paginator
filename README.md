@@ -258,6 +258,10 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered.
 
+## Team
+
+* [Addy Osmani](http://github.com/addyosmani) - DPE, Google
+* [Alexander Nestorov](http://github.com/alexandernst) - Software Developer, EmeIEme
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
