@@ -49,7 +49,7 @@ Within our collection, we then (as normal) specify the model to be used with thi
 ```
 ####3. Configure the base URL and the type of the request
 
-We need to set a base URL. The `type` of the request if `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
+We need to set a base URL. The `type` of the request is `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
 		paginator_core: {
@@ -66,7 +66,7 @@ We need to set a base URL. The `type` of the request if `GET` by default, and th
 
 ####4. Configure how the library will show the results
 
-We need to tell the library how many items per page would we like to see, how many in total, etc...
+We need to tell the library how many items per page would we like to see, etc...
 
 ```javascript
 		paginator_ui: {
@@ -80,7 +80,9 @@ We need to tell the library how many items per page would we like to see, how ma
 			// how many items per page should be shown
 			perPage: 3,
 			
-			// how much pages in total should be queried
+			// a default number of total pages to query in case the API or 
+			// service you are using does not support providing the total 
+			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10
 		},
@@ -163,7 +165,7 @@ As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.c
 
 ####2. Configure the base URL and the type of the request 
 
-We need to set a base URL. The `type` of the request if `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
+We need to set a base URL. The `type` of the request is `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
 		paginator_core: {
@@ -180,7 +182,7 @@ We need to set a base URL. The `type` of the request if `GET` by default, and th
 
 ####3. Configure how the library will show the results
 
-We need to tell the library how many items per page would we like to see, how many in total, etc...
+We need to tell the library how many items per page would we like to see, etc...
 
 ```javascript
 		paginator_ui: {
@@ -194,7 +196,9 @@ We need to tell the library how many items per page would we like to see, how ma
 			// how many items per page should be shown
 			perPage: 3,
 			
-			// how much pages in total should be queried
+			// a default number of total pages to query in case the API or 
+			// service you are using does not support providing the total 
+			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10
 		},

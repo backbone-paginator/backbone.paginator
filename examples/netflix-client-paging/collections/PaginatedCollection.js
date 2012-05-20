@@ -26,7 +26,9 @@
 			// how many items per page should be shown
 			perPage: 3,
 			
-			// how much pages in total should be queried
+			// a default number of total pages to query in case the API or 
+			// service you are using does not support providing the total 
+			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10
 		},
