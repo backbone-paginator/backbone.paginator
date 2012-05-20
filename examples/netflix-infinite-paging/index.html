@@ -50,7 +50,7 @@
 		<script type="text/html" id="tmpServerPagination">
 			<div class="breadcrumb">
 
-					<% if (page < totalPages) { %>
+					<% if (currentPage < totalPages) { %>
 						<a href="#" class="btn long servernext">Show More</a>
 					<% } %>
 
@@ -68,7 +68,7 @@
 		<script src="app.js"></script>
 
 		<!--Backbone.Paginator-->
-		<script src="../../dist/backbone.paginator.js"></script>
+		<script src="../../lib/backbone.paginator.js"></script>
 
 		<!--Models/Collections-->
 		<script src="models/Item.js"></script>

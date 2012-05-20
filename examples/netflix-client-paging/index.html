@@ -53,18 +53,18 @@
 		 <div class="breadcrumb">
 
 			<span class="cell last pages">
-				<% if (page != 1) { %>
+				<% if (currentPage != 1) { %>
 					<a href="#" class="first">First</a>
 					<a href="#" class="prev">Previous</a>
 				<% } %>
 				<% _.each (pageSet, function (p) { %>
-					<% if (page == p) { %>
+					<% if (currentPage == p) { %>
 						<span class="page selected"><%= p %></span>
 					<% } else { %>
 						<a href="#" class="page"><%= p %></a>
 					<% } %>
 				<% }); %>
-				<% if (lastPage != page) { %>
+				<% if (lastPage != currentPage) { %>
 					<a href="#" class="next">Next</a>
 					<a href="#" class="last">Last</a>
 				<% } %>

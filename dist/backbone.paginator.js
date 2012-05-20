@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/11/2012
+/*! backbone.paginator - v0.1.54 - 5/20/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -19,6 +19,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 	//
 	Paginator.clientPager = Backbone.Collection.extend({
 	
+		// Default values used when sorting and/or filtering.
 		sortColumn: "",
 		sortDirection: "desc",
 		filterFields: "",
@@ -26,54 +27,87 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		sync: function ( method, model, options ) {
 
-			var queryMap = {};
-				queryMap[this.perPageAttribute] =  this.perPage;
-				queryMap[this.skipAttribute] = this.page * this.perPage;
-				queryMap[this.orderAttribute] =  this.sortField;
-				queryMap[this.customAttribute1] =  this.customParam1;
-				queryMap[this.formatAttribute] =  this.format;
-				queryMap[this.customAttribute2] = this.customParam2;
-				queryMap[this.queryAttribute] =  this.query; 
-
-			var params = _.extend({
+			var self = this;
+			
+			// Create default values if no others are specified
+			_.defaults(self.paginator_ui, {
+				firstPage: 0,
+				currentPage: 1,
+				perPage: 5,
+				totalPages: 10
+			});
+			
+			// Change scope of 'paginator_ui' object values
+			_.each(self.paginator_ui, function(value, key) {
+				if( _.isUndefined(self[key]) ) {
+					self[key] = self.paginator_ui[key];
+				}
+			});
+		
+			// Some values could be functions, let's make sure
+			// to change their scope too and run it
+			var queryAttributes = {};
+			_.each(self.server_api, function(value, key){
+				if( _.isFunction(value) ) {
+					value = _.bind(value, self);
+				}
+				queryAttributes[key] = value;
+			});
+			
+			var queryOptions = _.clone(self.paginator_core);
+			
+			// Create default values if no others are specified
+			queryOptions = _.defaults(self.paginator_core, {
+				timeout: 25000,
+				cache: false,
 				type: 'GET',
-				dataType: 'jsonp',
+				dataType: 'jsonp'
+			});
+			
+			// URL value could be function, let's make sure to run it if so
+			queryOptions.url = _.result(queryOptions, 'url');
+			
+			queryOptions = _.extend(self.paginator_core, {
 				jsonpCallback: 'callback',
-				data: decodeURIComponent($.param(queryMap)),
-				url: _.result(this, 'url'),
+				data: decodeURIComponent($.param(queryAttributes)),
 				processData: false
-			}, options);
+			});
+			
+			return $.ajax( _.extend(queryOptions, options) );
 
-			return $.ajax(params);
 		},
 
 		nextPage: function () {
-			this.page = ++this.page;
+			this.currentPage = ++this.currentPage;
 			this.pager();
 		},
 
 		previousPage: function () {
-			this.page = --this.page || 1;
+			this.currentPage = --this.currentPage || 1;
 			this.pager();
 		},
 
 		goTo: function ( page ) {
 			if(page !== undefined){
-				this.page = parseInt(page, 10);
+				this.currentPage = parseInt(page, 10);
 				this.pager();
 			}
 		},
 
 		howManyPer: function ( perPage ) {
 			if(perPage !== undefined){
-				this.displayPerPage = parseInt(perPage, 10);
-				this.page = 1;
+				this.perPage = parseInt(perPage, 10);
+				this.currentPage = 1;
 				this.pager();
 			}
 		},
 
 
-		// where 'column' is the key to sort on
+		// setSort is used to sort the current model. After
+		// passing 'column', which is the model's field you want
+		// to filter and 'direction', which is the direction
+		// desired for the ordering ('asc' or 'desc'), pager()
+		// and info() will be called automatically.
 		setSort: function ( column, direction ) {
 			if(column !== undefined && direction !== undefined){
 				this.sortColumn = column;
@@ -83,6 +117,12 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			}
 		},
 		
+		// setFilter is used to filter the current model. After
+		// passing 'fields', which can be a string referring to
+		// the model's field or an array of strings representing
+		// all of the model's fields you wish to filter by and
+		// 'filter', which is the word or words you wish to 
+		// filter by, pager() and info() will be called automatically.
 		setFilter: function ( fields, filter ) {
 			if( fields !== undefined && filter !== undefined ){
 				this.filterFields = fields;
@@ -92,31 +132,42 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			}
 		},
 
+		// pager is used to sort, filter and show the data 
+		// you expect the library to display.
 		pager: function () {
 			var self = this,
-				disp = this.displayPerPage,
-				start = (self.page - 1) * disp,
+				disp = this.perPage,
+				start = (self.currentPage - 1) * disp,
 				stop = start + disp;
 
+			// Saving the original models collection is important
+			// as we could need to sort or filter, and we don't want
+			// to loose the data we fetched from the server.
 			if (self.origModels === undefined) {
 				self.origModels = self.models;
 			}
 
 			self.models = self.origModels;
 
+			// Check if sorting was set using setSort.
 			if ( this.sortColumn !== "" ) {
 				self.models = self._sort(self.models, this.sortColumn, this.sortDirection);
 			}
 			
+			// Check if filtering was set using setFilter.
 			if ( this.filterExpression !== "" ) {
 				self.models = self._filter(self.models, this.filterFields, this.filterExpression);
 			}
 			
+			// We need to save the sorted and filtered models collection
+			// because we'll use that sorted and filtered collection in info().
 			self.sortedAndFilteredModels = self.models;
 			
 			self.reset(self.models.slice(start, stop));
 		},
 
+		// The actual place where the collection is sorted.
+		// Check setSort for arguments explicacion.
 		_sort: function ( models, sort, direction ) {
 			models = models.sort(function (a, b) {
 				var ac = a.get(sort),
@@ -135,6 +186,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				
 				if (direction === 'desc') {
 
+					// We need to know if there aren't any non-number characters
+					// and that there are numbers-only characters and maybe a dot
+					// if we have a float.
 					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
 						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/))
 					){
@@ -156,6 +210,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 					
 				} else {
 
+					//Same as the regexp check in the 'if' part.
 					if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) && 
 						(!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/)) 
 					){
@@ -182,15 +237,26 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			return models;
 		},
     
+		// The actual place where the collection is filtered.
+		// Check setFilter for arguments explicacion.
 		_filter: function ( models, fields, filter ) {
 
+			// We accept fields to be a string or an array,
+			// but if string is passed we need to convert it
+			// to an array.
 			if( _.isString( fields ) ) {
 				var tmp_s = fields;
 				fields = [];
 				fields.push(tmp_s);
 			}
 			
-			if( filter === '' ) {
+			// 'filter' can be only a string.
+			// If 'filter' is string we need to convert it to 
+			// a regular expression. 
+			// For example, if 'filter' is 'black dog' we need
+			// to find every single word, remove duplicated ones (if any)
+			// and transform the result to '(black|dog)'
+			if( filter === '' || !_.isString(filter) ) {
 				return models;
 			} else {
 				filter = filter.match(/\w+/ig);
@@ -201,19 +267,27 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			
 			var filteredModels = [];
 
+			// We need to iterate over each model
 			_.each( models, function( model ) {
 
+				// and over each field of each model
 				_.each( fields, function( field ) {
 
 					var value = model.get( field );
 
 					if( value ) {
 					
+						// The regular expression we created earlier let's us to detect if a
+						// given string contains each and all of the words in the regular expression
+						// or not, but in both cases match() will return an array containing all 
+						// the words it matched.
 						var matches = model.get( field ).toString().match( regexp );
 						matches = _.map(matches, function(match) {
 							return match.toString().toLowerCase();
 						});
 						
+						// We just need to check if the returned array contains all the words in our
+						// regex, and if it does, it means that we have a match, so we should save it.
 						if( _.isEmpty( _.difference(filter, matches) ) ) {
 							filteredModels.push(model);
 						}
@@ -227,32 +301,32 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			return filteredModels;
 		},
 
+		// You shouldn't need to call info() as this method is used to
+		// calculate internal data as first/prev/next/last page...
 		info: function () {
 			var self = this,
 				info = {},
 				totalRecords = (self.sortedAndFilteredModels) ? self.sortedAndFilteredModels.length : self.length,
-				totalPages = Math.ceil(totalRecords / self.displayPerPage);
+				totalPages = Math.ceil(totalRecords / self.perPage);
 
 			info = {
 				totalRecords: totalRecords,
-				page: self.page,
-				perPage: this.displayPerPage,
+				currentPage: self.currentPage,
+				perPage: this.perPage,
 				totalPages: totalPages,
 				lastPage: totalPages,
-				lastPagem1: totalPages - 1,
 				previous: false,
 				next: false,
-				page_set: [],
-				startRecord: (self.page - 1) * this.displayPerPage + 1,
-				endRecord: Math.min(totalRecords, self.page * this.displayPerPage) 
+				startRecord: (self.currentPage - 1) * this.perPage + 1,
+				endRecord: Math.min(totalRecords, self.currentPage * this.perPage) 
 			};
 
-			if (self.page > 1) {
-				info.prev = self.page - 1;
+			if (self.currentPage > 1) {
+				info.prev = self.currentPage - 1;
 			}
 
-			if (self.page < info.totalPages) {
-				info.next = self.page + 1;
+			if (self.currentPage < info.totalPages) {
+				info.next = self.currentPage + 1;
 			}
 
 			info.pageSet = self.setPagination(info);
@@ -262,6 +336,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		},
 
 
+		// setPagination also is an internal function that shouldn't be called directly.
+		// It will create an array containing the pages right before and right after the
+		// actual page.
 		setPagination: function ( info ) {
 			var pages = [], i = 0, l = 0;
 
@@ -323,43 +400,67 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		sync: function ( method, model, options ) {
 
-			var queryMap = {}, params;
-				queryMap[this.perPageAttribute] =  this.perPage;
-				queryMap[this.skipAttribute] = this.page * this.perPage;
-				queryMap[this.orderAttribute] =  this.sortField;
-				queryMap[this.customAttribute1] =  this.customParam1;
-				queryMap[this.formatAttribute] =  this.format;
-				queryMap[this.customAttribute2] = this.customParam2;
-				queryMap[this.queryAttribute] =  this.query;
-
-				params = _.extend({
+			var self = this;
+			
+			// Create default values if no others are specified
+			_.defaults(self.paginator_ui, {
+				firstPage: 0,
+				currentPage: 1,
+				perPage: 5,
+				totalPages: 10
+			});
+			
+			// Change scope of 'paginator_ui' object values
+			_.each(self.paginator_ui, function(value, key) {
+				if( _.isUndefined(self[key]) ) {
+					self[key] = self.paginator_ui[key];
+				}
+			});
+		
+			// Some values could be functions, let's make sure
+			// to change their scope too and run it
+			var queryAttributes = {};
+			_.each(self.server_api, function(value, key){
+				if( _.isFunction(value) ) {
+					value = _.bind(value, self);
+				}
+				queryAttributes[key] = value;
+			});
+			
+			var queryOptions = _.clone(self.paginator_core);
+			
+			// Create default values if no others are specified
+			queryOptions = _.defaults(self.paginator_core, {
+				timeout: 25000,
+				cache: false,
 				type: 'GET',
-				dataType: 'jsonp',
+				dataType: 'jsonp'
+			});
+			
+			// URL value could be function, let's make sure to run it if so
+			queryOptions.url = _.result(queryOptions, 'url');
+			
+			queryOptions = _.extend(self.paginator_core, {
 				jsonpCallback: 'callback',
-				data: decodeURIComponent($.param(queryMap)),
-				url: _.result(this, 'url'),
+				data: decodeURIComponent($.param(queryAttributes)),
 				processData: false
-			}, options);
+			});
+			
+			return $.ajax( _.extend(queryOptions, options) );
 
-			return $.ajax(params);
 		},
 
 
 		requestNextPage: function () {
-			if ( this.page !== undefined ) {
-				this.page += 1;
-				// customize as needed. For the Netflix API, skipping ahead based on
-				// page * number of results per page was necessary. You may have a
-				// simpler server-side pagination API where just updating 
-				// the 'page' value is all you need to do.
-				// This applies similarly to requestPreviousPage()
+			if ( this.currentPage !== undefined ) {
+				this.currentPage += 1;
 				this.pager();
 			}
 		},
 
 		requestPreviousPage: function () {
-			if ( this.page !== undefined ) {
-				this.page -= 1;
+			if ( this.currentPage !== undefined ) {
+				this.currentPage -= 1;
 				this.pager();
 			}
 		},
@@ -374,14 +475,14 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		goTo: function ( page ) {
 			if(page !== undefined){
-				this.page = parseInt(page, 10);
+				this.currentPage = parseInt(page, 10);
 				this.pager();				
 			}
 		},
 
 		howManyPer: function ( count ) {
 			if( count !== undefined ){
-				this.page = this.firstPage;
+				this.currentPage = this.firstPage;
 				this.perPage = count;
 				this.pager();				
 			}
@@ -394,7 +495,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		info: function () {
 
 			var info = {
-				page: this.page,
+				currentPage: this.currentPage,
 				firstPage: this.firstPage,
 				totalPages: this.totalPages,
 				lastPage: this.totalPages,

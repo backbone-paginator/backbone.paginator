@@ -53,7 +53,7 @@
 			  	<span class="cell">
 					<% for(p=0;p<=totalPages;p++){
 					%>
-						<% if (page == p) { %>
+						<% if (currentPage == p) { %>
 							<span class="page selected"><%= p %></span>
 						<% } else { %>
 							<a href="#" class="page"><%= p %></a>
@@ -63,21 +63,21 @@
 
 					<span class="divider">/</span>
 
-					<% if (page > firstPage) { %>
+					<% if (currentPage > firstPage) { %>
 						<a href="#" class="serverprevious">Previous</a>
 					<% }else{ %>
 						<span>Previous</span>
 					<% }%>
 
-					<% if (page < totalPages) { %>
+					<% if (currentPage < totalPages) { %>
 						<a href="#" class="servernext">Next</a>
 					<% } %>
 
-					<% if (firstPage != page) { %>
+					<% if (firstPage != currentPage) { %>
 						<a href="#" class="serverfirst">First</a>
 					<% } %>
 
-					<% if (lastPage != page) { %>
+					<% if (lastPage != currentPage) { %>
 						<a href="#" class="serverlast">Last</a>
 					<% } %>
 
@@ -97,7 +97,7 @@
 					
 					<span class="divider">/</span>
 					<span class="cell first records">
-						Page: <span class="current"><%= page %></span>
+						Page: <span class="current"><%= currentPage %></span>
 						of
 						<span class="total"><%= totalPages %></span>
 									shown
@@ -131,7 +131,7 @@
 		<script src="app.js"></script>
 
 		<!--Backbone.Paginator-->
-		<script src="../../dist/backbone.paginator.js"></script>
+		<script src="../../lib/backbone.paginator.js"></script>
 
 		<!--Models/Collections-->
 		<script src="models/Item.js"></script>
