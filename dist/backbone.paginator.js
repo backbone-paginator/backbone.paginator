@@ -369,15 +369,15 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				else if (LASTPAGE > (5 + ADJACENTx2)) {
 
 					//close to beginning; only hide later pages
-					if (info.page < (1 + ADJACENTx2)) {
+					if (info.currentPage < (1 + ADJACENTx2)) {
 						for (i = 1, l = 4 + ADJACENTx2; i < l; i++) {
 							pages.push(i);
 						}
 					}
 
 					// in middle; hide some front and some back
-					else if (LASTPAGE - ADJACENTx2 > info.page && info.page > ADJACENTx2) {
-						for (i = info.page - ADJACENT; i <= info.page + ADJACENT; i++) {
+					else if (LASTPAGE - ADJACENTx2 > info.currentPage && info.currentPage > ADJACENTx2) {
+						for (i = info.currentPage - ADJACENT; i <= info.currentPage + ADJACENT; i++) {
 							pages.push(i);
 						}
 					}
