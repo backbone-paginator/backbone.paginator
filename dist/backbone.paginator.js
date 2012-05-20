@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/19/2012
+/*! backbone.paginator - v0.1.54 - 5/20/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -315,10 +315,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				perPage: this.perPage,
 				totalPages: totalPages,
 				lastPage: totalPages,
-				lastPagem1: totalPages - 1,
 				previous: false,
 				next: false,
-				page_set: [],
 				startRecord: (self.currentPage - 1) * this.perPage + 1,
 				endRecord: Math.min(totalRecords, self.currentPage * this.perPage) 
 			};
