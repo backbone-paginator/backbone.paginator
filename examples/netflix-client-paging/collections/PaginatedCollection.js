@@ -1,73 +1,69 @@
 (function (collections, model, paginator) {
 
-    collections.PaginatedCollection = paginator.clientPager.extend({
+	collections.PaginatedCollection = paginator.clientPager.extend({
 
-        model: model,
+		model: model,
 
-        url: 'http://odata.netflix.com/v2/Catalog/Titles?&',
+		paginator_core: {
+			// the type of the request (GET by default)
+			type: 'GET',
+			
+			// the type of reply (jsonp by default)
+			dataType: 'jsonp',
+		
+			// the URL (or base URL) for the service
+			url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
+		},
+		
+		paginator_ui: {
+			// the lowest page index your API allows to be accessed
+			firstPage: 1,
+		
+			// which page should the paginator start from 
+			// (also, the actual page the paginator is on)
+			currentPage: 1,
+			
+			// how many items per page should be shown
+			perPage: 3,
+			
+			// a default number of total pages to query in case the API or 
+			// service you are using does not support providing the total 
+			// number of pages for us.
+			// 10 as a default in case your service doesn't return the total
+			totalPages: 10
+		},
+		
+		server_api: {
+			// the query field in the request
+			'$filter': 'substringof(\'america\',Name)',
+			
+			// number of items to return per request/page
+			'$top': function() { return this.totalPages * this.perPage },
+			
+			// how many results the request should skip ahead to
+			// customize as needed. For the Netflix API, skipping ahead based on
+			// page * number of results per page was necessary.
+			'$skip': function() { return this.totalPages * this.perPage },
+			
+			// field to sort by
+			'orderby': 'ReleaseYear',
+			
+			// what format would you like to request results in?
+			'$format': 'json',
+			
+			// custom parameters
+			'$inlinecount': 'allpages',
+			'$callback': 'callback'                                     
+		},
 
-        // map paginator attributes to the parameters supported by your API
-        
-        // @param-name for the query field in the 
-        // request (e.g query/keywords/search)
-        queryAttribute: '$filter',
+		parse: function (response) {
+			// Be sure to change this based on how your results
+			// are structured
+			var tags = response.d.results;
+			//this.totalPages = response.d.__count;
+			return tags;
+		}
 
-        // @param-name for number of items to return per request/page
-        perPageAttribute: '$top',
-
-        // @param-name for how many results the request should skip ahead to
-        skipAttribute: '$skip',
-
-        // @param-name for field to sort by
-        orderAttribute: 'orderBy',
-
-        // @param-name for the format of the request
-        formatAttribute: '$format',
-
-        // @param-name for a custom attribute 
-        customAttribute1: '$inlinecount',
-
-        // @param-name for another custom attribute
-        customAttribute2: '$callback',
-
-        // current page to query from the service
-        page: 1,
-
-        // how many results to query from the service
-        perPage: 30,
-
-        // how many results to display per 'client page'
-        displayPerPage: 3,
-
-        // sort direction
-        sortDirection: 'asc',
-
-        // sort field
-        sortField: 'ReleaseYear',
-        //or year(Instant/AvailableFrom)
-        
-        // query
-        query: "substringof('" + escape('america') + "',Name)",
-
-        // request format
-        format: 'json',
-
-        // custom parameters for the request that may be specific to your
-        // application
-        customParam1: 'allpages',
-
-        customParam2: 'callback',
-
-
-        parse: function (response) {
-            // Be sure to change this based on how your results
-            // are structured
-            var tags = response.d.results;
-            //this.totalPages = response.d.__count;
-            return tags;
-        }
-
-    });
-
+	});
 
 })( app.collections, app.models.Item, Backbone.Paginator);
