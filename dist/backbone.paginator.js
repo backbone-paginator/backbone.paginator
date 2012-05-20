@@ -45,7 +45,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 		
 			// Some values could be functions, let's make sure
-			// to change their scope too and run it
+			// to change their scope too and run them
 			var queryAttributes = {};
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
@@ -57,23 +57,21 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			var queryOptions = _.clone(self.paginator_core);
 			
 			// Create default values if no others are specified
-			queryOptions = _.defaults(self.paginator_core, {
+			queryOptions = _.defaults(queryOptions, {
 				timeout: 25000,
 				cache: false,
 				type: 'GET',
 				dataType: 'jsonp'
 			});
-			
-			// URL value could be function, let's make sure to run it if so
-			queryOptions.url = _.result(queryOptions, 'url');
-			
-			queryOptions = _.extend(self.paginator_core, {
+
+			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryAttributes)),
-				processData: false
-			});
+				processData: false,
+				url: _.result(queryOptions, 'url')
+			}, options);
 			
-			return $.ajax( _.extend(queryOptions, options) );
+			return $.ajax( queryOptions );
 
 		},
 
@@ -418,7 +416,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 		
 			// Some values could be functions, let's make sure
-			// to change their scope too and run it
+			// to change their scope too and run them
 			var queryAttributes = {};
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
@@ -430,23 +428,21 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			var queryOptions = _.clone(self.paginator_core);
 			
 			// Create default values if no others are specified
-			queryOptions = _.defaults(self.paginator_core, {
+			queryOptions = _.defaults(queryOptions, {
 				timeout: 25000,
 				cache: false,
 				type: 'GET',
 				dataType: 'jsonp'
 			});
-			
-			// URL value could be function, let's make sure to run it if so
-			queryOptions.url = _.result(queryOptions, 'url');
-			
-			queryOptions = _.extend(self.paginator_core, {
+
+			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryAttributes)),
-				processData: false
-			});
+				processData: false,
+				url: _.result(queryOptions, 'url')
+			}, options);
 			
-			return $.ajax( _.extend(queryOptions, options) );
+			return $.ajax( queryOptions );
 
 		},
 
