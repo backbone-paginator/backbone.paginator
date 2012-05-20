@@ -45,7 +45,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 		
 			// Some values could be functions, let's make sure
-			// to change their scope too and run it
+			// to change their scope too and run them
 			var queryAttributes = {};
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
@@ -57,23 +57,21 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			var queryOptions = _.clone(self.paginator_core);
 			
 			// Create default values if no others are specified
-			queryOptions = _.defaults(self.paginator_core, {
+			queryOptions = _.defaults(queryOptions, {
 				timeout: 25000,
 				cache: false,
 				type: 'GET',
 				dataType: 'jsonp'
 			});
-			
-			// URL value could be function, let's make sure to run it if so
-			queryOptions.url = _.result(queryOptions, 'url');
-			
-			queryOptions = _.extend(self.paginator_core, {
+
+			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryAttributes)),
-				processData: false
-			});
+				processData: false,
+				url: _.result(queryOptions, 'url')
+			}, options);
 			
-			return $.ajax( _.extend(queryOptions, options) );
+			return $.ajax( queryOptions );
 
 		},
 
@@ -270,6 +268,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			// We need to iterate over each model
 			_.each( models, function( model ) {
 
+				var matchesPerModel = [];
+			
 				// and over each field of each model
 				_.each( fields, function( field ) {
 
@@ -281,21 +281,24 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 						// given string contains each and all of the words in the regular expression
 						// or not, but in both cases match() will return an array containing all 
 						// the words it matched.
-						var matches = model.get( field ).toString().match( regexp );
-						matches = _.map(matches, function(match) {
+						var matchesPerField = model.get( field ).toString().match( regexp );
+						matchesPerField = _.map(matchesPerField, function(match) {
 							return match.toString().toLowerCase();
 						});
-						
-						// We just need to check if the returned array contains all the words in our
-						// regex, and if it does, it means that we have a match, so we should save it.
-						if( _.isEmpty( _.difference(filter, matches) ) ) {
-							filteredModels.push(model);
-						}
+						_.extend(matchesPerModel, matchesPerField);
 						
 					}
 
 				});
 
+				// We just need to check if the returned array contains all the words in our
+				// regex, and if it does, it means that we have a match, so we should save it.
+				matchesPerModel = _.uniq( _.without(matchesPerModel, "") );
+
+				if(  _.isEmpty( _.difference(filter, matchesPerModel) ) ) {
+					filteredModels.push(model);
+				}
+				
 			});
 
 			return filteredModels;
@@ -418,7 +421,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 		
 			// Some values could be functions, let's make sure
-			// to change their scope too and run it
+			// to change their scope too and run them
 			var queryAttributes = {};
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
@@ -430,23 +433,21 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			var queryOptions = _.clone(self.paginator_core);
 			
 			// Create default values if no others are specified
-			queryOptions = _.defaults(self.paginator_core, {
+			queryOptions = _.defaults(queryOptions, {
 				timeout: 25000,
 				cache: false,
 				type: 'GET',
 				dataType: 'jsonp'
 			});
-			
-			// URL value could be function, let's make sure to run it if so
-			queryOptions.url = _.result(queryOptions, 'url');
-			
-			queryOptions = _.extend(self.paginator_core, {
+
+			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryAttributes)),
-				processData: false
-			});
+				processData: false,
+				url: _.result(queryOptions, 'url')
+			}, options);
 			
-			return $.ajax( _.extend(queryOptions, options) );
+			return $.ajax( queryOptions );
 
 		},
 
