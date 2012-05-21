@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/20/2012
+/*! backbone.paginator - v0.1.54 - 5/21/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -94,8 +94,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		howManyPer: function ( perPage ) {
 			if(perPage !== undefined){
+				var lastPerPage = this.perPage;
 				this.perPage = parseInt(perPage, 10);
-				this.currentPage = 1;
+				this.currentPage = Math.ceil( ( lastPerPage * ( this.currentPage - 1 ) + 1 ) / perPage);
 				this.pager();
 			}
 		},
