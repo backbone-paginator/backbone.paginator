@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/21/2012
+/*! backbone.paginator - v0.1.54 - 5/23/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -292,7 +292,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 						matchesPerField = _.map(matchesPerField, function(match) {
 							return match.toString().toLowerCase();
 						});
-						_.extend(matchesPerModel, matchesPerField);
+						
+						_.each(matchesPerField, function(match){
+							matchesPerModel.push(match);
+						});
 						
 					}
 
