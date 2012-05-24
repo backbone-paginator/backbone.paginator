@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/20/2012
+/*! backbone.paginator - v0.1.54 - 5/24/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -20,10 +20,12 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 	Paginator.clientPager = Backbone.Collection.extend({
 	
 		// Default values used when sorting and/or filtering.
-		sortColumn: "",
-		sortDirection: "desc",
-		filterFields: "",
-		filterExpression: "",
+		initialize: function(){
+			this.sortColumn = "";
+			this.sortDirection = "desc";
+			this.filterFields = "";
+			this.filterExpression = "";
+		},
 
 		sync: function ( method, model, options ) {
 
@@ -94,8 +96,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		howManyPer: function ( perPage ) {
 			if(perPage !== undefined){
+				var lastPerPage = this.perPage;
 				this.perPage = parseInt(perPage, 10);
-				this.currentPage = 1;
+				this.currentPage = Math.ceil( ( lastPerPage * ( this.currentPage - 1 ) + 1 ) / perPage);
 				this.pager();
 			}
 		},
@@ -108,6 +111,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		// and info() will be called automatically.
 		setSort: function ( column, direction ) {
 			if(column !== undefined && direction !== undefined){
+				this.lastSortColumn = this.sortColumn;
 				this.sortColumn = column;
 				this.sortDirection = direction;
 				this.pager();
@@ -124,6 +128,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		setFilter: function ( fields, filter ) {
 			if( fields !== undefined && filter !== undefined ){
 				this.filterFields = fields;
+				this.lastFilterExpression = this.filterExpression;
 				this.filterExpression = filter;
 				this.pager();
 				this.info();
@@ -155,6 +160,16 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			// Check if filtering was set using setFilter.
 			if ( this.filterExpression !== "" ) {
 				self.models = self._filter(self.models, this.filterFields, this.filterExpression);
+			}
+			
+			// If the sorting or the filtering was changed go to the first page
+			if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression ) {
+				start = 0;
+				stop = start + disp;
+				self.currentPage = 1;
+				
+				this.lastSortColumn = this.sortColumn;
+				this.lastFilterExpression = this.filterExpression;
 			}
 			
 			// We need to save the sorted and filtered models collection
@@ -291,7 +306,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 						matchesPerField = _.map(matchesPerField, function(match) {
 							return match.toString().toLowerCase();
 						});
-						_.extend(matchesPerModel, matchesPerField);
+						
+						_.each(matchesPerField, function(match){
+							matchesPerModel.push(match);
+						});
 						
 					}
 
@@ -326,7 +344,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				lastPage: totalPages,
 				previous: false,
 				next: false,
-				startRecord: (self.currentPage - 1) * this.perPage + 1,
+				startRecord: totalRecords === 0 ? 0 : (self.currentPage - 1) * this.perPage + 1,
 				endRecord: Math.min(totalRecords, self.currentPage * this.perPage) 
 			};
 
