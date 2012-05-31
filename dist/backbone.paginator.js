@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 5/24/2012
+/*! backbone.paginator - v0.1.54 - 5/31/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -23,8 +23,14 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		initialize: function(){
 			this.sortColumn = "";
 			this.sortDirection = "desc";
+			this.lastSortColumn = "";
+
+			this.fieldFilterRules = [];
+			this.lastFieldFilterRiles = [];
+
 			this.filterFields = "";
 			this.filterExpression = "";
+			this.lastFilterExpression = "";
 		},
 
 		sync: function ( method, model, options ) {
@@ -118,7 +124,22 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				this.info();
 			}
 		},
-		
+
+		// setFieldFilter is used to filter each value of each model
+		// according to `rules` that you pass as argument.
+		// Example: You have a collection of books with 'release year' and 'author'.
+		// You can filter only the books that were released between 1999 and 2003
+		// And then you can add another `rule` that will filter those books only to
+		// authors who's name start with 'A'.
+		setFieldFilter: function ( fieldFilterRules ) {
+			if( !_.isEmpty( fieldFilterRules ) ) {
+				this.lastFieldFilterRiles = this.fieldFilterRules;
+				this.fieldFilterRules = fieldFilterRules;
+				this.pager();
+				this.info();
+			}
+		},
+    
 		// setFilter is used to filter the current model. After
 		// passing 'fields', which can be a string referring to
 		// the model's field or an array of strings representing
@@ -156,26 +177,32 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			if ( this.sortColumn !== "" ) {
 				self.models = self._sort(self.models, this.sortColumn, this.sortDirection);
 			}
-			
+
+			// Check if field-filtering was set using setFieldFilter
+			if ( !_.isEmpty( this.fieldFilterRules ) ) {
+				self.models = self._fieldFilter(self.models, this.fieldFilterRules);
+			}
+
 			// Check if filtering was set using setFilter.
 			if ( this.filterExpression !== "" ) {
 				self.models = self._filter(self.models, this.filterFields, this.filterExpression);
 			}
-			
+      
 			// If the sorting or the filtering was changed go to the first page
-			if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression ) {
+			if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression || !_.isEqual(this.fieldFilterRules, this.lastFieldFilterRiles) ) {
 				start = 0;
 				stop = start + disp;
 				self.currentPage = 1;
-				
+
 				this.lastSortColumn = this.sortColumn;
+				this.lastFieldFilterRiles = this.fieldFilterRules;
 				this.lastFilterExpression = this.filterExpression;
 			}
 			
 			// We need to save the sorted and filtered models collection
 			// because we'll use that sorted and filtered collection in info().
 			self.sortedAndFilteredModels = self.models;
-			
+
 			self.reset(self.models.slice(start, stop));
 		},
 
@@ -248,6 +275,142 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 
 			return models;
+		},
+    
+		// The actual place where the collection is field-filtered.
+		// Check setFieldFilter for arguments explicacion.
+		_fieldFilter: function( models, rules ) {
+
+			// Check if there are any rules
+			if ( _.isEmpty(rules) ) {
+				return models;
+			}
+
+			var filteredModels = [];
+
+			// Iterate over each rule
+			_.each(models, function(model){
+
+				var should_push = true;
+			
+				// Apply each rule to each model in the collection
+				_.each(rules, function(rule){
+
+					// Don't go inside the switch if we're already sure that the model won't be included in the results
+					if( !should_push ){
+						return false;
+					}
+
+					should_push = false;
+				
+					switch(rule.type){
+						case "function":
+							var f = _.wrap(rule.value, function(func){
+								return func( model.get(rule.field) );
+							});
+							if( f() ){
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be non-empty
+						case "required":
+							if( !_.isEmpty( model.get(rule.field).toString() ) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be greater tan N (numbers only)
+						case "min":
+							if( !_.isNaN( Number( model.get(rule.field) ) ) &&
+								!_.isNaN( Number( rule.value ) ) &&
+								Number( model.get(rule.field) ) >= Number( rule.value ) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be smaller tan N (numbers only)
+						case "max":
+							if( !_.isNaN( Number( model.get(rule.field) ) ) &&
+								!_.isNaN( Number( rule.value ) ) &&
+								Number( model.get(rule.field) ) <= Number( rule.value ) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be between N and M (numbers only)
+						case "range":
+							if( !_.isNaN( Number( model.get(rule.field) ) ) &&
+								_.isObject( rule.value ) &&
+								!_.isNaN( Number( rule.value.min ) ) &&
+								!_.isNaN( Number( rule.value.max ) ) &&
+								Number( model.get(rule.field) ) >= Number( rule.value.min ) &&
+								Number( model.get(rule.field) ) <= Number( rule.value.max ) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be more than N chars long
+						case "minLength":
+							if( model.get(rule.field).toString().length >= rule.value ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be no more than N chars long
+						case "maxLength":
+							if( model.get(rule.field).toString().length <= rule.value ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be more than N chars long and no more than M chars long
+						case "rangeLength":
+							if( _.isObject( rule.value ) &&
+								!_.isNaN( Number( rule.value.min ) ) &&
+								!_.isNaN( Number( rule.value.max ) ) &&
+								model.get(rule.field).toString().length >= rule.value.min &&
+								model.get(rule.field).toString().length <= rule.value.max ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be equal to one of the values in rules.value
+						case "oneOf":
+							if( _.isArray( rule.value ) &&
+								_.include( rule.value, model.get(rule.field) ) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to be equal to the value in rules.value
+						case "equalTo":
+							if( rule.value === model.get(rule.field) ) {
+								should_push = true;
+							}
+							break;
+
+						// The field's value is required to match the regular expression
+						case "pattern":
+							if( model.get(rule.field).toString().match(rule.value) ) {
+								should_push = true;
+							}
+							break;
+
+						default:
+							//Unknown type
+							should_push = false;
+					}
+
+				});
+				
+				if( should_push ){
+					filteredModels.push(model);
+				}
+
+			});
+
+			return filteredModels;
 		},
     
 		// The actual place where the collection is filtered.
