@@ -64,7 +64,12 @@
 			'$skip': function() { return this.currentPage * this.perPage },
 			
 			// field to sort by
-			'$orderby': 'ReleaseYear',
+			'$orderby': function() {
+				if(this.sortField === undefined)
+					return 'ReleaseYear';
+				return this.sortField;
+			},
+
 			
 			// what format would you like to request results in?
 			'$format': 'json',
