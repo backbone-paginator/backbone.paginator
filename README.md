@@ -257,6 +257,30 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.howManyPer(n)** - set how many items to display per page
 * **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered.
+* **Collection.setFieldFilter(rules)** - filter each value of each model according to `rules` that you pass as argument. Example: You have a collection of books with 'release year' and 'author'. You can filter only the books that were released between 1999 and 2003. And then you can add another `rule` that will filter those books only to authors who's name start with 'A'. Possible rules: function, required, min, max, range, minLength, maxLength, rangeLength, oneOf, equalTo, pattern.
+```javascript
+	my_collection.setFieldFilter([
+		{field: 'release_year', type: 'range', value: {min: '1999', max: '2003'}},
+		{field: 'author', type: 'pattern', value: new RegExp('A*', 'igm')}
+	]);
+	
+	//Rules:
+	//
+	//var my_var = 'green';
+	//
+	//{field: 'color', type: 'equalTo', value: my_var}
+	//{field: 'color', type: 'function', value: function(field_value){ return field_value == my_var; } }
+	//{field: 'color', type: 'required'}
+	//{field: 'number_of_colors', type: 'min', value: '2'}
+	//{field: 'number_of_colors', type: 'max', value: '4'}
+	//{field: 'number_of_colors', type: 'range', value: {min: '2', max: '4'} }
+	//{field: 'color_name', type: 'minLength', value: '4'}
+	//{field: 'color_name', type: 'maxLength', value: '6'}
+	//{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
+	//{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
+	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
+	
+```
 
 ## Team
 
