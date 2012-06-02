@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/1/2012
+/*! backbone.paginator - v0.1.54 - 6/2/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -37,6 +37,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 			var self = this;
 			
+			var constructor = this.constructor.prototype;
+			
 			// Create default values if no others are specified
 			_.defaults(self.paginator_ui, {
 				firstPage: 0,
@@ -63,6 +65,12 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			});
 			
 			var queryOptions = _.clone(self.paginator_core);
+			_.each(queryOptions, function(value, key){
+				if( _.isFunction(value) ) {
+					value = _.bind(value, constructor);
+				}
+				queryOptions[key] = value;
+			});
 			
 			// Create default values if no others are specified
 			queryOptions = _.defaults(queryOptions, {
