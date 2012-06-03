@@ -279,9 +279,7 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 	//{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
 	//{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
-	
 ```
-
 
 ## Team
 
