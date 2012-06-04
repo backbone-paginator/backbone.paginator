@@ -3,7 +3,7 @@
 	// Create a new collection using one of Backbone.Paginator's
 	// pagers. We're going to begin using the requestPager first.
 
-	collections.PaginatedCollection = paginator.requestPager.extend({
+	collections.Movies = paginator.requestPager.extend({
 
 		// As usual, let's specify the model to be used
 		// with this collection
@@ -85,4 +85,4 @@
 
 	});
 
-})( app.collections, app.models.Item, Backbone.Paginator);
+})( app.collections, app.models.Movie, Backbone.Paginator);
