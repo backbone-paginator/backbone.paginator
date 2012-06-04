@@ -1,6 +1,6 @@
 ( function ( views ){
 
-	views.ResultView = Backbone.View.extend({
+	views.MovieView = Backbone.View.extend({
 		tagName : 'li',
 		template: _.template($('#resultMovieTemplate').html()),
 
