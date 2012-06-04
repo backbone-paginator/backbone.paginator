@@ -17,8 +17,6 @@
 		    <h1>Paginator.clientPager() <small>Paginating data at the UI layer</small></h1>
 		  </div>
 
-		  	<h3>NetFlix movies</h3>
-
 			<ul id="content">
 			
 			</ul>
@@ -32,18 +30,14 @@
 		<script type="text/html" id="resultItemTemplate">
 			<div class="result row">
 					<div class="title">
-					<h4><%= Name %></h4>
-					<div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
-					</div>
+					<h4><%= title %></h4>
 
 					<div class="span12 cover">
 					   <div class="span4">
-					   <img src="<%= BoxArt.MediumUrl %>"/></div>
 					   <div class="synop span8">
-					   	<%= ShortSynopsis %>
-					   	</div>
+					   	<%= content %>
+					   </div>
 					</div>
-
 			</div>
 		</script>
 
@@ -92,28 +86,12 @@
 							shown
 			</span>
 
-
-			<span class="divider">/</span>
-
-			<select id="sortByOption">
-				<option value="cid">Select a field to sort on</option>
-			    <option value="Name">name</option>
-			 	<option value="Runtime">runtime</option>
-			 	<option value="Rating">rating</option>
-			</select>
-
-			<span class="cell sort">
-				<a href="#" class="sortAsc btn small">Sort (Asc)</a>
-				<a href="#" class="sortDsc btn small">Sort (Desc)</a>
-			</span>
-
 			<span class="divider">/</span>
 
 			<select id="filterByOption">
 				<option value="cid">Select a field to filter on</option>
-				<option value="Name">name</option>
-				<option value="Runtime">runtime</option>
-				<option value="Rating">rating</option>
+				<option value="title">Title</option>
+				<option value="content">Content</option>
 			</select>
 
 			<span class="cell sort">
@@ -139,6 +117,7 @@
 		<!--Backbone.Paginator-->
 		<!--<script src="../../dist/backbone.paginator.js"></script>-->
 		<script src="../../lib/backbone.paginator.js"></script>
+		<script src="../../plugins/diacritic.js"></script>
 
 		<!--Models/Collections-->
 		<script src="models/Item.js"></script>
