@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/3/2012
+/*! backbone.paginator - v0.1.54 - 6/4/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -21,6 +21,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 	
 		// Default values used when sorting and/or filtering.
 		initialize: function(){
+			this.useDiacriticsPlugin = true; // use diacritics plugin if available
+		
 			this.sortColumn = "";
 			this.sortDirection = "desc";
 			this.lastSortColumn = "";
@@ -422,10 +424,18 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			// We accept fields to be a string or an array,
 			// but if string is passed we need to convert it
 			// to an array.
+			
+			var self = this;
+			
 			if( _.isString( fields ) ) {
 				var tmp_s = fields;
 				fields = [];
 				fields.push(tmp_s);
+			}
+			
+			//Remove diacritic characters if diacritic plugin is loaded
+			if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
+				filter = Backbone.Paginator.removeDiacritics(filter);
 			}
 			
 			// 'filter' can be only a string.
@@ -461,7 +471,13 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 						// given string contains each and all of the words in the regular expression
 						// or not, but in both cases match() will return an array containing all 
 						// the words it matched.
-						var matchesPerField = model.get( field ).toString().match( regexp );
+						var matchesPerField;
+						if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
+							matchesPerField = Backbone.Paginator.removeDiacritics(value.toString()).match( regexp );
+						}else{
+							matchesPerField = value.toString().match( regexp );
+						}
+						
 						matchesPerField = _.map(matchesPerField, function(match) {
 							return match.toString().toLowerCase();
 						});
