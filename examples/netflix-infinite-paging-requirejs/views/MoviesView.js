@@ -1,6 +1,6 @@
 (function ( views ) {
 
-	views.AppView = Backbone.View.extend({
+	views.MoviesView = Backbone.View.extend({
 		el : '#content',
 
 		initialize : function () {

@@ -10,9 +10,9 @@
 
 	// Defer initialization until doc ready.
 	$(function(){
-			app.collections.paginatedItems = new app.collections.PaginatedCollection();
-			app.views.app = new app.views.AppView({collection: app.collections.paginatedItems});
-			app.views.pagination = new app.views.PaginatedView({collection:app.collections.paginatedItems});
+			app.collections.paginatedMovies = new app.collections.Movies();
+			app.views.app = new app.views.MoviesView({collection: app.collections.paginatedMovies});
+			app.views.pagination = new app.views.PaginatedView({collection:app.collections.paginatedMovies});
 	});
 
 })();
