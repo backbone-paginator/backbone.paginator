@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/3/2012
+/*! backbone.paginator - v0.1.54 - 6/4/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -424,6 +424,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			// We accept fields to be a string or an array,
 			// but if string is passed we need to convert it
 			// to an array.
+			
+			var self = this;
+			
 			if( _.isString( fields ) ) {
 				var tmp_s = fields;
 				fields = [];
@@ -431,7 +434,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			}
 			
 			//Remove diacritic characters if diacritic plugin is loaded
-			if( _.has(Backbone.Paginator, 'removeDiacritics') && this.useDiacriticsPlugin ){
+			if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
 				filter = Backbone.Paginator.removeDiacritics(filter);
 			}
 			
@@ -469,7 +472,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 						// or not, but in both cases match() will return an array containing all 
 						// the words it matched.
 						var matchesPerField;
-						if( _.has(Backbone.Paginator, 'removeDiacritics') && this.useDiacriticsPlugin ){
+						if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
 							matchesPerField = Backbone.Paginator.removeDiacritics(value.toString()).match( regexp );
 						}else{
 							matchesPerField = value.toString().match( regexp );
