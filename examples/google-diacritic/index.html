@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+	<head>
+
+		<meta charset="UTF-8">
+		<title>Backbone.js pagination</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+	</head>
+
+	<body>
+
+		<div class="container">
+
+		  <p>&nbsp;</p>
+		  <div class="page-header">
+		    <h1>Paginator.clientPager() <small>Paginating data at the UI layer</small></h1>
+		  </div>
+
+			<ul id="content">
+			
+			</ul>
+
+			<ul id="pagination">
+			</ul>
+
+		</div>
+
+		<!--sample template for result item-->
+		<script type="text/html" id="resultItemTemplate">
+			<div class="result row">
+					<div class="title">
+					<h4><%= title %></h4>
+
+					<div class="span12 cover">
+					   <div class="span4">
+					   <div class="synop span8">
+					   	<%= content %>
+					   </div>
+					</div>
+			</div>
+		</script>
+
+		<!--sample template for pagination UI-->
+
+		<script type="text/html" id="tmpClientPagination">
+		 <div class="breadcrumb">
+
+			<span class="cell last pages">
+				<% if (currentPage != 1) { %>
+					<a href="#" class="first">First</a>
+					<a href="#" class="prev">Previous</a>
+				<% } %>
+				<% _.each (pageSet, function (p) { %>
+					<% if (currentPage == p) { %>
+						<span class="page selected"><%= p %></span>
+					<% } else { %>
+						<a href="#" class="page"><%= p %></a>
+					<% } %>
+				<% }); %>
+				<% if (lastPage != currentPage && lastPage != 0) { %>
+					<a href="#" class="next">Next</a>
+					<a href="#" class="last">Last</a>
+				<% } %>
+			</span>
+
+			<span class="divider">/</span>
+
+			<span class="cell howmany">
+				Show
+				<a href="#" class="selected">3</a>
+				|
+				<a href="#" class="">9</a>
+				|
+				<a href="#" class="">12</a>
+			</span>
+
+			<span class="divider">/</span>
+			
+			<span class="cell first records">
+				<span class="current"><%= startRecord %></span>
+				-
+				<span class="perpage"><%= endRecord %></span>
+				of
+				<span class="total"><%= totalRecords %></span>
+							shown
+			</span>
+
+			<span class="divider">/</span>
+
+			<select id="filterByOption">
+				<option value="cid">Select a field to filter on</option>
+				<option value="title">Title</option>
+				<option value="content">Content</option>
+			</select>
+
+			<span class="cell sort">
+				<input id="filterString" type="text" class="cell" />
+				<a href="#" class="filter btn small">Filter</a>
+			</span>
+
+		  </div>
+		</script>
+
+
+		
+		<!-- scripts-->
+
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="../libs/underscore.js"></script>
+		<script src="../libs/json2.js"></script>
+		<script src="../libs/backbone-min.js"></script>
+		
+		<!-- main app -->
+		<script src="app.js"></script>
+
+		<!--Backbone.Paginator-->
+		<!--<script src="../../dist/backbone.paginator.js"></script>-->
+		<script src="../../lib/backbone.paginator.js"></script>
+		<script src="../../plugins/diacritic.js"></script>
+
+		<!--Models/Collections-->
+		<script src="models/Item.js"></script>
+		<script src="collections/PaginatedCollection.js"></script>
+
+		<!--Views-->
+		<script src="views/ResultView.js"></script>
+		<script src="views/PaginationView.js"></script>
+		<script src="views/AppView.js"></script>
+
+	</body>
+</html>
