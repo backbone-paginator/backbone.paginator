@@ -281,9 +281,26 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
 ```
 
+## Plugins
+
+**Diacritic.js**
+
+A plugin for Backbone.Paginator that replaces diacritic characters (`´`, `˝`, `̏`, `˚`,`~` etc.) with characters that match them most closely. This is particularly useful for filtering.
+
+To enable the plugin, set `this.useDiacriticsPlugin` to true, as can be seen in the example below:
+
+```javascript
+Paginator.clientPager = Backbone.Collection.extend({
+	
+		// Default values used when sorting and/or filtering.
+		initialize: function(){
+			this.useDiacriticsPlugin = true; // use diacritics plugin if available
+		...	
+```
+
 ## Team
 
-* [Addy Osmani](http://github.com/addyosmani) - DPE, Google
+* [Addy Osmani](http://github.com/addyosmani) - Developer Programs Engineer, Google
 * [Alexander Nestorov](http://github.com/alexandernst) - Software Developer, EmeIEme
 
 ## Contributing
