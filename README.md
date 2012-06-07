@@ -8,7 +8,7 @@ You can either download the raw source code for the project, fork the repository
 
 * Production: [production version][min] 3.3K file size (1.1K gzipped)
 * Development: [development version][max] 7.01K file size (2.28K gzipped)
-* Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/v0.154)
+* Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
 
 [min]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.js
@@ -29,6 +29,7 @@ Live previews of both pagination components using the Netflix API can be found b
 * [Backbone.Paginator.requestPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-request-paging/index.html)
 * [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
 * [Infinite Pagination (Backbone.Paginator.requestPager())](http://addyosmani.github.com/backbone.paginator/examples/netflix-infinite-paging/index.html)
+* [Diacritic Plugin](http://addyosmani.github.com/backbone.paginator/examples/google-diacritic/index.html)
 
 ##Paginator.requestPager
 
@@ -281,9 +282,26 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
 ```
 
+## Plugins
+
+**Diacritic.js**
+
+A plugin for Backbone.Paginator that replaces diacritic characters (`´`, `˝`, `̏`, `˚`,`~` etc.) with characters that match them most closely. This is particularly useful for filtering.
+
+To enable the plugin, set `this.useDiacriticsPlugin` to true, as can be seen in the example below:
+
+```javascript
+Paginator.clientPager = Backbone.Collection.extend({
+	
+		// Default values used when sorting and/or filtering.
+		initialize: function(){
+			this.useDiacriticsPlugin = true; // use diacritics plugin if available
+		...	
+```
+
 ## Team
 
-* [Addy Osmani](http://github.com/addyosmani) - DPE, Google
+* [Addy Osmani](http://github.com/addyosmani) - Developer Programs Engineer, Google
 * [Alexander Nestorov](http://github.com/alexandernst) - Software Developer, EmeIEme
 
 ## Contributing
