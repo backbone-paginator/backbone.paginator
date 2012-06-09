@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/4/2012
+/*! backbone.paginator - v0.1.54 - 6/5/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -512,6 +512,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				totalPages = Math.ceil(totalRecords / self.perPage);
 
 			info = {
+				totalUnfilteredRecords: self.origModels.length,
 				totalRecords: totalRecords,
 				currentPage: self.currentPage,
 				perPage: this.perPage,
@@ -656,7 +657,6 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		},
 
-
 		requestNextPage: function () {
 			if ( this.currentPage !== undefined ) {
 				this.currentPage += 1;
@@ -701,6 +701,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		info: function () {
 
 			var info = {
+				// If parse() method is implemented and totalRecords is set to the length
+				// of the records returned, make it available. Else, default it to 0
+				totalRecords: this.totalRecords || 0,
+
 				currentPage: this.currentPage,
 				firstPage: this.firstPage,
 				totalPages: this.totalPages,

@@ -87,6 +87,8 @@
 			//but as this particular NetFlix request only returns a
 			//total count of items for the search, we divide.
 			this.totalPages = Math.floor(response.d.__count / this.perPage);
+
+			this.totalRecords = parseInt(response.d.__count);
 			return tags;
 		}
 

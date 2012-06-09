@@ -60,7 +60,6 @@
 			// Be sure to change this based on how your results
 			// are structured
 			var tags = response.d.results;
-			//this.totalPages = response.d.__count;
 			return tags;
 		}
 

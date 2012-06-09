@@ -282,6 +282,17 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
 ```
 
+####Implementation notes:
+
+You can use some variables in your ```View``` to represent the actual state of the paginator.
+```totalUnfilteredRecords``` - Contains the number of records, including all records filtered in any way. (Only available in ```clientPager```)
+```totalRecords``` - Contains the number of records
+```currentPage``` - The actual page were the paginator is at.
+```perPage``` - The number of records the paginator will show per page.
+```totalPages``` - The number of total pages.
+```startRecord``` - The posicion of the first record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+```endRecord``` - The posicion of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+
 ## Plugins
 
 **Diacritic.js**
