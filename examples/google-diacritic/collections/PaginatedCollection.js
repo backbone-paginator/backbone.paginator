@@ -52,8 +52,8 @@
 		parse: function (response) {
 			// Be sure to change this based on how your results
 			// are structured
+			
 			var tags = response.query.results.results;
-			//this.totalPages = response.d.__count;
 			return tags;
 		}
 
