@@ -145,11 +145,48 @@ You might also notice that we're setting `this.totalPages` to the total page cou
 
 For your convenience, the following methods are made available for use in your views to interact with the `requestPager`:
 
-* **Collection.goTo(n)** - go to a specific page
-* **Collection.requestNextPage()** - go to the next page
-* **Collection.requestPreviousPage()** - go to the previous page
-* **Collection.howManyPer(n)** - set the number of items to display per page
+* **Collection.goTo( n, options )** - go to a specific page
+* **Collection.requestNextPage( options )** - go to the next page
+* **Collection.requestPreviousPage( options )** - go to the previous page
+* **Collection.howManyPer( n )** - set the number of items to display per page
 
+**requestPager** collection's methods `.goTo()`, `.requestNextPage()` and `.requestPreviousPage()` are all extension of the original [Backbone Collection.fetch() method](http://documentcloud.github.com/backbone/#Collection-fetch). As so, they all can take an options object as parameter.
+
+This option object can use `success` and `error` parameters to pass a function to be executed after server answer.
+
+```javascript
+Collection.goTo(n, {
+	success: function( collection, response ) {
+		// called after server request success
+	},
+	error: function( collection, response ) {
+		// called if server request fail
+	}
+});
+```
+
+Or you can use the [jqXHR](http://api.jquery.com/jQuery.ajax/#jqXHR) returned by those methods to manage callback.
+
+```javascript
+Collection
+	.requestNextPage()
+	.done(function( data, textStatus, jqXHR ) {
+		// called after server request success
+	})
+	.fail(function( data, textStatus, jqXHR ) {
+		// called if server request fail
+	})
+	.always(function( data, textStatus, jqXHR ) {
+		// do something after server request is complete
+	});
+});
+```
+
+If you'd like to add the incoming models to the current collection, instead of replacing the collection's contents, pass `{add: true}` as an option to these methods.
+
+```javascript
+Collection.requestPreviousPage({ add: true });
+```
 
 ##Paginator.clientPager
 
