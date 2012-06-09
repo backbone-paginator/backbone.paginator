@@ -157,7 +157,7 @@ This option object can use `success` and `error` parameters to pass a function t
 ```javascript
 Collection.goTo(n, {
 	success: function( collection, response ) {
-		// called after server request success
+		// called is server request success
 	},
 	error: function( collection, response ) {
 		// called if server request fail
@@ -165,13 +165,13 @@ Collection.goTo(n, {
 });
 ```
 
-Or you can use the [jqXHR](http://api.jquery.com/jQuery.ajax/#jqXHR) returned by those methods to manage callback.
+To manage callback, you could also use the [jqXHR](http://api.jquery.com/jQuery.ajax/#jqXHR) returned by these methods to manage callback.
 
 ```javascript
 Collection
 	.requestNextPage()
 	.done(function( data, textStatus, jqXHR ) {
-		// called after server request success
+		// called is server request success
 	})
 	.fail(function( data, textStatus, jqXHR ) {
 		// called if server request fail
