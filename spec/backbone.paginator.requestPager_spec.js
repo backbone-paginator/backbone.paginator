@@ -2,7 +2,7 @@ describe('backbone.paginator.requestPager',function(){
 	
 	describe('sync method', function(){
 		
-		xit('should set default values for "paginator_ui" if not provided', function(){
+		it('should set default values for "paginator_ui" if not provided', function(){
 			//Setup
 			var requestPagerTest = {
 					paginator_ui: {totalPages: 22},
@@ -78,7 +78,6 @@ describe('backbone.paginator.requestPager',function(){
 			requestPagerTest.sync();
 			
 			expect($.ajax.callCount).toEqual(1);
-			//expect($.ajax.mostRecentCall.args[0]).toEqual(25000);
 			expect($.ajax.mostRecentCall.args[0]['timeout']).toEqual(25000);
 			expect($.ajax.mostRecentCall.args[0]['cache']).toEqual(false);
 			expect($.ajax.mostRecentCall.args[0]['type']).toEqual("GET");
@@ -103,7 +102,6 @@ describe('backbone.paginator.requestPager',function(){
 			
 			requestPagerTest.sync();
 			
-			//expect($.ajax.mostRecentCall.args[0]).toEqual(25000);
 			expect($.ajax.mostRecentCall.args[0]['jsonpCallback']).toEqual('callback');
 			expect($.ajax.mostRecentCall.args[0]['processData']).toEqual(false);
 		});
@@ -142,7 +140,6 @@ describe('backbone.paginator.requestPager',function(){
 			
 			requestPagerTest.sync();
 			
-			//expect($.ajax.mostRecentCall.args[0]).toEqual(25000);
 			expect($.ajax.mostRecentCall.args[0]['data']).toEqual('pageZeroBased=1&searchTerm=Obama&sortBy=lastName');
 		});
 		
@@ -211,7 +208,6 @@ describe('backbone.paginator.requestPager',function(){
 				firstPage: 1,
 				totalPages: 100,
 				perPage: 20,
-				totalCount: 2000				
 			};
 			_.extend(requestPagerTest, new Backbone.Paginator.requestPager());
 			
@@ -222,7 +218,19 @@ describe('backbone.paginator.requestPager',function(){
 			expect(info.totalPages).toEqual(100);
 			expect(info.lastPage).toEqual(100);
 			expect(info.perPage).toEqual(20);
-			expect(info.totalCount).toEqual(2000);
+		});
+		
+		it("should return 'totalRecords' if parse() method is implemented and totalRecords is set", function(){
+			var requestPagerTest = {};
+			_.extend(requestPagerTest, new Backbone.Paginator.requestPager(), 
+					{parse: function(){
+						this.totalRecords = 2000;
+					}});
+			
+			requestPagerTest.parse();
+			var info = requestPagerTest.info();
+			
+			expect(info.totalRecords).toEqual(2000);
 		});
 	});
 	
@@ -325,6 +333,5 @@ describe('backbone.paginator.requestPager',function(){
 			expect(requestPagerTest.currentPage).toEqual(1);
 		});
 	});
-	
 	
 });
