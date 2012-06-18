@@ -110,10 +110,18 @@
 			 * You can create an array like 
 			 * 
 			 * fields = ['Name', 'Description', ...];
+			 *
+			 *Or an object with rules like
+			 *
+			 * fields = {
+			 *				'Name': {cmp_method: 'levenshtein', max_distance: 7}, 
+			 *				'Description': {cmp_method: 'regexp'},
+			 *				'Rating': {} // This will default to 'regexp'
+			 *			};
 			 */
 
 			var filter = this.getFilterValue();
-
+			
 			this.collection.setFilter(fields, filter);
 			this.collection.pager();
 

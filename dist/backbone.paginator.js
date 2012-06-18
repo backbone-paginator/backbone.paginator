@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/5/2012
+/*! backbone.paginator - v0.1.54 - 6/10/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -22,6 +22,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		// Default values used when sorting and/or filtering.
 		initialize: function(){
 			this.useDiacriticsPlugin = true; // use diacritics plugin if available
+			this.useLevenshteinPlugin = true; // use levenshtein plugin if available
 		
 			this.sortColumn = "";
 			this.sortDirection = "desc";
@@ -150,8 +151,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
     
 		// setFilter is used to filter the current model. After
 		// passing 'fields', which can be a string referring to
-		// the model's field or an array of strings representing
-		// all of the model's fields you wish to filter by and
+		// the model's field, an array of strings representing
+		// each of the model's fields or an object with the name
+		// of the model's field(s) and comparing options (see docs)
+		// you wish to filter by and
 		// 'filter', which is the word or words you wish to 
 		// filter by, pager() and info() will be called automatically.
 		setFilter: function ( fields, filter ) {
@@ -421,17 +424,27 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			//  "Mustang" in the description and then the HP in the 'hp' field.
 			//  NOTE: "Black Musta 300" will return the same as "Black Mustang 300"
 
-			// We accept fields to be a string or an array,
-			// but if string is passed we need to convert it
-			// to an array.
+			// We accept fields to be a string, an array or an object
+			// but if string or array is passed we need to convert it
+			// to an object.
 			
 			var self = this;
 			
+			var obj_fields = {};
+			
 			if( _.isString( fields ) ) {
-				var tmp_s = fields;
-				fields = [];
-				fields.push(tmp_s);
+				obj_fields[fields] = {cmp_method: 'regexp'};
+			}else if( _.isArray( fields ) ) {
+				_.each(fields, function(field){
+					obj_fields[field] = {cmp_method: 'regexp'};
+				});
+			}else{
+				_.each(fields, function( cmp_opts, field ) {
+					obj_fields[field] = _.defaults(cmp_opts, { cmp_method: 'regexp' });
+				});
 			}
+			
+			fields = obj_fields;
 			
 			//Remove diacritic characters if diacritic plugin is loaded
 			if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
@@ -447,9 +460,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			if( filter === '' || !_.isString(filter) ) {
 				return models;
 			} else {
-				filter = filter.match(/\w+/ig);
-				filter = _.uniq(filter);
-				var pattern = "(" + filter.join("|") + ")";
+				var words = filter.match(/\w+/ig);
+				var pattern = "(" + _.uniq(words).join("|") + ")";
 				var regexp = new RegExp(pattern, "igm");
 			}
 			
@@ -459,33 +471,49 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			_.each( models, function( model ) {
 
 				var matchesPerModel = [];
-			
+
 				// and over each field of each model
-				_.each( fields, function( field ) {
+				_.each( fields, function( cmp_opts, field ) {
 
 					var value = model.get( field );
 
 					if( value ) {
 					
-						// The regular expression we created earlier let's us to detect if a
+						// The regular expression we created earlier let's us detect if a
 						// given string contains each and all of the words in the regular expression
 						// or not, but in both cases match() will return an array containing all 
 						// the words it matched.
-						var matchesPerField;
-						if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
-							matchesPerField = Backbone.Paginator.removeDiacritics(value.toString()).match( regexp );
-						}else{
-							matchesPerField = value.toString().match( regexp );
-						}
+						var matchesPerField = [];
 						
+						if( _.has(Backbone.Paginator, 'removeDiacritics') && self.useDiacriticsPlugin ){
+							value = Backbone.Paginator.removeDiacritics(value.toString());
+						}else{
+							value = value.toString();
+						}
+
+						// Levenshtein cmp
+						if( cmp_opts.cmp_method === 'levenshtein' && _.has(Backbone.Paginator, 'levenshtein') && self.useLevenshteinPlugin ) {
+							var distance = Backbone.Paginator.levenshtein(value, filter);
+
+							_.defaults(cmp_opts, { max_distance: 0 });
+
+							if( distance <= cmp_opts.max_distance ) {
+								matchesPerField = _.uniq(words);
+							}
+
+						// Default (RegExp) cmp
+						}else{
+							matchesPerField = value.match( regexp );
+						}
+
 						matchesPerField = _.map(matchesPerField, function(match) {
 							return match.toString().toLowerCase();
 						});
-						
+
 						_.each(matchesPerField, function(match){
 							matchesPerModel.push(match);
 						});
-						
+
 					}
 
 				});
@@ -494,7 +522,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				// regex, and if it does, it means that we have a match, so we should save it.
 				matchesPerModel = _.uniq( _.without(matchesPerModel, "") );
 
-				if(  _.isEmpty( _.difference(filter, matchesPerModel) ) ) {
+				if(  _.isEmpty( _.difference(words, matchesPerModel) ) ) {
 					filteredModels.push(model);
 				}
 				
