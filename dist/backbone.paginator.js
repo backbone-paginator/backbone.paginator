@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/10/2012
+/*! backbone.paginator - v0.1.54 - 6/30/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -61,6 +61,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
 					value = _.bind(value, self);
+					value = value();
 				}
 				queryAttributes[key] = value;
 			});
@@ -69,6 +70,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			_.each(queryOptions, function(value, key){
 				if( _.isFunction(value) ) {
 					value = _.bind(value, self);
+					value = value();
 				}
 				queryOptions[key] = value;
 			});
@@ -654,6 +656,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			_.each(self.server_api, function(value, key){
 				if( _.isFunction(value) ) {
 					value = _.bind(value, self);
+					value = value();
 				}
 				queryAttributes[key] = value;
 			});
@@ -662,6 +665,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			_.each(queryOptions, function(value, key){
 				if( _.isFunction(value) ) {
 					value = _.bind(value, self);
+					value = value();
 				}
 				queryOptions[key] = value;
 			});
@@ -684,18 +688,26 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			return $.ajax( queryOptions );
 
 		},
-
-		requestNextPage: function () {
+		
+		requestNextPage: function ( options ) {
 			if ( this.currentPage !== undefined ) {
 				this.currentPage += 1;
-				this.pager();
+				return this.pager( options );
+			} else {
+				var response = new $.Deferred();
+				response.reject();
+				return response.promise();
 			}
 		},
 
-		requestPreviousPage: function () {
+		requestPreviousPage: function ( options ) {
 			if ( this.currentPage !== undefined ) {
 				this.currentPage -= 1;
-				this.pager();
+				return this.pager( options );
+			} else {
+				var response = new $.Deferred();
+				response.reject();
+				return response.promise();
 			}
 		},
 
@@ -707,10 +719,14 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 		},
 
-		goTo: function ( page ) {
-			if(page !== undefined){
+		goTo: function ( page, options ) {
+			if ( page !== undefined ) {
 				this.currentPage = parseInt(page, 10);
-				this.pager();				
+				return this.pager( options );
+			} else {
+				var response = new $.Deferred();
+				response.reject();
+				return response.promise();
 			}
 		},
 
@@ -745,8 +761,11 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		},
 
 		// fetches the latest results from the server
-		pager: function () {
-			this.fetch({});
+		pager: function ( options ) {
+			if ( !_.isObject(options) ) {
+				options = {};
+			}
+			return this.fetch( options );
 		}
 
 
