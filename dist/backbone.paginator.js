@@ -678,6 +678,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				dataType: 'jsonp'
 			});
 
+			if( options.data ){
+				options.data = decodeURIComponent($.param(_.extend(queryAttributes,options.data)));
+			};
+
 			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
 				data: decodeURIComponent($.param(queryAttributes)),
