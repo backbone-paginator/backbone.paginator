@@ -680,11 +680,12 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
 			if( options.data ){
 				options.data = decodeURIComponent($.param(_.extend(queryAttributes,options.data)));
-			};
+			}else{
+				options.data = decodeURIComponent($.param(queryAttributes));
+			}
 
 			queryOptions = _.extend(queryOptions, {
 				jsonpCallback: 'callback',
-				data: decodeURIComponent($.param(queryAttributes)),
 				processData: false,
 				url: _.result(queryOptions, 'url')
 			}, options);
