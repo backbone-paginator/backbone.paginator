@@ -678,6 +678,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				dataType: 'jsonp'
 			});
 
+			// Allows the passing in of {data: {foo: 'bar'}} at request time to overwrite server_api defaults
 			if( options.data ){
 				options.data = decodeURIComponent($.param(_.extend(queryAttributes,options.data)));
 			}else{
