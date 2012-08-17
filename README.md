@@ -295,12 +295,14 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.howManyPer(n)** - set how many items to display per page
 * **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered. Last option is to pass it an object containing a comparison method and rules. Currently, only ```levenshtein``` method is available.
+
 ```javascript
 	this.collection.setFilter(
 		{'Name': {cmp_method: 'levenshtein', max_distance: 7}}
 		, "Amreican P" // Note the switched 'r' and 'e', and the 'P' from 'Pie'
 	);
 ```
+
 Also note that the levenshtein plugin should be loaded and enabled using the ```useLevenshteinPlugin``` variable.
 Last but not less important: Performing Levenshtein comparison returns the ```distance``` between to strings. It won't let you *search* lenghty text.
 The distance between two strings means the number of characters that should be added, removed or moved to the left or to the right so the strings get equal.
