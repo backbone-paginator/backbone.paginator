@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 6/30/2012
+/*! backbone.paginator - v0.1.54 - 8/17/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -29,7 +29,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			this.lastSortColumn = "";
 
 			this.fieldFilterRules = [];
-			this.lastFieldFilterRiles = [];
+			this.lastFieldFilterRules = [];
 
 			this.filterFields = "";
 			this.filterExpression = "";
@@ -144,7 +144,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		// authors who's name start with 'A'.
 		setFieldFilter: function ( fieldFilterRules ) {
 			if( !_.isEmpty( fieldFilterRules ) ) {
-				this.lastFieldFilterRiles = this.fieldFilterRules;
+				this.lastFieldFilterRules = this.fieldFilterRules;
 				this.fieldFilterRules = fieldFilterRules;
 				this.pager();
 				this.info();
@@ -202,13 +202,13 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			}
       
 			// If the sorting or the filtering was changed go to the first page
-			if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression || !_.isEqual(this.fieldFilterRules, this.lastFieldFilterRiles) ) {
+			if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression || !_.isEqual(this.fieldFilterRules, this.lastFieldFilterRules) ) {
 				start = 0;
 				stop = start + disp;
 				self.currentPage = 1;
 
 				this.lastSortColumn = this.sortColumn;
-				this.lastFieldFilterRiles = this.fieldFilterRules;
+				this.lastFieldFilterRules = this.fieldFilterRules;
 				this.lastFilterExpression = this.filterExpression;
 			}
 			
@@ -555,7 +555,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 			};
 
 			if (self.currentPage > 1) {
-				info.prev = self.currentPage - 1;
+				info.previous = self.currentPage - 1;
 			}
 
 			if (self.currentPage < info.totalPages) {
