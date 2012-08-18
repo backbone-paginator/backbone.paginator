@@ -308,6 +308,9 @@ Last but not less important: Performing Levenshtein comparison returns the ```di
 The distance between two strings means the number of characters that should be added, removed or moved to the left or to the right so the strings get equal.
 That means that comparing "Something" in "This is a test that could show something" will return 32, which is bigger than comparing "Something" and "ABCDEFG" (9).
 Use levenshtein only for short texts (titles, names, etc).
+
+* **Collection.doFakeFilter(filterFields, filterWords)** - returns the models count after fake-applying a call to ```Collection.setFilter```.
+
 * **Collection.setFieldFilter(rules)** - filter each value of each model according to `rules` that you pass as argument. Example: You have a collection of books with 'release year' and 'author'. You can filter only the books that were released between 1999 and 2003. And then you can add another `rule` that will filter those books only to authors who's name start with 'A'. Possible rules: function, required, min, max, range, minLength, maxLength, rangeLength, oneOf, equalTo, pattern.
 ```javascript
 	my_collection.setFieldFilter([
@@ -332,15 +335,24 @@ Use levenshtein only for short texts (titles, names, etc).
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
 ```
 
+* **Collection.doFakeFieldFilter(rules)** - returns the models count after fake-applying a call to ```Collection.setFieldFilter```.
+
 ####Implementation notes:
 
 You can use some variables in your ```View``` to represent the actual state of the paginator.
+
 ```totalUnfilteredRecords``` - Contains the number of records, including all records filtered in any way. (Only available in ```clientPager```)
+
 ```totalRecords``` - Contains the number of records
+
 ```currentPage``` - The actual page were the paginator is at.
+
 ```perPage``` - The number of records the paginator will show per page.
+
 ```totalPages``` - The number of total pages.
+
 ```startRecord``` - The posicion of the first record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+
 ```endRecord``` - The posicion of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
 
 ## Plugins
