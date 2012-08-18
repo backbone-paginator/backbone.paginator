@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 8/17/2012
+/*! backbone.paginator - v0.1.54 - 8/18/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -150,6 +150,30 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				this.info();
 			}
 		},
+
+		// doFakeFieldFilter can be used to get the number of models that will remain
+		// after calling setFieldFilter with a filter rule(s)
+		doFakeFieldFilter: function ( fieldFilterRules ) {
+			if( !_.isEmpty( fieldFilterRules ) ) {
+				var bkp_lastFieldFilterRules = this.lastFieldFilterRules;
+				var bkp_fieldFilterRules = this.fieldFilterRules;
+
+				this.lastFieldFilterRules = this.fieldFilterRules;
+				this.fieldFilterRules = fieldFilterRules;
+				this.pager();
+				this.info();
+
+				var cmodels = this.models.length;
+
+				this.lastFieldFilterRules = bkp_lastFieldFilterRules;
+				this.fieldFilterRules = bkp_fieldFilterRules;
+				this.pager();
+				this.info();
+
+				// Return size
+				return cmodels;
+			}
+		},
     
 		// setFilter is used to filter the current model. After
 		// passing 'fields', which can be a string referring to
@@ -166,6 +190,33 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 				this.filterExpression = filter;
 				this.pager();
 				this.info();
+			}
+		},
+
+		// doFakeFilter can be used to get the number of models that will
+		// remain after calling setFilter with a `fields` and `filter` args. 
+		doFakeFilter: function ( fields, filter ) {
+			if( fields !== undefined && filter !== undefined ){
+				var bkp_filterFields = this.filterFields;
+				var bkp_lastFilterExpression = this.lastFilterExpression;
+				var bkp_filterExpression = this.filterExpression;
+
+				this.filterFields = fields;
+				this.lastFilterExpression = this.filterExpression;
+				this.filterExpression = filter;
+				this.pager();
+				this.info();
+
+				var cmodels = this.models.length;
+
+				this.filterFields = bkp_filterFields;
+				this.lastFilterExpression = bkp_lastFilterExpression;
+				this.filterExpression = bkp_filterExpression;
+				this.pager();
+				this.info();
+
+				// Return size
+				return cmodels;
 			}
 		},
 
