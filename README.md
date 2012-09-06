@@ -133,7 +133,7 @@ You might also notice that we're setting `this.totalPages` to the total page cou
             //Normally this.totalPages would equal response.d.__count
             //but as this particular NetFlix request only returns a
             //total count of items for the search, we divide.
-            this.totalPages = Math.floor(response.d.__count / this.perPage);
+            this.totalPages = Math.ceil(response.d.__count / this.perPage);
             return tags;
         }
     });
