@@ -69,7 +69,7 @@
 			
 			// custom parameters
 			'$inlinecount': 'allpages',
-			'$callback': 'callback'                                     
+			'$callback': '?'                                     
 		},
 
 		parse: function (response) {
