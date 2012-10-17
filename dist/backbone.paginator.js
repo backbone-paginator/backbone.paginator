@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 10/4/2012
+/*! backbone.paginator - v0.1.54 - 10/17/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -843,6 +843,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 		},
 		
 		url: function(){
+			// Expose url parameter enclosed in this.paginator_core.url to properly
+			// extend Collection and allow Collection CRUD
 			if(this.paginator_core !== undefined && this.paginator_core.url !== undefined){
 				return this.paginator_core.url;
 			} else {
