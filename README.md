@@ -333,7 +333,7 @@ Use levenshtein only for short texts (titles, names, etc).
 	//{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
 	//{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
-	//{field: 'color_name', type: 'containsAllOf', value: ['green', 'yellow']}
+	//{field: 'color_name', type: 'containsAllOf', value: ['green', 'yellow', 'blue']}
 ```
 
 * **Collection.doFakeFieldFilter(rules)** - returns the models count after fake-applying a call to ```Collection.setFieldFilter```.
