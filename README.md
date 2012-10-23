@@ -311,7 +311,7 @@ Use levenshtein only for short texts (titles, names, etc).
 
 * **Collection.doFakeFilter(filterFields, filterWords)** - returns the models count after fake-applying a call to ```Collection.setFilter```.
 
-* **Collection.setFieldFilter(rules)** - filter each value of each model according to `rules` that you pass as argument. Example: You have a collection of books with 'release year' and 'author'. You can filter only the books that were released between 1999 and 2003. And then you can add another `rule` that will filter those books only to authors who's name start with 'A'. Possible rules: function, required, min, max, range, minLength, maxLength, rangeLength, oneOf, equalTo, pattern.
+* **Collection.setFieldFilter(rules)** - filter each value of each model according to `rules` that you pass as argument. Example: You have a collection of books with 'release year' and 'author'. You can filter only the books that were released between 1999 and 2003. And then you can add another `rule` that will filter those books only to authors who's name start with 'A'. Possible rules: function, required, min, max, range, minLength, maxLength, rangeLength, oneOf, equalTo, containsAllOf, pattern.  Passing this an empty rules set will remove any FieldFilter rules applied.
 ```javascript
 	my_collection.setFieldFilter([
 		{field: 'release_year', type: 'range', value: {min: '1999', max: '2003'}},
@@ -333,6 +333,7 @@ Use levenshtein only for short texts (titles, names, etc).
 	//{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
 	//{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
 	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
+	//{field: 'color_name', type: 'containsAllOf', value: ['green', 'yellow', 'blue']}
 ```
 
 * **Collection.doFakeFieldFilter(rules)** - returns the models count after fake-applying a call to ```Collection.setFieldFilter```.
