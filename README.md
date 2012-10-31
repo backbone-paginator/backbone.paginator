@@ -238,7 +238,11 @@ We need to tell the library how many items per page would we like to see, etc...
 			// service you are using does not support providing the total 
 			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
-			totalPages: 10
+			totalPages: 10,
+			
+			// The total number of pages to be shown as a pagination 
+			// list is calculated by (pagesInRange * 2) + 1.
+			pagesInRange: 4
 		},
 ``` 
 
@@ -352,9 +356,71 @@ You can use some variables in your ```View``` to represent the actual state of t
 
 ```totalPages``` - The number of total pages.
 
-```startRecord``` - The posicion of the first record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+```startRecord``` - The position of the first record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
 
-```endRecord``` - The posicion of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+```endRecord``` - The position of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
+
+```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if pagesInRange is 3 and current page is 13 you will get 
+the numbers 10, 11, 12, 13(selected), 14, 15, 16. (Only available in ```requestPager```).
+
+```html
+<!-- sample template for pagination UI -->
+<script type="text/html" id="tmpServerPagination">
+
+	<div class="row-fluid">
+
+		<div class="pagination span8">
+			<ul>
+				<% _.each (pageSet, function (p) { %>
+				<% if (currentPage == p) { %>
+					<li class="active"><span><%= p %></span></li>
+				<% } else { %>
+					<li><a href="#" class="page"><%= p %></a></li>
+				<% } %>
+				<% }); %>
+			</ul>
+		</div>
+	
+		<div class="pagination span4">
+			<ul>
+				<% if (currentPage > firstPage) { %>
+					<li><a href="#" class="serverprevious">Previous</a></li>
+				<% }else{ %>
+					<li><span>Previous</span></li>
+				<% }%>
+				<% if (currentPage < totalPages) { %>
+					<li><a href="#" class="servernext">Next</a></li>
+				<% } else { %>
+					<li><span>Next</span></li>
+				<% } %>
+				<% if (firstPage != currentPage) { %>
+					<li><a href="#" class="serverfirst">First</a></li> 
+				<% } else { %>
+					<li><span>First</span></li> 
+				<% } %>
+				<% if (totalPages != currentPage) { %>
+					<li><a href="#" class="serverlast">Last</a></li>
+				<% } else { %>
+					<li><span>Last</span></li>
+				<% } %>
+			</ul>
+		</div>
+
+	</div>
+
+	<span class="cell serverhowmany"> Show <a href="#"
+		class="selected">18</a> | <a href="#" class="">9</a> | <a href="#" class="">12</a> per page
+	</span>
+
+	<span class="divider">/</span>
+
+	<span class="cell first records">
+		Page: <span class="label"><%= currentPage %></span> of <span class="label"><%= totalPages %></span> shown
+	</span>
+
+</script>
+```
+	
 
 ## Plugins
 
