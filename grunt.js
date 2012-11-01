@@ -48,18 +48,8 @@ module.exports = function(grunt) {
         eqnull: true
       },
       globals: {
-        //exports: true,
-        module: false,
-        describe: false,
-        it: false,
-        beforeEach: false,
-        afterEach: false,
-        //console: true,
-        sinon: false,
-        expect: false,
-        _: false,
-        $: false,
-        Backbone: false
+        exports: true,
+        module: false
       }
     },
     uglify: {}

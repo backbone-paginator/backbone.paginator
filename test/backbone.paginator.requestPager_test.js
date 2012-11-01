@@ -1,3 +1,6 @@
+/*globals	Backbone:false, _:false, jQuery:false, $: false,
+			describe: true, expect: true, sinon: true
+			it: true, beforeEach: true, afterEach: true*/
 describe('backbone.paginator.requestPager',function(){
     
 	describe('sync method', function(){
@@ -67,7 +70,7 @@ describe('backbone.paginator.requestPager',function(){
 			_.extend(requestPagerTest, new Backbone.Paginator.requestPager());
 			
 			// ----- TODO: These are failing in phantomjs
-			//expect(requestPagerTest.firstPage).to.be.an('undefined');
+			// expect(requestPagerTest.firstPage).to.be.an('undefined');
 			//expect(requestPagerTest.someVariable).to.be.an('undefined');
 			//expect(requestPagerTest.currentPage).to.be.an('undefined');
 			
