@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+  //var log = grunt.log;
+
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -22,9 +24,11 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
-
+    mocha: {
+      all: [ 'test/test.html' ]
+    },          
     lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
     },
     watch: {
       files: '<config:lint.files>',
@@ -44,8 +48,18 @@ module.exports = function(grunt) {
         eqnull: true
       },
       globals: {
-        exports: true,
-        module: false
+        //exports: true,
+        module: false,
+        describe: false,
+        it: false,
+        beforeEach: false,
+        afterEach: false,
+        //console: true,
+        sinon: false,
+        expect: false,
+        _: false,
+        $: false,
+        Backbone: false
       }
     },
     uglify: {}
@@ -53,5 +67,8 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'lint concat min');
+  grunt.registerTask('test', 'lint mocha');
 
+  // run `npm install grunt-mocha` in project root dir and uncomment this
+  grunt.loadNpmTasks('grunt-mocha');
 };
