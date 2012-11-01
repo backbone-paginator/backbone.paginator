@@ -53,7 +53,7 @@ describe('backbone.paginator.requestPager',function(){
 			expect(requestPagerTest.paginator_ui.totalPages).to.equal(99);
 		});		
 
-		it('should change scope of "paginator_ui" values to current object under test', function(){
+		it('should change scope of "paginator_ui" values to current object', function(){
 			var requestPagerTest = {
 					//currentPage: 999,
 					
@@ -81,7 +81,7 @@ describe('backbone.paginator.requestPager',function(){
 			expect(requestPagerTest.currentPage).to.equal(1);
 		});		
 
-		it('should only change scope of "paginator_ui" values to current object under test when one not exists', function(){
+		it('should only change scope of "paginator_ui" values to current object when one not exists', function(){
 			var requestPagerTest = {
 					currentPage: 999,
 					
@@ -142,13 +142,10 @@ describe('backbone.paginator.requestPager',function(){
 			expect(spy.lastCall.args[0]['dataType']).to.equal("jsonp");
 		});
 
-		it("should set 'jsonpCallback' and 'processData' for query options for the ajax call", function(){
-			//@addyosmani : 
-			//1) Why do we need 'processData' to be set for ajax call?
+		it("should set 'processData' to 'false' for query options for the ajax call", function(){
 			var requestPagerTest = {
 					paginator_ui: {},
 					paginator_core: {
-						//jsonpCallback: 'override_me'
 					}
 			};
 			_.extend(requestPagerTest, new Backbone.Paginator.requestPager());
@@ -156,8 +153,6 @@ describe('backbone.paginator.requestPager',function(){
 			var options = {};
 			requestPagerTest.sync(null, null, options);
 			
-			//expect(spy.lastCall.args[0]).to.equal(25000);
-			//expect(spy.lastCall.args[0]['jsonpCallback']).to.equal('callback');
 			expect(spy.lastCall.args[0]['processData']).to.equal(false);
 		});
 
@@ -193,7 +188,6 @@ describe('backbone.paginator.requestPager',function(){
 			var options = {};
 			requestPagerTest.sync(null, null, options);
 			
-			//expect(spy.lastCall.args[0]).to.equal(25000);
 			expect(spy.lastCall.args[0]['data']).to.equal('pageZeroBased=1&searchTerm=Obama&sortBy=lastName');
 		});
 		
