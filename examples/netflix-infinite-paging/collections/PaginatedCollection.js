@@ -33,14 +33,14 @@
 		
 		paginator_ui: {
 			// the lowest page index your API allows to be accessed
-			firstPage: 0,
+			firstPage: 1,
 		
 			// which page should the paginator start from 
 			// (also, the actual page the paginator is on)
-			currentPage: 0,
+			currentPage: 1,
 			
 			// how many items per page should be shown
-			perPage: 3,
+			perPage: 10,
 			
 			// a default number of total pages to query in case the API or 
 			// service you are using does not support providing the total 
@@ -59,7 +59,7 @@
 			// how many results the request should skip ahead to
 			// customize as needed. For the Netflix API, skipping ahead based on
 			// page * number of results per page was necessary.
-			'$skip': function() { return this.currentPage * this.perPage },
+			'$skip': function() { return (this.currentPage - 1) * this.perPage },
 			
 			// field to sort by
 			'$orderby': 'ReleaseYear',
@@ -79,7 +79,7 @@
 			//Normally this.totalPages would equal response.d.__count
 			//but as this particular NetFlix request only returns a
 			//total count of items for the search, we divide.
-			this.totalPages = Math.floor(response.d.__count / this.perPage);
+			this.totalPages = Math.ceil(response.d.__count / this.perPage);
 
 			this.totalRecords = parseInt(response.d.__count);
 			return tags;

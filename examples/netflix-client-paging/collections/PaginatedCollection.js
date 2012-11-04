@@ -30,7 +30,9 @@
 			// service you are using does not support providing the total 
 			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
-			totalPages: 10
+			totalPages: 10,
+			
+			pagesInRange: 3
 		},
 		
 		server_api: {

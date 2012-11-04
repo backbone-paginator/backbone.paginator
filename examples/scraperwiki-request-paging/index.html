@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone.js pagination</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+
+<body>
+
+	<div class="container-fluid">
+
+		<div class="page-header">
+			<h2>
+				Paginator.requestPager() 
+				<small>Paginating requests to and from an API/backend.<br />Scraperwiki (https://scraperwiki.com/scrapers/slovenian_company_numbers/).</small>
+			</h2>
+		</div>
+
+		<table id="content" class="table table-bordered table-condensed"></table>
+
+		<div id="pagination"></div>
+
+	</div>
+
+
+	<!--sample template for result item -->
+	<script type="text/html" id="resultItemTemplate">
+		<td><h5><%= CompanyName %></h5></td>
+		<td><%= tax_number %></td>
+		<td><%= RegisteredAddress  %></td>
+	</script>
+
+
+	<!-- sample template for pagination UI -->
+	<script type="text/html" id="tmpServerPagination">
+
+	<div class="row-fluid">
+
+	<div class="pagination span8">
+		<ul>
+			<% _.each (pageSet, function (p) { %>
+			<% if (currentPage == p) { %>
+				<li class="active"><a href="#"><%= p %></a></li>
+			<% } else { %>
+				<li><a href="#" class="page"><%= p %></a></li>
+			<% } %>
+			<% }); %>
+		</ul>
+	</div>
+
+	<div class="pagination span6">
+		<ul>
+			<% if (currentPage > firstPage) { %>
+				<li><a href="#" class="serverprevious">Previous</a></li>
+			<% }else{ %>
+				<li><a href="#">Previous</a></li>
+			<% }%>
+			<% if (currentPage < totalPages) { %>
+				<li><a href="#" class="servernext">Next</a></li>
+			<% } else { %>
+				<li><a href="#">Next</a></li>
+			<% } %>
+			<% if (firstPage != currentPage) { %>
+				<li><a href="#" class="serverfirst">First</a></li> 
+			<% } else { %>
+				<li><a href="#">First</a></li> 
+			<% } %>
+			<% if (totalPages != currentPage) { %>
+				<li><a href="#" class="serverlast">Last</a></li>
+			<% } else { %>
+				<li><a href="#">Last</a></li>
+			<% } %>
+		</ul>
+	</div>
+
+	</div>
+
+	<span class="cell serverhowmany"> Show <a href="#"
+		class="selected">18</a> | <a href="#" class="">9</a> | <a href="#" class="">12</a> per page
+	</span>
+
+	<span class="divider">/</span>
+
+	<span class="cell first records">
+		Page: <span class="label"><%= currentPage %></span> of <span class="label"><%= totalPages %></span> shown
+	</span>
+
+	</script>
+
+
+
+	<!-- scripts-->
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="../libs/underscore.js"></script>
+	<script src="../libs/json2.js"></script>
+	<script src="../libs/backbone-min.js"></script>
+	
+	<script src="app.js"></script>
+
+	<!--Backbone.Paginator-->
+	<script src="../../lib/backbone.paginator.js"></script>
+
+	<!--Models/Collections-->
+	<script src="models/Item.js"></script>
+	<script src="collections/PaginatedCollection.js"></script>
+
+	<!--Views-->
+	<script src="views/ResultView.js"></script>
+	<script src="views/PaginationView.js"></script>
+	<script src="views/AppView.js"></script>
+
+
+</body>
+</html>

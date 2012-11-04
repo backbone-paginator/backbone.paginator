@@ -361,7 +361,7 @@ You can use some variables in your ```View``` to represent the actual state of t
 ```endRecord``` - The position of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
 
 ```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if pagesInRange is 3 and current page is 13 you will get 
-the numbers 10, 11, 12, 13(selected), 14, 15, 16. (Only available in ```requestPager```).
+the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 
 ```html
 <!-- sample template for pagination UI -->
