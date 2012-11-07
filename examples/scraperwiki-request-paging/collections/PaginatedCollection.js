@@ -15,9 +15,9 @@
 			if(this.totalRecords === undefined) {
 				$.getJSON(
 					'https://api.scraperwiki.com/api/1.0/scraper/getinfo?format=jsondict&' + 
-					'name=' + this.scraper_name + '&version=-1&quietfields=code|runevents|userroles|history|prevcommit', 'jsonp'
+					'name=' + this.scraper_name + '&version=-1&quietfields=code|runevents|userroles|history|prevcommit|datasummary', 'jsonp'
 				).success(function(data){
-					that.totalRecords = data[0].datasummary.total_rows;
+					that.totalRecords = data[0].records;
 					that.pager();
 				});
 			};
