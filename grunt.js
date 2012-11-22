@@ -22,9 +22,11 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
-
+    mocha: {
+      all: [ 'test/test.html' ]
+    },          
     lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
     },
     watch: {
       files: '<config:lint.files>',
@@ -53,5 +55,8 @@ module.exports = function(grunt) {
 
   // Default task.
   grunt.registerTask('default', 'lint concat min');
+  grunt.registerTask('test', 'lint mocha');
 
+  // run `npm install grunt-mocha` in project root dir and uncomment this
+  grunt.loadNpmTasks('grunt-mocha');
 };
