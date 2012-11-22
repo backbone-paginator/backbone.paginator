@@ -1,7 +1,5 @@
 module.exports = function(grunt) {
 
-  //var log = grunt.log;
-
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
