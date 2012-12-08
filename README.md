@@ -1,6 +1,8 @@
 # Backbone.Paginator
 
-Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js. It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
+Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
+
+ It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
 
 ## Downloads And Source Code
 
@@ -449,9 +451,17 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 _Also, please don't edit files in the "dist" subdirectory as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
 
+## Team
+
+* [@addyosmani](http://github.com/addyosmani)
+* [@alexandernst](http://github.com/alexandernst)
+
 ## Release History
 
-* 0.next - improve sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
+There have been a number of significant API changes made to the Paginator since it was first released. A stable release (with up to date documentation) will be available soon, complete with updated unit tests. 
+
+* 0.next - improved unit testing, demos
+* 0.current - improved sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
 * 0.15 - rewrite to simplify the project API, unify components under the same collection hood
 * 0.14 - rewrite of all components
 * 0.13 - initial release of client and request pagers
