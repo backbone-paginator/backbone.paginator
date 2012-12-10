@@ -5,6 +5,8 @@ A pageable, drop-in replacement for Backbone.Collection inspired by
 `Backbone.Paginator <https://github.com/addyosmani/backbone.paginator/>`_, but
 much better.
 
+.. contents::
+
 Advantages
 ----------
 
@@ -51,6 +53,7 @@ Advantages
 * Light-weight
 
   Less than 2.5k minified and gzipped.
+
 
 Installation
 ------------
