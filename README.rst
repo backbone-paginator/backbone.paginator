@@ -12,7 +12,7 @@ Advantages
 
 * Supports client-side and server-side operations
 
-  You can initialize Backbone.PageableCollection to paginate and sort on the
+  You can initialize ``Backbone.PageableCollection`` to paginate and sort on the
   client-side or server-side and switch between the two modes.
 
 * Comes with reasonable defaults
@@ -33,13 +33,14 @@ Advantages
 
 * 100% compatible with existing code
 
-  Backbone.PageableCollection passes Backbone.Collection's test suite, so you
-  can replace your collections with Backbone.PageabeCollection and your code
-  will behave exactly the same.
+  ``Backbone.PageableCollection`` passes ``Backbone.Collection`` 's test suite,
+  so you can replace your collections with ``Backbone.PageabeCollection`` and
+  your code will behave exactly the same.
 
 * Well tested
 
-  Comes with 100s of tests in addition to the Backbone.Collection test suite.
+  Comes with 100s of tests in addition to the ``Backbone.Collection`` test
+  suite.
 
 * Well documented
 
@@ -47,8 +48,8 @@ Advantages
 
 * No surprising behavior
 
-  Backbone.PageableCollection performs internal state sanity checks at
-  appropriate times, so it is next to impossibe to get into a weird state.
+  ``Backbone.PageableCollection`` performs internal state sanity checks at
+  appropriate times, so it is next to impossible to get into a weird state.
 
 * Light-weight
 
@@ -104,9 +105,9 @@ Getting to the Backbone.PageableCollection class in the browser
 Getting Started
 ---------------
 
-Like Backbone.Collection, you can provide a URL endpoint and configure your
-initial pagination state and server API mapping by extending
-Backbone.PageableCollection:
+Like Backbone.Collection, you can provide a URL endpoint, configure your initial
+pagination state and server API mapping by extending
+``Backbone.PageableCollection``:
 
 .. code-block:: javascript
 
@@ -119,8 +120,8 @@ Backbone.PageableCollection:
        // Set this to the initial page index, can be 0-based or 1-based
        currentPage: 0
      }),
-       // You can configure the mapping from a Backbone.PageableCollection.state
-       // key to the query string parameters accepted by your server API.
+     // You can configure the mapping from a Backbone.PageableCollection.state
+     // key to the query string parameters accepted by your server API.
      queryParams: _.extend({},
                            Backbone.PageableCollection.prototype.queryParams, {
        // Backbone.PageableCollection.queryParams converts to ruby's
@@ -141,7 +142,7 @@ constructor too:
   });
 
   var books = new Books([], {
-      // All the ``state`` and ``queryParams`` key value pairs are merged with
+      // All the `state` and `queryParams` key value pairs are merged with
       // the default instead of overwritten.
       state: {
           firstPage: 0,
@@ -156,14 +157,14 @@ constructor too:
 
 Take a look at the `API documentation
 <https://wyuenho.github.com/backbone-pageable/#!/api/Backbone.PageableCollection>`_
-on what you configure using the above methods.
+on what you can configure using the above methods.
 
 Bootstrapping
 -------------
 
-Backbone.PageableCollection is 100% compatible with Backbone.Collection's
-interface, so of course you can bootstrap the models and supply a comparator to
-the constructor too:
+``Backbone.PageableCollection`` is 100% compatible with ``Backbone.Collection``
+'s interface, so of course you can bootstrap the models and supply a comparator
+to the constructor too:
 
 .. code-block:: javascript
 
@@ -222,8 +223,8 @@ Server-mode
 +++++++++++
 
 ``Backbone.Pagination`` defaults to server-mode, which means it only holds one
-page of data at a time. All the ``get*page`` operations are done by delegating
-to ``fetch`` and return a ``jqXHR`` in this mode.
+page of data at a time. All of the ``get*page`` operations are done by
+delegating to ``fetch`` and return a ``jqXHR`` in this mode.
 
 .. code-block:: javascript
 
@@ -233,22 +234,23 @@ to ``fetch`` and return a ``jqXHR`` in this mode.
   books.getLastPage();
 
   // Since the page data will not be available until the server responds, you
-  // probably want to only work on them when the Ajax call has finished.
+  // probably want to only work on them when the AJAX call has finished.
   books.getPage(2).done(function () {
       // do something ...
   });
 
 
-All the ``get*Page`` methods accept the same options `Backbone.Collection#fetch
-<http://backbonejs.org/#Collection-fetch>`_ accepts under server-mode.
+All of the ``get*Page`` methods accept the same options
+`Backbone.Collection#fetch <http://backbonejs.org/#Collection-fetch>`_ accepts
+under server-mode.
 
 Client-mode
 +++++++++++
 
 Client-mode is a very convenient mode for paginating a handful of pages entirely
 on the client side without going through the network page-by-page. This mode is
-best suited if you only have a small number of pages so sending all the data to
-the client in one go is not too time-consuming.
+best suited if you only have a small number of pages so sending all of the data
+to the client in one go is not too time-consuming.
 
 .. code-block:: javascript
 
@@ -257,7 +259,7 @@ the client in one go is not too time-consuming.
   ], { state: { isClient: true } });
 
 
-All the `get*Page` methods resets the pageable collection's data to the models
+All of the `get*Page` methods reset the pageable collection's data to the models
 belonging to the current page and return the collection itself instead of a
 `jqXHR`.
 
@@ -283,11 +285,12 @@ client-side by either supplying a ``comparator`` like you can do with a plain
 call the convenient method ``setComparator`` with a ``sortKey`` and ``order`` at
 any time.
 
-Each sorting method is valid for both server-mode and client-mode, and both mode
-are capable of sorting either the current page or all the pages.
+Each sorting method is valid for both server-mode and client-mode
+operations. Both modes are capable of sorting on either the current page or all
+of the pages.
 
-The following matrices will hopefully help you understand all the different ways
-you can sort on a pageable collection.
+The following matrices will help you understand all of the different ways you
+can sort on a pageable collection.
 
 Server-mode
 +++++++++++
@@ -391,21 +394,21 @@ Manipulation
 ------------
 
 This is one of the areas where ``Backbone.PageableCollection`` truely shines. A
-Backbone.PageableCollection instance not only is capable of doing every a
-everything a plain Backbone.Collection is capable of doing for the current page,
-in client-mode, it is also capable of synchronizing changes and events across
-all pages. For example, you can add or remove a model from either
-``PageableCollection`` instance, which is holding the current page, or the
-``PageableCollection#fullCollection`` collection, which is plain
-Backbone.Collection holding the models for all the pages, and the appropriate
+``Backbone.PageableCollection`` instance not only is capable of doing everything
+a plain ``Backbone.Collection`` is capable of doing for the current page, in
+client-mode, it is also capable of synchronizing changes and events across all
+of the pages. For example, you can add or remove a model from either a
+``Backbone.PageableCollection`` instance, which is holding the current page, or
+the ``Backbone.PageableCollection#fullCollection`` collection, which is a plain
+``Backbone.Collection`` holding the models for all of the pages. The appropriate
 events will be propagated to the other collection when appropriate. Any
-addition, removal, resets, model attribute changes and synchronization actions
+additions, removals, resets, model attribute changes and synchronization actions
 are communicated between the two collections.
 
 .. code-block:: javascript
 
    var books = new Books([
-     // bootstrap with all the models for all the pages here
+     // bootstrap with all of the models for all of the pages here
    ], {
      state: {
        isClientMode: true,
@@ -419,7 +422,7 @@ are communicated between the two collections.
    // an `add` event on `fullCollection`.
    books.push({ name: "The Great Gatsby"});
 
-   // Backbone.Collection uses 0-based indices.
+   // `Backbone.Collection` uses 0-based indices.
    books.fullCollection.at(books.state.currentPage * books.state.pageSize).get("name");
    >>> "The Great Gatsby"
 
@@ -433,28 +436,29 @@ Fetching Data and Managing States
 
 You can access the pageable collection's internal state by looking at the
 ``state`` object attached to a ``Backbone.PageableCollection`` instance. This
-state, however, is generally read-only after initialization. There are various
-methods to help you manage this state, you should use them instead of manually
-modifying the state. For the unusual circumstances where you need to modify the
-``state`` object directly, a sanity check will be performed at the next time you
-perform any pagination-specific operations to ensure internal state consistency.
+state object, however, is generally read-only after initialization. There are
+various methods to help you manage this state, you should use them instead of
+manually modifying it. For the unusual circumstances where you need to modify
+the ``state`` object directly, a sanity check will be performed at the next time
+you perform any pagination-specific operations to ensure internal state
+consistency.
 
-============== ===============================
-Method         Use When
-============== ===============================
-setPageSize    Changing the page size
-makeComparator Changing the sorting
-switchMode     Switching between modes
-state          Need to read the internal state
-============== ===============================
+================== ===============================
+Method             Use When
+================== ===============================
+``setPageSize``    Changing the page size
+``makeComparator`` Changing the sorting
+``switchMode``     Switching between modes
+``state``          Need to read the internal state
+================== ===============================
 
 
-In addition to the above methods, you can only synchronize the state with the
+In addition to the above methods, you can also synchronize the state with the
 server during a fetch. ``Backbone.PageableCollection`` overrides the default
 `Backbone.Collection#parse <http://backbonejs.org/#Collection-parse>`_ method to
 support an additional response data structure that contains an object hash of
-pagination state metadata. The following is a table of the response data
-structure formats a pageable collection accepts.
+pagination state. The following is a table of the response data structure
+formats a pageable collection accepts.
 
 ============= ====================================
 Without State With State
@@ -473,15 +477,15 @@ FAQ
 #. Why another paginator?
 
    This project was born out of the needs for a backing model for
-   `Backgrid.Paginator <http://wyuenho.github.com/backgrid/#api-paginator>`_, an
-   extension for the `Backgrid.js <http://wyuenho.github.com/backgrid/>`_
+   `Backgrid.Paginator <http://wyuenho.github.com/backgrid/#api-paginator>`_ -
+   an extension for the `Backgrid.js <http://wyuenho.github.com/backgrid/>`_
    project. The project needed a smart and intuitive model that is
    well-documented and well-tested to manage the paginator view. Upon examining
    the popular project `Backbone.Paginator
    <https://github.com/addyosmani/backbone.paginator/>`_, the author has
    concluded that it does not satisfy the above requirements. Furthermore, the
    progress of the the project is too slow. The author hopes to reinvent a
-   better wheel that is better supported and better suited for `Backgrid.js
+   better wheel that is better suited and supported for `Backgrid.js
    <http://wyuenho.github.com/backgrid/>`_.
 
 #. Which package managers does backbone-pageable support?
