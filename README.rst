@@ -185,35 +185,22 @@ to the constructor too:
       }
   );
 
-``state`` Defaults
-
-============ =====
-Attribute    Value
-============ =====
-firstPage    1
-lastPage     null
-currentPage  1
-pageSize     25
-totalPages   null
-totalRecords null
-sortKey      null
-order        -1
-isClientMode false
-============ =====
-
-``queryParams`` Defaults
-
-============ =============================
-Attribute    Value
-============ =============================
-currentPage   "page"
-pageSize      "per_page"
-totalPages    "total_pages"
-totalRecords  "total"
-sortKey       "sort_by"
-order         "order"
-directions    { "-1": "ASC", "1": "DESC" }
-============ =============================
+============ ===== ============= ============================
+``state`` Defaults ``queryParams`` Defaults 
+------------------ ------------------------------------------
+Attribute    Value Attribute     Value
+============ ===== ============= ============================
+firstPage    1                                              
+lastPage     null                                            
+currentPage  1     currentPage   "page"                     
+pageSize     25    pageSize      "per_page"                 
+totalPages   null  totalPages    "total"                    
+totalRecords null  totalRecords  "total"                    
+sortKey      null  sortKey       "sort_by"                  
+order        -1    order         "order"                    
+\                  directions    { "-1": "ASC", "1": "DESC" }
+isClientMode false                                          
+============ ===== ============= ============================
 
 
 Pagination
