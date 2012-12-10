@@ -44,9 +44,46 @@ $(document).ready(function () {
   });
 
   test("initialize", function () {
+    var mods = [
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"}
+    ];
+
+    var comparator = function (model) {
+      return model.get("name");
+    };
+
+    var col = new Backbone.PageableCollection(mods, {
+      comparator: comparator,
+      state: {
+        pageSize: 1,
+        isClientMode: true
+      }
+    });
+
+    ok(col.fullCollection instanceof Backbone.Collection);
+    strictEqual(col.state.totalRecords, 3);
+    strictEqual(col.comparator, comparator);
+
+    col = new Backbone.PageableCollection(mods, {
+      state: {
+        pageSize: 1,
+        sortKey: "name",
+        isClientMode: true
+      },
+      full: true
+    });
+
+    ok(!_.isUndefined(col.fullCollection.comparator));
+    ok(_.isUndefined(col.comparator));
   });
 
   test("add", function () {
+    // adding on current should pop last from current and add to full
+    // adding to full should do nothing if not on the current page
+    // adding to full should add to the current page if within current page
+    // boundary and not cos and infinite loop
   });
 
   test("remove", function () {
