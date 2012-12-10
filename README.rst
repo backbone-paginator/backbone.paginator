@@ -385,9 +385,15 @@ Client-mode
 +--------------+------------------------------------+---------------------------------------------+
 |makeComparator| Same as Server-Current. Set        | .. code-block:: javascript                  |
 |              | ``state.isClient`` to true.        |                                             |
-|              |                                    |   var books = new Books([]);                |
+|              |                                    |   var books = new Books([], {               |
+|              |                                    |     state: {                                |
+|              |                                    |       isClient:true;                        |
+|              |                                    |     },                                      |
+|              |                                    |     full: true                              |
+|              |                                    |   });                                       |
 |              |                                    |   var comp = books.makeComparator("name");  |
 |              |                                    |   books.fullCollection.comparator = comp;   |
+|              |                                    |                                             |
 +--------------+------------------------------------+---------------------------------------------+
 
 Manipulation
