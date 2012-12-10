@@ -85,7 +85,7 @@
     // function. Passing `"all"` will bind the callback to all events fired.
     on: function(events, callback, context) {
       if (_.isObject(events)) {
-        for (key in events) {
+        for (var key in events) {
           this.on(key, events[key], callback);
         }
         return this;
@@ -108,7 +108,7 @@
     // Bind events to only be triggered a single time. After the first time
     // the callback is invoked, it will be removed.
     once: function(events, callback, context) {
-      once = true
+      once = true;
       this.on(events, callback, context);
       once = false;
       return this;
@@ -119,7 +119,7 @@
     // event. If `events` is null, removes all bound callbacks for all events.
     off: function(events, callback, context) {
       if (_.isObject(events)) {
-        for (key in events) {
+        for (var key in events) {
           this.off(key, events[key], callback);
         }
         return this;
@@ -204,6 +204,10 @@
   // Aliases for backwards compatibility.
   Events.bind   = Events.on;
   Events.unbind = Events.off;
+
+  // Allow the `Backbone` object to serve as a global event bus, for folks who
+  // want global "pubsub" in a convenient place.
+  _.extend(Backbone, Events);
 
   // Backbone.Model
   // --------------
@@ -961,7 +965,7 @@
   var optionalParam = /\((.*?)\)/g;
   var namedParam    = /:\w+/g;
   var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[-{}[\]+?.,\\^$|#\s]/g;
+  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
   // Set up all inheritable **Backbone.Router** properties and methods.
   _.extend(Router.prototype, Events, {
