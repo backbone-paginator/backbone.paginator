@@ -4,37 +4,32 @@ $(document).ready(function () {
 
   module("Backbone.PageableCollection - Server");
 
-  test("setComparator", function () {
+  test("makeComparator", function () {
     var col, comparator;
 
     col = new Backbone.PageableCollection();
-    col.setComparator();
-    equal(col.comparator, undefined);
+    comparator = col.makeComparator();
+    equal(comparator, undefined);
 
     col.state.sortKey = "name";
     col.state.order = 0;
-    col.setComparator();
-    equal(col.comparator, undefined);
+    comparator = col.makeComparator();
+    equal(comparator, undefined);
 
     col = col.reset([{name: "b"}, {name: "c"}, {name: "a"}, {name: "a"}]);
     col.state.order = -1;
-    col.setComparator();
+    col.comparator = col.makeComparator();
     col.sort();
     deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
 
     col.state.order = 1;
-    col.setComparator();
+    col.comparator = col.makeComparator();
     col.sort();
     deepEqual(col.pluck("name"), ["c", "b", "a", "a"]);
 
     delete col.state.sortKey;
-    col.setComparator();
-    col.sort();
-    deepEqual(col.pluck("name"), ["c", "b", "a", "a"]);
-
-    col.setComparator("name", -1);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, -1);
+    delete col.state.order;
+    col.comparator = col.makeComparator("name", -1);
     col.sort();
     deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
   });
@@ -198,7 +193,7 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 3);
     strictEqual(col.state.sortKey, "name");
     strictEqual(col.state.order, 1);
-    ok(col.comparator);
+    strictEqual(col.comparator, undefined);
 
     strictEqual(col.queryParams.currentPage, "current_page");
     strictEqual(col.queryParams.pageSize, "page_size");
@@ -208,9 +203,9 @@ $(document).ready(function () {
     strictEqual(col.queryParams.order, "direction");
     deepEqual(col.queryParams.directions, {"-1": -1, "1": 1});
 
-    equal(col.at(0).get("name"), "c");
-    equal(col.at(1).get("name"), "b");
-    equal(col.at(2).get("name"), "a");
+    equal(col.at(0).get("name"), "a");
+    equal(col.at(1).get("name"), "c");
+    equal(col.at(2).get("name"), "b");
 
     var comparator = function (model) {
       return model.get("name");
