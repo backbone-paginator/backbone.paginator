@@ -354,18 +354,18 @@ Client-mode
 |              |                                    |   });                                       |
 |              |                                    |                                             |
 +--------------+------------------------------------+---------------------------------------------+
-|state         | .. code-block:: javascript         | .. code-block:: javascript                  |
+|state         | Same as Server-Full. Set           | .. code-block:: javascript                  |
+|              | ``state.isClient`` to true.        |                                             |
+|              |                                    |   var books = new Books([], {               |
+|              |                                    |     state: {                                |
+|              |                                    |       sortKey: "name",                      |
+|              |                                    |       order: 1,                             |
+|              |                                    |       isClient: true                        |
+|              |                                    |     },                                      |
+|              |                                    |     full: true                              |
+|              |                                    |   };                                        |
 |              |                                    |                                             |
-|              |   // Setting a ``sortKey`` during  |   var books = new Books([], {               |
-|              |   // bootstrapping creates a       |     state: {                                |
-|              |   // comparator in client mode     |       sortKey: "name",                      |
-|              |   var books = new Books([], {      |       order: 1                              |
-|              |     state: {                       |     },                                      |
-|              |       sortKey: "name",             |     full: true                              |
-|              |       order: 1,                    |   };                                        |
-|              |       isClient: true               |                                             |
-|              |     }                              |                                             |
-|              |   });                              |                                             |
+|              |                                    |                                             |
 |              |                                    |                                             |
 |              |                                    |                                             |
 |              |                                    |                                             |
