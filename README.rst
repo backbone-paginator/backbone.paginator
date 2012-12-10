@@ -155,9 +155,28 @@ constructor too:
   });
 
 
-Take a look at the `API documentation
+This is a listing of the default ``state`` and ``queryParam`` values.
+
+============ ===== ============= ============================
+    ``state``                   ``queryParams``
+------------------ ------------------------------------------
+Attribute    Value Attribute     Value
+============ ===== ============= ============================
+firstPage    1                                              
+lastPage     null                                            
+currentPage  1     currentPage   "page"                     
+pageSize     25    pageSize      "per_page"                 
+totalPages   null  totalPages    "total_pages"                    
+totalRecords null  totalRecords  "total"                    
+sortKey      null  sortKey       "sort_by"                  
+order        -1    order         "order"                    
+\                  directions    { "-1": "ASC", "1": "DESC" }
+isClientMode false                                          
+============ ===== ============= ============================
+
+You can also consult the `API documentation
 <https://wyuenho.github.com/backbone-pageable/#!/api/Backbone.PageableCollection>`_
-on what you can configure using the above methods.
+for a more detailed explaination of these fields.
 
 Bootstrapping
 -------------
@@ -184,23 +203,6 @@ to the constructor too:
           comparator: function (model) { return model.get("name"); }
       }
   );
-
-============ ===== ============= ============================
-``state`` Defaults ``queryParams`` Defaults 
------------------- ------------------------------------------
-Attribute    Value Attribute     Value
-============ ===== ============= ============================
-firstPage    1                                              
-lastPage     null                                            
-currentPage  1     currentPage   "page"                     
-pageSize     25    pageSize      "per_page"                 
-totalPages   null  totalPages    "total"                    
-totalRecords null  totalRecords  "total"                    
-sortKey      null  sortKey       "sort_by"                  
-order        -1    order         "order"                    
-\                  directions    { "-1": "ASC", "1": "DESC" }
-isClientMode false                                          
-============ ===== ============= ============================
 
 
 Pagination
