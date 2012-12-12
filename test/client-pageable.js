@@ -323,7 +323,10 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 2);
   });
 
-  test("fetch", 10, function () {
+  test("fetch", function () {
+
+    if (Backbone.VERSION === "0.9.2") expect(11);
+    else expect(10);
 
     var ajax = jQuery.ajax;
     jQuery.ajax = function (settings) {
