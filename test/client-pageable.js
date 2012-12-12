@@ -175,7 +175,28 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.size(), 0);
   });
 
-  test("change", function () {
+  test("change", 6, function () {
+    // a change of a model attribute from current should propagate to full
+    // a change of a model attribute from full not in the current page should not
+    // propagate to current page
+    // a change of model attribute from full in current page should propagate to
+    // current page
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 1
+      }
+    });
+
+    var onChange = function (model, options) {
+      ok(true);
+    };
+    col.on("change", onChange);
+    col.fullCollection.on("change", onChange);
+    col.at(0).set("name", "e");
+    strictEqual(col.fullCollection.at(0).get("name"), "e");
+    col.fullCollection.at(1).set("name", "f");
+    col.fullCollection.at(0).set("name", "g");
   });
 
   test("reset", function () {
