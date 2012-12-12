@@ -248,9 +248,9 @@ to the client in one go is not too time-consuming.
   ], { state: { isClient: true } });
 
 
-All of the `get*Page` methods reset the pageable collection's data to the models
+All of the ``get*Page`` methods reset the pageable collection's data to the models
 belonging to the current page and return the collection itself instead of a
-`jqXHR`.
+``jqXHR``.
 
 .. code-block:: javascript
 
@@ -271,7 +271,7 @@ Sorting
 There are three ways you can sort a pageable collection. You can sort on the
 client-side by either supplying a ``comparator`` like you can do with a plain
 ``Backbone.Collection``, by setting a ``sortKey`` and ``order`` to ``state``, or
-call the convenient method ``setComparator`` with a ``sortKey`` and ``order`` at
+call the convenient method ``makeComparator`` with a ``sortKey`` and ``order`` at
 any time.
 
 Each sorting method is valid for both server-mode and client-mode
@@ -407,6 +407,7 @@ are communicated between the two collections.
    ], {
      state: {
        isClientMode: true,
+       // Pages indices default to 1-based.
        currentPage: 1,
        firstPage: 1
      }
@@ -417,8 +418,7 @@ are communicated between the two collections.
    // an `add` event on `fullCollection`.
    books.push({ name: "The Great Gatsby"});
 
-   // `Backbone.Collection` uses 0-based indices.
-   books.fullCollection.at(books.state.currentPage * books.state.pageSize).get("name");
+   books.fullCollection.at(books.state.currentPage - 1 * books.state.pageSize).get("name");
    >>> "The Great Gatsby"
 
    // Add a new book to the beginning of the first page.
