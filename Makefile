@@ -28,7 +28,7 @@ doc:
 		--external=Backbone.Model,Backbone.Collection,jQuery.jqXHR \
 		--title=backbone-pageable \
 		--no-source \
-		--categories=api/categories.json \
+		--categories=categories.json \
 		--warnings=-no_doc \
 		--pretty-json \
 		--output api
