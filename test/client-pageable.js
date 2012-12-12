@@ -67,15 +67,16 @@ $(document).ready(function () {
     var col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
       state: {
-        pageSize: 1,
+        pageSize: 2,
         isClientMode: true
       }
     });
 
     strictEqual(col.state.totalRecords, 3);
     strictEqual(col.comparator, comparator);
-    strictEqual(col.size(), 1);
+    strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
     strictEqual(col.fullCollection.size(), 3);
     strictEqual(col.at(0), col.fullCollection.at(0));
     strictEqual(col.fullCollection.at(0).get("name"), "a");
@@ -105,13 +106,19 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
-  test("add", function () {
+  test("add", 20, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         isClientMode: true,
         pageSize: 3
       }
     });
+
+    var onAdd = function () {
+      ok(true);
+    };
+    col.fullCollection.on("add", onAdd);
+    col.on("add", onAdd);
 
     var d = new Backbone.Model({name: "d"});
     col.add(d);
@@ -142,7 +149,7 @@ $(document).ready(function () {
     strictEqual(col.at(2).get("name"), "c");
   });
 
-  test("remove", 11, function () {
+  test("remove", 15, function () {
 
     var mods = models.slice();
 
@@ -153,17 +160,18 @@ $(document).ready(function () {
       }
     });
 
-    strictEqual(col.size(), 1);
+    var onRemove = function () {
+      ok(true);
+    };
+    col.on("remove", onRemove);
+    col.fullCollection.on("remove", onRemove);
+
     col.remove(col.at(0));
     strictEqual(col.size(), 1);
     strictEqual(col.at(0).get("name"), "c");
     strictEqual(col.fullCollection.size(), 2);
     strictEqual(col.fullCollection.at(0).get("name"), "c");
     strictEqual(col.fullCollection.at(1).get("name"), "b");
-
-    var onRemove = function () {
-      ok(false);
-    };
 
     col.fullCollection.remove(col.fullCollection.at(1));
     strictEqual(col.size(), 1);
@@ -176,11 +184,6 @@ $(document).ready(function () {
   });
 
   test("change", 6, function () {
-    // a change of a model attribute from current should propagate to full
-    // a change of a model attribute from full not in the current page should not
-    // propagate to current page
-    // a change of model attribute from full in current page should propagate to
-    // current page
     var col = new Backbone.PageableCollection(models, {
       state: {
         isClientMode: true,
@@ -199,10 +202,99 @@ $(document).ready(function () {
     col.fullCollection.at(0).set("name", "g");
   });
 
-  test("reset", function () {
+  test("sync", function () {
   });
 
-  test("sync", function () {
+  test("reset and sort", function () {
+    if (Backbone.VERSION == "0.9.2") {
+      expect(35);
+    }
+    else {
+      expect(33);
+    }
+
+    var mods = models.slice();
+
+    var col = new Backbone.PageableCollection(mods, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    var onReset = function () {
+      ok(true);
+    };
+
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
+
+    col.fullCollection.reset([
+      {name: "e"},
+      {name: "f"},
+      {name: "d"}
+    ]);
+
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "e");
+    strictEqual(col.at(1).get("name"), "f");
+
+    col.fullCollection.comparator = comparator;
+    col.fullCollection.sort();
+
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "d");
+    strictEqual(col.at(1).get("name"), "e");
+
+    mods = models.slice();
+
+    col = new Backbone.PageableCollection(mods, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
+
+    col.comparator = comparator;
+    col.sort();
+
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+
+    col.comparator = null;
+
+    mods = [new Backbone.Model({name: "g"}), col.at(0)];
+    col.reset(mods);
+    strictEqual(col.at(0).get("name"), "g");
+    strictEqual(col.at(1).get("name"), "a");
+    strictEqual(col.fullCollection.at(0).get("name"), "g");
+    strictEqual(col.fullCollection.at(1).get("name"), "a");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+
+    col.fullCollection.reset([
+      {name: "j"},
+      {name: "h"},
+      {name: "i"},
+      {name: "k"}
+    ]);
+
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "j");
+    strictEqual(col.at(1).get("name"), "h");
+    strictEqual(col.fullCollection.at(0).get("name"), "j");
+    strictEqual(col.fullCollection.at(1).get("name"), "h");
+    strictEqual(col.fullCollection.at(2).get("name"), "i");
+    strictEqual(col.fullCollection.at(3).get("name"), "k");
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.state.totalPages, 2);
   });
 
   test("fetch", function () {
