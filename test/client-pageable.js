@@ -373,21 +373,113 @@ $(document).ready(function () {
   });
 
   test("getPage", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.getPage(2);
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
+
+    this.stub(col, "fetch");
+
+    col.getPage(1, {fetch: true});
+    ok(col.fetch.calledOnce);
   });
 
   test("getFirstPage", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.getFirstPage();
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+
+    this.stub(col, "fetch");
+
+    col.getFirstPage({fetch: true});
+    ok(col.fetch.calledOnce);    
   });
 
   test("getPreviousPage", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.getNextPage();
+    col.getPreviousPage();
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+
+    this.stub(col, "fetch");
+
+    col.getNextPage();
+    col.getPreviousPage({fetch: true});
+    ok(col.fetch.calledOnce);    
   });
 
   test("getNextPage", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.getNextPage();
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
+
+    this.stub(col, "fetch");
+
+    col.getPreviousPage();
+    col.getNextPage({fetch: true});
+    ok(col.fetch.calledOnce);    
   });
 
   test("getLastPage", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.getLastPage();
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
+
+    this.stub(col, "fetch");
+
+    col.getLastPage({fetch: true});
+    ok(col.fetch.calledOnce);    
   });
 
   test("setPageSize", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2
+      }
+    });
+
+    col.setPageSize(1);
+    
+    strictEqual(col.state.pageSize, 1);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.state.lastPage, 3);
   });
 
 });
