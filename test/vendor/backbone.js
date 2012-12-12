@@ -19,10 +19,10 @@
   var previousBackbone = root.Backbone;
 
   // Create a local reference to array methods.
-  var ArrayProto = Array.prototype;
-  var push = ArrayProto.push;
-  var slice = ArrayProto.slice;
-  var splice = ArrayProto.splice;
+  var array = [];
+  var push = array.push;
+  var slice = array.slice;
+  var splice = array.splice;
 
   // The top-level namespace. All public Backbone classes and modules will
   // be attached to this. Exported for both CommonJS and the browser.
@@ -86,7 +86,7 @@
     on: function(events, callback, context) {
       if (_.isObject(events)) {
         for (var key in events) {
-          this.on(key, events[key], callback);
+          this.on(key, events[key], context || callback);
         }
         return this;
       }
@@ -120,7 +120,7 @@
     off: function(events, callback, context) {
       if (_.isObject(events)) {
         for (var key in events) {
-          this.off(key, events[key], callback);
+          this.off(key, events[key], context || callback);
         }
         return this;
       }
@@ -196,6 +196,33 @@
         }
       }
 
+      return this;
+    },
+
+    // An inversion-of-control version of `on`. Tell *this* object to listen to
+    // an event in another object ... keeping track of what it's listening to.
+    listenTo: function(object, events, callback) {
+      var listeners = this._listeners || (this._listeners = {});
+      var id = object._listenerId || (object._listenerId = _.uniqueId('l'));
+      listeners[id] = object;
+      object.on(events, callback, this);
+      return this;
+    },
+
+    // Tell this object to stop listening to either specific events ... or
+    // to every object it's currently listening to.
+    stopListening: function(object, events, callback) {
+      var listeners = this._listeners;
+      if (!listeners) return;
+      if (object) {
+        object.off(events, callback, this);
+        if (!events && !callback) delete listeners[object._listenerId];
+      } else {
+        for (var id in listeners) {
+          listeners[id].off(null, null, this);
+        }
+        this._listeners = {};
+      }
       return this;
     }
 
@@ -423,7 +450,9 @@
       };
 
       // Finish configuring and sending the Ajax request.
-      var xhr = this.sync(this.isNew() ? 'create' : 'update', this, options);
+      var method = this.isNew() ? 'create' : (options.patch ? 'patch' : 'update');
+      if (method == 'patch') options.attrs = attrs;
+      var xhr = this.sync(method, this, options);
 
       // When using `wait`, reset attributes to original values unless
       // `success` has been called already.
@@ -649,8 +678,9 @@
     // Add a model, or list of models to the set. Pass **silent** to avoid
     // firing the `add` event for every new model.
     add: function(models, options) {
-      var i, args, length, model, existing, sort;
+      var i, args, length, model, existing, needsSort;
       var at = options && options.at;
+      var sort = ((options && options.sort) == null ? true : options.sort);
       models = _.isArray(models) ? models.slice() : [models];
 
       // Turn bare objects into model references, and prevent invalid models
@@ -669,7 +699,7 @@
         if (existing || this._byCid[model.cid]) {
           if (options && options.merge && existing) {
             existing.set(model, options);
-            sort = true;
+            needsSort = sort;
           }
           models.splice(i, 1);
           continue;
@@ -683,14 +713,14 @@
       }
 
       // See if sorting is needed, update `length` and splice in new models.
-      if (models.length) sort = true;
+      if (models.length) needsSort = sort;
       this.length += models.length;
       args = [at != null ? at : this.models.length, 0];
       push.apply(args, models);
       splice.apply(this.models, args);
 
       // Sort the collection if appropriate.
-      if (sort && this.comparator && at == null) this.sort({silent: true});
+      if (needsSort && this.comparator && at == null) this.sort({silent: true});
 
       if (options && options.silent) return this;
 
@@ -709,7 +739,7 @@
       options || (options = {});
       models = _.isArray(models) ? models.slice() : [models];
       for (i = 0, l = models.length; i < l; i++) {
-        model = this.getByCid(models[i]) || this.get(models[i]);
+        model = this.get(models[i]);
         if (!model) continue;
         delete this._byId[model.id];
         delete this._byCid[model.cid];
@@ -728,7 +758,7 @@
     // Add a model to the end of the collection.
     push: function(model, options) {
       model = this._prepareModel(model, options);
-      this.add(model, options);
+      this.add(model, _.extend({at: this.length}, options));
       return model;
     },
 
@@ -759,14 +789,9 @@
     },
 
     // Get a model from the set by id.
-    get: function(id) {
-      if (id == null) return void 0;
-      return this._byId[id.id != null ? id.id : id];
-    },
-
-    // Get a model from the set by client id.
-    getByCid: function(cid) {
-      return cid && this._byCid[cid.cid || cid];
+    get: function(obj) {
+      if (obj == null) return void 0;
+      return this._byId[obj.id != null ? obj.id : obj] || this._byCid[obj.cid || obj];
     },
 
     // Get the model at the given index.
@@ -799,13 +824,42 @@
         this.models.sort(_.bind(this.comparator, this));
       }
 
-      if (!options || !options.silent) this.trigger('reset', this, options);
+      if (!options || !options.silent) this.trigger('sort', this, options);
       return this;
     },
 
     // Pluck an attribute from each model in the collection.
     pluck: function(attr) {
       return _.invoke(this.models, 'get', attr);
+    },
+
+    // Smartly update a collection with a change set of models, adding,
+    // removing, and merging as necessary.
+    update: function(models, options) {
+      var model, i, l, id, cid, existing;
+      var add = [], remove = [], modelMap = {};
+      var idAttr = this.model.prototype.idAttribute;
+      options = _.extend({add: true, merge: true, remove: true}, options);
+
+      // Determine which models to add and merge, and which to remove.
+      for (i = 0, l = models.length; i < l; i++) {
+        model = models[i];
+        id = model.id || model.cid || model[idAttr];
+        modelMap[id] = true;
+        existing = this.get(id);
+        if (options.add || options.merge && existing) add.push(model);
+      }
+      if (options.remove) {
+        for (i = 0, l = this.models.length; i < l; i++) {
+          model = this.models[i];
+          if (!modelMap[model.id] && !modelMap[model.cid]) remove.push(model);
+        }
+      }
+
+      // Remove models (if applicable) before we add and merge the rest.
+      if (remove.length) this.remove(remove, options);
+      if (add.length) this.add(add, options);
+      return this;
     },
 
     // When you have more items than you want to add or remove individually,
@@ -833,7 +887,8 @@
       var collection = this;
       var success = options.success;
       options.success = function(resp, status, xhr) {
-        collection[options.add ? 'add' : 'reset'](collection.parse(resp, xhr), options);
+        var method = options.update ? 'update' : 'reset';
+        collection[method](collection.parse(resp, xhr), options);
         if (success) success(collection, resp, options);
       };
       return this.sync('read', this, options);
@@ -1284,20 +1339,11 @@
       return this;
     },
 
-    // Clean up references to this view in order to prevent latent effects and
-    // memory leaks.
-    dispose: function() {
-      this.undelegateEvents();
-      if (this.model && this.model.off) this.model.off(null, null, this);
-      if (this.collection && this.collection.off) this.collection.off(null, null, this);
-      return this;
-    },
-
-    // Remove this view from the DOM. Note that the view isn't present in the
-    // DOM by default, so calling this method may be a no-op.
+    // Remove this view by taking the element out of the DOM, and removing any
+    // applicable Backbone.Events listeners.
     remove: function() {
-      this.dispose();
       this.$el.remove();
+      this.stopListening();
       return this;
     },
 
@@ -1397,6 +1443,7 @@
   var methodMap = {
     'create': 'POST',
     'update': 'PUT',
+    'patch':  'PATCH',
     'delete': 'DELETE',
     'read':   'GET'
   };
@@ -1436,7 +1483,7 @@
     // Ensure that we have the appropriate request data.
     if (options.data == null && model && (method === 'create' || method === 'update')) {
       params.contentType = 'application/json';
-      params.data = JSON.stringify(model.toJSON(options));
+      params.data = JSON.stringify(options.attrs || model.toJSON(options));
     }
 
     // For older servers, emulate JSON by encoding the request into an HTML-form.
@@ -1475,7 +1522,9 @@
     };
 
     // Make the request, allowing the user to override any Ajax options.
-    return Backbone.ajax(_.extend(params, options));
+    var xhr = Backbone.ajax(_.extend(params, options));
+    model.trigger('request', model, xhr, options);
+    return xhr;
   };
 
   // Set the default implementation of `Backbone.ajax` to proxy through to `$`.
