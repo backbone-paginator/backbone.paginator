@@ -209,7 +209,7 @@ $(document).ready(function () {
     };
 
     var col = new (Backbone.PageableCollection.extend({
-      url: "client-sync"
+      url: "test-client-sync"
     }))(models, {
       state: {
         isClientMode: true,
@@ -323,8 +323,53 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 2);
   });
 
-  test("fetch", function () {
-    
+  test("fetch", 10, function () {
+
+    var ajax = jQuery.ajax;
+    jQuery.ajax = function (settings) {
+
+      strictEqual(settings.url, "test-client-fetch");
+      deepEqual(settings.data, {
+        "sort_by": "name",
+        "order": "DESC"
+      });
+
+      settings.success([
+        {name: "a"},
+        {name: "c"},
+        {name: "d"},
+        {name: "b"}
+      ]);
+    };
+
+    var col = new (Backbone.PageableCollection.extend({
+      url: "test-client-fetch"
+    }))(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 2,
+        sortKey: "name",
+        order: 1
+      }
+    });
+
+    var onReset = function () {
+      ok(true);
+    };
+
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
+
+    col.fetch();
+
+    strictEqual(col.at(0).get("name"), "d");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(0).get("name"), "d");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+    strictEqual(col.fullCollection.at(3).get("name"), "a");
+
+    jQuery.ajax = ajax;
   });
 
   test("getPage", function () {
