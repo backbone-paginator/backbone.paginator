@@ -175,7 +175,7 @@ isClientMode false
 ============ ===== ============= ============================
 
 You can also consult the `API documentation
-<https://wyuenho.github.com/backbone-pageable/#!/api/Backbone.PageableCollection>`_
+<http://wyuenho.github.com/backbone-pageable/#!/api/Backbone.PageableCollection>`_
 for a more detailed explaination of these fields.
 
 Bootstrapping
@@ -464,7 +464,7 @@ Without State With State
 API Reference
 -------------
 
-See `here <https://wyuenho.github.com/backbone-pageable/>`_.
+See `here <http://wyuenho.github.com/backbone-pageable/>`_.
 
 FAQ
 ---
