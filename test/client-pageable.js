@@ -191,7 +191,7 @@ $(document).ready(function () {
       }
     });
 
-    var onChange = function (model, options) {
+    var onChange = function () {
       ok(true);
     };
     col.on("change", onChange);
@@ -202,8 +202,33 @@ $(document).ready(function () {
     col.fullCollection.at(0).set("name", "g");
   });
 
-  test("sync", function () {
-    
+  test("sync", 5, function () {
+    var ajax = jQuery.ajax;
+    jQuery.ajax = function (settings) {
+      settings.success();
+    };
+
+    var col = new (Backbone.PageableCollection.extend({
+      url: "client-sync"
+    }))(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 1
+      }
+    });
+
+    var onSync = function () {
+      ok(true);
+    };
+
+    col.on("sync", onSync);
+    col.fullCollection.on("sync", onSync);
+
+    col.at(0).save();
+    col.fullCollection.at(0).save();
+    col.fullCollection.at(1).save();
+
+    jQuery.ajax = ajax;
   });
 
   test("reset and sort", function () {
