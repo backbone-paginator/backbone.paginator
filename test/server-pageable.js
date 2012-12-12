@@ -248,7 +248,6 @@ $(document).ready(function () {
     strictEqual(jQuery.ajax.callCount, 1);
     strictEqual(jQuery.ajax.args[0][0].url, "test-fetch");
     deepEqual(jQuery.ajax.args[0][0].data, {
-      order: "ASC",
       page: 1,
       per_page: 25
     });
