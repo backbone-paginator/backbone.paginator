@@ -203,11 +203,12 @@ $(document).ready(function () {
   });
 
   test("sync", function () {
+    
   });
 
   test("reset and sort", function () {
     if (Backbone.VERSION == "0.9.2") {
-      expect(35);
+      expect(37);
     }
     else {
       expect(33);
@@ -298,6 +299,7 @@ $(document).ready(function () {
   });
 
   test("fetch", function () {
+    
   });
 
   test("getPage", function () {
