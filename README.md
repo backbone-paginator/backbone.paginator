@@ -1,5 +1,7 @@
 # Backbone.Paginator
 
+[![Continuous Integration status](https://secure.travis-ci.org/addyosmani/backbone.paginator.png)](http://travis-ci.org/addyosmani/backbone.paginator)
+
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
  It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
@@ -58,10 +60,10 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 		paginator_core: {
 			// the type of the request (GET by default)
 			type: 'GET',
-			
+
 			// the type of reply (jsonp by default)
 			dataType: 'jsonp',
-		
+
 			// the URL (or base URL) for the service
 			url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
 		},
@@ -75,16 +77,16 @@ We need to tell the library how many items per page would we like to see, etc...
 		paginator_ui: {
 			// the lowest page index your API allows to be accessed
 			firstPage: 0,
-		
-			// which page should the paginator start from 
+
+			// which page should the paginator start from
 			// (also, the actual page the paginator is on)
 			currentPage: 0,
-			
+
 			// how many items per page should be shown
 			perPage: 3,
-			
-			// a default number of total pages to query in case the API or 
-			// service you are using does not support providing the total 
+
+			// a default number of total pages to query in case the API or
+			// service you are using does not support providing the total
 			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10
@@ -100,30 +102,30 @@ Note how you can use functions insead of hardcoded values, and you can also reff
 		server_api: {
 			// the query field in the request
 			'$filter': '',
-			
+
 			// number of items to return per request/page
 			'$top': function() { return this.perPage },
-			
+
 			// how many results the request should skip ahead to
 			// customize as needed. For the Netflix API, skipping ahead based on
 			// page * number of results per page was necessary.
 			'$skip': function() { return this.currentPage * this.perPage },
-			
+
 			// field to sort by
 			'$orderby': 'ReleaseYear',
-			
+
 			// what format would you like to request results in?
 			'$format': 'json',
-			
+
 			// custom parameters
 			'$inlinecount': 'allpages',
-			'$callback': 'callback'                                     
+			'$callback': 'callback'
 		},
 ```
 
 ####6. Finally, configure Collection.parse() and we're done
 
-The last thing we need to do is configure our collection's `parse()` method. We want to ensure we're returning the correct part of our JSON response containing the data our collection will be populated with, which below is `response.d.results` (for the Netflix API). 
+The last thing we need to do is configure our collection's `parse()` method. We want to ensure we're returning the correct part of our JSON response containing the data our collection will be populated with, which below is `response.d.results` (for the Netflix API).
 
 You might also notice that we're setting `this.totalPages` to the total page count returned by the API. This allows us to define the maximum number of (result) pages available for the current/last request so that we can clearly display this in the UI. It also allows us to infuence whether clicking say, a 'next' button should proceed with a request or not.
 
@@ -192,18 +194,18 @@ Collection.requestPreviousPage({ add: true });
 
 ##Paginator.clientPager
 
-The `clientPager` works similar to the `requestPager`, except that our configuration values influence the pagination of data already returned at a UI-level. Whilst not shown (yet) there is also a lot more UI logic that ties in with the `clientPager`. An example of this can be seen in 'views/clientPagination.js'. 
+The `clientPager` works similar to the `requestPager`, except that our configuration values influence the pagination of data already returned at a UI-level. Whilst not shown (yet) there is also a lot more UI logic that ties in with the `clientPager`. An example of this can be seen in 'views/clientPagination.js'.
 
 ####1. Create a new paginated collection with a model and URL
 As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.clientPager` collection, with a model:
 
 ```javascript
     var PaginatedCollection = Backbone.Paginator.clientPager.extend({
-        
+
         model: model,
 ```
 
-####2. Configure the base URL and the type of the request 
+####2. Configure the base URL and the type of the request
 
 We need to set a base URL. The `type` of the request is `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
@@ -211,10 +213,10 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 		paginator_core: {
 			// the type of the request (GET by default)
 			type: 'GET',
-			
+
 			// the type of reply (jsonp by default)
 			dataType: 'jsonp',
-		
+
 			// the URL (or base URL) for the service
 			url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
 		},
@@ -228,25 +230,25 @@ We need to tell the library how many items per page would we like to see, etc...
 		paginator_ui: {
 			// the lowest page index your API allows to be accessed
 			firstPage: 1,
-		
-			// which page should the paginator start from 
+
+			// which page should the paginator start from
 			// (also, the actual page the paginator is on)
 			currentPage: 1,
-			
+
 			// how many items per page should be shown
 			perPage: 3,
-			
-			// a default number of total pages to query in case the API or 
-			// service you are using does not support providing the total 
+
+			// a default number of total pages to query in case the API or
+			// service you are using does not support providing the total
 			// number of pages for us.
 			// 10 as a default in case your service doesn't return the total
 			totalPages: 10,
-			
-			// The total number of pages to be shown as a pagination 
+
+			// The total number of pages to be shown as a pagination
 			// list is calculated by (pagesInRange * 2) + 1.
 			pagesInRange: 4
 		},
-``` 
+```
 
 ####4. Configure the parameters we want to send to the server
 
@@ -257,24 +259,24 @@ Note how you can use functions insead of hardcoded values, and you can also reff
 		server_api: {
 			// the query field in the request
 			'$filter': 'substringof(\'america\',Name)',
-			
+
 			// number of items to return per request/page
 			'$top': function() { return this.perPage },
-			
+
 			// how many results the request should skip ahead to
 			// customize as needed. For the Netflix API, skipping ahead based on
 			// page * number of results per page was necessary.
 			'$skip': function() { return this.currentPage * this.perPage },
-			
+
 			// field to sort by
 			'$orderby': 'ReleaseYear',
-			
+
 			// what format would you like to request results in?
 			'$format': 'json',
-			
+
 			// custom parameters
 			'$inlinecount': 'allpages',
-			'$callback': 'callback'                                     
+			'$callback': 'callback'
 		},
 ```
 
@@ -323,7 +325,7 @@ Use levenshtein only for short texts (titles, names, etc).
 		{field: 'release_year', type: 'range', value: {min: '1999', max: '2003'}},
 		{field: 'author', type: 'pattern', value: new RegExp('A*', 'igm')}
 	]);
-	
+
 	//Rules:
 	//
 	//var my_var = 'green';
@@ -362,7 +364,7 @@ You can use some variables in your ```View``` to represent the actual state of t
 
 ```endRecord``` - The position of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
 
-```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if pagesInRange is 3 and current page is 13 you will get 
+```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if pagesInRange is 3 and current page is 13 you will get
 the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 
 ```html
@@ -382,7 +384,7 @@ the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 				<% }); %>
 			</ul>
 		</div>
-	
+
 		<div class="pagination span4">
 			<ul>
 				<% if (currentPage > firstPage) { %>
@@ -396,9 +398,9 @@ the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 					<li><span>Next</span></li>
 				<% } %>
 				<% if (firstPage != currentPage) { %>
-					<li><a href="#" class="serverfirst">First</a></li> 
+					<li><a href="#" class="serverfirst">First</a></li>
 				<% } else { %>
-					<li><span>First</span></li> 
+					<li><span>First</span></li>
 				<% } %>
 				<% if (totalPages != currentPage) { %>
 					<li><a href="#" class="serverlast">Last</a></li>
@@ -422,7 +424,7 @@ the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 
 </script>
 ```
-	
+
 
 ## Plugins
 
@@ -434,11 +436,11 @@ To enable the plugin, set `this.useDiacriticsPlugin` to true, as can be seen in 
 
 ```javascript
 Paginator.clientPager = Backbone.Collection.extend({
-	
+
 		// Default values used when sorting and/or filtering.
 		initialize: function(){
 			this.useDiacriticsPlugin = true; // use diacritics plugin if available
-		...	
+		...
 ```
 
 ## Team
@@ -458,7 +460,7 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 ## Release History
 
-There have been a number of significant API changes made to the Paginator since it was first released. A stable release (with up to date documentation) will be available soon, complete with updated unit tests. 
+There have been a number of significant API changes made to the Paginator since it was first released. A stable release (with up to date documentation) will be available soon, complete with updated unit tests.
 
 * 0.next - improved unit testing, demos
 * 0.current - improved sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
@@ -469,5 +471,5 @@ There have been a number of significant API changes made to the Paginator since 
 * 0.1 - basic pagination of a single response from the server
 
 ## License
-Copyright (c) 2012 Addy Osmani  
+Copyright (c) 2012 Addy Osmani
 Licensed under the MIT license.

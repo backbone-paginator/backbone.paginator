@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     },
     mocha: {
       all: [ 'test/test.html' ]
-    },          
+    },
     lint: {
       files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
     },
@@ -43,7 +43,13 @@ module.exports = function(grunt) {
         sub: true,
         undef: true,
         boss: true,
-        eqnull: true
+        eqnull: true,
+        // unfortunately JSHint can't enforce the indentation without also enforcing
+        // Crockford's styleguide. see https://github.com/jshint/jshint/issues/655
+        // This is already fixed in master: https://github.com/jshint/jshint/issues/667
+        // As soon as it is released the following line can be uncommented
+        //indent: 2,
+        trailing: true
       },
       globals: {
         exports: true,
