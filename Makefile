@@ -21,7 +21,6 @@ build:
 	uglifyjs $(JS_FILE) --compress --mangle --comments --output $(JS_OUTFILE)
 
 clean:
-	rm -rf api/*
 	rm -f $(JS_OUTFILE)
 
 doc:
@@ -29,7 +28,7 @@ doc:
 		--external=Backbone.Model,Backbone.Collection,jQuery.jqXHR \
 		--title=backbone-pageable \
 		--no-source \
-		--categories=categories.json \
+		--categories=api/categories.json \
 		--warnings=-no_doc \
 		--pretty-json \
 		--output api
