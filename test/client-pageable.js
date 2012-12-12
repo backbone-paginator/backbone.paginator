@@ -1,21 +1,38 @@
 $(document).ready(function () {
 
-  module("Backbone.PageableCollection - Client");
+  var a, c, b, models, comparator;
+
+  module("Backbone.PageableCollection - Client", {
+
+    setup: function () {
+
+      a = new Backbone.Model({"name": "a"});
+      c = new Backbone.Model({"name": "c"});
+      b = new Backbone.Model({"name": "b"});
+
+      models = [
+        {"name": "a"},
+        {"name": "c"},
+        {"name": "b"}
+      ];
+
+      comparator = function (model) {
+        return model.get("name");
+      };
+    }
+  });
 
   test("_makeFullCollection", function () {
     var sync = function () {};
-    var comparator = function () {};
+
     var col = new (Backbone.PageableCollection.extend({
       url: "test/makeFullCollection",
       model: Backbone.Model,
       sync: sync
     }))();
 
-    var fullCol = col._makeFullCollection([
-      {"name": "a"},
-      {"name": "c"},
-      {"name": "b"}
-    ], { comparator: comparator });
+    var fullCol = col._makeFullCollection(models,
+                                          { comparator: comparator });
 
     ok(!_.isUndefined(fullCol));
     strictEqual(fullCol.comparator, comparator);
@@ -23,12 +40,12 @@ $(document).ready(function () {
     strictEqual(fullCol.model, Backbone.Model);
     strictEqual(fullCol.url, "test/makeFullCollection");
     strictEqual(fullCol.at(0).get("name"), "a");
-    strictEqual(fullCol.at(1).get("name"), "c");
-    strictEqual(fullCol.at(2).get("name"), "b");
+    strictEqual(fullCol.at(1).get("name"), "b");
+    strictEqual(fullCol.at(2).get("name"), "c");
 
-    var a = new Backbone.Model({"name": "a"}, {collection: 1});
-    var c = new Backbone.Model({"name": "c"}, {collection: 1});
-    var b = new Backbone.Model({"name": "b"}, {collection: 1});
+    a.collection = 1;
+    c.collection = 1;
+    b.collection = 1;
 
     fullCol = col._makeFullCollection([
       a, c, b
@@ -44,15 +61,8 @@ $(document).ready(function () {
   });
 
   test("initialize", function () {
-    var mods = [
-      {"name": "a"},
-      {"name": "c"},
-      {"name": "b"}
-    ];
 
-    var comparator = function (model) {
-      return model.get("name");
-    };
+    var mods = models.slice();
 
     var col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
@@ -62,9 +72,17 @@ $(document).ready(function () {
       }
     });
 
-    ok(col.fullCollection instanceof Backbone.Collection);
     strictEqual(col.state.totalRecords, 3);
     strictEqual(col.comparator, comparator);
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.at(0), col.fullCollection.at(0));
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+
+    mods = models.slice();
 
     col = new Backbone.PageableCollection(mods, {
       state: {
@@ -75,18 +93,86 @@ $(document).ready(function () {
       full: true
     });
 
+    strictEqual(col.state.totalRecords, 3);
     ok(!_.isUndefined(col.fullCollection.comparator));
     ok(_.isUndefined(col.comparator));
+
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "b");
+    strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
   test("add", function () {
-    // adding on current should pop last from current and add to full
-    // adding to full should do nothing if not on the current page
-    // adding to full should add to the current page if within current page
-    // boundary and not cos and infinite loop
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        isClientMode: true,
+        pageSize: 3
+      }
+    });
+
+    var d = new Backbone.Model({name: "d"});
+    col.add(d);
+
+    var nextPageStart = (col.state.firstPage === 1 ?
+                         col.state.currentPage - 1 :
+                         col.state.currentPage) * col.state.pageSize + col.state.pageSize;
+    strictEqual(col.fullCollection.at(nextPageStart).get("name"), "d");
+    strictEqual(col.size(), 3);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.at(2).get("name"), "b");
+
+    var e = new Backbone.Model({name: "e"});
+    col.fullCollection.push(e);
+    strictEqual(col.size(), 3);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.at(2).get("name"), "b");
+    strictEqual(col.indexOf(e.cid), -1);
+
+    var f = new Backbone.Model({name: "f"});
+    col.fullCollection.unshift(f);
+    strictEqual(col.fullCollection.size(), 6);
+    strictEqual(col.size(), 3);
+    strictEqual(col.at(0).get("name"), "f");
+    strictEqual(col.at(1).get("name"), "a");
+    strictEqual(col.at(2).get("name"), "c");
   });
 
-  test("remove", function () {
+  test("remove", 11, function () {
+
+    var mods = models.slice();
+
+    var col = new Backbone.PageableCollection(mods, {
+      state: {
+        isClientMode: true,
+        pageSize: 1
+      }
+    });
+
+    strictEqual(col.size(), 1);
+    col.remove(col.at(0));
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.fullCollection.size(), 2);
+    strictEqual(col.fullCollection.at(0).get("name"), "c");
+    strictEqual(col.fullCollection.at(1).get("name"), "b");
+
+    var onRemove = function () {
+      ok(false);
+    };
+
+    col.fullCollection.remove(col.fullCollection.at(1));
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.fullCollection.size(), 1);
+
+    col.fullCollection.remove(col.fullCollection.at(0));
+    strictEqual(col.size(), 0);
+    strictEqual(col.fullCollection.size(), 0);
   });
 
   test("change", function () {
