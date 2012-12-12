@@ -1,6 +1,6 @@
 # Backbone.Paginator
 
-[![Continuous Integration status](https://secure.travis-ci.org/lenniboy/backbone.paginator.png)](http://travis-ci.org/lenniboy/backbone.paginator)
+[![Continuous Integration status](https://secure.travis-ci.org/addyosmani/backbone.paginator.png)](http://travis-ci.org/addyosmani/backbone.paginator)
 
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
