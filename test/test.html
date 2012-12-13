@@ -45,7 +45,7 @@
     <!-- run mocha -->
     <script type="text/javascript" charset="utf-8">
         mocha
-            .globals(['jQuery*']) // acceptable globals
+            .globals(['jQuery*', "XMLHttpRequest"]) // acceptable globals
             .run();
     </script>
 </body>
