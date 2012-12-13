@@ -23,6 +23,7 @@ $(document).ready(function () {
   });
 
   test("_makeFullCollection", function () {
+
     var sync = function () {};
 
     var col = new (Backbone.PageableCollection.extend({
@@ -35,17 +36,21 @@ $(document).ready(function () {
                                           { comparator: comparator });
 
     ok(!_.isUndefined(fullCol));
+    ok(_.isUndefined(fullCol.constructor.prototype.comparator));
     strictEqual(fullCol.comparator, comparator);
+    strictEqual(fullCol.constructor.prototype.sync, sync);
     strictEqual(fullCol.sync, sync);
+    strictEqual(fullCol.constructor.prototype.model, Backbone.Model);
     strictEqual(fullCol.model, Backbone.Model);
+    strictEqual(fullCol.constructor.prototype.url, "test/makeFullCollection");
     strictEqual(fullCol.url, "test/makeFullCollection");
     strictEqual(fullCol.at(0).get("name"), "a");
     strictEqual(fullCol.at(1).get("name"), "b");
     strictEqual(fullCol.at(2).get("name"), "c");
 
-    a.collection = 1;
-    c.collection = 1;
-    b.collection = 1;
+    a.collection = col;
+    c.collection = col;
+    b.collection = col;
 
     fullCol = col._makeFullCollection([
       a, c, b
@@ -55,16 +60,25 @@ $(document).ready(function () {
     strictEqual(fullCol.at(1).get("name"), "c");
     strictEqual(fullCol.at(2).get("name"), "b");
 
-    strictEqual(fullCol.at(0).collection, fullCol);
-    strictEqual(fullCol.at(1).collection, fullCol);
-    strictEqual(fullCol.at(2).collection, fullCol);
+    strictEqual(fullCol.at(0).collection, col);
+    strictEqual(fullCol.at(1).collection, col);
+    strictEqual(fullCol.at(2).collection, col);
   });
 
   test("initialize", function () {
 
+    var col = new Backbone.PageableCollection(null, {
+      state: {
+        isClientMode: true
+      }
+    });
+
+    ok(col);
+    ok(col.fullCollection);
+
     var mods = models.slice();
 
-    var col = new Backbone.PageableCollection(mods, {
+    col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
       state: {
         pageSize: 2,

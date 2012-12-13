@@ -160,8 +160,44 @@ $(document).ready(function () {
     strictEqual(state.lastPage, 2);
   });
 
-  test("initialize", function () {
-    var col = new Backbone.PageableCollection([
+  test("extend and initialize", function () {
+
+    // test extending state and query params merge with defaults in prototype too
+    var col = new (Backbone.PageableCollection.extend({
+      state: {
+        pageSize: 1
+      },
+      queryParams: {
+        sortKey: "order_by"
+      }
+    }))();
+
+    deepEqual(col.state, {
+      firstPage: 1,
+      lastPage: null,
+      currentPage: 1,
+      pageSize: 1,
+      totalPages: null,
+      totalRecords: null,
+      sortKey: null,
+      order: -1,
+      isClientMode: false
+    });
+
+    deepEqual(col.queryParams, {
+      currentPage: "page",
+      pageSize: "per_page",
+      totalPages: "total_pages",
+      totalRecords: "total",
+      sortKey: "order_by",
+      order: "order",
+      directions: {
+        "-1": "ASC",
+        "1": "DESC"
+      }
+    });
+
+    col = new Backbone.PageableCollection([
       {"name": "a"},
       {"name": "c"},
       {"name": "b"}
@@ -189,6 +225,7 @@ $(document).ready(function () {
     strictEqual(col.state.firstPage, 0);
     strictEqual(col.state.currentPage, 0);
     strictEqual(col.state.pageSize, 1);
+    strictEqual(col.state.lastPage, 2);
     strictEqual(col.state.totalPages, 3);
     strictEqual(col.state.totalRecords, 3);
     strictEqual(col.state.sortKey, "name");
