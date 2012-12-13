@@ -423,7 +423,7 @@ $(document).ready(function () {
     this.stub(col, "fetch");
 
     col.getFirstPage({fetch: true});
-    ok(col.fetch.calledOnce);    
+    ok(col.fetch.calledOnce);
   });
 
   test("getPreviousPage", function () {
@@ -444,7 +444,7 @@ $(document).ready(function () {
 
     col.getNextPage();
     col.getPreviousPage({fetch: true});
-    ok(col.fetch.calledOnce);    
+    ok(col.fetch.calledOnce);
   });
 
   test("getNextPage", function () {
@@ -463,7 +463,7 @@ $(document).ready(function () {
 
     col.getPreviousPage();
     col.getNextPage({fetch: true});
-    ok(col.fetch.calledOnce);    
+    ok(col.fetch.calledOnce);
   });
 
   test("getLastPage", function () {
@@ -481,7 +481,7 @@ $(document).ready(function () {
     this.stub(col, "fetch");
 
     col.getLastPage({fetch: true});
-    ok(col.fetch.calledOnce);    
+    ok(col.fetch.calledOnce);
   });
 
   test("setPageSize", function () {
@@ -493,7 +493,7 @@ $(document).ready(function () {
     });
 
     col.setPageSize(1);
-    
+
     strictEqual(col.state.pageSize, 1);
     strictEqual(col.state.totalPages, 3);
     strictEqual(col.state.lastPage, 3);
