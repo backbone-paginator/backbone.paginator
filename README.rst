@@ -82,7 +82,6 @@ Browser
 
 .. code-block:: html
 
-  <script src="jquery.js"></script><!-- or zepto or ender -->
   <script src="underscore.js"></script>
   <script src="backbone.js"></script>
   <script src="backbone-pageable.js"></script>
