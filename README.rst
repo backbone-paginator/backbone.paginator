@@ -113,27 +113,27 @@ pagination state and server API mapping by extending
 
   var Books = Backbone.PageableCollection.extend({
      url: "api.mybookstore.com/books",
-     state: _.extend({}, Backbone.PageableCollection.prototype.state, {
+     // Any `state` or `queryParam` you override in a subclass will be merged with
+     // the defaults in `Backbone.PageableCollection` 's prototype.
+     state: {
        // You can use 0-based or 1-based indices, the default is 1-based.
        // You can set to 0-based by setting ``firstPage`` to 0.
        firstPage: 0,
        // Set this to the initial page index, can be 0-based or 1-based
        currentPage: 0
-     }),
-     // You can configure the mapping from a Backbone.PageableCollection.state
+     },
+     // You can configure the mapping from a `Backbone.PageableCollection#state`
      // key to the query string parameters accepted by your server API.
-     queryParams: _.extend({},
-                           Backbone.PageableCollection.prototype.queryParams, {
-       // Backbone.PageableCollection.queryParams converts to ruby's
+     queryParams: {
+       // `Backbone.PageableCollection#queryParams` converts to ruby's
        // will_paginate keys by default.
        currentPage: "current_page",
        pageSize: "page_size"
-     })
+     }
   });
 
 
-Too verbose you say? You can initialize ``state`` and ``queryParams`` from the
-constructor too:
+You can initialize ``state`` and ``queryParams`` from the constructor too:
 
 .. code-block:: javascript
 
@@ -143,7 +143,7 @@ constructor too:
 
   var books = new Books([], {
       // All the `state` and `queryParams` key value pairs are merged with
-      // the default instead of overwritten.
+      // the defaults too.
       state: {
           firstPage: 0,
           currentPage: 0
@@ -510,6 +510,22 @@ FAQ
 #. How do I contribute?
 
    See `CONTRIBUTING <CONTRIBUTING.md>`_.
+
+
+Change Log
+----------
+
+0.9.1
+  Bugs Fixed
+    - Instantiating a ``PageableCollection`` in client-mode without giving it
+      any models no longer throws errors.
+  Enhancements
+    - Overriding ``state`` and ``queryParams`` in a subclass's prototype now
+      merge with the defaults in ``Backbone.PageableCollection.prototype``.
+    - fullCollection now respect the parent's prototype.
+
+0.9.0
+  Initial release
 
 
 Legal
