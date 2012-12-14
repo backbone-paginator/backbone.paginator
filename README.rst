@@ -35,9 +35,10 @@ Advantages
 
 * 100% compatible with existing code
 
-  ``Backbone.PageableCollection`` passes ``Backbone.Collection`` 's test suite,
-  so you can replace your collections with ``Backbone.PageabeCollection`` and
-  your code will behave exactly the same.
+  ``Backbone.PageableCollection`` passes ``Backbone.Collection`` 's `test suite
+  <http://wyuenho.github.com/backbone-pageable/test/index.html>`_, so you can
+  replace your collections with ``Backbone.PageabeCollection`` and your code
+  will behave exactly the same.
 
 * Well tested
 
@@ -114,18 +115,24 @@ pagination state and server API mapping by extending
 
   var Books = Backbone.PageableCollection.extend({
      url: "api.mybookstore.com/books",
+
      // Any `state` or `queryParam` you override in a subclass will be merged with
      // the defaults in `Backbone.PageableCollection` 's prototype.
      state: {
+
        // You can use 0-based or 1-based indices, the default is 1-based.
        // You can set to 0-based by setting ``firstPage`` to 0.
        firstPage: 0,
-       // Set this to the initial page index, can be 0-based or 1-based
-       currentPage: 0
+
+       // Set this to the initial page index if different from `firstPage`. Can
+       // also be 0-based or 1-based.
+       currentPage: 2
      },
+
      // You can configure the mapping from a `Backbone.PageableCollection#state`
      // key to the query string parameters accepted by your server API.
      queryParams: {
+
        // `Backbone.PageableCollection#queryParams` converts to ruby's
        // will_paginate keys by default.
        currentPage: "current_page",
@@ -143,16 +150,19 @@ You can initialize ``state`` and ``queryParams`` from the constructor too:
   });
 
   var books = new Books([], {
+
       // All the `state` and `queryParams` key value pairs are merged with
       // the defaults too.
       state: {
           firstPage: 0,
           currentPage: 0
       },
+
       queryParams: {
           currentPage: "current_page",
           pageSize: "page_size"
       }
+
   });
 
 
@@ -165,7 +175,7 @@ Attribute    Value Attribute     Value
 ============ ===== ============= ============================
 firstPage    1                                              
 lastPage     null                                            
-currentPage  1     currentPage   "page"                     
+currentPage  null  currentPage   "page"                     
 pageSize     25    pageSize      "per_page"                 
 totalPages   null  totalPages    "total_pages"                    
 totalRecords null  totalRecords  "total"                    
@@ -199,6 +209,7 @@ to the constructor too:
               // Paginate and sort on the client side, default is `false`.
               isClient: true
           },
+
           // This will maintain the current page in the order the comparator defined
           // on the client-side, regardless of modes.
           comparator: function (model) { return model.get("name"); }
@@ -408,9 +419,6 @@ are communicated between the two collections.
    ], {
      state: {
        isClientMode: true,
-       // Pages indices default to 1-based.
-       currentPage: 1,
-       firstPage: 1
      }
    });
 
@@ -515,6 +523,12 @@ FAQ
 
 Change Log
 ----------
+
+0.9.2
+  This release is tested against Backbone.js 0.9.2 and 0.9.9.
+
+  Enhancements
+    - ``currentPage`` defaults to ``firstPage``.
 
 0.9.1
   Bugs Fixed
