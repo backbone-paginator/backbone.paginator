@@ -386,6 +386,19 @@ $(document).ready(function() {
     equal(this.syncArgs.options.parse, false);
   });
 
+  test("ensure fetch only parses once", 1, function() {
+    var collection = new Backbone.PageableCollection;
+    var counter = 0;
+    collection.parse = function(models) {
+      counter++;
+      return models;
+    };
+    collection.url = '/test';
+    collection.fetch();
+    this.syncArgs.options.success([]);
+    equal(counter, 1);
+  });
+
   test("create", 4, function() {
     var collection = new Backbone.PageableCollection;
     collection.url = '/test';
@@ -884,6 +897,17 @@ $(document).ready(function() {
       sort: function() { ok(true); }
     });
     new Collection().add({id: 1}, {sort: false});
+  });
+
+  test("#1915 - `parse` data in the right order in `update`", function() {
+    var collection = new (Backbone.PageableCollection.extend({
+      parse: function (data) {
+        strictEqual(data.status, 'ok');
+        return data.data;
+      }
+    }));
+    var res = {status: 'ok', data:[{id: 1}]}
+    collection.update(res, {parse: true});
   });
 
 });
