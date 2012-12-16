@@ -284,7 +284,7 @@ a "page number". As a substitute, you have to make use of ``getFirstPage``,
 most of the ``state`` attribute is also meaningless under this mode. By default,
 ``Backbone.PageableCollection`` parses the response headers to find out what the
 ``first``, ``last``, ``next`` and ``prev`` links are and the parsed links are
-available in the field ``#links``.
+available in the field ``links``.
 
 .. code-block:: javascript
 
@@ -301,7 +301,7 @@ available in the field ``#links``.
 
 If your server API does not return the links using the ``Link`` header like
 `Github <http://developer.github.com/v3/#pagination>`_ does, you can subclass
-``Backbone.PageableCollection`` to override the ``parse_links`` methods to
+``Backbone.PageableCollection`` to override the ``parseLinks`` methods to
 return a links object.
 
 .. code-block:: javascript
@@ -309,12 +309,16 @@ return a links object.
    var FBComments = Backbone.PageableCollection.extend({
      url: "https://graph.facebook.com/A_REALLY_LONG_FACEBOOK_OBJECT_ID",
      mode: "infinite",
+     // Set the indices to 0-based for Graph API.
+     state: {
+       firstPage: 0
+     },
      queryParams: {
        pageSize: "limit",
        // Setting a parameter mapping value to null removes it from the query string
        currentPage: null,
        // Any extra query string parameters are sent as is, values can be functions.
-       offset: function () { return (this.state.currentPage - 1) * this.state.pageSize; }
+       offset: function () { return this.state.currentPage * this.state.pageSize; }
      },
      // Return all the comments for this Facebook object
      parse: function (resp) {
@@ -322,7 +326,8 @@ return a links object.
      },
      // Facebook's `paging` object is in the exact format
      // `Backbone.PageableCollection` accepts.
-     parse_links: function (resp, xhr) {
+     parseLinks: function (resp, xhr) {
+       this.state.currentPage++;
        return resp.comments.paging;
      }
    });
