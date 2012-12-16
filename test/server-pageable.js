@@ -297,7 +297,7 @@ $(document).ready(function () {
     col.state.currentPage = 0;
     col.state.pageSize = 50;
     col.state.firstPage = 0;
-    col.queryParams.access_token = function () { return 1; };
+    col.queryParams.access_token = function () { return this.state.currentPage + 1; };
 
     col.fetch({add: true, silent: true});
 
