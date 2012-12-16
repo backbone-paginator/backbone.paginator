@@ -288,7 +288,10 @@ available in the field ``links``.
 
 .. code-block:: javascript
 
+   var Issue = Backbone.Model.extend({});
+
    var Issues = Backbone.PageableCollection.extend({
+     model: Issue,
      url: "https://api.github.com/repos/documentclound/backbone/issues?state=closed",
      mode: "infinite"
    });
@@ -317,7 +320,9 @@ return a links object.
        pageSize: "limit",
        // Setting a parameter mapping value to null removes it from the query string
        currentPage: null,
-       // Any extra query string parameters are sent as is, values can be functions.
+       // Any extra query string parameters are sent as is, values can be functions,
+       // which will be bound to the pageable collection instance temporarily
+       // when called.
        offset: function () { return this.state.currentPage * this.state.pageSize; }
      },
      // Return all the comments for this Facebook object
@@ -545,6 +550,13 @@ FAQ
 
 Change Log
 ----------
+
+0.9.10
+  Bugs Fixed
+    - The initial call to ``getFirstPage`` will no longer fail under
+      infinite-mode and will now default to fetch from the collection's ``url``.
+    - Function values in ``queryParams`` now has ``this`` bound to the
+      collection instance when called.
 
 0.9.9
   Changed:
