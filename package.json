@@ -1,6 +1,6 @@
 {
   "name": "backbone-pageable",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "A Pageable Backbone.Collection superset with server-side/client-side mode switching",
   "main": "lib/backbone-pageable.js",
   "repository": {
