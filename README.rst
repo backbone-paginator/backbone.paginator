@@ -56,7 +56,7 @@ Installing from Node.js
   npm install backbone-pageable
 
 
-Installing from bower
+Installing from Bower
 +++++++++++++++++++++
 
 .. code-block:: bash
@@ -74,7 +74,7 @@ Browser
   <script src="backbone-pageable.js"></script>
 
 
-Getting to the Backbone.PageableCollection class from Node.js and AMD
+Getting to the Backbone.PageableCollection Class from Node.js and AMD
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: javascript
@@ -82,7 +82,7 @@ Getting to the Backbone.PageableCollection class from Node.js and AMD
   var PageableCollection = require("backbone-pageable");
 
 
-Getting to the Backbone.PageableCollection class in the browser
+Getting to the Backbone.PageableCollection Class in the Browser
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: javascript
@@ -152,7 +152,7 @@ You can initialize ``state`` and ``queryParams`` from the constructor too:
   });
 
 
-Adapting to a server API
+Adapting to a Server API
 ++++++++++++++++++++++++
 
 To adapt to an existing server API that do not use ``will_paginate`` keys, you
@@ -249,7 +249,7 @@ to the constructor too:
 Pagination
 ----------
 
-Server-mode
+Server-Mode
 +++++++++++
 
 ``Backbone.Pagination`` defaults to server-mode, which means it only holds one
@@ -274,7 +274,7 @@ All of the ``get*Page`` methods accept the same options
 `Backbone.Collection#fetch <http://backbonejs.org/#Collection-fetch>`_ accepts
 under server-mode.
 
-Infinite mode
+Infinite-Mode
 +++++++++++++
 
 Infinite paging mode is a special case of server mode. You cannot call
@@ -327,7 +327,7 @@ return a links object.
      }
    });
 
-Client-mode
+Client-Mode
 +++++++++++
 
 Client-mode is a very convenient mode for paginating a handful of pages entirely
@@ -374,7 +374,7 @@ of the pages.
 The following matrices will help you understand all of the different ways you
 can sort on a pageable collection.
 
-Server-mode
+Server-Mode
 +++++++++++
 
 +--------------+-----------------------------------------------+-------------------------------------+
@@ -424,7 +424,7 @@ Server-mode
 |              |                                               |                                     |
 +--------------+-----------------------------------------------+-------------------------------------+
 
-Client-mode
+Client-Mode
 +++++++++++
 
 +--------------+------------------------------------+---------------------------------------------+
