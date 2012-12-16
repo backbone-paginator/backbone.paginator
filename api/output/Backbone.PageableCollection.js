@@ -232,7 +232,7 @@ Ext.data.JsonP.Backbone_PageableCollection({
 
     ]
   },
-  "linenr": 59,
+  "linenr": 62,
   "files": [
     {
       "filename": "backbone-pageable.js",
