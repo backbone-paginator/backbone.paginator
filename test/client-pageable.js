@@ -68,9 +68,7 @@ $(document).ready(function () {
   test("initialize", function () {
 
     var col = new Backbone.PageableCollection(null, {
-      state: {
-        isClientMode: true
-      }
+      mode: "client"
     });
 
     ok(col);
@@ -81,9 +79,9 @@ $(document).ready(function () {
     col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
       state: {
-        pageSize: 2,
-        isClientMode: true
-      }
+        pageSize: 2
+      },
+      mode: "client"
     });
 
     strictEqual(col.state.totalRecords, 3);
@@ -103,9 +101,9 @@ $(document).ready(function () {
       state: {
         pageSize: 1,
         sortKey: "name",
-        isClientMode: true
       },
-      full: true
+      full: true,
+      mode: "client"
     });
 
     strictEqual(col.state.totalRecords, 3);
@@ -123,9 +121,9 @@ $(document).ready(function () {
   test("add", 20, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 3
-      }
+      },
+      mode: "client"
     });
 
     var onAdd = function () {
@@ -169,9 +167,9 @@ $(document).ready(function () {
 
     var col = new Backbone.PageableCollection(mods, {
       state: {
-        isClientMode: true,
         pageSize: 1
-      }
+      },
+      mode: "client"
     });
 
     var onRemove = function () {
@@ -200,9 +198,9 @@ $(document).ready(function () {
   test("change", 6, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 1
-      }
+      },
+      mode: "client"
     });
 
     var onChange = function () {
@@ -226,9 +224,9 @@ $(document).ready(function () {
       url: "test-client-sync"
     }))(models, {
       state: {
-        isClientMode: true,
         pageSize: 1
-      }
+      },
+      mode: "client"
     });
 
     var onSync = function () {
@@ -257,9 +255,9 @@ $(document).ready(function () {
 
     var col = new Backbone.PageableCollection(mods, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     var onReset = function () {
@@ -290,9 +288,9 @@ $(document).ready(function () {
 
     col = new Backbone.PageableCollection(mods, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.on("reset", onReset);
@@ -348,7 +346,7 @@ $(document).ready(function () {
       strictEqual(settings.url, "test-client-fetch");
       deepEqual(settings.data, {
         "sort_by": "name",
-        "order": "DESC"
+        "order": "desc"
       });
 
       settings.success([
@@ -363,11 +361,11 @@ $(document).ready(function () {
       url: "test-client-fetch"
     }))(models, {
       state: {
-        isClientMode: true,
         pageSize: 2,
         sortKey: "name",
         order: 1
-      }
+      },
+      mode: "client"
     });
 
     var onReset = function () {
@@ -392,9 +390,9 @@ $(document).ready(function () {
   test("getPage", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.getPage(2);
@@ -410,9 +408,9 @@ $(document).ready(function () {
   test("getFirstPage", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.getFirstPage();
@@ -429,9 +427,9 @@ $(document).ready(function () {
   test("getPreviousPage", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.getNextPage();
@@ -450,9 +448,9 @@ $(document).ready(function () {
   test("getNextPage", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.getNextPage();
@@ -469,9 +467,9 @@ $(document).ready(function () {
   test("getLastPage", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.getLastPage();
@@ -487,9 +485,9 @@ $(document).ready(function () {
   test("setPageSize", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        isClientMode: true,
         pageSize: 2
-      }
+      },
+      mode: "client"
     });
 
     col.setPageSize(1);

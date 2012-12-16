@@ -38,9 +38,9 @@ $(document).ready(function () {
     var resp = [{"page": 1,
                  "per_page": 2,
                  "total_pages": 2,
-                 "total": 4,
+                 "total_entries": 4,
                  "sort_by": "name",
-                 "order": "DESC"},
+                 "order": "desc"},
                 [{"name": "b"},
                  {"name": "c"},
                  {"name": "a"},
@@ -180,20 +180,19 @@ $(document).ready(function () {
       totalPages: null,
       totalRecords: null,
       sortKey: null,
-      order: -1,
-      isClientMode: false
+      order: -1
     });
 
     deepEqual(col.queryParams, {
       currentPage: "page",
       pageSize: "per_page",
       totalPages: "total_pages",
-      totalRecords: "total",
+      totalRecords: "total_entries",
       sortKey: "order_by",
       order: "order",
       directions: {
-        "-1": "ASC",
-        "1": "DESC"
+        "-1": "asc",
+        "1": "desc"
       }
     });
 
@@ -298,6 +297,7 @@ $(document).ready(function () {
     col.state.currentPage = 0;
     col.state.pageSize = 50;
     col.state.firstPage = 0;
+    col.queryParams.access_token = function () { return 1; };
 
     col.fetch({add: true, silent: true});
 
@@ -309,8 +309,9 @@ $(document).ready(function () {
       page: 0,
       per_page: 50,
       sort_by: "name",
-      total: 50,
-      total_pages: 1
+      total_entries: 50,
+      total_pages: 1,
+      access_token: 1
     });
 
     jQuery.ajax.restore();

@@ -1,0 +1,65 @@
+$(document).ready(function () {
+
+  var col;
+
+  module("Backbone.PageableCollection - Infinite", {
+    setup: function () {
+      col = new Backbone.PageableCollection(null, {
+        mode: "infinite"
+      });
+      col.links = {
+        first: "firstUrl",
+        prev: "prevUrl",
+        next: "nextUrl",
+        last: "lastUrl"
+      };
+    }
+  });
+
+  test("parseLinks", function () {
+    var xhr = {
+      getResponseHeader: function (header) {
+        if (header.toLowerCase() == "link") {
+          return '<https://api.github.com/user/repos?page=3&per_page=100>; rel="next", <https://api.github.com/user/repos?page=50&per_page=100>; rel="last"';
+        }
+        return null;
+      }
+    };
+
+    var links = col.parseLinks({}, xhr);
+
+    deepEqual(links, {
+      last: "https://api.github.com/user/repos?page=50&per_page=100",
+      next: "https://api.github.com/user/repos?page=3&per_page=100"
+    });
+
+  });
+
+  test("getPage", 3, function () {
+    throws(function () {
+      col.getPage("nosuchpage");
+    });
+
+    col.parseLinks = function () {
+      ok(true);
+    };
+
+    col.fetch = function (options) {
+      deepEqual(options, {
+        url: "nextUrl",
+        type: "jsonp"
+      });
+
+      return {
+        done: function (fn) {
+          fn();
+        }
+      };
+    };
+
+    col.getPage("next", {
+      type: "jsonp"
+    });
+  });
+
+});

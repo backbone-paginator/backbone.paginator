@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  module("Backbone.PageableCollection");
+  module("Backbone.PageableCollection - switchMode");
 
   test("switchMode", function () {
 
@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     this.stub(col, "fetch");
 
-    col.switchMode();
+    col.switchMode("client");
 
     ok(col.fullCollection instanceof Backbone.Collection);
     ok(col.fetch.calledOnce);
@@ -27,19 +27,28 @@ $(document).ready(function () {
       return model.get("name");
     };
 
-    col.switchMode();
+    col.switchMode("server");
 
     ok(_.isUndefined(col.fullCollection));
     ok(col.fetch.calledOnce);
 
     col.fetch.reset();
 
-    col.switchMode({fetch: false});
+    col.switchMode("client", {fetch: false});
 
     ok(col.fullCollection.comparator === comparator);
 
     ok(col.fetch.notCalled);
 
+    col.fetch.reset();
+
+    col.switchMode("infinite");
+
+    ok(_.isUndefined(col.fullCollection));
+    ok(col.fetch.calledOnce);
+
+    col.fetch.reset();
+    
   });
 
 });
