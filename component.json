@@ -1,6 +1,6 @@
 {
   "name": "backbone-pageable",
-  "version": "0.9.2",
+  "version": "0.9.9",
   "main": "lib/backbone-pageable.js",
   "dependencies": {
     "underscore": "~1.4.0",
