@@ -1,0 +1,25 @@
+{
+  "camelcase": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "noarg": true,
+  "trailing": true,
+  "expr": true,
+  "shadow": true,
+  "supernew": true,
+  "boss": true,
+  "undef": true,
+  "unused": true,
+  "eqnull": true,
+
+  "devel": false,
+  "jquery": false,
+  "nonstandard": false,
+  "node": false,
+
+  "globals": {
+    "Backbone": false,
+    "_": false
+  }
+}
