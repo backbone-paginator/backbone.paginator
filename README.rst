@@ -42,7 +42,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  Less than 2.5k minified and gzipped.
+  Less than 2.9k minified and gzipped.
 
 
 Installation
@@ -99,31 +99,37 @@ pagination state and server API mapping by extending
 
 .. code-block:: javascript
 
+  var Book = Backbone.Model.extend({});
+
   var Books = Backbone.PageableCollection.extend({
-     url: "api.mybookstore.com/books",
+    model: Book,
+    url: "api.mybookstore.com/books",
 
-     // Any `state` or `queryParam` you override in a subclass will be merged with
-     // the defaults in `Backbone.PageableCollection` 's prototype.
-     state: {
+    // Any `state` or `queryParam` you override in a subclass will be merged with
+    // the defaults in `Backbone.PageableCollection` 's prototype.
+    state: {
 
-       // You can use 0-based or 1-based indices, the default is 1-based.
-       // You can set to 0-based by setting ``firstPage`` to 0.
-       firstPage: 0,
+      // You can use 0-based or 1-based indices, the default is 1-based.
+      // You can set to 0-based by setting ``firstPage`` to 0.
+      firstPage: 0,
 
-       // Set this to the initial page index if different from `firstPage`. Can
-       // also be 0-based or 1-based.
-       currentPage: 2
-     },
+      // Set this to the initial page index if different from `firstPage`. Can
+      // also be 0-based or 1-based.
+      currentPage: 2,
 
-     // You can configure the mapping from a `Backbone.PageableCollection#state`
-     // key to the query string parameters accepted by your server API.
-     queryParams: {
+      // Required under server-mode
+      totalRecords: 200
+    },
 
-       // `Backbone.PageableCollection#queryParams` converts to ruby's
-       // will_paginate keys by default.
-       currentPage: "current_page",
-       pageSize: "page_size"
-     }
+    // You can configure the mapping from a `Backbone.PageableCollection#state`
+    // key to the query string parameters accepted by your server API.
+    queryParams: {
+
+      // `Backbone.PageableCollection#queryParams` converts to ruby's
+      // will_paginate keys by default.
+      currentPage: "current_page",
+      pageSize: "page_size"
+    }
   });
 
 
@@ -131,25 +137,25 @@ You can initialize ``state`` and ``queryParams`` from the constructor too:
 
 .. code-block:: javascript
 
-  var Books = Backbone.PageableCollection.extend({
-      url:"api.mybookstore.com/books"
-  });
+   var Books = Backbone.PageableCollection.extend({
+     model: Book,
+     url:"api.mybookstore.com/books"
+   });
 
-  var books = new Books([], {
+   var books = new Books([], {
 
-      // All the `state` and `queryParams` key value pairs are merged with
-      // the defaults too.
-      state: {
-          firstPage: 0,
-          currentPage: 0
-      },
+     // All the `state` and `queryParams` key value pairs are merged with
+     // the defaults too.
+     state: {
+       firstPage: 0,
+       currentPage: 0
+     },
 
-      queryParams: {
-          currentPage: "current_page",
-          pageSize: "page_size"
-      }
-
-  });
+     queryParams: {
+       currentPage: "current_page",
+       pageSize: "page_size"
+     }
+   });
 
 
 Adapting to a Server API
@@ -157,12 +163,12 @@ Adapting to a Server API
 
 To adapt to an existing server API that do not use ``will_paginate`` keys, you
 can configure the ``queryParams`` object hash to map ``state`` keys to the query
-parameters your server will accept. Those query parameters will be appear in the
-query string of the URL used for fetching. You can also put extra items into
-``queryParams`` and they will be put into the query string as is. Setting
-``null`` as the value of any mapping will remove it from the query
-string. Finally, the values in the ``queryParams`` object hash can be either a
-literal value or a parameter-less function that returns a value.
+parameters your server will accept. Those query parameters will be in the query
+string of the URL used for fetching. You can also put extra items into
+``queryParams`` and they will be in the query string as is. Setting ``null`` as
+the value of any mapping will remove it from the query string. Finally, the
+values in the ``queryParams`` can be either a literal value or a parameter-less
+function that returns a value.
 
 This is a listing of the default ``state`` and ``queryParam`` values.
 
@@ -171,14 +177,14 @@ This is a listing of the default ``state`` and ``queryParam`` values.
 ------------------ ------------------------------------------
 Attribute    Value Attribute     Value
 ============ ===== ============= ============================
-firstPage    1                                              
-lastPage     null                                            
-currentPage  null  currentPage   "page"                     
-pageSize     25    pageSize      "per_page"                 
-totalPages   null  totalPages    "total_pages"                    
-totalRecords null  totalRecords  "total_entries"                    
-sortKey      null  sortKey       "sort_by"                  
-order        -1    order         "order"                    
+firstPage    1
+lastPage     null
+currentPage  null  currentPage   "page"
+pageSize     25    pageSize      "per_page"
+totalPages   null  totalPages    "total_pages"
+totalRecords null  totalRecords  "total_entries"
+sortKey      null  sortKey       "sort_by"
+order        -1    order         "order"
 \                  directions    { "-1": "asc", "1": "desc" }
 ============ ===== ============= ============================
 
@@ -190,13 +196,12 @@ Fetching Data and Managing States
 +++++++++++++++++++++++++++++++++
 
 You can access the pageable collection's internal state by looking at the
-``state`` object attached to a ``Backbone.PageableCollection`` instance. This
-state object, however, is generally read-only after initialization. There are
-various methods to help you manage this state, you should use them instead of
-manually modifying it. For the unusual circumstances where you need to modify
-the ``state`` object directly, a sanity check will be performed at the next time
-you perform any pagination-specific operations to ensure internal state
-consistency.
+``state`` object attached to it. This state object, however, is generally
+read-only after initialization. There are various methods to help you manage
+this state, you should use them instead of manually modifying it. For the
+unusual circumstances where you need to modify the ``state`` object directly, a
+sanity check will be performed at the next time you perform any
+pagination-specific operations to ensure internal state consistency.
 
 ================== ===============================
 Method             Use When
@@ -213,7 +218,7 @@ server during a fetch. ``Backbone.PageableCollection`` overrides the default
 `Backbone.Collection#parse <http://backbonejs.org/#Collection-parse>`_ method to
 support an additional response data structure that contains an object hash of
 pagination state. The following is a table of the response data structure
-formats a pageable collection accepts.
+formats ``Backbone.PageableCollection`` accepts.
 
 ============= ====================================
 Without State With State
@@ -225,25 +230,24 @@ Bootstrapping
 -------------
 
 ``Backbone.PageableCollection`` is 100% compatible with ``Backbone.Collection``
-'s interface, so of course you can bootstrap the models and supply a comparator
-to the constructor too:
+'s interface, so you can bootstrap the models and supply a comparator to the
+constructor just like you are used to:
 
 .. code-block:: javascript
 
   // Bootstrap with just 1 page of data for server-mode, or all the pages for
   // client-mode.
   var books = new Books([
-          { name: "A Tale of Two Cities" },
-          { name: "Lord of the Rings" },
-          // ...
-      ], {
-          // Paginate and sort on the client side, default is `server`.
-          mode: "client",
-          // This will maintain the current page in the order the comparator defined
-          // on the client-side, regardless of modes.
-          comparator: function (model) { return model.get("name"); }
-      }
-  );
+    { name: "A Tale of Two Cities" },
+    { name: "Lord of the Rings" },
+    // ...
+  ], {
+    // Paginate and sort on the client side, default is `server`.
+    mode: "client",
+    // This will maintain the current page in the order the comparator defined
+    // on the client-side, regardless of modes.
+    comparator: function (model) { return model.get("name"); }
+  });
 
 
 Pagination
@@ -254,7 +258,7 @@ Server-Mode
 
 ``Backbone.Pagination`` defaults to server-mode, which means it only holds one
 page of data at a time. All of the ``get*page`` operations are done by
-delegating to ``fetch`` and return a ``jqXHR`` in this mode.
+delegating to ``fetch``. They return a ``jqXHR`` in this mode.
 
 .. code-block:: javascript
 
@@ -266,7 +270,7 @@ delegating to ``fetch`` and return a ``jqXHR`` in this mode.
   // All the `get*Page` methods under server-mode delegates to `fetch`, so you
   // can attach a callback to the returned `jqXHR` objects' `done` event.
   books.getPage(2).done(function () {
-      // do something ...
+    // do something ...
   });
 
 
@@ -283,8 +287,8 @@ a "page number". As a substitute, you have to make use of ``getFirstPage``,
 ``getPreviousPage``, ``getNextPage``, and ``getLastPage``. For the same reason,
 most of the ``state`` attribute is also meaningless under this mode. By default,
 ``Backbone.PageableCollection`` parses the response headers to find out what the
-``first``, ``last``, ``next`` and ``prev`` links are and the parsed links are
-available in the field ``links``.
+``first``, ``last``, ``next`` and ``prev`` links are. The parsed links are
+available in the ``links`` field.
 
 .. code-block:: javascript
 
@@ -309,7 +313,10 @@ return a links object.
 
 .. code-block:: javascript
 
+   var FBComment = Backbone.Model.extend({});
+
    var FBComments = Backbone.PageableCollection.extend({
+     model: FBComment,
      url: "https://graph.facebook.com/A_REALLY_LONG_FACEBOOK_OBJECT_ID",
      mode: "infinite",
      // Set the indices to 0-based for Graph API.
@@ -337,18 +344,19 @@ return a links object.
      }
    });
 
+
 Client-Mode
 +++++++++++
 
 Client-mode is a very convenient mode for paginating a handful of pages entirely
 on the client side without going through the network page-by-page. This mode is
 best suited if you only have a small number of pages so sending all of the data
-to the client in one go is not too time-consuming.
+to the client is not too time-consuming.
 
 .. code-block:: javascript
 
   var book = new Book([
-      // Bootstrap all the records for all the pages here
+    // Bootstrap all the records for all the pages here
   ], { mode: "client" });
 
 
@@ -362,11 +370,12 @@ belonging to the current page and return the collection itself instead of a
   // call your `done` callback.
   var json = JSON.stringify(books.getLastPage());
 
-  // You can force a fetch in client-mode to get the most updated data from the
-  // server if the collection has gone stale.
+  // You can force a fetch in client-mode to get the most updated data if the
+  // collection has gone stale.
   books.getFirstPage({ fetch: true }).done(function () {
-      // ...
+    // ...
   });
+
 
 Sorting
 -------
@@ -374,8 +383,8 @@ Sorting
 There are three ways you can sort a pageable collection. You can sort on the
 client-side by either supplying a ``comparator`` like you can do with a plain
 ``Backbone.Collection``, by setting a ``sortKey`` and ``order`` to ``state``, or
-call the convenient method ``makeComparator`` with a ``sortKey`` and ``order`` at
-any time.
+call the convenient method ``makeComparator`` with a ``sortKey`` and ``order``
+at any time.
 
 Each sorting method is valid for both server-mode and client-mode
 operations. Both modes are capable of sorting on either the current page or all
@@ -401,10 +410,6 @@ Server-Mode
 |              |       else return -1;                         |                                     |
 |              |     }                                         |                                     |
 |              |   });                                         |                                     |
-|              |                                               |                                     |
-|              |                                               |                                     |
-|              |                                               |                                     |
-|              |                                               |                                     |
 |              |                                               |                                     |
 +--------------+-----------------------------------------------+-------------------------------------+
 |state         | N/A                                           | .. code-block:: javascript          |
@@ -482,28 +487,28 @@ Manipulation
 ------------
 
 This is one of the areas where ``Backbone.PageableCollection`` truely shines. A
-``Backbone.PageableCollection`` instance not only is capable of doing everything
-a plain ``Backbone.Collection`` is capable of doing for the current page, in
-client-mode, it is also capable of synchronizing changes and events across all
-of the pages. For example, you can add or remove a model from either a
-``Backbone.PageableCollection`` instance, which is holding the current page, or
-the ``Backbone.PageableCollection#fullCollection`` collection, which is a plain
-``Backbone.Collection`` holding the models for all of the pages. The appropriate
-events will be propagated to the other collection when appropriate. Any
-additions, removals, resets, model attribute changes and synchronization actions
-are communicated between the two collections.
+``Backbone.PageableCollection`` instance not only can do everything a plain
+``Backbone.Collection`` is can for the current page, in client-mode, it can also
+synchronize changes and events across all of the pages. For example, you can add
+or remove a model from either a ``Backbone.PageableCollection`` instance, which
+is holding the current page, or the
+``Backbone.PageableCollection#fullCollection`` collection, which is a plain
+``Backbone.Collection`` holding the models for all of the pages, and the pages
+will all update themselves to maintain within a page size. Any additions,
+removals, resets, model attribute changes and synchronization actions are
+communicated between all the pages throught the two collections.
 
 .. code-block:: javascript
 
+   // The books collection is initialized to start at the first page.
    var books = new Books([
      // bootstrap with all of the models for all of the pages here
    ], {
      mode: "client"
    });
 
-   // The books collection is now at the first page and a book is added to the
-   // end of the current page, which will overflow to the next page and trigger
-   // an `add` event on `fullCollection`.
+   // A book is added to the end of the current page, which will overflow to the
+   // next page and trigger an `add` event on `fullCollection`.
    books.push({ name: "The Great Gatsby"});
 
    books.fullCollection.at(books.state.currentPage - 1 * books.state.pageSize).get("name");
