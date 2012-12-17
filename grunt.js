@@ -60,7 +60,7 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint concat min');
+  grunt.registerTask('default', 'lint mocha concat min');
   grunt.registerTask('test', 'lint mocha');
 
   // run `npm install grunt-mocha` in project root dir and uncomment this
