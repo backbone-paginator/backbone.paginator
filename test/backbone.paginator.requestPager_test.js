@@ -231,6 +231,81 @@ describe('backbone.paginator.requestPager',function(){
 
       expect(spy.lastCall.args[0]['data']).to.equal('a[one]=1&a[two]=2&a[three]=3');
     });
+
+    it("should emit 'request' event when collection has started a request to the server", function(){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      var model = {
+        trigger: sinon.spy()
+      };
+
+      // execute
+      var options = {};
+      requestPagerTest.sync('read', model, options);
+
+      // verify
+      expect(model.trigger.withArgs('request').calledOnce).to.equal(true);
+    });
+
+    it("should emit 'sync' event when has been successfully synced with the server", function(done){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {
+          type: 'GET',
+          dataType: 'json'
+        }
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([200, {}, ""]);
+
+      // execute
+      var model = {
+        trigger: sinon.spy()
+      };
+      var options = {};
+      requestPagerTest.sync('read', model, options).always(function(){
+        // verify
+        expect(model.trigger.withArgs('sync').calledOnce).to.equal(true);
+        done();
+      });
+
+      server.restore();
+    });
+
+    it("should emit 'error' event when a call fails on the server", function(done){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {
+          type: 'GET',
+          dataType: 'json'
+        }
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([404, {}, ""]);
+
+      // execute
+      var model = {
+        trigger: sinon.spy()
+      };
+      var options = {};
+      requestPagerTest.sync('read', model, options).always(function(){
+        // verify
+        expect(model.trigger.withArgs('error').calledOnce).to.equal(true);
+        done();
+      });
+
+      server.restore();
+    });
   });
 
   describe('pager method', function(){
