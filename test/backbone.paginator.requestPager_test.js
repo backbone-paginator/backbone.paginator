@@ -194,6 +194,26 @@ describe('backbone.paginator.requestPager',function(){
       expect(spy.lastCall.args[0]['data']).to.equal('pageZeroBased=1&searchTerm=Obama&sortBy=lastName');
     });
 
+    it ("should take the result of 'server_api' if it is a callable", function(){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {},
+        server_api: function () {
+          return {
+            pageZeroBased: 1,
+            searchTerm: function () { return 'Obama'; },
+            sortBy: 'lastName'
+          };
+        }
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      var options = {};
+      requestPagerTest.sync(null, null, options);
+
+      expect(spy.lastCall.args[0]['data']).to.equal('pageZeroBased=1&searchTerm=Obama&sortBy=lastName');
+    });
+
     it("should evaluate value as function (if it is) before setting 'data' query param for the ajax call from 'server_api'", function(){
       var requestPagerTest = {
         paginator_ui : {},
