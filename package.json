@@ -12,7 +12,7 @@
   ],
   "author": "Jimmy Yuen Ho Wong <wyuenho@gmail.com>",
   "license": "MIT",
-  "readmeFilename": "README.md",
+  "readmeFilename": "README.rst",
   "dependencies": {
     "underscore": "~1.4.0",
     "backbone": "~0.9.2"
