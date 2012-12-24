@@ -457,6 +457,7 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 * [@addyosmani](http://github.com/addyosmani)
 * [@alexandernst](http://github.com/alexandernst)
+* [@skusunam](http://github.com/skusunam)
 
 ## Release History
 
