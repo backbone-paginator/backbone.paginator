@@ -435,5 +435,4 @@ describe('backbone.paginator.clientPager', function() {
   //_filter
   //info
   //setPagination
-
 });
