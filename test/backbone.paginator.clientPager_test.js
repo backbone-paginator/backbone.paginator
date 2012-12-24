@@ -98,7 +98,6 @@ describe('backbone.paginator.clientPager', function() {
       this.addSpy.restore();
       this.clientPagerTest.addModel(model);
 
-      //expect(this.clientPagerTest.origModels).not.to.be.empty;
       expect(this.clientPagerTest.origModels[0]).to.equal(model);
     });
   });
