@@ -447,6 +447,7 @@ Paginator.clientPager = Backbone.Collection.extend({
 
 * [Addy Osmani](http://github.com/addyosmani) - Developer Programs Engineer, Google
 * [Alexander Nestorov](http://github.com/alexandernst) - Software Developer, EmeIEme
+* [Srinivas Kusunam](http://github.com/skusunam) - Mobile\Agile Consultant, Liberty Leap Technologies
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
@@ -457,6 +458,7 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 * [@addyosmani](http://github.com/addyosmani)
 * [@alexandernst](http://github.com/alexandernst)
+* [@skusunam](http://github.com/skusunam)
 
 ## Release History
 
