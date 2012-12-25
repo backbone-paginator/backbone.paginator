@@ -10,8 +10,8 @@ Backbone.Paginator is a set of opinionated components for paginating collections
 
 You can either download the raw source code for the project, fork the repository or use one of these links:
 
-* Production: [production version][min] 3.3K file size (1.1K gzipped)
-* Development: [development version][max] 7.01K file size (2.28K gzipped)
+* Production: [production version][min] 10.2K file size (2.79K gzipped)
+* Development: [development version][max] 30.1K file size (6.8K gzipped)
 * Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
 
 [min]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.min.js
@@ -464,8 +464,8 @@ _Also, please don't edit files in the "dist" subdirectory as they are generated 
 
 There have been a number of significant API changes made to the Paginator since it was first released. A stable release (with up to date documentation) will be available soon, complete with updated unit tests.
 
-* 0.next - improved unit testing, demos
-* 0.current - improved sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
+* 0.next - ...
+* 0.5 - improved unit testing, demos, sorting. Added filtering abilities. Added setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
 * 0.15 - rewrite to simplify the project API, unify components under the same collection hood
 * 0.14 - rewrite of all components
 * 0.13 - initial release of client and request pagers

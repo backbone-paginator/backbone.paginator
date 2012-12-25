@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 12/17/2012
+/*! backbone.paginator - v0.1.54 - 12/25/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -6,7 +6,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
   "use strict";
 
   var Paginator = {};
-  Paginator.version = "0.15";
+  Paginator.version = "0.5";
 
   // @name: clientPager
   //
@@ -78,7 +78,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       // Some values could be functions, let's make sure
       // to change their scope too and run them
       var queryAttributes = {};
-      _.each(self.server_api, function(value, key){
+      _.each(_.result(self, "server_api"), function(value, key){
         if( _.isFunction(value) ) {
           value = _.bind(value, self);
           value = value();
@@ -103,13 +103,37 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         dataType: 'jsonp'
       });
 
+      var success = options.success;
+      options.success = function ( resp, status, xhr ) {
+        if ( success ) {
+          success( resp, status, xhr );
+        }
+        if ( model && model.trigger ) {
+          model.trigger( 'sync', model, resp, options );
+        }
+      };
+
+      var error = options.error;
+      options.error = function ( xhr, status, thrown ) {
+        if ( error ) {
+          error( model, xhr, options );
+        }
+        if ( model && model.trigger ) {
+          model.trigger( 'error', model, xhr, options );
+        }
+      };
+
       queryOptions = _.extend(queryOptions, {
         data: decodeURIComponent($.param(queryAttributes)),
         processData: false,
         url: _.result(queryOptions, 'url')
       }, options);
 
-      return $.ajax( queryOptions );
+      var xhr = $.ajax( queryOptions );
+      if ( model && model.trigger ) {
+        model.trigger('request', model, xhr, options);
+      }
+      return xhr;
     },
 
     nextPage: function () {
@@ -735,7 +759,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       // Some values could be functions, let's make sure
       // to change their scope too and run them
       var queryAttributes = {};
-      _.each(self.server_api, function(value, key){
+      _.each(_.result(self, "server_api"), function(value, key){
         if( _.isFunction(value) ) {
           value = _.bind(value, self);
           value = value();
@@ -767,13 +791,36 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         options.data = decodeURIComponent($.param(queryAttributes));
       }
 
+      var success = options.success;
+      options.success = function ( resp, status, xhr ) {
+        if ( success ) {
+          success( resp, status, xhr );
+        }
+        if ( model && model.trigger ) {
+          model.trigger( 'sync', model, resp, options );
+        }
+      };
+
+      var error = options.error;
+      options.error = function ( xhr, status, thrown ) {
+        if ( error ) {
+          error( model, xhr, options );
+        }
+        if ( model && model.trigger ) {
+          model.trigger( 'error', model, xhr, options );
+        }
+      };
+
       queryOptions = _.extend(queryOptions, {
         processData: false,
         url: _.result(queryOptions, 'url')
       }, options);
 
-      return $.ajax( queryOptions );
-
+      var xhr = $.ajax( queryOptions );
+      if ( model && model.trigger ) {
+        model.trigger('request', model, xhr, options);
+      }
+      return xhr;
     },
 
     requestNextPage: function ( options ) {
