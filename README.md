@@ -2,6 +2,8 @@
 
 [![Continuous Integration status](https://secure.travis-ci.org/addyosmani/backbone.paginator.png)](http://travis-ci.org/addyosmani/backbone.paginator)
 
+![](https://raw.github.com/addyosmani/backbone.paginator/master/media/logo.png)
+
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
  It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
