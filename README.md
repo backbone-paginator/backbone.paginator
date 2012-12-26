@@ -10,8 +10,8 @@ Backbone.Paginator is a set of opinionated components for paginating collections
 
 You can either download the raw source code for the project, fork the repository or use one of these links:
 
-* Production: [production version][min] 3.3K file size (1.1K gzipped)
-* Development: [development version][max] 7.01K file size (2.28K gzipped)
+* Production: [production version][min] 10.2K file size (2.79K gzipped)
+* Development: [development version][max] 30.1K file size (6.8K gzipped)
 * Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
 
 [min]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.min.js
@@ -443,34 +443,20 @@ Paginator.clientPager = Backbone.Collection.extend({
 		...
 ```
 
+## Release History
+
+Please check CHANGELOG.md for a complete release history/changelog.
+
 ## Team
 
-* [Addy Osmani](http://github.com/addyosmani) - Developer Programs Engineer, Google
-* [Alexander Nestorov](http://github.com/alexandernst) - Software Developer, EmeIEme
-* [Srinivas Kusunam](http://github.com/skusunam) - Mobile\Agile Consultant, Liberty Leap Technologies
+* [Addy Osmani (addyosmani)](http://github.com/addyosmani) - Developer Programs Engineer, Google
+* [Alexander Nestorov (alexandernst)](http://github.com/alexandernst) - Software Developer, EmeIEme
+* [Srinivas Kusunam (skusunam)](http://github.com/skusunam) - Mobile\Agile Consultant, Liberty Leap Technologies
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
 _Also, please don't edit files in the "dist" subdirectory as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
-
-## Team
-
-* [@addyosmani](http://github.com/addyosmani)
-* [@alexandernst](http://github.com/alexandernst)
-* [@skusunam](http://github.com/skusunam)
-
-## Release History
-
-There have been a number of significant API changes made to the Paginator since it was first released. A stable release (with up to date documentation) will be available soon, complete with updated unit tests.
-
-* 0.next - improved unit testing, demos
-* 0.current - improved sorting and add filtering abilities. Add setSort() and setFilter() methods. Make pager() argument-less. Don't force attributes. Let the developer change the type of the request. Make the API cleaner. Some bug fixes.
-* 0.15 - rewrite to simplify the project API, unify components under the same collection hood
-* 0.14 - rewrite of all components
-* 0.13 - initial release of client and request pagers
-* 0.11 - initial work on version to work with requests to a server
-* 0.1 - basic pagination of a single response from the server
 
 ## License
 Copyright (c) 2012 Addy Osmani
