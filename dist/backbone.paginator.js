@@ -320,7 +320,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         var ac = a.get(sort),
         bc = b.get(sort);
 
-        if ( !ac || !bc ) {
+        if ( _.isUndefined(ac) || _.isUndefined(bc) ) {
           return 0;
         } else {
           /* Make sure that both ac and bc are lowercase strings.
