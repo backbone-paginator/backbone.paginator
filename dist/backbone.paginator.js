@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.1.54 - 12/25/2012
+/*! backbone.paginator - v0.1.54 - 12/27/2012
 * http://github.com/addyosmani/backbone.paginator
 * Copyright (c) 2012 Addy Osmani; Licensed MIT */
 
@@ -336,8 +336,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
           // We need to know if there aren't any non-number characters
           // and that there are numbers-only characters and maybe a dot
           // if we have a float.
-          if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) &&
-          (!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/))
+          // Oh, also a '-' for negative numbers!
+          if((!ac.match(/[^\-\d\.]/) && ac.match(/-?[\d\.]*/)) &&
+          (!bc.match(/[^\-\d\.]/) && bc.match(/-?[\d\.]*/))
             ){
 
               if( (ac - 0) < (bc - 0) ) {
@@ -358,8 +359,8 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         } else {
 
           //Same as the regexp check in the 'if' part.
-          if((!ac.match(/[^\d\.]/) && ac.match(/[\d\.]*/)) &&
-          (!bc.match(/[^\d\.]/) && bc.match(/[\d\.]*/))
+          if((!ac.match(/[^\-\d\.]/) && ac.match(/-?[\d\.]*/)) &&
+          (!bc.match(/[^\-\d\.]/) && bc.match(/-?[\d\.]*/))
             ){
               if( (ac - 0) < (bc - 0) ) {
                 return -1;
