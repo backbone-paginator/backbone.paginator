@@ -35,6 +35,14 @@ $(document).ready(function () {
 
   });
 
+  test("fetch calls next link", 1, function () {
+    col.getNextPage = function () {
+      ok(true);
+    };
+
+    col.fetch();
+  });
+
   test("getPage", 3, function () {
     throws(function () {
       col.getPage("nosuchpage");
