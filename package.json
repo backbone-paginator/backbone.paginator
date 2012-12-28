@@ -1,6 +1,6 @@
 {
   "name": "backbone-pageable",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "main": "lib/backbone-pageable.js",
   "repository": {
