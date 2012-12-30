@@ -34,8 +34,8 @@ Basic Email etiquette is appreciated.
 Building
 ========
 
-The  build system of this project is designed to be used in a UNIX-like
-environment. Backgrid.js uses [gmake](http://www.gnu.org/software/make/),
+The build system of this project is designed to be used in a UNIX-like
+environment. backbone-pageable uses [gmake](http://www.gnu.org/software/make/),
 [uglifyjs](https://github.com/mishoo/UglifyJS2) and
 [JSDuck](https://github.com/senchalabs/jsduck).
 
@@ -65,7 +65,7 @@ Code Style
 Please be aware that this project uses 2 spaces for indentation. This project
 has a [.jshintrc](.jshintrc) file defined, which is handy if you use
 [jshint](http://www.jshint.com). In general, you should follow the
-[Google Javascript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml). Backgrid.js's
+[Google Javascript Style Guide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml). backbone-pageable's
 code follows this coding style extremely closely, with 2 exceptions:
 
 - `else` should be on its own line instead of the same line of the close `}` of
@@ -76,8 +76,8 @@ code follows this coding style extremely closely, with 2 exceptions:
 Testing
 =======
 
-Backbone.js uses [QUnit](http://qunitjs.com/) for testing. To facilitate console
-based testing, there's a make rule in the toplevel Makefile you can use:
+backbone-pageable uses [QUnit](http://qunitjs.com/) for testing. To facilitate
+console based testing, there's a make rule in the toplevel Makefile you can use:
 
 ```shell
 $ make test
