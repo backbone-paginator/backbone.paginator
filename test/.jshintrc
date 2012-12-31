@@ -12,11 +12,20 @@
   "unused": true,
   "eqnull": true,
 
+  "devel": true,
+  "jquery": true,
+  "browser": true,
+  "nonstandard": true,
   "node": true,
 
   "globals": {
+    "ok": false,
+    "test": false,
+    "module": false,
+    "equal": false,
+    "deepEqual": false,
+    "throws": false,
     "Backbone": false,
-    "_": false,
-    "define": false
+    "_": false
   }
 }
