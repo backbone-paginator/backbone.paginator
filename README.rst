@@ -1,4 +1,4 @@
-|travis-status|
+|travis-status|_
 
 backbone-pageable
 =================
@@ -556,6 +556,16 @@ FAQ
 Change Log
 ----------
 
+0.9.12 (In progress)
+  Enhancements
+    - Switching modes now resets the states by default.
+
+0.9.11
+  Changed
+    - ``links.first`` and ``links.next`` is now initialized to ``url`` for
+      infinite mode. Calling ``fetch`` in infinite mode is now equivalent to
+      calling ``getNextPage``.
+
 0.9.10
   Bugs Fixed
     - The initial call to ``getFirstPage`` will no longer fail under
@@ -564,7 +574,7 @@ Change Log
       collection instance when called.
 
 0.9.9
-  Changed:
+  Changed
     - ``switchMode`` now accepts a ``mode`` as the first parameter.
     - ``state.isClientMode`` is removed. There is now a new
       ``Backbone.PageableCollection#mode`` attribute for this purpose.
@@ -616,4 +626,5 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-.. |travis-status| image:: https://travis-ci.org/wyuenho/backbone-pageable.png?branch=master
+.. |travis-status| image:: https://travis-ci.org/wyuenho/backbone-pageable.png
+.. _travis-status: https://travis-ci.org/wyuenho/backbone-pageable
