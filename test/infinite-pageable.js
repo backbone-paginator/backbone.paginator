@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  "use strict";
+
   var col;
 
   module("Backbone.PageableCollection - Infinite", {

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  "use strict";
+
   // TODO: test invalid state
 
   module("Backbone.PageableCollection - Server");

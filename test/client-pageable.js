@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  "use strict";
+
   var a, c, b, models, comparator;
 
   module("Backbone.PageableCollection - Client", {

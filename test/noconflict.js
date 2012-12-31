@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  "use strict";
+
   module("Backbone.PageableCollection.noConflict");
 
   test('noConflict', 2, function () {
