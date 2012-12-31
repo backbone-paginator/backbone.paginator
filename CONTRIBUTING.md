@@ -52,13 +52,6 @@ $ cd backbone-pageable
 $ make build
 ```
 
-Branching
-=========
-
-If you are filing a pull request, you should be working on the `<version>-wip`
-branch which should be the only work-in-progress branch for this project. The
-`master` branch is reserved for stable releases.
-
 Code Style
 ==========
 
@@ -102,8 +95,8 @@ Documentation
 =============
 
 If you change any Javascript comment documentation, you should rebuild the API
-document and submit a separate pull request for the `gh-pages` branch. There is
-also a make rule for this purpose, but make sure you have installed
+document and submit a separate pull request. There is also a make rule for this
+purpose, but make sure you have installed
 [JSDuck](https://github.com/senchalabs/jsduck) first.
 
 ```shell
@@ -117,5 +110,6 @@ others.
 
 ### Note:
 
-Don't forget to keep your tree in sync with upstream before you submit a
-pull request. Usage of git-rebase is optional but encouraged.
+Don't forget to keep your tree in sync with upstream and resolve any conflicts
+before you submit a pull request. Usage of git-rebase is optional but
+encouraged.
