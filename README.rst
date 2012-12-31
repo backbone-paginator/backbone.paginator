@@ -1,7 +1,5 @@
-|travis-status|_
-
-backbone-pageable
-=================
+backbone-pageable |travis-status|_
+==================================
 
 A pageable, drop-in replacement for Backbone.Collection inspired by
 `Backbone.Paginator <https://github.com/addyosmani/backbone.paginator/>`_, but
