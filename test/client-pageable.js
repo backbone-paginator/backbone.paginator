@@ -44,9 +44,9 @@ $(document).ready(function () {
     ok(fullCol.model === Backbone.Model);
     ok(fullCol.constructor.prototype.url === "test/makeFullCollection");
     ok(fullCol.url === "test/makeFullCollection");
-    strictEqual(fullCol.at(0).get("name"), "a");
+    ok(fullCol.at(0).get("name") === "a");
     ok(fullCol.at(1).get("name") === "b");
-    strictEqual(fullCol.at(2).get("name"), "c");
+    ok(fullCol.at(2).get("name") === "c");
 
     a.collection = col;
     c.collection = col;
@@ -57,12 +57,12 @@ $(document).ready(function () {
     ]);
 
     ok(fullCol.at(0).get("name") === "a");
-    strictEqual(fullCol.at(1).get("name"), "c");
+    ok(fullCol.at(1).get("name") === "c");
     ok(fullCol.at(2).get("name") === "b");
 
-    strictEqual(fullCol.at(0).collection, col);
+    ok(fullCol.at(0).collection === col);
     ok(fullCol.at(1).collection === col);
-    strictEqual(fullCol.at(2).collection, col);
+    ok(fullCol.at(2).collection === col);
   });
 
   test("initialize", function () {
@@ -86,11 +86,11 @@ $(document).ready(function () {
 
     ok(col.state.totalRecords === 3);
     ok(col.comparator === comparator);
-    strictEqual(col.size(), 2);
+    ok(col.size() === 2);
     ok(col.at(0).get("name") === "a");
-    strictEqual(col.at(1).get("name"), "c");
+    ok(col.at(1).get("name") === "c");
     ok(col.fullCollection.size() === 3);
-    strictEqual(col.at(0), col.fullCollection.at(0));
+    ok(col.at(0) === col.fullCollection.at(0));
     ok(col.fullCollection.at(0).get("name") === "a");
     strictEqual(col.fullCollection.at(1).get("name"), "c");
     ok(col.fullCollection.at(2).get("name") === "b");
@@ -110,11 +110,11 @@ $(document).ready(function () {
     ok(!_.isUndefined(col.fullCollection.comparator));
     ok(_.isUndefined(col.comparator));
 
-    strictEqual(col.size(), 1);
+    ok(col.size() === 1);
     ok(col.at(0).get("name") === "a");
-    strictEqual(col.fullCollection.size(), 3);
+    ok(col.fullCollection.size() === 3);
     ok(col.fullCollection.at(0).get("name") === "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "b");
+    ok(col.fullCollection.at(1).get("name") === "b");
     ok(col.fullCollection.at(2).get("name") === "c");
   });
 
@@ -139,25 +139,25 @@ $(document).ready(function () {
                          col.state.currentPage - 1 :
                          col.state.currentPage) * col.state.pageSize + col.state.pageSize;
     ok(col.fullCollection.at(nextPageStart).get("name") === "d");
-    strictEqual(col.size(), 3);
+    ok(col.size() === 3);
     ok(col.at(0).get("name") === "a");
-    strictEqual(col.at(1).get("name"), "c");
+    ok(col.at(1).get("name") === "c");
     ok(col.at(2).get("name") === "b");
 
     var e = new Backbone.Model({name: "e"});
     col.fullCollection.push(e);
-    strictEqual(col.size(), 3);
+    ok(col.size() === 3);
     ok(col.at(0).get("name") === "a");
     strictEqual(col.at(1).get("name"), "c");
     ok(col.at(2).get("name") === "b");
-    strictEqual(col.indexOf(e.cid), -1);
+    ok(col.indexOf(e.cid) === -1);
 
     var f = new Backbone.Model({name: "f"});
     col.fullCollection.unshift(f);
     ok(col.fullCollection.size() === 6);
-    strictEqual(col.size(), 3);
+    ok(col.size() === 3);
     ok(col.at(0).get("name") === "f");
-    strictEqual(col.at(1).get("name"), "a");
+    ok(col.at(1).get("name") === "a");
     ok(col.at(2).get("name") === "c");
   });
 
@@ -180,19 +180,19 @@ $(document).ready(function () {
 
     col.remove(col.at(0));
     ok(col.size() === 1);
-    strictEqual(col.at(0).get("name"), "c");
+    ok(col.at(0).get("name") === "c");
     ok(col.fullCollection.size() === 2);
-    strictEqual(col.fullCollection.at(0).get("name"), "c");
+    ok(col.fullCollection.at(0).get("name") === "c");
     ok(col.fullCollection.at(1).get("name") === "b");
 
     col.fullCollection.remove(col.fullCollection.at(1));
-    strictEqual(col.size(), 1);
+    ok(col.size() === 1);
     ok(col.at(0).get("name") === "c");
     strictEqual(col.fullCollection.size(), 1);
 
     col.fullCollection.remove(col.fullCollection.at(0));
     ok(col.size() === 0);
-    strictEqual(col.fullCollection.size(), 0);
+    ok(col.fullCollection.size() === 0);
   });
 
   test("change", 6, function () {
@@ -274,15 +274,15 @@ $(document).ready(function () {
     ]);
 
     ok(col.size() === 2);
-    strictEqual(col.at(0).get("name"), "e");
+    ok(col.at(0).get("name") === "e");
     ok(col.at(1).get("name") === "f");
 
     col.fullCollection.comparator = comparator;
     col.fullCollection.sort();
 
-    strictEqual(col.size(), 2);
+    ok(col.size() === 2);
     ok(col.at(0).get("name") === "d");
-    strictEqual(col.at(1).get("name"), "e");
+    ok(col.at(1).get("name") === "e");
 
     mods = models.slice();
 
@@ -300,10 +300,10 @@ $(document).ready(function () {
     col.sort();
 
     ok(col.at(0).get("name") === "a");
-    strictEqual(col.at(1).get("name"), "c");
+    ok(col.at(1).get("name") === "c");
 
     ok(col.fullCollection.at(0).get("name") === "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    ok(col.fullCollection.at(1).get("name") === "c");
     ok(col.fullCollection.at(2).get("name") === "b");
 
     col.comparator = null;
@@ -311,9 +311,9 @@ $(document).ready(function () {
     mods = [new Backbone.Model({name: "g"}), col.at(0)];
     col.reset(mods);
     ok(col.at(0).get("name") === "g");
-    strictEqual(col.at(1).get("name"), "a");
+    ok(col.at(1).get("name") === "a");
     ok(col.fullCollection.at(0).get("name") === "g");
-    strictEqual(col.fullCollection.at(1).get("name"), "a");
+    ok(col.fullCollection.at(1).get("name") === "a");
     ok(col.fullCollection.at(2).get("name") === "b");
 
     col.fullCollection.reset([
@@ -324,11 +324,11 @@ $(document).ready(function () {
     ]);
 
     ok(col.size() === 2);
-    strictEqual(col.at(0).get("name"), "j");
+    ok(col.at(0).get("name") === "j");
     ok(col.at(1).get("name") === "h");
-    strictEqual(col.fullCollection.at(0).get("name"), "j");
+    ok(col.fullCollection.at(0).get("name") === "j");
     ok(col.fullCollection.at(1).get("name") === "h");
-    strictEqual(col.fullCollection.at(2).get("name"), "i");
+    ok(col.fullCollection.at(2).get("name") === "i");
     ok(col.fullCollection.at(3).get("name") === "k");
     ok(col.state.totalRecords === 4);
     ok(col.state.lastPage === 2);
@@ -378,11 +378,11 @@ $(document).ready(function () {
     col.fetch();
 
     ok(col.at(0).get("name") === "d");
-    strictEqual(col.at(1).get("name"), "c");
+    ok(col.at(1).get("name") === "c");
     ok(col.fullCollection.at(0).get("name") === "d");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    ok(col.fullCollection.at(1).get("name") === "c");
     ok(col.fullCollection.at(2).get("name") === "b");
-    strictEqual(col.fullCollection.at(3).get("name"), "a");
+    ok(col.fullCollection.at(3).get("name") === "a");
 
     jQuery.ajax = ajax;
   });
@@ -397,7 +397,7 @@ $(document).ready(function () {
 
     col.getPage(2);
     ok(col.size() === 1);
-    strictEqual(col.at(0).get("name"), "b");
+    ok(col.at(0).get("name") === "b");
 
     this.stub(col, "fetch");
 
@@ -415,7 +415,7 @@ $(document).ready(function () {
 
     col.getFirstPage();
     ok(col.size() === 2);
-    strictEqual(col.at(0).get("name"), "a");
+    ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
 
     this.stub(col, "fetch");
@@ -435,7 +435,7 @@ $(document).ready(function () {
     col.getNextPage();
     col.getPreviousPage();
     ok(col.size() === 2);
-    strictEqual(col.at(0).get("name"), "a");
+    ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
 
     this.stub(col, "fetch");
@@ -455,7 +455,7 @@ $(document).ready(function () {
 
     col.getNextPage();
     ok(col.size() === 1);
-    strictEqual(col.at(0).get("name"), "b");
+    ok(col.at(0).get("name") === "b");
 
     this.stub(col, "fetch");
 
@@ -474,7 +474,7 @@ $(document).ready(function () {
 
     col.getLastPage();
     ok(col.size() === 1);
-    strictEqual(col.at(0).get("name"), "b");
+    ok(col.at(0).get("name") === "b");
 
     this.stub(col, "fetch");
 
