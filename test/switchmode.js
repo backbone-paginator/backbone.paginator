@@ -1,18 +1,24 @@
 $(document).ready(function () {
 
-  module("Backbone.PageableCollection - switchMode");
+  var col;
+
+  module("Backbone.PageableCollection - switchMode", {
+
+    setup: function () {
+      col = new Backbone.PageableCollection([
+        {name: "a"},
+        {name: "c"},
+        {name: "b"}
+      ], {
+        state: {
+          pageSize: 2
+        }
+      });
+    }
+
+  });
 
   test("switchMode", function () {
-
-    var col = new Backbone.PageableCollection([
-      {name: "a"},
-      {name: "c"},
-      {name: "b"}
-    ], {
-      state: {
-        pageSize: 2
-      }
-    });
 
     this.stub(col, "fetch");
 
@@ -34,8 +40,10 @@ $(document).ready(function () {
 
     col.fetch.reset();
 
-    col.switchMode("client", {fetch: false});
+    col.state.totalRecords = 20;
+    col.switchMode("client", {fetch: false, resetState: false});
 
+    ok(col.state.totalRecords === 20);
     ok(col.fullCollection.comparator === comparator);
 
     ok(col.fetch.notCalled);
@@ -44,11 +52,11 @@ $(document).ready(function () {
 
     col.switchMode("infinite");
 
+    ok(col.state.totalRecords == null);
     ok(_.isUndefined(col.fullCollection));
     ok(col.fetch.calledOnce);
 
     col.fetch.reset();
-    
   });
 
 });
