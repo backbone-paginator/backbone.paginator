@@ -51,12 +51,12 @@ $(document).ready(function () {
                        {"name": "c"},
                        {"name": "a"},
                        {"name": "a"}]);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.pageSize, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
+    ok(col.state.currentPage === 1);
+    ok(col.state.pageSize === 2);
+    ok(col.state.totalPages === 2);
+    ok(col.state.totalRecords === 4);
+    ok(col.state.sortKey === "name");
+    ok(col.state.order === 1);
 
     resp  = [{"name": "a"},
              {"name": "a"},
@@ -68,12 +68,12 @@ $(document).ready(function () {
                        {"name": "a"},
                        {"name": "b"},
                        {"name": "c"}]);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.pageSize, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
+    ok(col.state.currentPage === 1);
+    ok(col.state.pageSize === 2);
+    ok(col.state.totalPages === 2);
+    ok(col.state.totalRecords === 4);
+    ok(col.state.sortKey === "name");
+    ok(col.state.order === 1);
   });
 
   test("_checkState", function () {
@@ -118,11 +118,11 @@ $(document).ready(function () {
     state.totalRecords = 2;
     state.pageSize = 1;
     col._checkState(state);
-    strictEqual(state.totalPages, 2);
+    ok(state.totalPages === 2);
 
     state.totalPages = 100;
     col._checkState(state);
-    strictEqual(state.totalPages, 100);
+    ok(state.totalPages === 100);
 
     state.totalPages = 2;
     state.firstPage = -1;
@@ -143,7 +143,7 @@ $(document).ready(function () {
 
     state.currentPage = 0;
     col._checkState(state);
-    strictEqual(state.lastPage, 1);
+    ok(state.lastPage === 1);
 
     state.firstPage = 1;
     throws(function () {
@@ -157,7 +157,7 @@ $(document).ready(function () {
 
     state.currentPage = 1;
     col._checkState(state);
-    strictEqual(state.lastPage, 2);
+    ok(state.lastPage === 2);
   });
 
   test("extend and initialize", function () {
@@ -221,22 +221,22 @@ $(document).ready(function () {
       }
     });
 
-    strictEqual(col.state.firstPage, 0);
-    strictEqual(col.state.currentPage, 0);
-    strictEqual(col.state.pageSize, 1);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
-    strictEqual(col.comparator, undefined);
+    ok(col.state.firstPage === 0);
+    ok(col.state.currentPage === 0);
+    ok(col.state.pageSize === 1);
+    ok(col.state.lastPage === 2);
+    ok(col.state.totalPages === 3);
+    ok(col.state.totalRecords === 3);
+    ok(col.state.sortKey === "name");
+    ok(col.state.order === 1);
+    ok(col.comparator === undefined);
 
-    strictEqual(col.queryParams.currentPage, "current_page");
-    strictEqual(col.queryParams.pageSize, "page_size");
-    strictEqual(col.queryParams.totalPages, "total_pages");
-    strictEqual(col.queryParams.totalRecords, "total_records");
-    strictEqual(col.queryParams.sortKey, "sort_key");
-    strictEqual(col.queryParams.order, "direction");
+    ok(col.queryParams.currentPage === "current_page");
+    ok(col.queryParams.pageSize === "page_size");
+    ok(col.queryParams.totalPages === "total_pages");
+    ok(col.queryParams.totalRecords === "total_records");
+    ok(col.queryParams.sortKey === "sort_key");
+    ok(col.queryParams.order === "direction");
     deepEqual(col.queryParams.directions, {"-1": -1, "1": 1});
 
     equal(col.at(0).get("name"), "a");
@@ -267,7 +267,7 @@ $(document).ready(function () {
     equal(col.at(0).get("name"), "a");
     equal(col.at(1).get("name"), "b");
     equal(col.at(2).get("name"), "c");
-    strictEqual(col.comparator, comparator);
+    ok(col.comparator === comparator);
   });
 
   test("fetch", function () {
@@ -281,8 +281,8 @@ $(document).ready(function () {
 
     col.fetch();
 
-    strictEqual(jQuery.ajax.callCount, 1);
-    strictEqual(jQuery.ajax.args[0][0].url, "test-fetch");
+    ok(jQuery.ajax.callCount === 1);
+    ok(jQuery.ajax.args[0][0].url === "test-fetch");
     deepEqual(jQuery.ajax.args[0][0].data, {
       page: 1,
       per_page: 25
@@ -301,10 +301,10 @@ $(document).ready(function () {
 
     col.fetch({add: true, silent: true});
 
-    strictEqual(jQuery.ajax.callCount, 1);
-    strictEqual(jQuery.ajax.args[0][0].url, "test-fetch");
-    strictEqual(jQuery.ajax.args[0][0].add, true);
-    strictEqual(jQuery.ajax.args[0][0].silent, true);
+    ok(jQuery.ajax.callCount === 1);
+    ok(jQuery.ajax.args[0][0].url === "test-fetch");
+    ok(jQuery.ajax.args[0][0].add === true);
+    ok(jQuery.ajax.args[0][0].silent === true);
     deepEqual(jQuery.ajax.args[0][0].data, {
       page: 0,
       per_page: 50,
@@ -338,7 +338,7 @@ $(document).ready(function () {
     this.stub(col, "fetch");
 
     col.getPage(2, {add: true, silent: true});
-    strictEqual(col.state.currentPage, 2);
+    ok(col.state.currentPage === 2);
     deepEqual(col.fetch.args[0][0], {add: true, silent: true});
 
     col.fetch.restore();
@@ -356,7 +356,7 @@ $(document).ready(function () {
 
     col.getFirstPage();
 
-    strictEqual(col.state.currentPage, 1);
+    ok(col.state.currentPage === 1);
     ok(col.fetch.calledOnce);
 
     col.fetch.restore();
@@ -374,7 +374,7 @@ $(document).ready(function () {
 
     col.getPreviousPage();
 
-    strictEqual(col.state.currentPage, 1);
+    ok(col.state.currentPage === 1);
     ok(col.fetch.calledOnce);
     col.fetch.reset();
 
@@ -397,7 +397,7 @@ $(document).ready(function () {
 
     col.getNextPage();
 
-    strictEqual(col.state.currentPage, 4);
+    ok(col.state.currentPage === 4);
     ok(col.fetch.calledOnce);
     col.fetch.reset();
 
@@ -420,7 +420,7 @@ $(document).ready(function () {
 
     col.getLastPage();
 
-    strictEqual(col.state.currentPage, 4);
+    ok(col.state.currentPage === 4);
     ok(col.fetch.calledOnce);
 
     col.fetch.restore();
@@ -437,7 +437,7 @@ $(document).ready(function () {
       col.setPageSize("50");
     }, "`pageSize` must be a finite integer");
 
-    strictEqual(col.state.pageSize, 25);
+    ok(col.state.pageSize === 25);
 
     this.stub(col, "getPage");
 
@@ -445,15 +445,15 @@ $(document).ready(function () {
       col.setPageSize(200);
     }, "`pageSize` must be 1 <= pageSize <= totalRecords");
 
-    strictEqual(col.state.pageSize, 25);
+    ok(col.state.pageSize === 25);
 
     col.setPageSize(50, {add: true, silent: true});
-    strictEqual(col.state.pageSize, 50);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.lastPage, 2);
+    ok(col.state.pageSize === 50);
+    ok(col.state.totalPages === 2);
+    ok(col.state.lastPage === 2);
 
     ok(col.getPage.calledOnce);
-    strictEqual(col.getPage.args[0][0], 1);
+    ok(col.getPage.args[0][0] === 1);
     deepEqual(col.getPage.args[0][1], {
       add: true,
       silent: true
