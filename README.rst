@@ -559,6 +559,8 @@ Change Log
 0.9.12 (In progress)
   Enhancements
     - Switching modes now resets the states by default.
+  Bugs Fixed
+    - ``state`` counters will now update automatically under client mode.
 
 0.9.11
   Changed
