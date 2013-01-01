@@ -103,16 +103,6 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "_resetQuickly",
-        "fullName": "Backbone.PageableCollection._resetQuickly",
-        "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-_resetQuickly",
-        "meta": {
-          "private": true
-        },
-        "sort": 3
-      },
-      {
         "name": "_onPageableCollectionEvent",
         "fullName": "Backbone.PageableCollection._onPageableCollectionEvent",
         "icon": "icon-method",
