@@ -94,7 +94,7 @@ $(document).ready(function () {
     ok(col.fullCollection.size() === 3);
     ok(col.at(0) === col.fullCollection.at(0));
     ok(col.fullCollection.at(0).get("name") === "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    ok(col.fullCollection.at(1).get("name") === "c");
     ok(col.fullCollection.at(2).get("name") === "b");
 
     mods = models.slice();
@@ -150,7 +150,7 @@ $(document).ready(function () {
     col.fullCollection.push(e);
     ok(col.size() === 3);
     ok(col.at(0).get("name") === "a");
-    strictEqual(col.at(1).get("name"), "c");
+    ok(col.at(1).get("name") === "c");
     ok(col.at(2).get("name") === "b");
     ok(col.indexOf(e.cid) === -1);
 
@@ -190,7 +190,7 @@ $(document).ready(function () {
     col.fullCollection.remove(col.fullCollection.at(1));
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "c");
-    strictEqual(col.fullCollection.size(), 1);
+    ok(col.fullCollection.size() === 1);
 
     col.fullCollection.remove(col.fullCollection.at(0));
     ok(col.size() === 0);
