@@ -5,7 +5,7 @@ AUTHOR = Jimmy Yuen Ho Wong
 JS_FILE = lib/$(PROJECT_NAME).js
 JS_OUTFILE = lib/$(PROJECT_NAME).min.js
 
-all: clean test doc
+all: clean test doc build
 
 FORCE:
 
