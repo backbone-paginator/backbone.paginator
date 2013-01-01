@@ -24,6 +24,7 @@
     "module": false,
     "equal": false,
     "deepEqual": false,
+    "expect": false,
     "throws": false,
     "Backbone": false,
     "_": false
