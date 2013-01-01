@@ -120,10 +120,10 @@ $(document).ready(function () {
     ok(col.fullCollection.at(2).get("name") === "c");
   });
 
-  test("add", 20, function () {
+  test("add", 27, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
-        pageSize: 3
+        pageSize: 2
       },
       mode: "client"
     });
@@ -136,34 +136,37 @@ $(document).ready(function () {
 
     var d = new Backbone.Model({name: "d"});
     col.add(d);
-
-    var nextPageStart = (col.state.firstPage === 1 ?
-                         col.state.currentPage - 1 :
-                         col.state.currentPage) * col.state.pageSize + col.state.pageSize;
-    ok(col.fullCollection.at(nextPageStart).get("name") === "d");
-    ok(col.size() === 3);
+    ok(col.state.totalRecords === 4);
+    ok(col.state.totalPages === 2);
+    ok(col.size() === 2);
     ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
-    ok(col.at(2).get("name") === "b");
+    ok(col.fullCollection.at(0).get("name") === "a");
+    ok(col.fullCollection.at(1).get("name") === "c");
+    ok(col.fullCollection.at(2).get("name") === "d");
+    ok(col.fullCollection.at(3).get("name") === "b");
 
     var e = new Backbone.Model({name: "e"});
     col.fullCollection.push(e);
-    ok(col.size() === 3);
+    ok(col.state.totalRecords === 5);
+    ok(col.state.totalPages === 3);
+    ok(col.size() === 2);
     ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
-    ok(col.at(2).get("name") === "b");
+    ok(col.fullCollection.at(4).get("name") === "e");
     ok(col.indexOf(e.cid) === -1);
 
     var f = new Backbone.Model({name: "f"});
     col.fullCollection.unshift(f);
+    ok(col.state.totalRecords === 6);
+    ok(col.state.totalPages === 3);
     ok(col.fullCollection.size() === 6);
-    ok(col.size() === 3);
+    ok(col.size() === 2);
     ok(col.at(0).get("name") === "f");
     ok(col.at(1).get("name") === "a");
-    ok(col.at(2).get("name") === "c");
   });
 
-  test("remove", 15, function () {
+  test("remove", 21, function () {
 
     var mods = models.slice();
 
@@ -181,6 +184,8 @@ $(document).ready(function () {
     col.fullCollection.on("remove", onRemove);
 
     col.remove(col.at(0));
+    ok(col.state.totalRecords === 2);
+    ok(col.state.totalPages === 2);
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "c");
     ok(col.fullCollection.size() === 2);
@@ -188,11 +193,15 @@ $(document).ready(function () {
     ok(col.fullCollection.at(1).get("name") === "b");
 
     col.fullCollection.remove(col.fullCollection.at(1));
+    ok(col.state.totalRecords === 1);
+    ok(col.state.totalPages === 1);
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "c");
     ok(col.fullCollection.size() === 1);
 
     col.fullCollection.remove(col.fullCollection.at(0));
+    ok(col.state.totalRecords === null);
+    ok(col.state.totalPages === null);
     ok(col.size() === 0);
     ok(col.fullCollection.size() === 0);
   });

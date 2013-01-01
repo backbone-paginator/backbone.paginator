@@ -124,7 +124,7 @@ $(document).ready(function () {
 
     state.totalPages = 100;
     col._checkState(state);
-    ok(state.totalPages === 100);
+    ok(state.totalPages === 2);
 
     state.totalPages = 2;
     state.firstPage = -1;
@@ -287,7 +287,7 @@ $(document).ready(function () {
     ok(jQuery.ajax.args[0][0].url === "test-fetch");
     deepEqual(jQuery.ajax.args[0][0].data, {
       page: 1,
-      per_page: 25
+      "per_page": 25
     });
 
     jQuery.ajax.reset();
@@ -309,11 +309,11 @@ $(document).ready(function () {
     ok(jQuery.ajax.args[0][0].silent === true);
     deepEqual(jQuery.ajax.args[0][0].data, {
       page: 0,
-      per_page: 50,
-      sort_by: "name",
-      total_entries: 50,
-      total_pages: 1,
-      access_token: 1
+      "per_page": 50,
+      "sort_by": "name",
+      "total_entries": 50,
+      "total_pages": 1,
+      "access_token": 1
     });
 
     jQuery.ajax.restore();
