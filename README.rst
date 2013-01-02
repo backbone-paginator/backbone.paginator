@@ -556,6 +556,14 @@ FAQ
 Change Log
 ----------
 
+0.9.13
+  Bugs Fixed
+    - ``pageSize`` cannot be larger than ``totalRecords``.
+    - Off by 1 problem when shifting a model to the current page after removing
+      from ``fullCollection``.
+    - ``RangeError`` when removing the last element from the last page when
+      ``totalPages`` is > 1.
+
 0.9.12
   Enhancements
     - Switching modes now resets the states by default.
