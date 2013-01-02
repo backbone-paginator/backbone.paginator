@@ -102,7 +102,7 @@ $(document).ready(function () {
     col = new Backbone.PageableCollection(mods, {
       state: {
         pageSize: 1,
-        sortKey: "name",
+        sortKey: "name"
       },
       full: true,
       mode: "client"
@@ -520,6 +520,22 @@ $(document).ready(function () {
     ok(col.state.pageSize === 1);
     ok(col.state.totalPages === 3);
     ok(col.state.lastPage === 3);
+  });
+
+  test("issue #15", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        pageSize: 2,
+        currentPage: 2
+      },
+      mode: "client"
+    });
+
+    col.fullCollection.remove(col.fullCollection.last());
+    ok(col.state.currentPage === 1);
+    ok(col.state.totalRecords === 2);
+    ok(col.state.lastPage === 1);
+    ok(col.state.totalPages === 1);
   });
 
 });
