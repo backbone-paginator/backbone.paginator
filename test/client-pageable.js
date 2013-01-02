@@ -166,11 +166,14 @@ $(document).ready(function () {
     ok(col.at(1).get("name") === "a");
   });
 
-  test("remove", 21, function () {
+  test("remove", 32, function () {
 
-    var mods = models.slice();
-
-    var col = new Backbone.PageableCollection(mods, {
+    var col = new Backbone.PageableCollection([
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"},
+      {"name": "d"}
+    ], {
       state: {
         pageSize: 1
       },
@@ -183,7 +186,17 @@ $(document).ready(function () {
     col.on("remove", onRemove);
     col.fullCollection.on("remove", onRemove);
 
-    col.remove(col.at(0));
+    col.fullCollection.remove(col.fullCollection.last());
+    ok(col.state.totalRecords === 3);
+    ok(col.state.totalPages === 3);
+    ok(col.size() === 1);
+    ok(col.at(0).get("name") === "a");
+    ok(col.fullCollection.size() === 3);
+    ok(col.fullCollection.at(0).get("name") === "a");
+    ok(col.fullCollection.at(1).get("name") === "c");
+    ok(col.fullCollection.at(2).get("name") === "b");
+
+    col.fullCollection.remove(col.fullCollection.first());
     ok(col.state.totalRecords === 2);
     ok(col.state.totalPages === 2);
     ok(col.size() === 1);
@@ -192,14 +205,15 @@ $(document).ready(function () {
     ok(col.fullCollection.at(0).get("name") === "c");
     ok(col.fullCollection.at(1).get("name") === "b");
 
-    col.fullCollection.remove(col.fullCollection.at(1));
+    col.remove(col.first());
     ok(col.state.totalRecords === 1);
     ok(col.state.totalPages === 1);
     ok(col.size() === 1);
-    ok(col.at(0).get("name") === "c");
+    ok(col.at(0).get("name") === "b");
     ok(col.fullCollection.size() === 1);
+    ok(col.fullCollection.at(0).get("name") === "b");
 
-    col.fullCollection.remove(col.fullCollection.at(0));
+    col.remove(col.fullCollection.first());
     ok(col.state.totalRecords === null);
     ok(col.state.totalPages === null);
     ok(col.size() === 0);

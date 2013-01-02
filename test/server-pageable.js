@@ -437,8 +437,15 @@ $(document).ready(function () {
 
     this.stub(col, "getPage");
 
+    col.setPageSize(200);
+    ok(col.state.pageSize === 200);
+    ok(col.getPage.args.length === 1);
+    ok(col.getPage.args[0][0] === 1);
+    col.getPage.reset();
+
     col.setPageSize("50");
     ok(col.state.pageSize === 50);
+    ok(col.getPage.args.length === 1);
     ok(col.getPage.args[0][0] === 1);
     col.getPage.reset();
 
@@ -453,12 +460,6 @@ $(document).ready(function () {
     }, "`pageSize` must be a finite integer");
     ok(col.state.pageSize === 50);
     ok(col.getPage.notCalled);
-
-    throws(function () {
-      col.setPageSize(200);
-    }, "`pageSize` must be 1 <= pageSize <= totalRecords");
-
-    ok(col.state.pageSize === 50);
 
     col.setPageSize(25, {add: true, silent: true});
     ok(col.state.pageSize === 25);
