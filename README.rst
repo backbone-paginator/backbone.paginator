@@ -556,7 +556,7 @@ FAQ
 Change Log
 ----------
 
-0.9.12 (In progress)
+0.9.12
   Enhancements
     - Switching modes now resets the states by default.
     - Infinite mode now updates ``currentPage`` as well.
