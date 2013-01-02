@@ -559,6 +559,7 @@ Change Log
 0.9.12 (In progress)
   Enhancements
     - Switching modes now resets the states by default.
+    - Infinite mode now updates ``currentPage`` as well.
   Bugs Fixed
     - ``state`` counters will now update automatically under client mode.
 
