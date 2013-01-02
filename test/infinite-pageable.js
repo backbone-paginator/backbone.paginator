@@ -45,7 +45,7 @@ $(document).ready(function () {
     col.fetch();
   });
 
-  test("getPage", 3, function () {
+  test("getPage", 4, function () {
     throws(function () {
       col.getPage("nosuchpage");
     });
@@ -59,6 +59,8 @@ $(document).ready(function () {
         url: "nextUrl",
         type: "jsonp"
       });
+
+      ok(this.state.currentPage === 2);
 
       return {
         done: function (fn) {

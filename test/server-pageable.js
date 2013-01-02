@@ -435,25 +435,35 @@ $(document).ready(function () {
       }
     });
 
-    throws(function () {
-      col.setPageSize("50");
-    }, "`pageSize` must be a finite integer");
-
-    ok(col.state.pageSize === 25);
-
     this.stub(col, "getPage");
+
+    col.setPageSize("50");
+    ok(col.state.pageSize === 50);
+    ok(col.getPage.args[0][0] === 1);
+    col.getPage.reset();
+
+    throws(function() {
+      col.setPageSize(Infinity);
+    }, "`pageSize` must be a finite integer");
+    ok(col.state.pageSize === 50);
+    ok(col.getPage.notCalled);
+
+    throws(function() {
+      col.setPageSize("foo");
+    }, "`pageSize` must be a finite integer");
+    ok(col.state.pageSize === 50);
+    ok(col.getPage.notCalled);
 
     throws(function () {
       col.setPageSize(200);
     }, "`pageSize` must be 1 <= pageSize <= totalRecords");
 
-    ok(col.state.pageSize === 25);
-
-    col.setPageSize(50, {add: true, silent: true});
     ok(col.state.pageSize === 50);
-    ok(col.state.totalPages === 2);
-    ok(col.state.lastPage === 2);
 
+    col.setPageSize(25, {add: true, silent: true});
+    ok(col.state.pageSize === 25);
+    ok(col.state.totalPages === 4);
+    ok(col.state.lastPage === 4);
     ok(col.getPage.calledOnce);
     ok(col.getPage.args[0][0] === 1);
     deepEqual(col.getPage.args[0][1], {
