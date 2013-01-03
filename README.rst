@@ -372,9 +372,9 @@ belonging to the current page and return the collection itself instead of a
 
   // You can force a fetch in client-mode to get the most updated data if the
   // collection has gone stale.
-  books.getFirstPage({ fetch: true }).done(function () {
-    // ...
-  });
+  books.getFirstPage({ fetch: true });
+
+  // Do something interesting with books...
 
 
 Sorting
@@ -488,7 +488,7 @@ Manipulation
 
 This is one of the areas where ``Backbone.PageableCollection`` truely shines. A
 ``Backbone.PageableCollection`` instance not only can do everything a plain
-``Backbone.Collection`` is can for the current page, in client-mode, it can also
+``Backbone.Collection`` can for the current page, in client-mode, it can also
 synchronize changes and events across all of the pages. For example, you can add
 or remove a model from either a ``Backbone.PageableCollection`` instance, which
 is holding the current page, or the
