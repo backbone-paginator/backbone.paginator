@@ -19,6 +19,13 @@ You can either download the raw source code for the project, fork the repository
 [min]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.paginator/master/dist/backbone.paginator.js
 
+We are also available via [Bower](http://twitter.github.com/bower/):
+
+```shell
+
+bower install backbone.paginator
+
+```
 
 ## Paginator's pieces
 
