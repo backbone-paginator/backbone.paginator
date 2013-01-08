@@ -1,4 +1,4 @@
-# Backbone.Paginator
+# Backbone.Paginator (0.5)
 
 [![Continuous Integration status](https://secure.travis-ci.org/addyosmani/backbone.paginator.png)](http://travis-ci.org/addyosmani/backbone.paginator)
 
@@ -24,7 +24,6 @@ We are also available via [Bower](http://twitter.github.com/bower/):
 ```shell
 
 bower install backbone.paginator
-
 ```
 
 ## Paginator's pieces
