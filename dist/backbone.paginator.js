@@ -1,6 +1,6 @@
-/*! backbone.paginator - v0.1.54 - 12/27/2012
+/*! backbone.paginator - v0.5 - 1/8/2013
 * http://github.com/addyosmani/backbone.paginator
-* Copyright (c) 2012 Addy Osmani; Licensed MIT */
+* Copyright (c) 2013 Addy Osmani; Licensed MIT */
 
 Backbone.Paginator = (function ( Backbone, _, $ ) {
   "use strict";
