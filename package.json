@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ghttp://github.com/addyosmani/backbone.paginator"
+    "url": "http://github.com/addyosmani/backbone.paginator"
   },
   "bugs": {
     "url": "https://github.com/addyosmani/backbone.paginator/issues"
