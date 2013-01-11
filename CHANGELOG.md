@@ -1,8 +1,8 @@
 # Release History
 
-## 0.next
+## 0.5.1-dev
 
-* ---
+* Propagate version number from `package.json` to codebase during build
 
 ## 0.5
 
@@ -17,7 +17,7 @@
 * Make the API cleaner
 * Some bug fixes
 
-## 0.15 
+## 0.15
 
 * Rewrite to simplify the project API
 * Unify components under the same collection hood
