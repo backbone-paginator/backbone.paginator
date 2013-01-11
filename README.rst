@@ -42,7 +42,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  Less than 2.9k minified and gzipped.
+  The library is only 3.1 kb minified and gzipped.
 
 
 Installation
@@ -278,17 +278,54 @@ All of the ``get*Page`` methods accept the same options
 `Backbone.Collection#fetch <http://backbonejs.org/#Collection-fetch>`_ accepts
 under server-mode.
 
+
+Client-Mode
++++++++++++
+
+Client-mode is a very convenient mode for paginating a handful of pages entirely
+on the client side without going through the network page-by-page. This mode is
+best suited if you only have a small number of pages so sending all of the data
+to the client is not too time-consuming.
+
+.. code-block:: javascript
+
+  var book = new Book([
+    // Bootstrap all the records for all the pages here
+  ], { mode: "client" });
+
+
+All of the ``get*Page`` methods reset the pageable collection's data to the models
+belonging to the current page and return the collection itself instead of a
+``jqXHR``.
+
+.. code-block:: javascript
+
+  // You can immediately operate on the collection without waiting for jQuery to
+  // call your `done` callback.
+  var json = JSON.stringify(books.getLastPage());
+
+  // You can force a fetch in client-mode to get the most updated data if the
+  // collection has gone stale.
+  books.getFirstPage({ fetch: true });
+
+  // Do something interesting with books...
+
+
 Infinite-Mode
 +++++++++++++
 
-Infinite paging mode is a special case of server mode. You cannot call
-``getPage`` directly with a page number under this mode as there is no notion of
-a "page number". As a substitute, you have to make use of ``getFirstPage``,
-``getPreviousPage``, ``getNextPage``, and ``getLastPage``. For the same reason,
-most of the ``state`` attribute is also meaningless under this mode. By default,
-``Backbone.PageableCollection`` parses the response headers to find out what the
-``first``, ``last``, ``next`` and ``prev`` links are. The parsed links are
-available in the ``links`` field.
+Infinite paging mode is a hybrid of server mode and client mode. Once
+initialized and bootstrapped, paging backwards will be done on the client-side
+by default while paging forward will be done by fetching.
+
+As before, you can make use of ``getFirstPage``, ``getPreviousPage``,
+``getNextPage``, and ``getLastPage`` for navigation under infinite-mode. If a
+page has been fetched, you can use ``getPage`` directly with the page number, an
+error will be thrown if the page has not been fetched yet.
+
+By default, ``Backbone.PageableCollection`` parses the response headers to find
+out what the ``first``, ``last``, ``next`` and ``prev`` links are. The parsed
+links are available in the ``links`` field.
 
 .. code-block:: javascript
 
@@ -343,38 +380,6 @@ return a links object.
        return resp.comments.paging;
      }
    });
-
-
-Client-Mode
-+++++++++++
-
-Client-mode is a very convenient mode for paginating a handful of pages entirely
-on the client side without going through the network page-by-page. This mode is
-best suited if you only have a small number of pages so sending all of the data
-to the client is not too time-consuming.
-
-.. code-block:: javascript
-
-  var book = new Book([
-    // Bootstrap all the records for all the pages here
-  ], { mode: "client" });
-
-
-All of the ``get*Page`` methods reset the pageable collection's data to the models
-belonging to the current page and return the collection itself instead of a
-``jqXHR``.
-
-.. code-block:: javascript
-
-  // You can immediately operate on the collection without waiting for jQuery to
-  // call your `done` callback.
-  var json = JSON.stringify(books.getLastPage());
-
-  // You can force a fetch in client-mode to get the most updated data if the
-  // collection has gone stale.
-  books.getFirstPage({ fetch: true });
-
-  // Do something interesting with books...
 
 
 Sorting
@@ -555,6 +560,14 @@ FAQ
 
 Change Log
 ----------
+
+1.0 (In Progress)
+  Bugs Fixed
+    - Regression from 0.9.9 where ``mode`` wasn't saved after called ``switchMode``.
+  Enhancements
+    - Improved infinite-mode. Infinite paging mode now runs in a hybrid
+      mode. See [issue
+      #17](https://github.com/wyuenho/backbone-pageable/issues/17).
 
 0.9.13
   Bugs Fixed
