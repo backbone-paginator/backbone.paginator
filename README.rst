@@ -566,8 +566,7 @@ Change Log
     - Regression from 0.9.9 where ``mode`` wasn't saved after called ``switchMode``.
   Enhancements
     - Improved infinite-mode. Infinite paging mode now runs in a hybrid
-      mode. See [issue
-      #17](https://github.com/wyuenho/backbone-pageable/issues/17).
+      mode. See `issue #17 <https://github.com/wyuenho/backbone-pageable/issues/17>`_.
 
 0.9.13
   Bugs Fixed
