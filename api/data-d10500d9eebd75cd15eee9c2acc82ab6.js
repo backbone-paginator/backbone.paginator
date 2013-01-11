@@ -103,20 +103,10 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "_onPageableCollectionEvent",
-        "fullName": "Backbone.PageableCollection._onPageableCollectionEvent",
+        "name": "_makeCollectionEventHandler",
+        "fullName": "Backbone.PageableCollection._makeCollectionEventHandler",
         "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-_onPageableCollectionEvent",
-        "meta": {
-          "private": true
-        },
-        "sort": 3
-      },
-      {
-        "name": "_onFullCollectionEvent",
-        "fullName": "Backbone.PageableCollection._onFullCollectionEvent",
-        "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-_onFullCollectionEvent",
+        "url": "#!/api/Backbone.PageableCollection-method-_makeCollectionEventHandler",
         "meta": {
           "private": true
         },
