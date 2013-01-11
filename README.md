@@ -65,16 +65,16 @@ Within our collection, we then (as normal) specify the model to be used with thi
 We need to set a base URL. The `type` of the request is `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
-		paginator_core: {
-			// the type of the request (GET by default)
-			type: 'GET',
+    paginator_core: {
+      // the type of the request (GET by default)
+      type: 'GET',
 
-			// the type of reply (jsonp by default)
-			dataType: 'jsonp',
+      // the type of reply (jsonp by default)
+      dataType: 'jsonp',
 
-			// the URL (or base URL) for the service
-			url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
-		},
+      // the URL (or base URL) for the service
+      url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
+    },
 ```
 
 ####4. Configure how the library will show the results
@@ -82,23 +82,23 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 We need to tell the library how many items per page would we like to see, etc...
 
 ```javascript
-		paginator_ui: {
-			// the lowest page index your API allows to be accessed
-			firstPage: 0,
+    paginator_ui: {
+      // the lowest page index your API allows to be accessed
+      firstPage: 0,
 
-			// which page should the paginator start from
-			// (also, the actual page the paginator is on)
-			currentPage: 0,
+      // which page should the paginator start from
+      // (also, the actual page the paginator is on)
+      currentPage: 0,
 
-			// how many items per page should be shown
-			perPage: 3,
+      // how many items per page should be shown
+      perPage: 3,
 
-			// a default number of total pages to query in case the API or
-			// service you are using does not support providing the total
-			// number of pages for us.
-			// 10 as a default in case your service doesn't return the total
-			totalPages: 10
-		},
+      // a default number of total pages to query in case the API or
+      // service you are using does not support providing the total
+      // number of pages for us.
+      // 10 as a default in case your service doesn't return the total
+      totalPages: 10
+    },
 ```
 
 ####5. Configure the parameters we want to send to the server
@@ -107,28 +107,28 @@ Only the base URL won't be enough for most cases, so you can pass more parameter
 Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
 
 ```javascript
-		server_api: {
-			// the query field in the request
-			'$filter': '',
+    server_api: {
+      // the query field in the request
+      '$filter': '',
 
-			// number of items to return per request/page
-			'$top': function() { return this.perPage },
+      // number of items to return per request/page
+      '$top': function() { return this.perPage },
 
-			// how many results the request should skip ahead to
-			// customize as needed. For the Netflix API, skipping ahead based on
-			// page * number of results per page was necessary.
-			'$skip': function() { return this.currentPage * this.perPage },
+      // how many results the request should skip ahead to
+      // customize as needed. For the Netflix API, skipping ahead based on
+      // page * number of results per page was necessary.
+      '$skip': function() { return this.currentPage * this.perPage },
 
-			// field to sort by
-			'$orderby': 'ReleaseYear',
+      // field to sort by
+      '$orderby': 'ReleaseYear',
 
-			// what format would you like to request results in?
-			'$format': 'json',
+      // what format would you like to request results in?
+      '$format': 'json',
 
-			// custom parameters
-			'$inlinecount': 'allpages',
-			'$callback': 'callback'
-		},
+      // custom parameters
+      '$inlinecount': 'allpages',
+      '$callback': 'callback'
+    },
 ```
 
 ####6. Finally, configure Collection.parse() and we're done
@@ -168,12 +168,12 @@ This option object can use `success` and `error` parameters to pass a function t
 
 ```javascript
 Collection.goTo(n, {
-	success: function( collection, response ) {
-		// called is server request success
-	},
-	error: function( collection, response ) {
-		// called if server request fail
-	}
+  success: function( collection, response ) {
+    // called is server request success
+  },
+  error: function( collection, response ) {
+    // called if server request fail
+  }
 });
 ```
 
@@ -181,16 +181,16 @@ To manage callback, you could also use the [jqXHR](http://api.jquery.com/jQuery.
 
 ```javascript
 Collection
-	.requestNextPage()
-	.done(function( data, textStatus, jqXHR ) {
-		// called is server request success
-	})
-	.fail(function( data, textStatus, jqXHR ) {
-		// called if server request fail
-	})
-	.always(function( data, textStatus, jqXHR ) {
-		// do something after server request is complete
-	});
+  .requestNextPage()
+  .done(function( data, textStatus, jqXHR ) {
+    // called is server request success
+  })
+  .fail(function( data, textStatus, jqXHR ) {
+    // called if server request fail
+  })
+  .always(function( data, textStatus, jqXHR ) {
+    // do something after server request is complete
+  });
 });
 ```
 
@@ -218,16 +218,16 @@ As with `requestPager`, let's first create a new Paginated `Backbone.Paginator.c
 We need to set a base URL. The `type` of the request is `GET` by default, and the `dataType` is `jsonp` in order to enable cross-domain requests.
 
 ```javascript
-		paginator_core: {
-			// the type of the request (GET by default)
-			type: 'GET',
+    paginator_core: {
+      // the type of the request (GET by default)
+      type: 'GET',
 
-			// the type of reply (jsonp by default)
-			dataType: 'jsonp',
+      // the type of reply (jsonp by default)
+      dataType: 'jsonp',
 
-			// the URL (or base URL) for the service
-			url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
-		},
+      // the URL (or base URL) for the service
+      url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
+    },
 ```
 
 ####3. Configure how the library will show the results
@@ -235,27 +235,27 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 We need to tell the library how many items per page would we like to see, etc...
 
 ```javascript
-		paginator_ui: {
-			// the lowest page index your API allows to be accessed
-			firstPage: 1,
+    paginator_ui: {
+      // the lowest page index your API allows to be accessed
+      firstPage: 1,
 
-			// which page should the paginator start from
-			// (also, the actual page the paginator is on)
-			currentPage: 1,
+      // which page should the paginator start from
+      // (also, the actual page the paginator is on)
+      currentPage: 1,
 
-			// how many items per page should be shown
-			perPage: 3,
+      // how many items per page should be shown
+      perPage: 3,
 
-			// a default number of total pages to query in case the API or
-			// service you are using does not support providing the total
-			// number of pages for us.
-			// 10 as a default in case your service doesn't return the total
-			totalPages: 10,
+      // a default number of total pages to query in case the API or
+      // service you are using does not support providing the total
+      // number of pages for us.
+      // 10 as a default in case your service doesn't return the total
+      totalPages: 10,
 
-			// The total number of pages to be shown as a pagination
-			// list is calculated by (pagesInRange * 2) + 1.
-			pagesInRange: 4
-		},
+      // The total number of pages to be shown as a pagination
+      // list is calculated by (pagesInRange * 2) + 1.
+      pagesInRange: 4
+    },
 ```
 
 ####4. Configure the parameters we want to send to the server
@@ -264,28 +264,28 @@ Only the base URL won't be enough for most cases, so you can pass more parameter
 Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
 
 ```javascript
-		server_api: {
-			// the query field in the request
-			'$filter': 'substringof(\'america\',Name)',
+    server_api: {
+      // the query field in the request
+      '$filter': 'substringof(\'america\',Name)',
 
-			// number of items to return per request/page
-			'$top': function() { return this.perPage },
+      // number of items to return per request/page
+      '$top': function() { return this.perPage },
 
-			// how many results the request should skip ahead to
-			// customize as needed. For the Netflix API, skipping ahead based on
-			// page * number of results per page was necessary.
-			'$skip': function() { return this.currentPage * this.perPage },
+      // how many results the request should skip ahead to
+      // customize as needed. For the Netflix API, skipping ahead based on
+      // page * number of results per page was necessary.
+      '$skip': function() { return this.currentPage * this.perPage },
 
-			// field to sort by
-			'$orderby': 'ReleaseYear',
+      // field to sort by
+      '$orderby': 'ReleaseYear',
 
-			// what format would you like to request results in?
-			'$format': 'json',
+      // what format would you like to request results in?
+      '$format': 'json',
 
-			// custom parameters
-			'$inlinecount': 'allpages',
-			'$callback': 'callback'
-		},
+      // custom parameters
+      '$inlinecount': 'allpages',
+      '$callback': 'callback'
+    },
 ```
 
 ####5. Finally, configure Collection.parse() and we're done
@@ -293,7 +293,7 @@ Note how you can use functions insead of hardcoded values, and you can also reff
 And finally we have our `parse()` method, which in this case isn't concerned with the total number of result pages available on the server as we have our own total count of pages for the paginated data in the UI.
 
 ```javascript
-		parse: function (response) {
+    parse: function (response) {
             var tags = response.d.results;
             return tags;
         }
@@ -313,10 +313,10 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered. Last option is to pass it an object containing a comparison method and rules. Currently, only ```levenshtein``` method is available.
 
 ```javascript
-	this.collection.setFilter(
-		{'Name': {cmp_method: 'levenshtein', max_distance: 7}}
-		, "Amreican P" // Note the switched 'r' and 'e', and the 'P' from 'Pie'
-	);
+  this.collection.setFilter(
+    {'Name': {cmp_method: 'levenshtein', max_distance: 7}}
+    , "Amreican P" // Note the switched 'r' and 'e', and the 'P' from 'Pie'
+  );
 ```
 
 Also note that the levenshtein plugin should be loaded and enabled using the ```useLevenshteinPlugin``` variable.
@@ -329,27 +329,27 @@ Use levenshtein only for short texts (titles, names, etc).
 
 * **Collection.setFieldFilter(rules)** - filter each value of each model according to `rules` that you pass as argument. Example: You have a collection of books with 'release year' and 'author'. You can filter only the books that were released between 1999 and 2003. And then you can add another `rule` that will filter those books only to authors who's name start with 'A'. Possible rules: function, required, min, max, range, minLength, maxLength, rangeLength, oneOf, equalTo, containsAllOf, pattern.  Passing this an empty rules set will remove any FieldFilter rules applied.
 ```javascript
-	my_collection.setFieldFilter([
-		{field: 'release_year', type: 'range', value: {min: '1999', max: '2003'}},
-		{field: 'author', type: 'pattern', value: new RegExp('A*', 'igm')}
-	]);
+  my_collection.setFieldFilter([
+    {field: 'release_year', type: 'range', value: {min: '1999', max: '2003'}},
+    {field: 'author', type: 'pattern', value: new RegExp('A*', 'igm')}
+  ]);
 
-	//Rules:
-	//
-	//var my_var = 'green';
-	//
-	//{field: 'color', type: 'equalTo', value: my_var}
-	//{field: 'color', type: 'function', value: function(field_value){ return field_value == my_var; } }
-	//{field: 'color', type: 'required'}
-	//{field: 'number_of_colors', type: 'min', value: '2'}
-	//{field: 'number_of_colors', type: 'max', value: '4'}
-	//{field: 'number_of_colors', type: 'range', value: {min: '2', max: '4'} }
-	//{field: 'color_name', type: 'minLength', value: '4'}
-	//{field: 'color_name', type: 'maxLength', value: '6'}
-	//{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
-	//{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
-	//{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
-	//{field: 'color_name', type: 'containsAllOf', value: ['green', 'yellow', 'blue']}
+  //Rules:
+  //
+  //var my_var = 'green';
+  //
+  //{field: 'color', type: 'equalTo', value: my_var}
+  //{field: 'color', type: 'function', value: function(field_value){ return field_value == my_var; } }
+  //{field: 'color', type: 'required'}
+  //{field: 'number_of_colors', type: 'min', value: '2'}
+  //{field: 'number_of_colors', type: 'max', value: '4'}
+  //{field: 'number_of_colors', type: 'range', value: {min: '2', max: '4'} }
+  //{field: 'color_name', type: 'minLength', value: '4'}
+  //{field: 'color_name', type: 'maxLength', value: '6'}
+  //{field: 'color_name', type: 'rangeLength', value: {min: '4', max: '6'}}
+  //{field: 'color_name', type: 'oneOf', value: ['green', 'yellow']}
+  //{field: 'color_name', type: 'pattern', value: new RegExp('gre*', 'ig')}
+  //{field: 'color_name', type: 'containsAllOf', value: ['green', 'yellow', 'blue']}
 ```
 
 * **Collection.doFakeFieldFilter(rules)** - returns the models count after fake-applying a call to ```Collection.setFieldFilter```.
@@ -379,56 +379,56 @@ the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 <!-- sample template for pagination UI -->
 <script type="text/html" id="tmpServerPagination">
 
-	<div class="row-fluid">
+  <div class="row-fluid">
 
-		<div class="pagination span8">
-			<ul>
-				<% _.each (pageSet, function (p) { %>
-				<% if (currentPage == p) { %>
-					<li class="active"><span><%= p %></span></li>
-				<% } else { %>
-					<li><a href="#" class="page"><%= p %></a></li>
-				<% } %>
-				<% }); %>
-			</ul>
-		</div>
+    <div class="pagination span8">
+      <ul>
+        <% _.each (pageSet, function (p) { %>
+        <% if (currentPage == p) { %>
+          <li class="active"><span><%= p %></span></li>
+        <% } else { %>
+          <li><a href="#" class="page"><%= p %></a></li>
+        <% } %>
+        <% }); %>
+      </ul>
+    </div>
 
-		<div class="pagination span4">
-			<ul>
-				<% if (currentPage > firstPage) { %>
-					<li><a href="#" class="serverprevious">Previous</a></li>
-				<% }else{ %>
-					<li><span>Previous</span></li>
-				<% }%>
-				<% if (currentPage < totalPages) { %>
-					<li><a href="#" class="servernext">Next</a></li>
-				<% } else { %>
-					<li><span>Next</span></li>
-				<% } %>
-				<% if (firstPage != currentPage) { %>
-					<li><a href="#" class="serverfirst">First</a></li>
-				<% } else { %>
-					<li><span>First</span></li>
-				<% } %>
-				<% if (totalPages != currentPage) { %>
-					<li><a href="#" class="serverlast">Last</a></li>
-				<% } else { %>
-					<li><span>Last</span></li>
-				<% } %>
-			</ul>
-		</div>
+    <div class="pagination span4">
+      <ul>
+        <% if (currentPage > firstPage) { %>
+          <li><a href="#" class="serverprevious">Previous</a></li>
+        <% }else{ %>
+          <li><span>Previous</span></li>
+        <% }%>
+        <% if (currentPage < totalPages) { %>
+          <li><a href="#" class="servernext">Next</a></li>
+        <% } else { %>
+          <li><span>Next</span></li>
+        <% } %>
+        <% if (firstPage != currentPage) { %>
+          <li><a href="#" class="serverfirst">First</a></li>
+        <% } else { %>
+          <li><span>First</span></li>
+        <% } %>
+        <% if (totalPages != currentPage) { %>
+          <li><a href="#" class="serverlast">Last</a></li>
+        <% } else { %>
+          <li><span>Last</span></li>
+        <% } %>
+      </ul>
+    </div>
 
-	</div>
+  </div>
 
-	<span class="cell serverhowmany"> Show <a href="#"
-		class="selected">18</a> | <a href="#" class="">9</a> | <a href="#" class="">12</a> per page
-	</span>
+  <span class="cell serverhowmany"> Show <a href="#"
+    class="selected">18</a> | <a href="#" class="">9</a> | <a href="#" class="">12</a> per page
+  </span>
 
-	<span class="divider">/</span>
+  <span class="divider">/</span>
 
-	<span class="cell first records">
-		Page: <span class="label"><%= currentPage %></span> of <span class="label"><%= totalPages %></span> shown
-	</span>
+  <span class="cell first records">
+    Page: <span class="label"><%= currentPage %></span> of <span class="label"><%= totalPages %></span> shown
+  </span>
 
 </script>
 ```
@@ -445,10 +445,10 @@ To enable the plugin, set `this.useDiacriticsPlugin` to true, as can be seen in 
 ```javascript
 Paginator.clientPager = Backbone.Collection.extend({
 
-		// Default values used when sorting and/or filtering.
-		initialize: function(){
-			this.useDiacriticsPlugin = true; // use diacritics plugin if available
-		...
+    // Default values used when sorting and/or filtering.
+    initialize: function(){
+      this.useDiacriticsPlugin = true; // use diacritics plugin if available
+    ...
 ```
 
 ## Release History
