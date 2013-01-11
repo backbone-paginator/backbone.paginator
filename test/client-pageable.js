@@ -69,6 +69,8 @@ $(document).ready(function () {
 
   test("initialize", function () {
 
+    // TODO: test options.full attaches comparator to fullcollection only
+
     var col = new Backbone.PageableCollection(null, {
       mode: "client"
     });

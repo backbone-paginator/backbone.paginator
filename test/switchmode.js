@@ -26,6 +26,7 @@ $(document).ready(function () {
 
     col.switchMode("client");
 
+    ok(col.mode == "client");
     ok(col.fullCollection instanceof Backbone.Collection);
     ok(col.fetch.calledOnce);
 
@@ -37,6 +38,7 @@ $(document).ready(function () {
 
     col.switchMode("server");
 
+    ok(col.mode == "server");
     ok(_.isUndefined(col.fullCollection));
     ok(col.fetch.calledOnce);
 
@@ -54,8 +56,9 @@ $(document).ready(function () {
 
     col.switchMode("infinite");
 
+    ok(col.mode == "infinite");
     ok(col.state.totalRecords == null);
-    ok(_.isUndefined(col.fullCollection));
+    ok(col.fullCollection);
     ok(col.fetch.calledOnce);
 
     col.fetch.reset();

@@ -6,16 +6,33 @@ $(document).ready(function () {
 
   module("Backbone.PageableCollection - Infinite", {
     setup: function () {
-      col = new Backbone.PageableCollection(null, {
+      col = new (Backbone.PageableCollection.extend({
+        url: "url"
+      }))([
+        {id: 1},
+        {id: 3},
+        {id: 2},
+        {id: 4}
+      ], {
+        state: {
+          pageSize: 2
+        },
         mode: "infinite"
       });
-      col.links = {
-        first: "firstUrl",
-        prev: "prevUrl",
-        next: "nextUrl",
-        last: "lastUrl"
-      };
     }
+  });
+
+  test("initialize", function () {
+    ok(col.fullCollection instanceof Backbone.Collection);
+    ok(col.url, "url");
+    ok(col.mode, "infinite");
+    deepEqual(col.links, {
+      first: "url",
+      "1": "url",
+      current: "url"
+    });
+    deepEqual(col.toJSON(),[{id: 1}, {id: 3}]);
+    deepEqual(col.fullCollection.toJSON(),[{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
   });
 
   test("parseLinks", function () {
@@ -28,7 +45,7 @@ $(document).ready(function () {
       }
     };
 
-    var links = col.parseLinks({}, xhr);
+    var links = col.parseLinks({}, {xhr: xhr});
 
     deepEqual(links, {
       last: "https://api.github.com/user/repos?page=50&per_page=100",
@@ -37,41 +54,129 @@ $(document).ready(function () {
 
   });
 
-  test("fetch calls next link", 1, function () {
-    col.getNextPage = function () {
-      ok(true);
-    };
-
+  test("fetch defaults to the url for the current page", 2, function () {
+    this.spy(Backbone.Collection.prototype, "fetch");
     col.fetch();
+    ok(Backbone.Collection.prototype.fetch.calledOnce);
+    ok(Backbone.Collection.prototype.fetch.args[0][0].url === "url");
+    Backbone.Collection.prototype.fetch.restore();
   });
 
-  test("getPage", 4, function () {
+  test("getPage", 45, function () {
     throws(function () {
       col.getPage("nosuchpage");
     });
 
-    col.parseLinks = function () {
-      ok(true);
-    };
+    this.spy(col, "fetch");
+    this.spy(col, "parseLinks");
 
-    col.fetch = function (options) {
-      deepEqual(options, {
-        url: "nextUrl",
-        type: "jsonp"
-      });
-
-      ok(this.state.currentPage === 2);
-
-      return {
-        done: function (fn) {
-          fn();
-        }
-      };
-    };
-
-    col.getPage("next", {
+    col.getPage("first", {
       type: "jsonp"
     });
+
+    ok(!col.fetch.called);
+    ok(!col.parseLinks.called);
+    ok(col.state.currentPage === 1);
+    ok(col.state.totalRecords === 4);
+
+    col.fetch.restore();
+    col.parseLinks.restore();
+
+    var oldAjax = jQuery.ajax;
+    jQuery.ajax = function (settings) {
+      settings.success();
+      return $.Deferred().resolve();
+    };
+    this.stub(col, "parse").returns([{id: 5}]);
+    this.stub(col, "parseLinks").returns({next: "next"});
+    this.spy(col, "fetch");
+
+    col.getPage(col.state.currentPage, {fetch: true});
+
+    ok(col.parse.calledOnce);
+    ok(col.parseLinks.calledOnce);
+    ok(col.fetch.calledOnce);
+    ok(col.fetch.args[0][0].url === "url");
+    ok(col.fetch.args[0][0].update === true);
+    ok(col.fetch.args[0][0].remove === false);
+    ok(col.fullCollection.size() === 5);
+    ok(col.fullCollection.last().id === 5);
+    ok(col.size() === 2);
+    ok(col.state.currentPage === 1);
+    ok(col.state.totalRecords === 5);
+    deepEqual(col.links, {
+      first: "url",
+      next: "next",
+      current: "url",
+      "1": "url"
+    });
+
+    col.parse.restore();
+    col.parseLinks.restore();
+    col.fetch.reset();
+
+    // test page forward
+    this.stub(col, "parse").returns([{id: 6}]);
+    this.stub(col, "parseLinks").returns({next: "nextNext"});
+
+    col.getPage("next");
+
+    ok(col.parse.calledOnce);
+    ok(col.parseLinks.calledOnce);
+    ok(col.fetch.calledOnce);
+    ok(col.fetch.args[0][0].url === "next");
+    ok(col.fetch.args[0][0].update === true);
+    ok(col.fetch.args[0][0].remove === false);
+    ok(col.fullCollection.size() === 6);
+    ok(col.fullCollection.last().id === 6);
+    ok(col.size() === 2);
+    ok(col.state.currentPage === 2);
+    ok(col.state.totalRecords === 6);
+    ok(col.at(0).id === 2);
+    ok(col.at(1).id === 4);
+    deepEqual(col.links, {
+      first: "url",
+      next: "nextNext",
+      current: "next",
+      "1": "url",
+      "2": "next"
+    });
+
+    col.parse.restore();
+    col.parseLinks.restore();
+    col.fetch.reset();
+
+    // test force fetch
+    this.stub(col, "parse").returns([{id: 7}]);
+    this.stub(col, "parseLinks").returns({next: "next"});
+
+    col.getPage("first", {fetch: true});
+
+    ok(col.parse.calledOnce);
+    ok(col.parseLinks.calledOnce);
+    ok(col.fetch.calledOnce);
+    ok(col.fetch.args[0][0].url === "url");
+    ok(col.fetch.args[0][0].update === true);
+    ok(col.fetch.args[0][0].remove === false);
+    ok(col.fullCollection.size() === 7);
+    ok(col.fullCollection.last().id === 7);
+    ok(col.size() === 2);
+    ok(col.state.currentPage === 1);
+    ok(col.state.totalRecords === 7);
+    ok(col.at(0).id === 1);
+    ok(col.at(1).id === 3);
+    deepEqual(col.links, {
+      first: "url",
+      next: "next",
+      current: "url",
+      "1": "url",
+      "2": "next"
+    });
+
+    col.parse.restore();
+    col.parseLinks.restore();
+    col.fetch.restore();
+    jQuery.ajax = oldAjax;
   });
 
 });
