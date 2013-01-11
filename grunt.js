@@ -13,8 +13,7 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['<banner>', '<file_strip_banner:lib/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.js',
-        process: true
+        dest: 'dist/<%= pkg.name %>.js'
       }
     },
     min: {
@@ -61,9 +60,17 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint mocha concat min');
+  grunt.registerTask('default', 'lint mocha concat replace-version min');
   grunt.registerTask('test', 'lint mocha');
 
   // run `npm install grunt-mocha` in project root dir and uncomment this
   grunt.loadNpmTasks('grunt-mocha');
+
+  grunt.registerTask('replace-version', 'replace the version placeholder in backbone.paginator.js', function() {
+    var pkg = grunt.config.get('pkg');
+    var filename = 'dist/' + pkg.name + '.js';
+    var content = grunt.file.read(filename);
+    var rendered = grunt.template.process(content, { pkg : pkg });
+    grunt.file.write(filename, rendered);
+  });
 };
