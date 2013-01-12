@@ -6,7 +6,7 @@
 
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
- It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
+It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
 
 ## Downloads And Source Code
 
@@ -22,7 +22,6 @@ You can either download the raw source code for the project, fork the repository
 We are also available via [Bower](http://twitter.github.com/bower/):
 
 ```shell
-
 bower install backbone.paginator
 ```
 
@@ -32,7 +31,6 @@ Backbone.Paginator supports two main pagination components:
 
 * **Backbone.Paginator.requestPager**: For pagination of requests between a client and a server-side API
 * **Backbone.Paginator.clientPager**: For pagination of data returned from a server which you would like to further paginate within the UI (e.g 60 results are returned, paginate into 3 pages of 20)
-
 
 ## Live Examples
 
@@ -79,7 +77,7 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 
 ####4. Configure how the library will show the results
 
-We need to tell the library how many items per page would we like to see, etc...
+We need to tell the library how many items per page we would like to see, etc...
 
 ```javascript
     paginator_ui: {
@@ -104,7 +102,7 @@ We need to tell the library how many items per page would we like to see, etc...
 ####5. Configure the parameters we want to send to the server
 
 Only the base URL won't be enough for most cases, so you can pass more parameters to the server.
-Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
+Note how you can use functions instead of hardcoded values, and you can also refer to the values you specified in `paginator_ui`.
 
 ```javascript
     server_api: {
@@ -232,7 +230,7 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
 
 ####3. Configure how the library will show the results
 
-We need to tell the library how many items per page would we like to see, etc...
+We need to tell the library how many items per page we would like to see, etc...
 
 ```javascript
     paginator_ui: {
@@ -261,7 +259,7 @@ We need to tell the library how many items per page would we like to see, etc...
 ####4. Configure the parameters we want to send to the server
 
 Only the base URL won't be enough for most cases, so you can pass more parameters to the server.
-Note how you can use functions insead of hardcoded values, and you can also reffer to the values you specified in `paginator_ui`.
+Note how you can use functions instead of hardcoded values, and you can also refer to the values you specified in `paginator_ui`.
 
 ```javascript
     server_api: {
@@ -319,11 +317,11 @@ As mentioned, your views can hook into a number of convenience methods to naviga
   );
 ```
 
-Also note that the levenshtein plugin should be loaded and enabled using the ```useLevenshteinPlugin``` variable.
-Last but not less important: Performing Levenshtein comparison returns the ```distance``` between to strings. It won't let you *search* lenghty text.
+Also note that the Levenshtein plugin should be loaded and enabled using the ```useLevenshteinPlugin``` variable.
+Last but not less important: performing Levenshtein comparison returns the ```distance``` between two strings. It won't let you *search* lengthy text.
 The distance between two strings means the number of characters that should be added, removed or moved to the left or to the right so the strings get equal.
 That means that comparing "Something" in "This is a test that could show something" will return 32, which is bigger than comparing "Something" and "ABCDEFG" (9).
-Use levenshtein only for short texts (titles, names, etc).
+Use Levenshtein only for short texts (titles, names, etc).
 
 * **Collection.doFakeFilter(filterFields, filterWords)** - returns the models count after fake-applying a call to ```Collection.setFilter```.
 
@@ -372,7 +370,7 @@ You can use some variables in your ```View``` to represent the actual state of t
 
 ```endRecord``` - The position of the last record shown in the current page (eg 41 to 50 from 2000 records) (Only available in ```clientPager```)
 
-```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if pagesInRange is 3 and current page is 13 you will get
+```pagesInRange``` - The number of pages to be drawn on each side of the current page. So if ```pagesInRange``` is 3 and ```currentPage``` is 13 you will get
 the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 
 ```html
@@ -432,7 +430,6 @@ the numbers 10, 11, 12, 13(selected), 14, 15, 16.
 
 </script>
 ```
-
 
 ## Plugins
 
