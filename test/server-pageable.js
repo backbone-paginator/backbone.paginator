@@ -6,36 +6,6 @@ $(document).ready(function () {
 
   module("Backbone.PageableCollection - Server");
 
-  test("makeComparator", function () {
-    var col, comparator;
-
-    col = new Backbone.PageableCollection();
-    comparator = col.makeComparator();
-    equal(comparator, undefined);
-
-    col.state.sortKey = "name";
-    col.state.order = 0;
-    comparator = col.makeComparator();
-    equal(comparator, undefined);
-
-    col = col.reset([{name: "b"}, {name: "c"}, {name: "a"}, {name: "a"}]);
-    col.state.order = -1;
-    col.comparator = col.makeComparator();
-    col.sort();
-    deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
-
-    col.state.order = 1;
-    col.comparator = col.makeComparator();
-    col.sort();
-    deepEqual(col.pluck("name"), ["c", "b", "a", "a"]);
-
-    delete col.state.sortKey;
-    delete col.state.order;
-    col.comparator = col.makeComparator("name", -1);
-    col.sort();
-    deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
-  });
-
   test("parse", function () {
     var resp = [{"page": 1,
                  "per_page": 2,

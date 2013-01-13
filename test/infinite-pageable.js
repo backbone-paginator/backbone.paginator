@@ -31,8 +31,8 @@ $(document).ready(function () {
       "1": "url",
       current: "url"
     });
-    deepEqual(col.toJSON(),[{id: 1}, {id: 3}]);
-    deepEqual(col.fullCollection.toJSON(),[{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
+    deepEqual(col.toJSON(), [{id: 1}, {id: 3}]);
+    deepEqual(col.fullCollection.toJSON(), [{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
   });
 
   test("parseLinks", function () {
