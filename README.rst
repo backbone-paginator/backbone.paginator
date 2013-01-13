@@ -42,7 +42,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  The library is only 3.1 kb minified and gzipped.
+  The library is only 3.2 kb minified and gzipped.
 
 
 Installation
@@ -207,7 +207,7 @@ pagination-specific operations to ensure internal state consistency.
 Method             Use When
 ================== ===============================
 ``setPageSize``    Changing the page size
-``makeComparator`` Changing the sorting
+``setSorting`` Changing the sorting
 ``switchMode``     Switching between modes
 ``state``          Need to read the internal state
 ``get*Page``       Need to go to a different page
@@ -385,108 +385,58 @@ return a links object.
 Sorting
 -------
 
-There are three ways you can sort a pageable collection. You can sort on the
-client-side by either supplying a ``comparator`` like you can do with a plain
-``Backbone.Collection``, by setting a ``sortKey`` and ``order`` to ``state``, or
-call the convenient method ``makeComparator`` with a ``sortKey`` and ``order``
-at any time.
+Sorting has been drastically simplified in the 1.0 release while retaining the
+full power it had in older versions.
 
-Each sorting method is valid for both server-mode and client-mode
-operations. Both modes are capable of sorting on either the current page or all
-of the pages.
+The main way to define a sorting for a pageable collection is to utilize the
+``setSorting`` method.  Given a ``sortKey`` and an ``order``, ``setSorting``
+sets ``state.sortKey`` and ``state.order`` to the given values. If ``order`` is
+not given, ``state.order`` is assumed. By default a comparator is applied to the
+full collection under client mode. Calling ``sort`` on the full collection will
+then get the entire pageable collection sorted globally. When operating under
+server or infinite mode, no comparator will be applied to the collection as
+sorting is assumed to be done on the server by default. Set ``options.full`` to
+``false`` to apply a comparator to the current page under any mode. To sort a
+pageable collection under infinite mode on the client side, set ``options.side``
+to ``"client"`` will apply a comparator to the full collection.
 
-The following matrices will help you understand all of the different ways you
-can sort on a pageable collection.
+Setting ``sortKey`` to ``null`` removes the comparator from both the current
+page and the full collection.
 
-Server-Mode
-+++++++++++
+.. code-block:: javascript
 
-+--------------+-----------------------------------------------+-------------------------------------+
-|              |Server-Current                                 |Server-Full                          |
-+==============+===============================================+=====================================+
-|comparator    | .. code-block:: javascript                    | N/A                                 |
-|              |                                               |                                     |
-|              |   var books = new Books([], {                 |                                     |
-|              |     comparator: function (l, r)  {            |                                     |
-|              |       var lv = l.get("name");                 |                                     |
-|              |       var rv = r.get("name");                 |                                     |
-|              |       if (lv == rv) return 0;                 |                                     |
-|              |       else if (lv < rv) return 1;             |                                     |
-|              |       else return -1;                         |                                     |
-|              |     }                                         |                                     |
-|              |   });                                         |                                     |
-|              |                                               |                                     |
-+--------------+-----------------------------------------------+-------------------------------------+
-|state         | N/A                                           | .. code-block:: javascript          |
-|              |                                               |                                     |
-|              |                                               |   // You need to bootstrap the      |
-|              |                                               |   // first page in a globally       |
-|              |                                               |   // sorted order                   |
-|              |                                               |   var books = new Books([], {       |
-|              |                                               |     state: {                        |
-|              |                                               |       sortKey: "name",              |
-|              |                                               |       order: 1                      |
-|              |                                               |     }                               |
-|              |                                               |   });                               |
-|              |                                               |   // Or perform a fetch using a     |
-|              |                                               |   // query string having the sort   |
-|              |                                               |   // key and order for a globally   |
-|              |                                               |   // sorted page                    |
-|              |                                               |   books.getPage(1);                 |
-|              |                                               |                                     |
-+--------------+-----------------------------------------------+-------------------------------------+
-|makeComparator| .. code-block:: javascript                    | N/A                                 |
-|              |                                               |                                     |
-|              |   var books = new Books([]);                  |                                     |
-|              |   var comp = books.makeComparator("name", 1); |                                     |
-|              |   books.comparator = comp;                    |                                     |
-|              |                                               |                                     |
-|              |                                               |                                     |
-+--------------+-----------------------------------------------+-------------------------------------+
+   var books = new Books([
+     ...
+   ], {
+     mode: "client"
+   });
 
-Client-Mode
-+++++++++++
+   // Sets a comparator on `#fullCollection` that sorts the title in ascending
+   // order
+   books.setSorting("title");
 
-+--------------+------------------------------------+---------------------------------------------+
-|              |Client-Current                      |Client-Full                                  |
-+==============+====================================+=============================================+
-|comparator    | Same as Server-Current. Set        | .. code-block:: javascript                  |
-|              | ``mode`` to ``"client"``.          |                                             |
-|              |                                    |   var books = new Books([], {               |
-|              |                                    |     comparator: function (l, r) {           |
-|              |                                    |       var lv = l.get("name");               |
-|              |                                    |       var rv = r.get("name");               |
-|              |                                    |       if (lv == rv) return 0;               |
-|              |                                    |       else if (lv < rv) return 1;           |
-|              |                                    |       else return -1;                       |
-|              |                                    |     },                                      |
-|              |                                    |     mode: "client",                         |
-|              |                                    |     full: true                              |
-|              |                                    |   });                                       |
-|              |                                    |                                             |
-+--------------+------------------------------------+---------------------------------------------+
-|state         | Same as Server-Full. Set           | .. code-block:: javascript                  |
-|              | ``mode`` to ``"client"``.          |                                             |
-|              |                                    |   var books = new Books([], {               |
-|              |                                    |     state: {                                |
-|              |                                    |       sortKey: "name",                      |
-|              |                                    |       order: 1                              |
-|              |                                    |     },                                      |
-|              |                                    |     mode: "client",                         |
-|              |                                    |     full: true                              |
-|              |                                    |   };                                        |
-|              |                                    |                                             |
-+--------------+------------------------------------+---------------------------------------------+
-|makeComparator| Same as Server-Current. Set        | .. code-block:: javascript                  |
-|              | ``mode`` to ``"client"``.          |                                             |
-|              |                                    |   var books = new Books([], {               |
-|              |                                    |     mode: "client",                         |
-|              |                                    |     full: true                              |
-|              |                                    |   });                                       |
-|              |                                    |   var comp = books.makeComparator("name");  |
-|              |                                    |   books.fullCollection.comparator = comp;   |
-|              |                                    |                                             |
-+--------------+------------------------------------+---------------------------------------------+
+   // Don't forget to call `sort` just like you would on a `Backbone.Collection`
+   books.fullCollection.sort();
+
+   // Clears the comparator
+   books.setSorting(null);
+
+   // Sets a comparator on the current page that sorts the title in descending
+   // order
+   books.setSorting("title", 1, {full: false})
+   books.sort();
+
+   books.switchMode("infinite");
+
+   // Sorts the books collection under infinite paging mode on the client side
+   books.setSorting("title", -1, {side: "client"});
+   books.fullCollection.sort();
+
+   books.switchMode("server");
+
+   // Sets a comparator on the current page under server mode
+   books.setSorting("title", {side: "client", full: false});
+   books.sort();
 
 Manipulation
 ------------
@@ -561,12 +511,17 @@ FAQ
 Change Log
 ----------
 
-1.0 (In Progress)
+1.0
   Bugs Fixed
     - Regression from 0.9.9 where ``mode`` wasn't saved after called ``switchMode``.
+  Changed
+    - ``makeComparator`` has been renamed to ``_makeComparator`` and is now a
+      protected method.
   Enhancements
     - Improved infinite-mode. Infinite paging mode now runs in a hybrid
       mode. See `issue #17 <https://github.com/wyuenho/backbone-pageable/issues/17>`_.
+    - Greatly simplified sorting. See `issue #19
+      <https://github.com/wyuenho/backbone-pageable/issues/19>`_.
 
 0.9.13
   Bugs Fixed
