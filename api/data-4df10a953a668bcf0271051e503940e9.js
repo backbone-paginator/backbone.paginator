@@ -220,11 +220,22 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "makeComparator",
-        "fullName": "Backbone.PageableCollection.makeComparator",
+        "name": "_makeComparator",
+        "fullName": "Backbone.PageableCollection._makeComparator",
         "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-makeComparator",
+        "url": "#!/api/Backbone.PageableCollection-method-_makeComparator",
         "meta": {
+          "protected": true
+        },
+        "sort": 3
+      },
+      {
+        "name": "setSorting",
+        "fullName": "Backbone.PageableCollection.setSorting",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-setSorting",
+        "meta": {
+          "chainable": true
         },
         "sort": 3
       }
