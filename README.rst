@@ -376,7 +376,6 @@ return a links object.
      // Facebook's `paging` object is in the exact format
      // `Backbone.PageableCollection` accepts.
      parseLinks: function (resp, xhr) {
-       this.state.currentPage++;
        return resp.comments.paging;
      }
    });
