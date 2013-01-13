@@ -207,7 +207,7 @@ pagination-specific operations to ensure internal state consistency.
 Method             Use When
 ================== ===============================
 ``setPageSize``    Changing the page size
-``setSorting`` Changing the sorting
+``setSorting``     Changing the sorting
 ``switchMode``     Switching between modes
 ``state``          Need to read the internal state
 ``get*Page``       Need to go to a different page
