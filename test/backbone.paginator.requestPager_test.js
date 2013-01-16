@@ -252,6 +252,54 @@ describe('backbone.paginator.requestPager',function(){
       expect(spy.lastCall.args[0]['data']).to.equal('a[one]=1&a[two]=2&a[three]=3');
     });
 
+    it('should use the correct "options.success" arguments', function(done){
+      // This is to keep compatibility with Backbone older than 0.9.10
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {
+          type: 'GET',
+          dataType: 'json'
+        }
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([200, { "Content-Type": "application/json" }, '{ "key": "value" }']);
+
+      var bbVer = Backbone.VERSION.split('.');
+      var oldSuccessFormat = (parseInt(bbVer[0], 10) === 0 &&
+                              parseInt(bbVer[1], 10) === 9 &&
+                              parseInt(bbVer[2], 10) <= 9);
+
+      var model = {};
+
+      var options = {
+        success: function(model_, resp_, options) {
+          // verify
+          var bbVer = Backbone.VERSION.split('.');
+          if (oldSuccessFormat) {
+            var status_ = resp_;
+            resp_ = model_;
+            var xhr_ = options;
+            expect(resp_['key']).to.equal('value');
+            expect(status_).to.equal('success');
+            expect(xhr_).to.have.property('status', 200);
+          } else {
+            expect(model_).to.equal(model);
+            expect(resp_['key']).to.equal('value');
+            expect(options).to.have.property('xhr');
+          }
+          done();
+        }
+      };
+
+      // execute
+      requestPagerTest.sync(null, model, options);
+
+      server.restore();
+    });
+
     it("should emit 'request' event when collection has started a request to the server", function(){
       var requestPagerTest = {
         paginator_ui: {},
