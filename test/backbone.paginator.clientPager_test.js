@@ -36,7 +36,7 @@ describe('backbone.paginator.clientPager', function() {
       this.addSpy.restore();
       this.clientPagerTest.add(model);
       this.clientPagerTest.remove(model);
-      
+
       expect(this.removeSpy.calledOnce).to.equal(true);
     });
 
@@ -251,6 +251,55 @@ describe('backbone.paginator.clientPager', function() {
       expect(spy.lastCall.args[0]['data']).to.equal('a[one]=1&a[two]=2&a[three]=3');
     });
 
+
+    it('should use the correct "options.success" arguments', function(done){
+      // This is to keep compatibility with Backbone older than 0.9.10
+      var clientPagerTest = {
+        paginator_ui: {},
+        paginator_core: {
+          type: 'GET',
+          dataType: 'json'
+        }
+      };
+      _.extend(clientPagerTest, new Backbone.Paginator.clientPager());
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([200, { "Content-Type": "application/json" }, '{ "key": "value" }']);
+
+      var bbVer = Backbone.VERSION.split('.');
+      var oldSuccessFormat = (parseInt(bbVer[0], 10) === 0 &&
+                              parseInt(bbVer[1], 10) === 9 &&
+                              parseInt(bbVer[2], 10) <= 9);
+
+      var model = {};
+
+      var options = {
+        success: function(model_, resp_, options) {
+          // verify
+          var bbVer = Backbone.VERSION.split('.');
+          if (oldSuccessFormat) {
+            var status_ = resp_;
+            resp_ = model_;
+            var xhr_ = options;
+            expect(resp_['key']).to.equal('value');
+            expect(status_).to.equal('success');
+            expect(xhr_).to.have.property('status', 200);
+          } else {
+            expect(model_).to.equal(model);
+            expect(resp_['key']).to.equal('value');
+            expect(options).to.have.property('xhr');
+          }
+          done();
+        }
+      };
+
+      // execute
+      clientPagerTest.sync(null, model, options);
+
+      server.restore();
+    });
+
     describe('"request" "sync" and "error" events ', function() {
       var OPTS = {
           model: Backbone.Model,
@@ -280,7 +329,7 @@ describe('backbone.paginator.clientPager', function() {
         var model = {
           trigger: sinon.spy()
         };
-          
+
         // execute
         var options = {};
         coll.sync('read', model, options);
@@ -357,7 +406,7 @@ describe('backbone.paginator.clientPager', function() {
 
       expect(this.clientPagerTest.currentPage).to.equal(99);
       expect(pagerSpy.calledOnce).to.equal(false);
-      
+
       pagerSpy.restore();
     });
   });
@@ -380,13 +429,13 @@ describe('backbone.paginator.clientPager', function() {
   describe('goTo', function() {
     it('should set "currentPage" and call "pager" method', function() {
       var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
-      
+
       expect(this.clientPagerTest.currentPage).not.to.equal(99);
       this.clientPagerTest.goTo(99);
 
       expect(this.clientPagerTest.currentPage).to.equal(99);
       expect(pagerSpy.calledOnce).to.equal(true);
-      
+
       pagerSpy.restore();
     });
     it('should not do anything if goTo page is undefined', function() {
@@ -396,21 +445,21 @@ describe('backbone.paginator.clientPager', function() {
 
       expect(this.clientPagerTest.currentPage).to.equal(7);
       expect(pagerSpy.calledOnce).to.equal(false);
-      
+
       pagerSpy.restore();
     });
   });
   describe('howManyPer', function() {
     it('should set perPage, currentPage and call pager method', function() {
       var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
-      
+
       this.clientPagerTest.perPage = 4;
       this.clientPagerTest.currentPage = 5;
       this.clientPagerTest.howManyPer(3);
 
       expect(this.clientPagerTest.currentPage).to.equal(6);
       expect(pagerSpy.calledOnce).to.equal(true);
-      
+
       pagerSpy.restore();
     });
     it('should not do anything if  perPage is undefined', function() {
@@ -418,11 +467,11 @@ describe('backbone.paginator.clientPager', function() {
       this.clientPagerTest.howManyPer();
 
       expect(pagerSpy.calledOnce).to.equal(false);
-      
+
       pagerSpy.restore();
     });
   });
-    
+
   //TODO: write tests for these methods
   //setSort
   //setFieldFilter
