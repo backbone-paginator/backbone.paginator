@@ -203,15 +203,16 @@ unusual circumstances where you need to modify the ``state`` object directly, a
 sanity check will be performed at the next time you perform any
 pagination-specific operations to ensure internal state consistency.
 
-================== ===============================
-Method             Use When
-================== ===============================
-``setPageSize``    Changing the page size
-``setSorting``     Changing the sorting
-``switchMode``     Switching between modes
-``state``          Need to read the internal state
-``get*Page``       Need to go to a different page
-================== ===============================
+======================== ===============================================
+Method                   Use When
+======================== ===============================================
+``setPageSize``          Changing the page size
+``setSorting``           Changing the sorting
+``switchMode``           Switching between modes
+``state``                Need to read the internal state
+``get*Page``             Need to go to a different page
+``hasPrevious, hasNext`` Check if paging backward or forward is possible
+======================== ===============================================
 
 In addition to the above methods, you can also synchronize the state with the
 server during a fetch. ``Backbone.PageableCollection`` overrides the default
@@ -329,12 +330,31 @@ links are available in the ``links`` field.
 
 .. code-block:: javascript
 
-   var Issue = Backbone.Model.extend({});
-
    var Issues = Backbone.PageableCollection.extend({
-     model: Issue,
      url: "https://api.github.com/repos/documentclound/backbone/issues?state=closed",
      mode: "infinite"
+
+     // Initial pagination states
+     state: {
+       pageSize: 15,
+       sortKey: "updated",
+       order: 1
+     },
+
+     // You can remap the query parameters from ``state`` keys from the default
+     // to those your server supports. Setting ``null`` on queryParams removed them
+     // from being appended to the request URLs.
+     queryParams: {
+       totalPages: null,
+       totalRecords: null,
+       sortKey: "sort",
+       order: "direction",
+       directions: {
+         "-1": "asc",
+         "1": "desc"
+       }
+     }
+
    });
 
    var issues = new Issues();
@@ -509,6 +529,13 @@ FAQ
 
 Change Log
 ----------
+
+1.1 (In Progress)
+  Bugs Fixed
+    - Lots of fixes for infinite paging.
+  Enhancements
+    - Introduced ``hasPrevious`` and ``hasNext`` for checking if the pageable
+      collection can be paged backward or forward.
 
 1.0
   Bugs Fixed

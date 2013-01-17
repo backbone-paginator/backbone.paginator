@@ -65,16 +65,6 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "links",
-        "fullName": "Backbone.PageableCollection.links",
-        "icon": "icon-property",
-        "url": "#!/api/Backbone.PageableCollection-property-links",
-        "meta": {
-          "readonly": true
-        },
-        "sort": 3
-      },
-      {
         "name": "fullCollection",
         "fullName": "Backbone.PageableCollection.fullCollection",
         "icon": "icon-property",
@@ -143,6 +133,24 @@ Docs = {
         "sort": 3
       },
       {
+        "name": "hasPrevious",
+        "fullName": "Backbone.PageableCollection.hasPrevious",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-hasPrevious",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
+        "name": "hasNext",
+        "fullName": "Backbone.PageableCollection.hasNext",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-hasNext",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
         "name": "getFirstPage",
         "fullName": "Backbone.PageableCollection.getFirstPage",
         "icon": "icon-method",
@@ -187,6 +195,16 @@ Docs = {
         "fullName": "Backbone.PageableCollection.getPage",
         "icon": "icon-method",
         "url": "#!/api/Backbone.PageableCollection-method-getPage",
+        "meta": {
+          "chainable": true
+        },
+        "sort": 3
+      },
+      {
+        "name": "sync",
+        "fullName": "Backbone.PageableCollection.sync",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-sync",
         "meta": {
           "chainable": true
         },

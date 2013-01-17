@@ -242,8 +242,8 @@ $(document).ready(function () {
   });
 
   test("sync", 5, function () {
-    var ajax = jQuery.ajax;
-    jQuery.ajax = function (settings) {
+    var ajax = $.ajax;
+    $.ajax = function (settings) {
       settings.success();
     };
 
@@ -267,12 +267,12 @@ $(document).ready(function () {
     col.fullCollection.at(0).save();
     col.fullCollection.at(1).save();
 
-    jQuery.ajax = ajax;
+    $.ajax = ajax;
   });
 
   test("reset and sort", function () {
     if (Backbone.VERSION == "0.9.2") {
-      expect(37);
+      expect(36);
     }
     else {
       expect(33);
@@ -362,10 +362,17 @@ $(document).ready(function () {
     ok(col.state.totalPages === 2);
   });
 
-  test("fetch", 10, function () {
+  test("fetch", function () {
 
-    var ajax = jQuery.ajax;
-    jQuery.ajax = function (settings) {
+    if (Backbone.VERSION == "0.9.2") {
+      expect(12);
+    }
+    else {
+      expect(11);
+    }
+
+    var ajax = $.ajax;
+    $.ajax = function (settings) {
 
       ok(settings.url === "test-client-fetch");
       deepEqual(settings.data, {
@@ -393,11 +400,15 @@ $(document).ready(function () {
     });
 
     var onReset = function () {
-      ok(true);
+      ok(true, "current page reset");
+    };
+
+    var onFullReset = function () {
+      ok(true, "full reset");
     };
 
     col.on("reset", onReset);
-    col.fullCollection.on("reset", onReset);
+    col.fullCollection.on("reset", onFullReset);
 
     col.fetch();
 
@@ -408,7 +419,7 @@ $(document).ready(function () {
     ok(col.fullCollection.at(2).get("name") === "b");
     ok(col.fullCollection.at(3).get("name") === "a");
 
-    jQuery.ajax = ajax;
+    $.ajax = ajax;
   });
 
   test("getPage", function () {

@@ -244,7 +244,7 @@ $(document).ready(function () {
 
   test("fetch", function () {
 
-    this.stub(jQuery, "ajax");
+    this.stub($, "ajax");
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test-fetch",
@@ -253,14 +253,14 @@ $(document).ready(function () {
 
     col.fetch();
 
-    ok(jQuery.ajax.callCount === 1);
-    ok(jQuery.ajax.args[0][0].url === "test-fetch");
-    deepEqual(jQuery.ajax.args[0][0].data, {
+    ok($.ajax.callCount === 1);
+    ok($.ajax.args[0][0].url === "test-fetch");
+    deepEqual($.ajax.args[0][0].data, {
       page: 1,
       "per_page": 25
     });
 
-    jQuery.ajax.reset();
+    $.ajax.reset();
 
     col.state.sortKey = "name",
     col.state.totalRecords = 50;
@@ -273,11 +273,11 @@ $(document).ready(function () {
 
     col.fetch({add: true, silent: true});
 
-    ok(jQuery.ajax.callCount === 1);
-    ok(jQuery.ajax.args[0][0].url === "test-fetch");
-    ok(jQuery.ajax.args[0][0].add === true);
-    ok(jQuery.ajax.args[0][0].silent === true);
-    deepEqual(jQuery.ajax.args[0][0].data, {
+    ok($.ajax.callCount === 1);
+    ok($.ajax.args[0][0].url === "test-fetch");
+    ok($.ajax.args[0][0].add === true);
+    ok($.ajax.args[0][0].silent === true);
+    deepEqual($.ajax.args[0][0].data, {
       page: 0,
       "per_page": 50,
       "sort_by": "name",
@@ -286,7 +286,7 @@ $(document).ready(function () {
       "access_token": 1
     });
 
-    jQuery.ajax.restore();
+    $.ajax.restore();
   });
 
   test("getPage", function () {

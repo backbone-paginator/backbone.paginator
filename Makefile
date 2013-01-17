@@ -25,7 +25,7 @@ clean:
 
 doc:
 	jsduck $(JS_FILE) \
-		--external=Backbone.Model,Backbone.Collection,jQuery.jqXHR \
+		--external=Backbone.Model,Backbone.Collection,XMLHttpRequest \
 		--title=backbone-pageable \
 		--no-source \
 		--categories=categories.json \
