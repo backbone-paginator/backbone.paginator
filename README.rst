@@ -530,12 +530,14 @@ FAQ
 Change Log
 ----------
 
-1.1 (In Progress)
+1.1
   Bugs Fixed
     - Lots of fixes for infinite paging.
+    - Fixed incompatibility with Zepto.
   Enhancements
     - Introduced ``hasPrevious`` and ``hasNext`` for checking if the pageable
       collection can be paged backward or forward.
+    - Tested against Backbone 0.9.10, jQuery 1.9 and Zepto 1.0rc1.
 
 1.0
   Bugs Fixed
