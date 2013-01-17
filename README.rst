@@ -42,7 +42,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  The library is only 3.2 kb minified and gzipped.
+  The library is only 3.7 kb minified and gzipped.
 
 
 Installation
