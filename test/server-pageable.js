@@ -244,7 +244,7 @@ $(document).ready(function () {
 
   test("fetch", function () {
 
-    this.stub($, "ajax");
+    sinon.stub($, "ajax");
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test-fetch",
@@ -307,7 +307,7 @@ $(document).ready(function () {
       col.getPage(5);
     }, "`index` must be firstPage <= index <= lastPage");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getPage(2, {add: true, silent: true});
     ok(col.state.currentPage === 2);
@@ -324,7 +324,7 @@ $(document).ready(function () {
       }
     });
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getFirstPage();
 
@@ -342,7 +342,7 @@ $(document).ready(function () {
       }
     });
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getPreviousPage();
 
@@ -365,7 +365,7 @@ $(document).ready(function () {
       }
     });
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getNextPage();
 
@@ -388,7 +388,7 @@ $(document).ready(function () {
       }
     });
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getLastPage();
 
@@ -405,7 +405,7 @@ $(document).ready(function () {
       }
     });
 
-    this.stub(col, "getPage");
+    sinon.stub(col, "getPage");
 
     col.setPageSize(200);
     ok(col.state.pageSize === 200);

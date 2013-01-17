@@ -434,7 +434,7 @@ $(document).ready(function () {
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "b");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getPage(1, {fetch: true});
     ok(col.fetch.calledOnce);
@@ -453,7 +453,7 @@ $(document).ready(function () {
     ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getFirstPage({fetch: true});
     ok(col.fetch.calledOnce);
@@ -473,7 +473,7 @@ $(document).ready(function () {
     ok(col.at(0).get("name") === "a");
     ok(col.at(1).get("name") === "c");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getNextPage();
     col.getPreviousPage({fetch: true});
@@ -492,7 +492,7 @@ $(document).ready(function () {
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "b");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getPreviousPage();
     col.getNextPage({fetch: true});
@@ -511,7 +511,7 @@ $(document).ready(function () {
     ok(col.size() === 1);
     ok(col.at(0).get("name") === "b");
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.getLastPage({fetch: true});
     ok(col.fetch.calledOnce);

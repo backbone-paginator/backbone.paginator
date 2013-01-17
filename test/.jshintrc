@@ -26,6 +26,7 @@
     "deepEqual": false,
     "expect": false,
     "throws": false,
+    "sinon": false,
     "Backbone": false,
     "_": false
   }

@@ -22,7 +22,7 @@ $(document).ready(function () {
 
   test("switchMode", function () {
 
-    this.stub(col, "fetch");
+    sinon.stub(col, "fetch");
 
     col.switchMode("client");
 

@@ -58,7 +58,7 @@ $(document).ready(function () {
   });
 
   test("fetch", 2, function () {
-    this.stub(Backbone.Collection.prototype, "fetch");
+    sinon.stub(Backbone.Collection.prototype, "fetch");
     col.fetch();
     ok(Backbone.Collection.prototype.fetch.calledOnce);
     ok(Backbone.Collection.prototype.fetch.args[0][0].url === "url");
@@ -80,7 +80,7 @@ $(document).ready(function () {
       col.getPage("nosuchpage");
     });
 
-    this.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
+    sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
 
     var ajax = $.ajax;
     $.ajax = function (settings) {
@@ -190,6 +190,8 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 4}, {id: 5}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 4}, {id: 5}]);
+
+    col.parseLinks.restore();
 
     $.ajax = ajax;
   });
