@@ -396,6 +396,15 @@ $(document).ready(function() {
     equal(this.syncArgs.options.parse, false);
   });
 
+  test("ensure fetch works if a collection's url is a method", 1, function() {
+    var collection = new Backbone.PageableCollection;
+    collection.url = function() {
+        return '/test';
+    }
+    collection.fetch();
+    equal(this.syncArgs.options.url, '/test')
+  });
+
   test("ensure fetch only parses once", 1, function() {
     var collection = new Backbone.PageableCollection;
     var counter = 0;
