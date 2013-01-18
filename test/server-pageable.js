@@ -247,8 +247,7 @@ $(document).ready(function () {
     sinon.stub($, "ajax");
 
     var col = new (Backbone.PageableCollection.extend({
-      url: "test-fetch",
-      model: Backbone.Model
+      url: function () { return "test-fetch"; }
     }))();
 
     col.fetch();
