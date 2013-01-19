@@ -23,6 +23,7 @@
     "test": false,
     "module": false,
     "equal": false,
+    "strictEqual": false,
     "deepEqual": false,
     "expect": false,
     "throws": false,

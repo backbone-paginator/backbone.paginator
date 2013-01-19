@@ -39,16 +39,16 @@ $(document).ready(function () {
 
     ok(!_.isUndefined(fullCol));
     ok(_.isUndefined(fullCol.constructor.prototype.comparator));
-    ok(fullCol.comparator === comparator);
-    ok(fullCol.constructor.prototype.sync === sync);
-    ok(fullCol.sync === sync);
-    ok(fullCol.constructor.prototype.model === Backbone.Model);
-    ok(fullCol.model === Backbone.Model);
-    ok(fullCol.constructor.prototype.url === "test/makeFullCollection");
-    ok(fullCol.url === "test/makeFullCollection");
-    ok(fullCol.at(0).get("name") === "a");
-    ok(fullCol.at(1).get("name") === "b");
-    ok(fullCol.at(2).get("name") === "c");
+    strictEqual(fullCol.comparator, comparator);
+    strictEqual(fullCol.constructor.prototype.sync, sync);
+    strictEqual(fullCol.sync, sync);
+    strictEqual(fullCol.constructor.prototype.model, Backbone.Model);
+    strictEqual(fullCol.model, Backbone.Model);
+    strictEqual(fullCol.constructor.prototype.url, "test/makeFullCollection");
+    strictEqual(fullCol.url, "test/makeFullCollection");
+    strictEqual(fullCol.at(0).get("name"), "a");
+    strictEqual(fullCol.at(1).get("name"), "b");
+    strictEqual(fullCol.at(2).get("name"), "c");
 
     a.collection = col;
     c.collection = col;
@@ -58,13 +58,13 @@ $(document).ready(function () {
       a, c, b
     ]);
 
-    ok(fullCol.at(0).get("name") === "a");
-    ok(fullCol.at(1).get("name") === "c");
-    ok(fullCol.at(2).get("name") === "b");
+    strictEqual(fullCol.at(0).get("name"), "a");
+    strictEqual(fullCol.at(1).get("name"), "c");
+    strictEqual(fullCol.at(2).get("name"), "b");
 
-    ok(fullCol.at(0).collection === col);
-    ok(fullCol.at(1).collection === col);
-    ok(fullCol.at(2).collection === col);
+    strictEqual(fullCol.at(0).collection, col);
+    strictEqual(fullCol.at(1).collection, col);
+    strictEqual(fullCol.at(2).collection, col);
   });
 
   test("initialize", function () {
@@ -88,16 +88,16 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    ok(col.state.totalRecords === 3);
-    ok(col.comparator === comparator);
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
-    ok(col.fullCollection.size() === 3);
-    ok(col.at(0) === col.fullCollection.at(0));
-    ok(col.fullCollection.at(0).get("name") === "a");
-    ok(col.fullCollection.at(1).get("name") === "c");
-    ok(col.fullCollection.at(2).get("name") === "b");
+    strictEqual(col.state.totalRecords, 3);
+    strictEqual(col.comparator, comparator);
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.at(0), col.fullCollection.at(0));
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
 
     mods = models.slice();
 
@@ -110,19 +110,19 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    ok(col.state.totalRecords === 3);
+    strictEqual(col.state.totalRecords, 3);
     ok(!_.isUndefined(col.fullCollection.comparator));
     ok(_.isUndefined(col.comparator));
 
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "a");
-    ok(col.fullCollection.size() === 3);
-    ok(col.fullCollection.at(0).get("name") === "a");
-    ok(col.fullCollection.at(1).get("name") === "b");
-    ok(col.fullCollection.at(2).get("name") === "c");
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "b");
+    strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
-  test("add", 27, function () {
+  test("add", 32, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -130,45 +130,49 @@ $(document).ready(function () {
       mode: "client"
     });
 
+    var lastTotalRecords = col.state.totalRecords;
     var onAdd = function () {
       ok(true);
+      strictEqual(col.state.totalRecords, lastTotalRecords + 1);
     };
     col.fullCollection.on("add", onAdd);
     col.on("add", onAdd);
 
     var d = new Backbone.Model({name: "d"});
     col.add(d);
-    ok(col.state.totalRecords === 4);
-    ok(col.state.totalPages === 2);
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
-    ok(col.fullCollection.at(0).get("name") === "a");
-    ok(col.fullCollection.at(1).get("name") === "c");
-    ok(col.fullCollection.at(2).get("name") === "d");
-    ok(col.fullCollection.at(3).get("name") === "b");
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "d");
+    strictEqual(col.fullCollection.at(3).get("name"), "b");
 
+    lastTotalRecords = col.state.totalRecords;
     var e = new Backbone.Model({name: "e"});
     col.fullCollection.push(e);
-    ok(col.state.totalRecords === 5);
-    ok(col.state.totalPages === 3);
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
-    ok(col.fullCollection.at(4).get("name") === "e");
-    ok(col.indexOf(e.cid) === -1);
+    strictEqual(col.state.totalRecords, 5);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(4).get("name"), "e");
+    strictEqual(col.indexOf(e.cid), -1);
 
+    lastTotalRecords = col.state.totalRecords;
     var f = new Backbone.Model({name: "f"});
     col.fullCollection.unshift(f);
-    ok(col.state.totalRecords === 6);
-    ok(col.state.totalPages === 3);
-    ok(col.fullCollection.size() === 6);
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "f");
-    ok(col.at(1).get("name") === "a");
+    strictEqual(col.state.totalRecords, 6);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.fullCollection.size(), 6);
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "f");
+    strictEqual(col.at(1).get("name"), "a");
   });
 
-  test("remove", 32, function () {
+  test("remove", 46, function () {
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -182,44 +186,62 @@ $(document).ready(function () {
       mode: "client"
     });
 
+    var lastTotalRecords = col.state.totalRecords;
+    var lastTotalPages = col.state.totalPages;
     var onRemove = function () {
       ok(true);
+      strictEqual(col.state.totalRecords, lastTotalRecords - 1);
+      strictEqual(col.state.totalPages, lastTotalPages - 1);
     };
     col.on("remove", onRemove);
     col.fullCollection.on("remove", onRemove);
 
     col.fullCollection.remove(col.fullCollection.last());
-    ok(col.state.totalRecords === 3);
-    ok(col.state.totalPages === 3);
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "a");
-    ok(col.fullCollection.size() === 3);
-    ok(col.fullCollection.at(0).get("name") === "a");
-    ok(col.fullCollection.at(1).get("name") === "c");
-    ok(col.fullCollection.at(2).get("name") === "b");
+    strictEqual(col.state.totalRecords, 3);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
 
+    lastTotalRecords = col.state.totalRecords;
+    lastTotalPages = col.state.totalPages;
     col.fullCollection.remove(col.fullCollection.first());
-    ok(col.state.totalRecords === 2);
-    ok(col.state.totalPages === 2);
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "c");
-    ok(col.fullCollection.size() === 2);
-    ok(col.fullCollection.at(0).get("name") === "c");
-    ok(col.fullCollection.at(1).get("name") === "b");
+    strictEqual(col.state.totalRecords, 2);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.fullCollection.size(), 2);
+    strictEqual(col.fullCollection.at(0).get("name"), "c");
+    strictEqual(col.fullCollection.at(1).get("name"), "b");
 
+    lastTotalRecords = col.state.totalRecords;
+    lastTotalPages = col.state.totalPages;
     col.remove(col.first());
-    ok(col.state.totalRecords === 1);
-    ok(col.state.totalPages === 1);
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "b");
-    ok(col.fullCollection.size() === 1);
-    ok(col.fullCollection.at(0).get("name") === "b");
+    strictEqual(col.state.totalRecords, 1);
+    strictEqual(col.state.totalPages, 1);
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
+    strictEqual(col.fullCollection.size(), 1);
+    strictEqual(col.fullCollection.at(0).get("name"), "b");
 
+    col.off("remove", onRemove);
+    col.fullCollection.off("remove", onRemove);
+    onRemove = function () {
+      ok(true);
+      strictEqual(col.state.totalRecords, null);
+      strictEqual(col.state.totalPages, null);
+    };
+    col.on("remove", onRemove);
+    col.fullCollection.on("remove", onRemove);
     col.remove(col.fullCollection.first());
-    ok(col.state.totalRecords === null);
-    ok(col.state.totalPages === null);
-    ok(col.size() === 0);
-    ok(col.fullCollection.size() === 0);
+
+    strictEqual(col.state.totalRecords, null);
+    strictEqual(col.state.totalPages, null);
+    strictEqual(col.size(), 0);
+    strictEqual(col.fullCollection.size(), 0);
   });
 
   test("change", 6, function () {
@@ -236,7 +258,7 @@ $(document).ready(function () {
     col.on("change", onChange);
     col.fullCollection.on("change", onChange);
     col.at(0).set("name", "e");
-    ok(col.fullCollection.at(0).get("name") === "e");
+    strictEqual(col.fullCollection.at(0).get("name"), "e");
     col.fullCollection.at(1).set("name", "f");
     col.fullCollection.at(0).set("name", "g");
   });
@@ -272,77 +294,106 @@ $(document).ready(function () {
 
   test("reset and sort", function () {
     if (Backbone.VERSION == "0.9.2") {
-      expect(36);
+      expect(78);
     }
     else {
-      expect(33);
+      expect(62);
     }
 
     var mods = models.slice();
-
     var col = new Backbone.PageableCollection(mods, {
       state: {
         pageSize: 2
       },
       mode: "client"
     });
-
     var onReset = function () {
       ok(true);
+      strictEqual(col.state.totalRecords, 4);
+      strictEqual(col.state.totalPages, 2);
+      strictEqual(col.state.lastPage, 2);
     };
-
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
-
     col.fullCollection.reset([
       {name: "e"},
       {name: "f"},
-      {name: "d"}
+      {name: "d"},
+      {name: "g"}
     ]);
 
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "e");
-    ok(col.at(1).get("name") === "f");
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 4);
+    strictEqual(col.at(0).get("name"), "e");
+    strictEqual(col.at(1).get("name"), "f");
+    strictEqual(col.fullCollection.at(0).get("name"), "e");
+    strictEqual(col.fullCollection.at(1).get("name"), "f");
+    strictEqual(col.fullCollection.at(2).get("name"), "d");
+    strictEqual(col.fullCollection.at(3).get("name"), "g");
 
     col.fullCollection.comparator = comparator;
     col.fullCollection.sort();
 
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "d");
-    ok(col.at(1).get("name") === "e");
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "d");
+    strictEqual(col.at(1).get("name"), "e");
 
     mods = models.slice();
-
     col = new Backbone.PageableCollection(mods, {
       state: {
         pageSize: 2
       },
       mode: "client"
     });
-
+    onReset = function () {
+      ok(true);
+      strictEqual(col.state.totalRecords, 3);
+      strictEqual(col.state.totalPages, 2);
+      strictEqual(col.state.lastPage, 2);
+    };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
-
     col.comparator = comparator;
     col.sort();
 
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
-
-    ok(col.fullCollection.at(0).get("name") === "a");
-    ok(col.fullCollection.at(1).get("name") === "c");
-    ok(col.fullCollection.at(2).get("name") === "b");
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
 
     col.comparator = null;
-
+    col.off("reset", onReset);
+    col.fullCollection.off("reset", onReset);
+    onReset = function () {
+      ok(true);
+      strictEqual(col.state.totalRecords, 3);
+      strictEqual(col.state.totalPages, 2);
+      strictEqual(col.state.lastPage, 2);
+    };
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
     mods = [new Backbone.Model({name: "g"}), col.at(0)];
     col.reset(mods);
-    ok(col.at(0).get("name") === "g");
-    ok(col.at(1).get("name") === "a");
-    ok(col.fullCollection.at(0).get("name") === "g");
-    ok(col.fullCollection.at(1).get("name") === "a");
-    ok(col.fullCollection.at(2).get("name") === "b");
 
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 3);
+    strictEqual(col.at(0).get("name"), "g");
+    strictEqual(col.at(1).get("name"), "a");
+    strictEqual(col.fullCollection.at(0).get("name"), "g");
+    strictEqual(col.fullCollection.at(1).get("name"), "a");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+
+    col.off("reset", onReset);
+    col.fullCollection.off("reset", onReset);
+    onReset = function () {
+      ok(true);
+      strictEqual(col.state.totalRecords, 4);
+      strictEqual(col.state.totalPages, 2);
+      strictEqual(col.state.lastPage, 2);
+    };
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
     col.fullCollection.reset([
       {name: "j"},
       {name: "h"},
@@ -350,16 +401,17 @@ $(document).ready(function () {
       {name: "k"}
     ]);
 
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "j");
-    ok(col.at(1).get("name") === "h");
-    ok(col.fullCollection.at(0).get("name") === "j");
-    ok(col.fullCollection.at(1).get("name") === "h");
-    ok(col.fullCollection.at(2).get("name") === "i");
-    ok(col.fullCollection.at(3).get("name") === "k");
-    ok(col.state.totalRecords === 4);
-    ok(col.state.lastPage === 2);
-    ok(col.state.totalPages === 2);
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 4);
+    strictEqual(col.at(0).get("name"), "j");
+    strictEqual(col.at(1).get("name"), "h");
+    strictEqual(col.fullCollection.at(0).get("name"), "j");
+    strictEqual(col.fullCollection.at(1).get("name"), "h");
+    strictEqual(col.fullCollection.at(2).get("name"), "i");
+    strictEqual(col.fullCollection.at(3).get("name"), "k");
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.state.totalPages, 2);
   });
 
   test("fetch", function () {
@@ -374,7 +426,7 @@ $(document).ready(function () {
     var ajax = $.ajax;
     $.ajax = function (settings) {
 
-      ok(settings.url === "test-client-fetch");
+      strictEqual(settings.url, "test-client-fetch");
       deepEqual(settings.data, {
         "sort_by": "name",
         "order": "desc"
@@ -400,11 +452,11 @@ $(document).ready(function () {
     });
 
     var onReset = function () {
-      ok(true, "current page reset");
+      ok(true);
     };
 
     var onFullReset = function () {
-      ok(true, "full reset");
+      ok(true);
     };
 
     col.on("reset", onReset);
@@ -412,12 +464,12 @@ $(document).ready(function () {
 
     col.fetch();
 
-    ok(col.at(0).get("name") === "d");
-    ok(col.at(1).get("name") === "c");
-    ok(col.fullCollection.at(0).get("name") === "d");
-    ok(col.fullCollection.at(1).get("name") === "c");
-    ok(col.fullCollection.at(2).get("name") === "b");
-    ok(col.fullCollection.at(3).get("name") === "a");
+    strictEqual(col.at(0).get("name"), "d");
+    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(0).get("name"), "d");
+    strictEqual(col.fullCollection.at(1).get("name"), "c");
+    strictEqual(col.fullCollection.at(2).get("name"), "b");
+    strictEqual(col.fullCollection.at(3).get("name"), "a");
 
     $.ajax = ajax;
   });
@@ -431,8 +483,8 @@ $(document).ready(function () {
     });
 
     col.getPage(2);
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "b");
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
@@ -449,9 +501,9 @@ $(document).ready(function () {
     });
 
     col.getFirstPage();
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
 
     sinon.stub(col, "fetch");
 
@@ -469,9 +521,9 @@ $(document).ready(function () {
 
     col.getNextPage();
     col.getPreviousPage();
-    ok(col.size() === 2);
-    ok(col.at(0).get("name") === "a");
-    ok(col.at(1).get("name") === "c");
+    strictEqual(col.size(), 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
 
     sinon.stub(col, "fetch");
 
@@ -489,8 +541,8 @@ $(document).ready(function () {
     });
 
     col.getNextPage();
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "b");
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
@@ -508,8 +560,8 @@ $(document).ready(function () {
     });
 
     col.getLastPage();
-    ok(col.size() === 1);
-    ok(col.at(0).get("name") === "b");
+    strictEqual(col.size(), 1);
+    strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
@@ -527,9 +579,9 @@ $(document).ready(function () {
 
     col.setPageSize(1);
 
-    ok(col.state.pageSize === 1);
-    ok(col.state.totalPages === 3);
-    ok(col.state.lastPage === 3);
+    strictEqual(col.state.pageSize, 1);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.state.lastPage, 3);
   });
 
   test("issue #15", function () {
@@ -542,10 +594,10 @@ $(document).ready(function () {
     });
 
     col.fullCollection.remove(col.fullCollection.last());
-    ok(col.state.currentPage === 1);
-    ok(col.state.totalRecords === 2);
-    ok(col.state.lastPage === 1);
-    ok(col.state.totalPages === 1);
+    strictEqual(col.state.currentPage, 1);
+    strictEqual(col.state.totalRecords, 2);
+    strictEqual(col.state.lastPage, 1);
+    strictEqual(col.state.totalPages, 1);
   });
 
 });

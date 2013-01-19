@@ -9,12 +9,12 @@ $(document).ready(function () {
 
     col = new Backbone.PageableCollection();
     comparator = col._makeComparator();
-    equal(comparator, undefined);
+    strictEqual(comparator, undefined);
 
     col.state.sortKey = "name";
     col.state.order = 0;
     comparator = col._makeComparator();
-    equal(comparator, undefined);
+    strictEqual(comparator, undefined);
 
     col = col.reset([{name: "b"}, {name: "c"}, {name: "a"}, {name: "a"}]);
     col.state.order = -1;
@@ -45,14 +45,14 @@ $(document).ready(function () {
     });
 
     col.setSorting("id");
-    ok(col.state.sortKey == "id");
-    ok(col.state.order === -1);
+    strictEqual(col.state.sortKey, "id");
+    strictEqual(col.state.order, -1);
     ok(_.isUndefined(col.state.comparator));
     deepEqual(col.toJSON(), [{id: 2}, {id: 1}, {id: 3}]);
 
     col.setSorting("id", 1);
-    ok(col.state.sortKey == "id");
-    ok(col.state.order === 1);
+    strictEqual(col.state.sortKey, "id");
+    strictEqual(col.state.order, 1);
     ok(_.isUndefined(col.state.comparator));
     deepEqual(col.toJSON(), [{id: 2}, {id: 1}, {id: 3}]);
 
@@ -90,7 +90,6 @@ $(document).ready(function () {
     col.setSorting(null);
     ok(_.isUndefined(col.comparator));
     ok(_.isUndefined(col.fullCollection.comparator));
-
   });
 
 });

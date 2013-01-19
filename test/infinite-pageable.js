@@ -25,9 +25,9 @@ $(document).ready(function () {
 
   test("initialize", function () {
     ok(col.fullCollection instanceof Backbone.Collection);
-    ok(col.url, "url");
-    ok(col.mode, "infinite");
-    ok(col.state.totalRecords === 4);
+    strictEqual(col.url, "url");
+    strictEqual(col.mode, "infinite");
+    strictEqual(col.state.totalRecords, 4);
     deepEqual(col.links, {
       "1": "url",
       "2": "url"
@@ -52,16 +52,16 @@ $(document).ready(function () {
       next: "https://api.github.com/user/repos?page=3&per_page=2"
     });
 
-    ok(col.state.totalRecords === 100);
-    ok(col.state.totalPages === 50);
-    ok(col.state.lastPage === 50);
+    strictEqual(col.state.totalRecords, 100);
+    strictEqual(col.state.totalPages, 50);
+    strictEqual(col.state.lastPage, 50);
   });
 
   test("fetch", 2, function () {
     sinon.stub(Backbone.Collection.prototype, "fetch");
     col.fetch();
     ok(Backbone.Collection.prototype.fetch.calledOnce);
-    ok(Backbone.Collection.prototype.fetch.args[0][0].url === "url");
+    strictEqual(Backbone.Collection.prototype.fetch.args[0][0].url, "url");
     Backbone.Collection.prototype.fetch.restore();
   });
 
@@ -93,11 +93,11 @@ $(document).ready(function () {
     // test paging in the first page gets a page full of models and a link for
     // the next page
     col.getFirstPage({success: function () {
-      ok(col.state.currentPage === col.state.firstPage);
-      ok(col.state.totalRecords === 2);
-      ok(col.state.totalPages === 1);
-      ok(col.state.lastPage === 1);
-      ok(col.fullCollection.length === 2);
+      strictEqual(col.state.currentPage, col.state.firstPage);
+      strictEqual(col.state.totalRecords, 2);
+      strictEqual(col.state.totalPages, 1);
+      strictEqual(col.state.lastPage, 1);
+      strictEqual(col.fullCollection.length, 2);
       deepEqual(col.links, {
         "1": "url",
         "2": "url2"
@@ -118,11 +118,11 @@ $(document).ready(function () {
 
     // test paging for a page that has a link but no models results in a fetch
     col.getNextPage({success: function () {
-      ok(col.state.currentPage === 2);
-      ok(col.state.totalRecords === 4);
-      ok(col.state.totalPages === 2);
-      ok(col.state.lastPage === 2);
-      ok(col.fullCollection.length === 4);
+      strictEqual(col.state.currentPage, 2);
+      strictEqual(col.state.totalRecords, 4);
+      strictEqual(col.state.totalPages, 2);
+      strictEqual(col.state.lastPage, 2);
+      strictEqual(col.fullCollection.length, 4);
       deepEqual(col.links, {
         "1": "url",
         "2": "url2",
@@ -139,12 +139,12 @@ $(document).ready(function () {
 
     // test paging backward use cache
     col.getPreviousPage();
-    ok(col.parseLinks.called === false);
-    ok(col.state.currentPage === 1);
-    ok(col.state.totalRecords === 4);
-    ok(col.state.totalPages === 2);
-    ok(col.state.lastPage === 2);
-    ok(col.fullCollection.length === 4);
+    strictEqual(col.parseLinks.called, false);
+    strictEqual(col.state.currentPage, 1);
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.fullCollection.length, 4);
     deepEqual(col.links, {
       "1": "url",
       "2": "url2",
@@ -155,12 +155,12 @@ $(document).ready(function () {
 
     // test paging to last page
     col.getLastPage();
-    ok(col.parseLinks.called === false);
-    ok(col.state.currentPage === 2);
-    ok(col.state.totalRecords === 4);
-    ok(col.state.totalPages === 2);
-    ok(col.state.lastPage === 2);
-    ok(col.fullCollection.length === 4);
+    strictEqual(col.parseLinks.called, false);
+    strictEqual(col.state.currentPage, 2);
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.fullCollection.length, 4);
     deepEqual(col.links, {
       "1": "url",
       "2": "url2",
@@ -178,11 +178,11 @@ $(document).ready(function () {
 
     // test force fetch update the current page under 0.9.9+ and resets otherwise
     col.getPage(col.state.currentPage, {fetch: true});
-    ok(col.state.currentPage === 2);
-    ok(col.state.totalRecords === 4);
-    ok(col.state.totalPages === 2);
-    ok(col.state.lastPage === 2);
-    ok(col.fullCollection.length === 4);
+    strictEqual(col.state.currentPage, 2);
+    strictEqual(col.state.totalRecords, 4);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.fullCollection.length, 4);
     deepEqual(col.links, {
       "1": "url",
       "2": "url2",
