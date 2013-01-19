@@ -42,7 +42,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  The library is only 3.7 kb minified and gzipped.
+  The library is only 4 kb minified and gzipped.
 
 
 Installation
@@ -530,6 +530,14 @@ FAQ
 Change Log
 ----------
 
+1.1.1
+  Bugs Fixed
+    - Fix regression where ``fetch`` errors out if ``url`` is a function `(Issue
+      #30) <https://github.com/wyuenho/backbone-pageable/issues/30>`_.
+    - Fix temperatory state inconsistency when accessing ``state`` in event
+      handlers during client mode. `(Issue #27)
+      <https://github.com/wyuenho/backbone-pageable/issues/27>`_.
+
 1.1
   Bugs Fixed
     - Lots of fixes for infinite paging.
@@ -547,8 +555,9 @@ Change Log
       protected method.
   Enhancements
     - Improved infinite-mode. Infinite paging mode now runs in a hybrid
-      mode. See `issue #17 <https://github.com/wyuenho/backbone-pageable/issues/17>`_.
-    - Greatly simplified sorting. See `issue #19
+      mode. `(Issue #17)
+      <https://github.com/wyuenho/backbone-pageable/issues/17>`_.
+    - Greatly simplified sorting. `(Issue #19)
       <https://github.com/wyuenho/backbone-pageable/issues/19>`_.
 
 0.9.13
