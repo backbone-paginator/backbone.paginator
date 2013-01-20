@@ -532,7 +532,7 @@ Change Log
 
 1.1.2
   Bugs Fixed
-    - Fix off by 1 error with ``hasNext`` and ``hasPrevious``. `(Issue #32)
+    - Fix off by 1 error with ``hasNext`` and ``hasPrevious`` `(Issue #32)
       <https://github.com/wyuenho/backbone-pageable/issues/32>`_.
 
 1.1.1
