@@ -206,7 +206,6 @@ Docs = {
         "icon": "icon-method",
         "url": "#!/api/Backbone.PageableCollection-method-sync",
         "meta": {
-          "chainable": true
         },
         "sort": 3
       },
@@ -253,6 +252,7 @@ Docs = {
         "icon": "icon-method",
         "url": "#!/api/Backbone.PageableCollection-method-setSorting",
         "meta": {
+          "chainable": true
         },
         "sort": 3
       }
