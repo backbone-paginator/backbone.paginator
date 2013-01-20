@@ -15,8 +15,7 @@
   "devel": true,
   "jquery": true,
   "browser": true,
-  "nonstandard": true,
-  "node": true,
+  "nonstandard": true
 
   "globals": {
     "ok": false,
