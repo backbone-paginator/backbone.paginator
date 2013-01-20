@@ -600,4 +600,26 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 1);
   });
 
+  test("hasNext and hasPrevious", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        pageSize: 1
+      },
+      mode: "client"
+    });
+
+    strictEqual(col.hasPrevious(), false);
+    strictEqual(col.hasNext(), true);
+
+    col.getNextPage();
+
+    strictEqual(col.hasPrevious(), true);
+    strictEqual(col.hasNext(), true);
+
+    col.getLastPage();
+
+    strictEqual(col.hasPrevious(), true);
+    strictEqual(col.hasNext(), false);
+  });
+
 });
