@@ -29,6 +29,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
     lastFieldFilterRules: [],
     filterFields: "",
     filterExpression: "",
+    filterFunction: null,
     lastFilterExpression: "",
 
     //DEFAULT PAGINATOR UI VALUES
@@ -218,6 +219,11 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
           testModels = this._filter(testModels, this.filterFields, this.filterExpression);
         }
 
+        // Do this last
+        if ( this.filterFunction ) {
+            testModels = this.filterFunction(testModels, this);
+        }
+
         // Return size
         return testModels.length;
       }
@@ -242,6 +248,12 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       }
     },
 
+    setFilterFunction: function ( filterFunction ) {
+        this.filterFunction = filterFunction;
+        this.pager();
+        this.info();
+    },
+    
     // doFakeFilter can be used to get the number of models that will
     // remain after calling setFilter with a `fields` and `filter` args.
     doFakeFilter: function ( fields, filter ) {
@@ -295,6 +307,11 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         self.models = self._filter(self.models, this.filterFields, this.filterExpression);
       }
 
+      // Do this last
+      if ( this.filterFunction ) {
+          self.models = self.filterFunction(self.models,self);
+      }
+
       // If the sorting or the filtering was changed go to the first page
       if ( this.lastSortColumn !== this.sortColumn || this.lastFilterExpression !== this.filterExpression || !_.isEqual(this.fieldFilterRules, this.lastFieldFilterRules) ) {
         start = 0;
@@ -308,7 +325,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
       // We need to save the sorted and filtered models collection
       // because we'll use that sorted and filtered collection in info().
-      self.sortedAndFilteredModels = self.models;
+      self.origModels = self.sortedAndFilteredModels = self.models.slice(); // https://github.com/atrniv/backbone.paginator/commit/ad8efc504910cf311384e0c8cf2a6772145090b0
 
       self.reset(self.models.slice(start, stop));
     },
