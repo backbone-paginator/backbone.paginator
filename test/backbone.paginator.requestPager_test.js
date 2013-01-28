@@ -13,102 +13,6 @@ describe('backbone.paginator.requestPager',function(){
       spy.restore();
     });
 
-    it('should set default values for "paginator_ui" if not specified', function(){
-      //Setup
-      var requestPagerTest = {
-        paginator_ui: {},
-        paginator_core: {}
-      };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
-
-      // execute
-      var options = {};
-      requestPagerTest.sync(null, null, options);
-
-      // verify
-      expect(requestPagerTest.paginator_ui.firstPage).to.equal(0);
-      expect(requestPagerTest.paginator_ui.currentPage).to.equal(1);
-      expect(requestPagerTest.paginator_ui.perPage).to.equal(5);
-      expect(requestPagerTest.paginator_ui.totalPages).to.equal(10);
-    });
-
-    it('should not set default values for "paginator_ui" if specified', function(){
-      //Setup
-      var requestPagerTest = {
-        paginator_ui: {
-          firstPage: 10,
-          currentPage: 7,
-          perPage: 20,
-          totalPages: 99
-        },
-        paginator_core: {}
-      };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
-
-      // execute
-      var options = {};
-      requestPagerTest.sync(null, null, options);
-
-      // verify
-      expect(requestPagerTest.paginator_ui.firstPage).to.equal(10);
-      expect(requestPagerTest.paginator_ui.currentPage).to.equal(7);
-      expect(requestPagerTest.paginator_ui.perPage).to.equal(20);
-      expect(requestPagerTest.paginator_ui.totalPages).to.equal(99);
-    });
-
-    it('should change scope of "paginator_ui" values to current object', function(){
-      var requestPagerTest = {
-        //currentPage: 999,
-
-        paginator_ui: {
-          firstPage: 10,
-          someVariable: 99,
-          currentPage: 1
-        },
-        paginator_core: {}
-      };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
-
-      // ----- TODO: These are failing in phantomjs
-      // expect(requestPagerTest.firstPage).to.be.an('undefined');
-      //expect(requestPagerTest.someVariable).to.be.an('undefined');
-      //expect(requestPagerTest.currentPage).to.be.an('undefined');
-
-      // execute
-      var options = {};
-      requestPagerTest.sync(null, null, options);
-
-      // verify
-      expect(requestPagerTest.firstPage).to.equal(10);
-      expect(requestPagerTest.someVariable).to.equal(99);
-      expect(requestPagerTest.currentPage).to.equal(1);
-    });
-
-    it('should only change scope of "paginator_ui" values to current object when one not exists', function(){
-      var requestPagerTest = {
-        currentPage: 999,
-
-        paginator_ui: {
-          someVariable: 99,
-          currentPage: 1
-        },
-        paginator_core: {}
-      };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
-
-      // ----- TODO: These are failing in phantomjs
-      //expect(requestPagerTest.someVariable).to.be.an('undefined');
-      //expect(requestPagerTest.currentPage).to.equal(999);
-
-      // execute
-      var options = {};
-      requestPagerTest.sync(null, null, options);
-
-      // verify
-      expect(requestPagerTest.someVariable).to.equal(99);
-      expect(requestPagerTest.currentPage).to.equal(999);
-    });
-
     it("should use 'paginator_core' values as query options to ajax call", function(){
       var requestPagerTest = {
         paginator_ui: {},
@@ -376,6 +280,100 @@ describe('backbone.paginator.requestPager',function(){
     });
   });
 
+  describe('setDefaults method', function() {
+    it('should set default values for "paginator_ui" if not specified', function(){
+      //Setup
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      // execute
+      requestPagerTest.setDefaults();
+
+      // verify
+      expect(requestPagerTest.paginator_ui.firstPage).to.equal(0);
+      expect(requestPagerTest.paginator_ui.currentPage).to.equal(1);
+      expect(requestPagerTest.paginator_ui.perPage).to.equal(5);
+      expect(requestPagerTest.paginator_ui.totalPages).to.equal(10);
+    });
+
+    it('should not set default values for "paginator_ui" if specified', function(){
+      //Setup
+      var requestPagerTest = {
+        paginator_ui: {
+          firstPage: 10,
+          currentPage: 7,
+          perPage: 20,
+          totalPages: 99
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      // execute
+      requestPagerTest.setDefaults();
+
+      // verify
+      expect(requestPagerTest.paginator_ui.firstPage).to.equal(10);
+      expect(requestPagerTest.paginator_ui.currentPage).to.equal(7);
+      expect(requestPagerTest.paginator_ui.perPage).to.equal(20);
+      expect(requestPagerTest.paginator_ui.totalPages).to.equal(99);
+    });
+
+    it('should change scope of "paginator_ui" values to current object', function(){
+      var requestPagerTest = {
+        //currentPage: 999,
+
+        paginator_ui: {
+          firstPage: 10,
+          someVariable: 99,
+          currentPage: 1
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      // ----- TODO: These are failing in phantomjs
+      // expect(requestPagerTest.firstPage).to.be.an('undefined');
+      //expect(requestPagerTest.someVariable).to.be.an('undefined');
+      //expect(requestPagerTest.currentPage).to.be.an('undefined');
+
+      // execute
+      requestPagerTest.setDefaults();
+
+      // verify
+      expect(requestPagerTest.firstPage).to.equal(10);
+      expect(requestPagerTest.someVariable).to.equal(99);
+      expect(requestPagerTest.currentPage).to.equal(1);
+    });
+
+    it('should only change scope of "paginator_ui" values to current object when one not exists', function(){
+      var requestPagerTest = {
+        currentPage: 999,
+
+        paginator_ui: {
+          someVariable: 99,
+          currentPage: 1
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+
+      // ----- TODO: These are failing in phantomjs
+      //expect(requestPagerTest.someVariable).to.be.an('undefined');
+      //expect(requestPagerTest.currentPage).to.equal(999);
+
+      // execute
+      requestPagerTest.setDefaults();
+
+      // verify
+      expect(requestPagerTest.someVariable).to.equal(99);
+      expect(requestPagerTest.currentPage).to.equal(999);
+    });
+  });
+
   describe('pager method', function(){
 
     it("should delegate to sync method indirectly through backbone's fetch method", function(){
@@ -529,6 +527,41 @@ describe('backbone.paginator.requestPager',function(){
       expect(requestPagerTest.currentPage).to.equal(1);
 
       spy.restore();
+    });
+  });
+
+  describe('bootstrap method', function() {
+    beforeEach(function() {
+      var OPTS = {
+        paginator_core: {
+          dataType: 'json',
+          url: '/'
+        },
+        paginator_ui: {
+          currentPage: 1,
+          perPage: 2
+        }
+      };
+      var baseCollection = [{id: 1}, {id: 2}];
+      var PagedCollection = Backbone.Paginator.requestPager.extend(OPTS);
+      this.requestPagerTest = new PagedCollection(baseCollection);
+      this.requestPagerTest.totalRecords = 4;
+    });
+    it('should set the currentPage to 1', function() {
+      this.requestPagerTest.bootstrap();
+      expect(this.requestPagerTest.currentPage).to.equal(1);
+    });
+    it('should set the information.totalPages to 2', function() {
+      this.requestPagerTest.bootstrap();
+      expect(this.requestPagerTest.information.totalPages).to.equal(2);
+    });
+    it('should set bootstrap options to instance defaults', function() {
+      this.requestPagerTest.totalRecords = null;
+      this.requestPagerTest.bootstrap({totalRecords: 12});
+      expect(this.requestPagerTest.totalRecords).to.equal(12);
+    });
+    it('should return an instance of this', function() {
+      expect(this.requestPagerTest.bootstrap()).to.equal(this.requestPagerTest);
     });
   });
 });

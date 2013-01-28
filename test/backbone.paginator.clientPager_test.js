@@ -471,6 +471,39 @@ describe('backbone.paginator.clientPager', function() {
       pagerSpy.restore();
     });
   });
+  describe('bootstrap method', function() {
+    beforeEach(function() {
+      this.defaultsStub.restore();
+      var OPTS = {
+        paginator_core: {
+          dataType: 'json',
+          url: '/'
+        },
+        paginator_ui: {
+          currentPage: 1,
+          perPage: 1
+        }
+      };
+      var baseCollection = [{id: 1}, {id: 2}];
+      var PagedCollection = Backbone.Paginator.clientPager.extend(OPTS);
+      this.clientPagerTest = new PagedCollection(baseCollection);
+    });
+    it('should set the currentPage to 1', function() {
+      this.clientPagerTest.bootstrap();
+      expect(this.clientPagerTest.currentPage).to.equal(1);
+    });
+    it('should set the info.totalPages to 2', function() {
+      this.clientPagerTest.bootstrap();
+      expect(this.clientPagerTest.information.totalPages).to.equal(2);
+    });
+    it('should set bootstrap options to instance defaults', function() {
+      this.clientPagerTest.bootstrap({totalRecords: 12});
+      expect(this.clientPagerTest.totalRecords).to.equal(12);
+    });
+    it('should return an instance of this', function() {
+      expect(this.clientPagerTest.bootstrap()).to.equal(this.clientPagerTest);
+    });
+  });
 
   //TODO: write tests for these methods
   //setSort
