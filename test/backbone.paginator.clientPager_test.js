@@ -384,39 +384,53 @@ describe('backbone.paginator.clientPager', function() {
   });
 
   describe("nextPage", function(){
-
-    it('should increment "currentPage" by 1 and call pager', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
+    var pagerSpy;
+    beforeEach(function() {
+      pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
       this.clientPagerTest.information = {totalPages : 99};
+    });
+    afterEach(function() {
+      pagerSpy.restore();
+    });
+    it('should increment "currentPage" by 1 and call pager', function() {
       this.clientPagerTest.currentPage = 9;
 
       this.clientPagerTest.nextPage();
 
       expect(this.clientPagerTest.currentPage).to.equal(10);
       expect(pagerSpy.calledOnce).to.equal(true);
-
-      pagerSpy.restore();
     });
     it('should not increment "currentPage"', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
-      this.clientPagerTest.information = {totalPages : 99};
       this.clientPagerTest.currentPage = 99;
 
       this.clientPagerTest.nextPage();
 
       expect(this.clientPagerTest.currentPage).to.equal(99);
       expect(pagerSpy.calledOnce).to.equal(false);
+    });
+    it('should accept an options param and pass it to the pager method', function() {
+      this.clientPagerTest.currentPage = 9;
 
-      pagerSpy.restore();
+      var options = {success: function() {}};
+      this.clientPagerTest.nextPage(options);
+      expect(pagerSpy.lastCall.args[0]).to.equal(options);
     });
   });
   describe('previousPage', function() {
+    var pagerSpy;
+    beforeEach(function() {
+      pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
+    });
+    afterEach(function() {
+      pagerSpy.restore();
+    });
     it('should decrement "currentPage" by 1 and call pager', function() {
       this.clientPagerTest.currentPage = 9;
 
       this.clientPagerTest.previousPage();
 
       expect(this.clientPagerTest.currentPage).to.equal(8);
+      expect(pagerSpy.calledOnce).to.equal(true);
     });
     it('should not decrement the page when currentPage is 1', function() {
       this.clientPagerTest.currentPage = 1;
@@ -424,6 +438,14 @@ describe('backbone.paginator.clientPager', function() {
       this.clientPagerTest.previousPage();
 
       expect(this.clientPagerTest.currentPage).to.equal(1);
+      expect(pagerSpy.calledOnce).to.equal(false);
+    });
+    it('should accept an options param and pass it to the pager method', function() {
+      this.clientPagerTest.currentPage = 2;
+
+      var options = {success: function() {}};
+      this.clientPagerTest.previousPage(options);
+      expect(pagerSpy.lastCall.args[0]).to.equal(options);
     });
   });
   describe('goTo', function() {
@@ -449,6 +471,12 @@ describe('backbone.paginator.clientPager', function() {
       pagerSpy.restore();
     });
   });
+  describe('prevPage', function() {
+    it('should be an alias for the previousPage function', function() {
+      expect(this.clientPagerTest.prevPage).to.equal(this.clientPagerTest.previousPage);
+    });
+  });
+
   describe('howManyPer', function() {
     it('should set perPage, currentPage and call pager method', function() {
       var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
@@ -469,6 +497,51 @@ describe('backbone.paginator.clientPager', function() {
       expect(pagerSpy.calledOnce).to.equal(false);
 
       pagerSpy.restore();
+    });
+  });
+  describe('bootstrap', function() {
+    beforeEach(function() {
+      this.defaultsStub.restore();
+      var OPTS = {
+        paginator_core: {
+          dataType: 'json',
+          url: '/'
+        },
+        paginator_ui: {
+          currentPage: 1,
+          perPage: 1
+        }
+      };
+      var baseCollection = [{id: 1}, {id: 2}];
+      var PagedCollection = Backbone.Paginator.clientPager.extend(OPTS);
+      this.clientPagerTest = new PagedCollection(baseCollection);
+    });
+    it('should set the currentPage to 1', function() {
+      this.clientPagerTest.bootstrap();
+      expect(this.clientPagerTest.currentPage).to.equal(1);
+    });
+    it('should set the info.totalPages to 2', function() {
+      this.clientPagerTest.bootstrap();
+      expect(this.clientPagerTest.information.totalPages).to.equal(2);
+    });
+    it('should set bootstrap options to instance defaults', function() {
+      this.clientPagerTest.bootstrap({totalRecords: 12});
+      expect(this.clientPagerTest.totalRecords).to.equal(12);
+    });
+    it('should return an instance of this', function() {
+      expect(this.clientPagerTest.bootstrap()).to.equal(this.clientPagerTest);
+    });
+  });
+  describe('pager', function() {
+    // TODO: write many more tests for this function
+    it('should accept an options param and call a success callback', function() {
+      var successCallbackSpy = sinon.spy();
+      this.clientPagerTest.pager({success: successCallbackSpy});
+      expect(successCallbackSpy.calledOnce).to.equal(true);
+    });
+    it('should not try to invoke an undefined success callback', function() {
+      expect(this.clientPagerTest.pager()).to.be.undefined;
+      expect(this.clientPagerTest.pager({error: function() {}})).to.undefined;
     });
   });
 
