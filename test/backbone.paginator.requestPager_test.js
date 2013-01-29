@@ -439,6 +439,13 @@ describe('backbone.paginator.requestPager',function(){
     });
   });
 
+  describe("nextPage", function() {
+    it("should alias the requestNextPage function", function() {
+      var requestPagerTest = new Backbone.Paginator.requestPager();
+      expect(requestPagerTest.nextPage).to.equal(requestPagerTest.requestNextPage);
+    });
+  });
+
   describe("requestPreviousPage", function(){
 
     it("should decrement 'currentPage' by 1 and call pager method", function(){
@@ -460,6 +467,13 @@ describe('backbone.paginator.requestPager',function(){
       expect(spy.calledOnce).to.equal(true);
 
       spy.restore();
+    });
+  });
+
+  describe("prevPage", function() {
+    it("should alias the requestPreviousPage function", function() {
+      var requestPagerTest = new Backbone.Paginator.requestPager();
+      expect(requestPagerTest.prevPage).to.equal(requestPagerTest.requestPreviousPage);
     });
   });
 
