@@ -227,7 +227,6 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
         // Return size
         return testModels.length;
       }
-
     },
 
     // setFilter is used to filter the current model. After
@@ -248,9 +247,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       }
     },
 
-    setFilterFunction: function ( filterFunction ) {
+    setFilterFunction: function (filterFunction, options) {
         this.filterFunction = filterFunction;
-        this.pager();
+        this.pager(options);
         this.info();
     },
     
@@ -278,7 +277,9 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
     // pager is used to sort, filter and show the data
     // you expect the library to display.
-    pager: function () {
+    pager: function (options) {
+      options || (options = {});
+        
       var self = this,
       disp = this.perPage,
       start = (self.currentPage - 1) * disp,
@@ -287,10 +288,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       // as we could need to sort or filter, and we don't want
       // to loose the data we fetched from the server.
       if (self.origModels === undefined) {
-        self.origModels = self.models;
+        self.origModels = self.models; 
       }
 
-      self.models = self.origModels;
+      self.models = self.origModels.slice();
 
       // Check if sorting was set using setSort.
       if ( this.sortColumn !== "" ) {
@@ -325,9 +326,10 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
 
       // We need to save the sorted and filtered models collection
       // because we'll use that sorted and filtered collection in info().
-      self.origModels = self.sortedAndFilteredModels = self.models.slice(); // https://github.com/atrniv/backbone.paginator/commit/ad8efc504910cf311384e0c8cf2a6772145090b0
+      self.sortedAndFilteredModels = self.models.slice();
 
-      self.reset(self.models.slice(start, stop));
+      var method = options.method ? options.method : 'reset';
+      self[method](self.models.slice(start, stop));
     },
 
     // The actual place where the collection is sorted.
