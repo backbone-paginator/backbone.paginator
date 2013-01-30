@@ -448,6 +448,34 @@ Paginator.clientPager = Backbone.Collection.extend({
     ...
 ```
 
+## Bootstrapping
+
+By default, both the clientPager and requestPager will make an initial request to the server in order to populate their internal paging data. In order to avoid this additional request, it may be beneficial to bootstrap your Backbone.Paginator instance from data that already exists in the dom.
+
+**Backbone.Paginator.clientPager:**
+```javascript
+// Extend the Backbone.Paginator.clientPager with your own configuration options
+var MyClientPager =  Backbone.Paginator.clientPager.extend({paginator_ui: {}});
+// Create an instance of your class and populate with the models of your entire collection
+var aClientPager = new MyClientPager([{id: 1, title: 'foo'}, {id: 2, title: 'bar'}]);
+// Invoke the bootstrap function
+aClientPager.bootstrap();
+```
+Note: If you intend to bootstrap a clientPager, there is no need to specify a 'paginator_core' object in your configuration (since you should have already populated the clientPager with the entirety of it's necessary data)
+
+**Backbone.Paginator.requestPager:**
+```javascript
+// Extend the Backbone.Paginator.requestPager with your own configuration options
+var MyRequestPager =  Backbone.Paginator.requestPager.extend({paginator_ui: {}});
+// Create an instance of your class with the first page of data
+var aRequestPager = new MyRequestPager([{id: 1, title: 'foo'}, {id: 2, title: 'bar'}]);
+// Invoke the bootstrap function and configure requestPager with 'totalRecords'
+aRequestPager.bootstrap({totalRecords: 50});
+```
+Note: Both the clientPager and requestPager ```bootstrap``` function will accept an options param that will be extended by your Backbone.Paginator instance. However the 'totalRecords' property will be set implicitly by the clientPager.
+
+More on Backbone bootstrapping: http://ricostacruz.com/backbone-patterns/#bootstrapping_data
+
 ## Release History
 
 Please check CHANGELOG.md for a complete release history/changelog.
