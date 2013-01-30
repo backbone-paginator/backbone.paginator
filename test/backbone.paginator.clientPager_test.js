@@ -540,8 +540,8 @@ describe('backbone.paginator.clientPager', function() {
       expect(successCallbackSpy.calledOnce).to.equal(true);
     });
     it('should not try to invoke an undefined success callback', function() {
-      expect(this.clientPagerTest.pager()).to.be.undefined;
-      expect(this.clientPagerTest.pager({error: function() {}})).to.undefined;
+      expect(this.clientPagerTest.pager()).to.be.an('undefined');
+      expect(this.clientPagerTest.pager({error: function() {}})).to.an('undefined');
     });
   });
 
