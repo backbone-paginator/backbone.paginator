@@ -541,7 +541,7 @@ describe('backbone.paginator.clientPager', function() {
     });
     it('should not try to invoke an undefined success callback', function() {
       expect(this.clientPagerTest.pager()).to.be.an('undefined');
-      expect(this.clientPagerTest.pager({error: function() {}})).to.an('undefined');
+      expect(this.clientPagerTest.pager({error: function() {}})).to.be.an('undefined');
     });
   });
 
