@@ -57,12 +57,36 @@ $(document).ready(function () {
     strictEqual(col.state.lastPage, 50);
   });
 
-  test("fetch", 2, function () {
-    sinon.stub(Backbone.Collection.prototype, "fetch");
+  test("fetch", function () {
+    var ajax = $.ajax;
+    $.ajax = function (settings) {
+
+      strictEqual(settings.url, "url");
+      deepEqual(settings.data, {
+        page: 2,
+        "per_page": 2,
+        "total_entries": 4,
+        "total_pages": 2
+      });
+
+      settings.success([
+        {id: 5},
+        {id: 6}
+      ]);
+    };
+
+    col.parseLinks = function () {
+      return {first: "url-1", next: "url-2"};
+    };
+
+    // makes sure normal add, remove and sort events are suppressed
+    col.on("all", function (event) {
+      if (_.contains(["add", "remove", "sort"], event)) ok(false);
+    });
+
     col.fetch();
-    ok(Backbone.Collection.prototype.fetch.calledOnce);
-    strictEqual(Backbone.Collection.prototype.fetch.args[0][0].url, "url");
-    Backbone.Collection.prototype.fetch.restore();
+
+    $.ajax = ajax;
   });
 
   test("get*Page", 43, function () {
