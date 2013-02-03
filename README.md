@@ -192,10 +192,10 @@ Collection
 });
 ```
 
-If you'd like to add the incoming models to the current collection, instead of replacing the collection's contents, pass `{add: true}` as an option to these methods.
+If you'd like to add the incoming models to the current collection, instead of replacing the collection's contents, pass `{update: true, remove: false}` as options to these methods.
 
 ```javascript
-Collection.requestPreviousPage({ add: true });
+Collection.requestPreviousPage({ update: true, remove: false });
 ```
 
 ##Paginator.clientPager
