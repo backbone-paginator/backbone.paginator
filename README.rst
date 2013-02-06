@@ -530,6 +530,17 @@ FAQ
 Change Log
 ----------
 
+1.1.4
+  Changes
+    - Dropped Backbone 0.9.2 support
+  Bugs Fixed
+    - TypeError thrown when adding a model to an empty client mode
+      collection. `(Issue #38)
+      <https://github.com/wyuenho/backbone-pageable/issues/38>`_.
+    - Adding with an index inserts into the wrong page under client
+      mode. `(Issue #39)
+      <https://github.com/wyuenho/backbone-pageable/issues/39>`_.
+
 1.1.3
   Bugs Fixed
     - Updating after fetching under infinite mode should not create useless
