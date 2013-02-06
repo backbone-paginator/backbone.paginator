@@ -156,11 +156,11 @@ You might also notice that we're setting `this.totalPages` to the total page cou
 For your convenience, the following methods are made available for use in your views to interact with the `requestPager`:
 
 * **Collection.goTo( n, options )** - go to a specific page
-* **Collection.requestNextPage( options )** - go to the next page
-* **Collection.requestPreviousPage( options )** - go to the previous page
+* **Collection.nextPage( options )** - go to the next page
+* **Collection.prevPage( options )** - go to the previous page
 * **Collection.howManyPer( n )** - set the number of items to display per page
 
-**requestPager** collection's methods `.goTo()`, `.requestNextPage()` and `.requestPreviousPage()` are all extension of the original [Backbone Collection.fetch() method](http://documentcloud.github.com/backbone/#Collection-fetch). As so, they all can take the same option object as parameter.
+**requestPager** collection's methods `.goTo()`, `.nextPage()` and `.prevPage()` are all extension of the original [Backbone Collection.fetch() method](http://documentcloud.github.com/backbone/#Collection-fetch). As so, they all can take the same option object as parameter.
 
 This option object can use `success` and `error` parameters to pass a function to be executed after server answer.
 
@@ -195,7 +195,7 @@ Collection
 If you'd like to add the incoming models to the current collection, instead of replacing the collection's contents, pass `{add: true}` as an option to these methods.
 
 ```javascript
-Collection.requestPreviousPage({ add: true });
+Collection.prevPage({ add: true });
 ```
 
 ##Paginator.clientPager
@@ -303,12 +303,21 @@ And finally we have our `parse()` method, which in this case isn't concerned wit
 
 As mentioned, your views can hook into a number of convenience methods to navigate around UI-paginated data. For `clientPager` these include:
 
-* **Collection.goTo(n)** - go to a specific page
-* **Collection.previousPage()** - go to the previous page
-* **Collection.nextPage()** - go to the next page
+* **Collection.goTo(n, options)** - go to a specific page
+* **Collection.prevPage(options)** - go to the previous page
+* **Collection.nextPage(options)** - go to the next page
 * **Collection.howManyPer(n)** - set how many items to display per page
 * **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered. Last option is to pass it an object containing a comparison method and rules. Currently, only ```levenshtein``` method is available.
+
+The `goTo()`, `prevPage()`, and `nextPage()` functions do not require the `options` param since they will be executed synchronously. However, when specified, the success callback will be invoked before the function returns. For example:
+
+```javascript
+nextPage(); // this works just fine!
+nextPage({success: function() { }}); // this will call the success function
+```
+
+The options param exists to preserve (some) interface unification between the requestPaginator and clientPaginator so that they may be used interchangeably in your Backbone.Views.
 
 ```javascript
   this.collection.setFilter(
