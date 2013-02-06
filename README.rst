@@ -530,11 +530,13 @@ FAQ
 Change Log
 ----------
 
-1.1.3 (In Progress)
+1.1.3
   Bugs Fixed
     - Updating after fetching under infinite mode should not create useless
       ``add``, ``remove`` and ``sort`` events. `(Issue #34)
       <https://github.com/wyuenho/backbone-pageable/issues/34>`_.
+    - RangeError when emptying fullCollection during reset `(Issue #37)
+      <https://github.com/wyuenho/backbone-pageable/issues/37>`_.
 
 1.1.2
   Bugs Fixed
