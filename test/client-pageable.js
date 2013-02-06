@@ -122,7 +122,7 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
-  test("add", 32, function () {
+  test("add", 48, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -170,6 +170,25 @@ $(document).ready(function () {
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "f");
     strictEqual(col.at(1).get("name"), "a");
+
+    // test add at page col on page 2
+    col.getPage(2);
+    lastTotalRecords = col.state.totalRecords;
+    var g = new Backbone.Model({name: "g"});
+    col.add(g, {at: 1});
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 7);
+    strictEqual(col.state.totalRecords, 7);
+    strictEqual(col.state.totalPages, 4);
+    strictEqual(col.state.lastPage, 4);
+    strictEqual(col.state.currentPage, 2);
+    strictEqual(col.last().get("name"), "g");
+    strictEqual(col.fullCollection.at(3).get("name"), "g");
+
+    // test ability to add to empty collection
+    col.fullCollection.reset();
+    lastTotalRecords = col.state.totalRecords;
+    col.add(new Backbone.Model({name: "a"}));
   });
 
   test("remove", 46, function () {
@@ -292,13 +311,7 @@ $(document).ready(function () {
     $.ajax = ajax;
   });
 
-  test("reset and sort", function () {
-    if (Backbone.VERSION == "0.9.2") {
-      expect(90);
-    }
-    else {
-      expect(74);
-    }
+  test("reset and sort", 76, function () {
 
     var mods = models.slice();
     var col = new Backbone.PageableCollection(mods, {
@@ -419,7 +432,8 @@ $(document).ready(function () {
       ok(true);
       ok(col.state.totalRecords === null);
       ok(col.state.totalPages === null);
-      ok(col.state.lastPage === null);
+      ok(col.state.lastPage === col.state.firstPage);
+      ok(col.state.currentPage === col.state.firstPage);
       ok(col.length === 0);
       ok(col.fullCollection.length === 0);
     };
@@ -429,14 +443,7 @@ $(document).ready(function () {
     col.fullCollection.reset();
   });
 
-  test("fetch", function () {
-
-    if (Backbone.VERSION == "0.9.2") {
-      expect(12);
-    }
-    else {
-      expect(11);
-    }
+  test("fetch", 11, function () {
 
     var ajax = $.ajax;
     $.ajax = function (settings) {
