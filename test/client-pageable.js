@@ -294,10 +294,10 @@ $(document).ready(function () {
 
   test("reset and sort", function () {
     if (Backbone.VERSION == "0.9.2") {
-      expect(78);
+      expect(90);
     }
     else {
-      expect(62);
+      expect(74);
     }
 
     var mods = models.slice();
@@ -412,6 +412,21 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 4);
     strictEqual(col.state.lastPage, 2);
     strictEqual(col.state.totalPages, 2);
+
+    col.off("reset", onReset);
+    col.fullCollection.off("reset", onReset);
+    onReset = function () {
+      ok(true);
+      ok(col.state.totalRecords === null);
+      ok(col.state.totalPages === null);
+      ok(col.state.lastPage === null);
+      ok(col.length === 0);
+      ok(col.fullCollection.length === 0);
+    };
+    col.on("reset", onReset);
+    col.fullCollection.on("reset", onReset);
+
+    col.fullCollection.reset();
   });
 
   test("fetch", function () {
