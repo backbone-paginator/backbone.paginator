@@ -37,4 +37,3 @@ test: FORCE
 	phantomjs test/run-qunit.js test/index.html
 	phantomjs test/run-qunit.js test/test-zepto.html
 	phantomjs test/run-qunit.js test/index.0.9.9.html
-	phantomjs test/run-qunit.js test/index.0.9.2.html
