@@ -122,7 +122,7 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
-  test("add", 48, function () {
+  test("add", 41, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -132,7 +132,6 @@ $(document).ready(function () {
 
     var lastTotalRecords = col.state.totalRecords;
     var onAdd = function () {
-      ok(true);
       strictEqual(col.state.totalRecords, lastTotalRecords + 1);
     };
     col.fullCollection.on("add", onAdd);
@@ -142,6 +141,7 @@ $(document).ready(function () {
     col.add(d);
     strictEqual(col.state.totalRecords, 4);
     strictEqual(col.state.totalPages, 2);
+    strictEqual(col.fullCollection.size(), 4);
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
     strictEqual(col.at(1).get("name"), "c");
@@ -155,6 +155,7 @@ $(document).ready(function () {
     col.fullCollection.push(e);
     strictEqual(col.state.totalRecords, 5);
     strictEqual(col.state.totalPages, 3);
+    strictEqual(col.fullCollection.size(), 5);
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
     strictEqual(col.at(1).get("name"), "c");
@@ -261,6 +262,27 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, null);
     strictEqual(col.size(), 0);
     strictEqual(col.fullCollection.size(), 0);
+  });
+
+  test("add handlers are run before remove handlers", 2, function () {
+    var addRan = false;
+    var onAdd = function () {
+      addRan = true;
+    };
+    var onRemove = function () {
+      strictEqual(addRan, true);
+      addRan = false;
+    };
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        pageSize: 1
+      },
+      mode: "client"
+    });
+    col.on("add", onAdd);
+    col.on("remove", onRemove);
+    col.unshift(new Backbone.Model({name: "d"}));
+    col.fullCollection.unshift(new Backbone.Model({name: "e"}));
   });
 
   test("change", 6, function () {
