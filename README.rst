@@ -530,6 +530,12 @@ FAQ
 Change Log
 ----------
 
+1.1.5
+  Bugs Fixed
+    - Add event handlers should be triggered before remove handlers during
+      client mode. `(Issue #42)
+      <https://github.com/wyuenho/backbone-pageable/issues/42>`_.
+
 1.1.4
   Changes
     - Dropped Backbone 0.9.2 support
