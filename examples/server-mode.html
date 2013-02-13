@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>backbone-pageable server mode demo</title>
+    
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/backgrid.css" />
+    <link rel="stylesheet" href="css/extensions/paginator/backgrid-paginator.css" />
+
+  </head>
+  <body>
+    <div id="main">
+      <div class="container">
+        <div class="row-fluid">
+          <div class="span12 alert">
+            Feel free to peek into the source of this page and play with the code in your browser&apos;s console.
+          </div>
+        </div>
+        <div class="row-fluid">
+          <div class="span12">
+            <div id="grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="../lib/backbone-pageable.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/backgrid.js"></script>
+    <script src="js/extensions/paginator/backgrid-paginator.js"></script>
+    <script>
+      var columns = [{
+        name: "id",
+        editable: false,
+        cell: Backgrid.IntegerCell.extend({
+          orderSeparator: ''
+        })
+      }, {
+        name: "name",
+        cell: "string"
+      }, {
+        name: "pop",
+        cell: "integer"
+      }, {
+        name: "percentage",
+        cell: "number"
+      }, {
+        name: "date",
+        cell: "date"
+      }, {
+        name: "url",
+        cell: "uri"
+      }];
+
+      var Territories = Backbone.PageableCollection.extend({
+        state: {
+          pageSize: 15,
+          totalRecords: 242
+        }
+      });
+      
+      var territories = new Territories();
+
+      // Don't worry about this too much, the URL is only encoded for this demo
+      // to emulate the presence of a dynamic server API.
+      territories.url = _.bind(function () {
+        var state = this.state;
+        return "json/territories.json" + encodeURIComponent("?page=" + state.currentPage + "&per_page=" + state.pageSize);
+      }, territories);
+
+      var grid = new Backgrid.Grid({
+          columns: columns,
+          collection: territories,
+          footer: Backgrid.Extension.Paginator
+        });
+        
+        $("#grid").append(grid.render().$el);
+
+      territories.fetch();
+    </script>
+  </body>
+</html>
