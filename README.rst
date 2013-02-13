@@ -48,7 +48,7 @@ Light-weight
 Playable Demos
 --------------
 
-The following examples utilized `Backgrid.js
+The following examples utilizes `Backgrid.js
 <http://wyuenho.github.com/backgrid/>`_ to render the collections.
 
 - `Server Mode <http://wyuenho.github.com/backbone-pageable/examples/server-mode.html>`_
