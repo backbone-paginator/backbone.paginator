@@ -45,6 +45,17 @@ Light-weight
   The library is only 4 kb minified and gzipped.
 
 
+Playable Demos
+--------------
+
+The following examples utilized `Backgrid.js
+<http://wyuenho.github.com/backgrid/>`_ to render the collections.
+
+- `Server Mode <http://wyuenho.github.com/backbone-pageable/examples/server-mode.html>`_
+- `Client Mode <http://wyuenho.github.com/backbone-pageable/examples/client-mode.html>`_
+- `Infinite Mode <http://wyuenho.github.com/backbone-pageable/examples/infinite-mode.html>`_
+
+
 Installation
 ------------
 
@@ -493,10 +504,12 @@ communicated between all the pages throught the two collections.
    books.at(0).get("name");
    >>> "Oliver Twist"
 
+
 API Reference
 -------------
 
 See `here <http://wyuenho.github.com/backbone-pageable/>`_.
+
 
 FAQ
 ---
