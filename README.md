@@ -75,6 +75,9 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
     },
 ```
 
+##Possible gotchas!
+If you are setting `dataType` that is **NOT** jsonp AND you do **NOT** expect a callback response, you need to ensure that inside your server_api, you need to **REMOVE** the `callback` as a custom paramter.
+
 ####4. Configure how the library will show the results
 
 We need to tell the library how many items per page we would like to see, etc...
@@ -128,6 +131,9 @@ Note how you can use functions instead of hardcoded values, and you can also ref
       '$callback': 'callback'
     },
 ```
+
+##Possible gotchas!
+If you are setting `$callback`, you need to ensure that the server can return the data using the callback.
 
 ####6. Finally, configure Collection.parse() and we're done
 
