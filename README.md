@@ -75,6 +75,10 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
     },
 ```
 
+## Gotchas!
+
+If you use `dataType` **NOT** jsonp, please remove the callback custom parameter inside the `server_api` configuration.
+
 ####4. Configure how the library will show the results
 
 We need to tell the library how many items per page we would like to see, etc...
@@ -128,6 +132,10 @@ Note how you can use functions instead of hardcoded values, and you can also ref
       '$callback': 'callback'
     },
 ```
+
+## Gotchas!
+
+If you use `$callback`, please ensure that you did use the jsonp as a `dataType` inside your `paginator_core` configuration.
 
 ####6. Finally, configure Collection.parse() and we're done
 
