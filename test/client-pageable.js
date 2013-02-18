@@ -122,7 +122,7 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "c");
   });
 
-  test("add", 41, function () {
+  test("add", 49, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -190,6 +190,23 @@ $(document).ready(function () {
     col.fullCollection.reset();
     lastTotalRecords = col.state.totalRecords;
     col.add(new Backbone.Model({name: "a"}));
+
+    // test ability to add an array of models
+    col.off("add", onAdd);
+    col.fullCollection.off("add", onAdd);
+    col.fullCollection.reset();
+    col.add([{name: "a"}, {name: "c"}, {name: "b"}]);
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 3);
+    deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
+    deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
+
+    col.fullCollection.reset();
+    col.fullCollection.add([{name: "a"}, {name: "c"}, {name: "b"}]);
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 3);
+    deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
+    deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
   });
 
   test("remove", 46, function () {
