@@ -74,12 +74,12 @@
       }, territories);
 
       var grid = new Backgrid.Grid({
-          columns: columns,
-          collection: territories,
-          footer: Backgrid.Extension.Paginator
-        });
-        
-        $("#grid").append(grid.render().$el);
+        columns: columns,
+        collection: territories,
+        footer: Backgrid.Extension.Paginator
+      });
+
+      $("#grid").append(grid.render().$el);
 
       territories.fetch();
     </script>
