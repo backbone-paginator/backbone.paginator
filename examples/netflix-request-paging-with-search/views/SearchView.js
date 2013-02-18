@@ -25,6 +25,8 @@
 		fetchResults: function (e) {
 			e.preventDefault();
 			var searchText = $('#searchText').val();
+			// for more information on the Netflix API, 
+			// checkout http://developer.netflix.com/docs/oData_Catalog
 			var searchQuery = "Name eq '";
 			if (searchText && searchText !== "") {
 				searchQuery = searchQuery + searchText + "'";
