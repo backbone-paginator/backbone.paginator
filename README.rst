@@ -543,6 +543,12 @@ FAQ
 Change Log
 ----------
 
+1.1.6
+  Bugs Fixed
+    - Fixed bug where a page of models disappeared after adding an array of
+      models to the current page under client mode. `(Issue #43)
+      <https://github.com/wyuenho/backbone-pageable/issues/43>`_.
+
 1.1.5
   Bugs Fixed
     - Add event handlers should be triggered before remove handlers during
