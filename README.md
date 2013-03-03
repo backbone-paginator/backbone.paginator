@@ -71,6 +71,8 @@ We need to set a base URL. The `type` of the request is `GET` by default, and th
       dataType: 'jsonp',
 
       // the URL (or base URL) for the service
+      // if you want to have a more dynamic URL, you can make this a function
+      // that returns a string
       url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
     },
 ```

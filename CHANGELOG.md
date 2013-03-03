@@ -3,6 +3,10 @@
 ## 0.5.1-dev
 
 * Propagate version number from `package.json` to codebase during build
+* Transparently support both backbone 9.9 and 9.10 style `success` callback
+  arguments
+* Allow bootstrapping of pager data without server interaction
+* Bug fixes
 
 ## 0.5
 
