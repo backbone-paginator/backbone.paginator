@@ -232,11 +232,17 @@ support an additional response data structure that contains an object hash of
 pagination state. The following is a table of the response data structure
 formats ``Backbone.PageableCollection`` accepts.
 
-============= ====================================
-Without State With State
-============= ====================================
-[{}, {}, ...] [{ pagination state }, [{}, {} ...]]
-============= ====================================
+================= ========================================
+Without State     With State
+================= ========================================
+``[{}, {}, ...]`` ``[{ pagination state }, [{}, {} ...]]``
+================= ========================================
+
+Most of the time, providing something like this in your response is sufficient
+for updating the pagination state.
+
+``[{"total_entries": 100}, [{}, {}, ...]]``
+
 
 Bootstrapping
 -------------
