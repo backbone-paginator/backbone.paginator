@@ -243,6 +243,13 @@ for updating the pagination state.
 
 ``[{"total_entries": 100}, [{}, {}, ...]]``
 
+Since 1.1.7, customizing ``parse`` has been simplified and the default
+implementation now delegates to two new methods - ``parseState`` and
+``parseRecords``. You are encouraged to override them instead of ``parse`` if it
+is not clear how to do so.
+
+See the `API <http://wyuenho.github.com/backbone-pageable/>`_ for details on
+customizing ``parseState`` and ``parseRecords``.
 
 Bootstrapping
 -------------
@@ -548,6 +555,15 @@ FAQ
 
 Change Log
 ----------
+
+1.1.7
+  Changes
+    - Simplified ``parse``. ``parse`` now delegates to two new methods -
+      ``parseState`` and ``parseRecords``. `(Issue #49)
+      <https://github.com/wyuenho/backbone-pageable/issues/49>`_.
+  Bugs Fixed
+    - ``fetch`` now accepts function as its ``options.url`` value. `(Issue #50)
+      <https://github.com/wyuenho/backbone-pageable/issues/50>`_.
 
 1.1.6
   Bugs Fixed
