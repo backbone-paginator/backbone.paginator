@@ -228,6 +228,24 @@ Docs = {
         "sort": 3
       },
       {
+        "name": "parseState",
+        "fullName": "Backbone.PageableCollection.parseState",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-parseState",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
+        "name": "parseRecords",
+        "fullName": "Backbone.PageableCollection.parseRecords",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-parseRecords",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
         "name": "fetch",
         "fullName": "Backbone.PageableCollection.fetch",
         "icon": "icon-method",
