@@ -270,10 +270,10 @@ $(document).ready(function () {
     col.state.firstPage = 0;
     col.queryParams.access_token = function () { return this.state.currentPage + 1; };
 
-    col.fetch({add: true, silent: true});
+    col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
 
     strictEqual($.ajax.callCount, 1);
-    strictEqual($.ajax.args[0][0].url, "test-fetch");
+    strictEqual($.ajax.args[0][0].url, "test-fetch-2");
     strictEqual($.ajax.args[0][0].add, true);
     strictEqual($.ajax.args[0][0].silent, true);
     deepEqual($.ajax.args[0][0].data, {
