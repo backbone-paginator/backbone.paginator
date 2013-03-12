@@ -556,6 +556,14 @@ FAQ
 Change Log
 ----------
 
+1.1.8
+  Bugs Fixed
+    - Server can now return partial state and 0 for totalRecords. `(Issue #41)
+      <https://github.com/wyuenho/backbone-pageable/issues/41>`_, `(Issue #52)
+      <https://github.com/wyuenho/backbone-pageable/issues/52>`_.
+    - 0-based infinite mode pageable collection now initializes
+      correctly. `(Issue #51)
+      <https://github.com/wyuenho/backbone-pageable/issues/52>`_.
 1.1.7
   Changes
     - Simplified ``parse``. ``parse`` now delegates to two new methods -
