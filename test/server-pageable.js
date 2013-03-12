@@ -79,12 +79,10 @@ $(document).ready(function () {
     state.pageSize = -1;
     throws(function () {
       col._checkState(state);
-    }, "`pageSize` must be 1 <= pageSize <= totalRecords");
+    }, "`pageSize` must be >= 1");
 
     state.pageSize = 1;
-    throws(function () {
-      col._checkState(state);
-    }, "`pageSize` must be 1 <= pageSize <= totalRecords");
+    col._checkState(state);
 
     state.totalPages = null;
     state.totalRecords = 2;
@@ -130,6 +128,12 @@ $(document).ready(function () {
     state.currentPage = 1;
     col._checkState(state);
     strictEqual(state.lastPage, 2);
+
+    state.firstPage = 0;
+    state.currentPage = 0;
+    state.totalRecords = 0;
+    col._checkState(state);
+    strictEqual(state.lastPage, 0);
   });
 
   test("extend and initialize", function () {
@@ -242,24 +246,21 @@ $(document).ready(function () {
     strictEqual(col.comparator, comparator);
   });
 
-  test("fetch", function () {
-
-    sinon.stub($, "ajax");
+  test("fetch", 14, function () {
+    var ajax = $.ajax;
+    $.ajax = function (settings) {
+      strictEqual(settings.url, "test-fetch");
+      deepEqual(settings.data, {
+        page: 1,
+        "per_page": 25
+      });
+    };
 
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
 
     col.fetch();
-
-    strictEqual($.ajax.callCount, 1);
-    strictEqual($.ajax.args[0][0].url, "test-fetch");
-    deepEqual($.ajax.args[0][0].data, {
-      page: 1,
-      "per_page": 25
-    });
-
-    $.ajax.reset();
 
     col.state.sortKey = "name",
     col.state.totalRecords = 50;
@@ -270,22 +271,34 @@ $(document).ready(function () {
     col.state.firstPage = 0;
     col.queryParams.access_token = function () { return this.state.currentPage + 1; };
 
+    $.ajax = function (settings) {
+      strictEqual(settings.url, "test-fetch-2");
+      strictEqual(settings.add, true);
+      strictEqual(settings.silent, true);
+      deepEqual(settings.data, {
+        page: 0,
+        "per_page": 50,
+        "sort_by": "name",
+        "total_entries": 50,
+        "total_pages": 1,
+        "access_token": 1
+      });
+
+      settings.success([{"total_entries": 0}, []]);
+    };
+
     col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
 
-    strictEqual($.ajax.callCount, 1);
-    strictEqual($.ajax.args[0][0].url, "test-fetch-2");
-    strictEqual($.ajax.args[0][0].add, true);
-    strictEqual($.ajax.args[0][0].silent, true);
-    deepEqual($.ajax.args[0][0].data, {
-      page: 0,
-      "per_page": 50,
-      "sort_by": "name",
-      "total_entries": 50,
-      "total_pages": 1,
-      "access_token": 1
-    });
+    strictEqual(col.state.sortKey, "name");
+    strictEqual(col.state.firstPage, 0);
+    strictEqual(col.state.order, null);
+    strictEqual(col.state.currentPage, 0);
+    strictEqual(col.state.pageSize, 50);
+    strictEqual(col.state.totalRecords, 0);
+    strictEqual(col.state.lastPage, 0);
+    strictEqual(col.state.totalPages, 0);
 
-    $.ajax.restore();
+    $.ajax = ajax;
   });
 
   test("getPage", function () {
