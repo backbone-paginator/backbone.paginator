@@ -34,6 +34,17 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 2}, {id: 4}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
+
+    col = new (Backbone.PageableCollection.extend({
+      url: "url"
+    }))(null, {
+      state: {
+        firstPage: 0
+      },
+      mode: "infinite"
+    });
+
+    ok(col.links[0] === "url");
   });
 
   test("parseLinks", function () {
