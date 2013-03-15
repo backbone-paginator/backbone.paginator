@@ -1,6 +1,6 @@
 # Release History
 
-## 0.5.1-dev
+## 0.6.0
 
 * [Propagate version number from `package.json` to codebase during build](https://github.com/addyosmani/backbone.paginator/commit/5f7d2ff0a8f7e6f87e5a6e2081dc029c3fd0e70c)
 * [Transparently support both backbone 9.9 and 9.10 style `success` callback arguments](https://github.com/addyosmani/backbone.paginator/commit/c6c37ea6392c9427d67487e1316592a4a0475e92)
