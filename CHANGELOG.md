@@ -1,5 +1,7 @@
 # Release History
 
+## 0.7.0-dev
+
 ## 0.6.0
 
 * [Propagate version number from `package.json` to codebase during build](https://github.com/addyosmani/backbone.paginator/commit/5f7d2ff0a8f7e6f87e5a6e2081dc029c3fd0e70c)
