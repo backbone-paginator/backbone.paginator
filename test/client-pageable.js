@@ -30,17 +30,17 @@ $(document).ready(function () {
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test/makeFullCollection",
-      model: Backbone.Model,
-      sync: sync
+      model: Backbone.Model
     }))();
 
+    col.sync = sync;
+
     var fullCol = col._makeFullCollection(models,
-                                          { comparator: comparator });
+                                          {comparator: comparator});
 
     ok(!_.isUndefined(fullCol));
     ok(_.isUndefined(fullCol.constructor.prototype.comparator));
     strictEqual(fullCol.comparator, comparator);
-    strictEqual(fullCol.constructor.prototype.sync, sync);
     strictEqual(fullCol.sync, sync);
     strictEqual(fullCol.constructor.prototype.model, Backbone.Model);
     strictEqual(fullCol.model, Backbone.Model);
