@@ -556,6 +556,10 @@ FAQ
 Change Log
 ----------
 
+1.2.0
+    - Tested against Backbone 1.0 and Underscore 1.4.4. `(Issue #56)
+      <https://github.com/wyuenho/backbone-pageable/issues/56>`_
+
 1.1.9
   Bugs Fixed
     - Copy instance properties from pageable collection to full
