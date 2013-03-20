@@ -2,7 +2,7 @@ $(document).ready(function() {
 
   var a, b, c, d, e, col, otherCol;
 
-  module("Backbone.Collection", _.extend(new Environment, {
+  module("Backbone.PageableCollection", _.extend(new Environment, {
 
     setup: function() {
       Environment.prototype.setup.apply(this, arguments);
@@ -12,8 +12,8 @@ $(document).ready(function() {
       c         = new Backbone.Model({id: 1, label: 'c'});
       d         = new Backbone.Model({id: 0, label: 'd'});
       e         = null;
-      col       = new Backbone.Collection([a,b,c,d]);
-      otherCol  = new Backbone.Collection();
+      col       = new Backbone.PageableCollection([a,b,c,d]);
+      otherCol  = new Backbone.PageableCollection();
     }
 
   }));
@@ -39,7 +39,7 @@ $(document).ready(function() {
   });
 
   test("String comparator.", 1, function() {
-    var collection = new Backbone.Collection([
+    var collection = new Backbone.PageableCollection([
       {id: 3},
       {id: 1},
       {id: 2}
@@ -48,7 +48,7 @@ $(document).ready(function() {
   });
 
   test("new and parse", 3, function() {
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       parse : function(data) {
         return _.filter(data, function(datum) {
           return datum.a % 2 === 0;
@@ -62,33 +62,34 @@ $(document).ready(function() {
     strictEqual(collection.last().get('a'), 4);
   });
 
-  test("get", 6, function() {
+  test("get", 5, function() {
     equal(col.get(0), d);
-    equal(col.get(d.clone()), d);
     equal(col.get(2), b);
     equal(col.get({id: 1}), c);
     equal(col.get(c.clone()), c);
     equal(col.get(col.first().cid), col.first());
   });
 
-  test("get with non-default ids", 5, function() {
-    var col = new Backbone.Collection();
-    var MongoModel = Backbone.Model.extend({idAttribute: '_id'});
+  test("get with non-default ids", 4, function() {
+    var col = new Backbone.PageableCollection();
+    var MongoModel = Backbone.Model.extend({
+      idAttribute: '_id'
+    });
     var model = new MongoModel({_id: 100});
-    col.add(model);
+    col.push(model);
     equal(col.get(100), model);
-    equal(col.get(model.cid), model);
-    equal(col.get(model), model);
-    equal(col.get(101), void 0);
+    model.set({_id: 101});
+    equal(col.get(101), model);
 
-    var col2 = new Backbone.Collection();
-    col2.model = MongoModel;
-    col2.add(model.attributes);
-    equal(col2.get(model.clone()), col2.first());
+    var Col2 = Backbone.PageableCollection.extend({ model: MongoModel });
+    var col2 = new Col2();
+    col2.push(model);
+    equal(col2.get({_id: 101}), model);
+    equal(col2.get(model.clone()), model);
   });
 
   test("update index when id changes", 3, function() {
-    var col = new Backbone.Collection();
+    var col = new Backbone.PageableCollection();
     col.add([
       {id : 0, name : 'one'},
       {id : 1, name : 'two'}
@@ -131,7 +132,7 @@ $(document).ready(function() {
     var f = new Backbone.Model({id: 20, label : 'f'});
     var g = new Backbone.Model({id: 21, label : 'g'});
     var h = new Backbone.Model({id: 22, label : 'h'});
-    var atCol = new Backbone.Collection([f, g, h]);
+    var atCol = new Backbone.PageableCollection([f, g, h]);
     equal(atCol.length, 3);
     atCol.add(e, {at: 1});
     equal(atCol.length, 4);
@@ -140,7 +141,7 @@ $(document).ready(function() {
   });
 
   test("add multiple models", 6, function() {
-    var col = new Backbone.Collection([{at: 0}, {at: 1}, {at: 9}]);
+    var col = new Backbone.PageableCollection([{at: 0}, {at: 1}, {at: 9}]);
     col.add([{at: 2}, {at: 3}, {at: 4}, {at: 5}, {at: 6}, {at: 7}, {at: 8}], {at: 2});
     for (var i = 0; i <= 5; i++) {
       equal(col.at(i).get('at'), i);
@@ -148,7 +149,7 @@ $(document).ready(function() {
   });
 
   test("add; at should have preference over comparator", 1, function() {
-    var Col = Backbone.Collection.extend({
+    var Col = Backbone.PageableCollection.extend({
       comparator: function(a,b) {
         return a.id > b.id ? -1 : 1;
       }
@@ -161,19 +162,19 @@ $(document).ready(function() {
   });
 
   test("can't add model to collection twice", function() {
-    var col = new Backbone.Collection([{id: 1}, {id: 2}, {id: 1}, {id: 2}, {id: 3}]);
+    var col = new Backbone.PageableCollection([{id: 1}, {id: 2}, {id: 1}, {id: 2}, {id: 3}]);
     equal(col.pluck('id').join(' '), '1 2 3');
   });
 
   test("can't add different model with same id to collection twice", 1, function() {
-    var col = new Backbone.Collection;
+    var col = new Backbone.PageableCollection;
     col.unshift({id: 101});
     col.add({id: 101});
     equal(col.length, 1);
   });
 
   test("merge in duplicate models with {merge: true}", 3, function() {
-    var col = new Backbone.Collection;
+    var col = new Backbone.PageableCollection;
     col.add([{id: 1, name: 'Moe'}, {id: 2, name: 'Curly'}, {id: 3, name: 'Larry'}]);
     col.add({id: 1, name: 'Moses'});
     equal(col.first().get('name'), 'Moe');
@@ -195,12 +196,12 @@ $(document).ready(function() {
         equal(collection, colE);
       }
     });
-    var colE = new Backbone.Collection([]);
+    var colE = new Backbone.PageableCollection([]);
     colE.on('add', function(model, collection) {
       equal(e, model);
       equal(colE, collection);
     });
-    var colF = new Backbone.Collection([]);
+    var colF = new Backbone.PageableCollection([]);
     colF.on('add', function(model, collection) {
       equal(e, model);
       equal(colF, collection);
@@ -219,27 +220,14 @@ $(document).ready(function() {
       }
     });
 
-    var Col = Backbone.Collection.extend({model: Model});
+    var Col = Backbone.PageableCollection.extend({model: Model});
     var col = new Col;
     col.add({value: 1}, {parse: true});
     equal(col.at(0).get('value'), 2);
   });
 
-  test("add with parse and merge", function() {
-    var Model = Backbone.Model.extend({
-      parse: function (data) {
-        return data.model;
-      }
-    });
-    var collection = new Backbone.Collection();
-    collection.model = Model;
-    collection.add({id: 1});
-    collection.add({model: {id: 1, name: 'Alf'}}, {parse: true, merge: true});
-    equal(collection.first().get('name'), 'Alf');
-  });
-
   test("add model to collection with sort()-style comparator", 3, function() {
-    var col = new Backbone.Collection;
+    var col = new Backbone.PageableCollection;
     col.comparator = function(a, b) {
       return a.get('name') < b.get('name') ? -1 : 1;
     };
@@ -255,7 +243,7 @@ $(document).ready(function() {
   });
 
   test("comparator that depends on `this`", 2, function() {
-    var col = new Backbone.Collection;
+    var col = new Backbone.PageableCollection;
     col.negative = function(num) {
       return -num;
     };
@@ -289,13 +277,13 @@ $(document).ready(function() {
   });
 
   test("shift and pop", 2, function() {
-    var col = new Backbone.Collection([{a: 'a'}, {b: 'b'}, {c: 'c'}]);
+    var col = new Backbone.PageableCollection([{a: 'a'}, {b: 'b'}, {c: 'c'}]);
     equal(col.shift().get('a'), 'a');
     equal(col.pop().get('c'), 'c');
   });
 
   test("slice", 2, function() {
-    var col = new Backbone.Collection([{a: 'a'}, {b: 'b'}, {c: 'c'}]);
+    var col = new Backbone.PageableCollection([{a: 'a'}, {b: 'b'}, {c: 'c'}]);
     var array = col.slice(1, 3);
     equal(array.length, 2);
     equal(array[0].get('b'), 'b');
@@ -304,7 +292,7 @@ $(document).ready(function() {
   test("events are unbound on remove", 3, function() {
     var counter = 0;
     var dj = new Backbone.Model();
-    var emcees = new Backbone.Collection([dj]);
+    var emcees = new Backbone.PageableCollection([dj]);
     emcees.on('change', function(){ counter++; });
     dj.set({name : 'Kool'});
     equal(counter, 1);
@@ -325,8 +313,8 @@ $(document).ready(function() {
     f.on('remove', function() {
       passed = true;
     });
-    var colE = new Backbone.Collection([e]);
-    var colF = new Backbone.Collection([f]);
+    var colE = new Backbone.PageableCollection([e]);
+    var colF = new Backbone.PageableCollection([f]);
     ok(e != f);
     ok(colE.length === 1);
     ok(colF.length === 1);
@@ -350,12 +338,12 @@ $(document).ready(function() {
         equal(collection, colF);
       }
     });
-    var colE = new Backbone.Collection([e]);
+    var colE = new Backbone.PageableCollection([e]);
     colE.on('remove', function(model, collection) {
       equal(e, model);
       equal(colE, collection);
     });
-    var colF = new Backbone.Collection([e]);
+    var colF = new Backbone.PageableCollection([e]);
     colF.on('remove', function(model, collection) {
       equal(e, model);
       equal(colF, collection);
@@ -374,9 +362,11 @@ $(document).ready(function() {
 
   test("model destroy removes from all collections", 3, function() {
     var e = new Backbone.Model({id: 5, title: 'Othello'});
-    e.sync = function(method, model, options) { options.success(); };
-    var colE = new Backbone.Collection([e]);
-    var colF = new Backbone.Collection([e]);
+    e.sync = function(method, model, options) {
+      options.success(model, [], options);
+    };
+    var colE = new Backbone.PageableCollection([e]);
+    var colF = new Backbone.PageableCollection([e]);
     e.destroy();
     ok(colE.length === 0);
     ok(colF.length === 0);
@@ -386,8 +376,8 @@ $(document).ready(function() {
   test("Colllection: non-persisted model destroy removes from all collections", 3, function() {
     var e = new Backbone.Model({title: 'Othello'});
     e.sync = function(method, model, options) { throw "should not be called"; };
-    var colE = new Backbone.Collection([e]);
-    var colF = new Backbone.Collection([e]);
+    var colE = new Backbone.PageableCollection([e]);
+    var colF = new Backbone.PageableCollection([e]);
     e.destroy();
     ok(colE.length === 0);
     ok(colF.length === 0);
@@ -395,7 +385,7 @@ $(document).ready(function() {
   });
 
   test("fetch", 4, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.url = '/test';
     collection.fetch();
     equal(this.syncArgs.method, 'read');
@@ -406,17 +396,8 @@ $(document).ready(function() {
     equal(this.syncArgs.options.parse, false);
   });
 
-  test("fetch with an error response triggers an error event", 1, function () {
-    var collection = new Backbone.Collection();
-    collection.on('error', function () {
-      ok(true);
-    });
-    collection.sync = function (method, model, options) { options.error(); };
-    collection.fetch();
-  });
-
   test("ensure fetch only parses once", 1, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     var counter = 0;
     collection.parse = function(models) {
       counter++;
@@ -424,12 +405,12 @@ $(document).ready(function() {
     };
     collection.url = '/test';
     collection.fetch();
-    this.syncArgs.options.success();
+    this.syncArgs.options.success([]);
     equal(counter, 1);
   });
 
   test("create", 4, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.url = '/test';
     var model = collection.create({label: 'f'}, {wait: true});
     equal(this.syncArgs.method, 'create');
@@ -438,19 +419,16 @@ $(document).ready(function() {
     equal(model.collection, collection);
   });
 
-  test("create with validate:true enforces validation", 2, function() {
+  test("create with validate:true enforces validation", 1, function() {
     var ValidatingModel = Backbone.Model.extend({
       validate: function(attrs) {
         return "fail";
       }
     });
-    var ValidatingCollection = Backbone.Collection.extend({
+    var ValidatingCollection = Backbone.PageableCollection.extend({
       model: ValidatingModel
     });
     var col = new ValidatingCollection();
-    col.on('invalid', function (collection, attrs, options) {
-      equal(options.validationError, 'fail');
-    });
     equal(col.create({"foo":"bar"}, {validate:true}), false);
   });
 
@@ -460,7 +438,7 @@ $(document).ready(function() {
         return "fail";
       }
     });
-    var ValidatingCollection = Backbone.Collection.extend({
+    var ValidatingCollection = Backbone.PageableCollection.extend({
       model: ValidatingModel
     });
     var col = new ValidatingCollection();
@@ -470,7 +448,7 @@ $(document).ready(function() {
   });
 
   test("initialize", 1, function() {
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       initialize: function() {
         this.one = 1;
       }
@@ -483,10 +461,9 @@ $(document).ready(function() {
     equal(JSON.stringify(col), '[{"id":3,"label":"a"},{"id":2,"label":"b"},{"id":1,"label":"c"},{"id":0,"label":"d"}]');
   });
 
-  test("where and findWhere", 8, function() {
-    var model = new Backbone.Model({a: 1});
-    var coll = new Backbone.Collection([
-      model,
+  test("where", 6, function() {
+    var coll = new Backbone.PageableCollection([
+      {a: 1},
       {a: 1},
       {a: 1, b: 2},
       {a: 2, b: 2},
@@ -498,8 +475,6 @@ $(document).ready(function() {
     equal(coll.where({b: 1}).length, 0);
     equal(coll.where({b: 2}).length, 2);
     equal(coll.where({a: 1, b: 2}).length, 1);
-    equal(coll.findWhere({a: 1}), model);
-    equal(coll.findWhere({a: 4}), void 0);
   });
 
   test("Underscore methods", 13, function() {
@@ -509,10 +484,10 @@ $(document).ready(function() {
     equal(col.indexOf(b), 1);
     equal(col.size(), 4);
     equal(col.rest().length, 3);
-    ok(!_.include(col.rest(), a));
-    ok(_.include(col.rest(), d));
+    ok(!_.include(col.rest()), a);
+    ok(!_.include(col.rest()), d);
     ok(!col.isEmpty());
-    ok(!_.include(col.without(d), d));
+    ok(!_.include(col.without(d)), d);
     equal(col.max(function(model){ return model.id; }).id, 3);
     equal(col.min(function(model){ return model.id; }).id, 0);
     deepEqual(col.chain()
@@ -524,7 +499,7 @@ $(document).ready(function() {
 
   test("sortedIndex", function () {
     var model = new Backbone.Model({key: 2});
-    var collection = new (Backbone.Collection.extend({
+    var collection = new (Backbone.PageableCollection.extend({
       comparator: 'key'
     }))([model, {key: 1}]);
     equal(collection.sortedIndex(model), 1);
@@ -534,9 +509,9 @@ $(document).ready(function() {
     }), 1);
   });
 
-  test("reset", 12, function() {
+  test("reset", 10, function() {
     var resetCount = 0;
-    var models = col.models;
+    var models = col.models.slice();
     col.on('reset', function() { resetCount += 1; });
     col.reset([]);
     equal(resetCount, 1);
@@ -551,22 +526,6 @@ $(document).ready(function() {
     equal(col.length, 4);
     ok(col.last() !== d);
     ok(_.isEqual(col.last().attributes, d.attributes));
-    col.reset();
-    equal(col.length, 0);
-    equal(resetCount, 4);
-  });
-
-  test ("reset with different values", function(){
-    var col = new Backbone.Collection({id: 1});
-    col.reset({id: 1, a: 1});
-    equal(col.get(1).get('a'), 1);
-  });
-
-  test("same references in reset", function() {
-    var model = new Backbone.Model({id: 1});
-    var collection = new Backbone.Collection({id: 1});
-    collection.reset(model);
-    equal(collection.get(1), model);
   });
 
   test("reset passes caller options", 3, function() {
@@ -575,7 +534,7 @@ $(document).ready(function() {
         this.model_parameter = options.model_parameter;
       }
     });
-    var col = new (Backbone.Collection.extend({ model: Model }))();
+    var col = new (Backbone.PageableCollection.extend({ model: Model }))();
     col.reset([{ astring: "green", anumber: 1 }, { astring: "blue", anumber: 2 }], { model_parameter: 'model parameter' });
     equal(col.length, 2);
     col.each(function(model) {
@@ -593,13 +552,13 @@ $(document).ready(function() {
   test("add does not alter arguments", 2, function(){
     var attrs = {};
     var models = [attrs];
-    new Backbone.Collection().add(models);
+    new Backbone.PageableCollection().add(models);
     equal(models.length, 1);
     ok(attrs === models[0]);
   });
 
   test("#714: access `model.collection` in a brand new model.", 2, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.url = '/test';
     var Model = Backbone.Model.extend({
       set: function(attrs) {
@@ -613,7 +572,7 @@ $(document).ready(function() {
   });
 
   test("#574, remove its own reference to the .models array.", 2, function() {
-    var col = new Backbone.Collection([
+    var col = new Backbone.PageableCollection([
       {id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}
     ]);
     equal(col.length, 6);
@@ -628,7 +587,7 @@ $(document).ready(function() {
         }
       });
 
-      var Collection = Backbone.Collection.extend({
+      var Collection = Backbone.PageableCollection.extend({
         model: Model
       });
 
@@ -640,7 +599,7 @@ $(document).ready(function() {
   });
 
   test("Invalid models are discarded with validate:true.", 5, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.on('test', function() { ok(true); });
     collection.model = Backbone.Model.extend({
       validate: function(attrs){ if (!attrs.valid) return 'invalid'; }
@@ -655,7 +614,7 @@ $(document).ready(function() {
   });
 
   test("multiple copies of the same model", 3, function() {
-    var col = new Backbone.Collection();
+    var col = new Backbone.PageableCollection();
     var model = new Backbone.Model();
     col.add([model, model]);
     equal(col.length, 1);
@@ -665,21 +624,21 @@ $(document).ready(function() {
   });
 
   test("#964 - collection.get return inconsistent", 2, function() {
-    var c = new Backbone.Collection();
+    var c = new Backbone.PageableCollection();
     ok(c.get(null) === undefined);
     ok(c.get() === undefined);
   });
 
   test("#1112 - passing options.model sets collection.model", 2, function() {
     var Model = Backbone.Model.extend({});
-    var c = new Backbone.Collection([{id: 1}], {model: Model});
+    var c = new Backbone.PageableCollection([{id: 1}], {model: Model});
     ok(c.model === Model);
     ok(c.at(0) instanceof Model);
   });
 
   test("null and undefined are invalid ids.", 2, function() {
     var model = new Backbone.Model({id: 1});
-    var collection = new Backbone.Collection([model]);
+    var collection = new Backbone.PageableCollection([model]);
     model.set({id: null});
     ok(!collection.get('null'));
     model.set({id: 1});
@@ -688,7 +647,7 @@ $(document).ready(function() {
   });
 
   test("falsy comparator", 4, function(){
-    var Col = Backbone.Collection.extend({
+    var Col = Backbone.PageableCollection.extend({
       comparator: function(model){ return model.id; }
     });
     var col = new Col();
@@ -703,7 +662,7 @@ $(document).ready(function() {
 
   test("#1355 - `options` is passed to success callbacks", 2, function(){
     var m = new Backbone.Model({x:1});
-    var col = new Backbone.Collection();
+    var col = new Backbone.PageableCollection();
     var opts = {
       success: function(collection, resp, options){
         ok(options);
@@ -717,7 +676,7 @@ $(document).ready(function() {
   });
 
   test("#1412 - Trigger 'request' and 'sync' events.", 4, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.url = '/test';
     Backbone.ajax = function(settings){ settings.success(); };
 
@@ -741,15 +700,17 @@ $(document).ready(function() {
   });
 
   test("#1447 - create with wait adds model.", 1, function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     var model = new Backbone.Model;
-    model.sync = function(method, model, options){ options.success(); };
+    model.sync = function(method, model, options){
+      options.success(model, [], options);
+    };
     collection.on('add', function(){ ok(true); });
     collection.create(model, {wait: true});
   });
 
   test("#1448 - add sorts collection after merge.", 1, function() {
-    var collection = new Backbone.Collection([
+    var collection = new Backbone.PageableCollection([
       {id: 1, x: 1},
       {id: 2, x: 2}
     ]);
@@ -759,7 +720,7 @@ $(document).ready(function() {
   });
 
   test("#1655 - groupBy can be used with a string argument.", 3, function() {
-    var collection = new Backbone.Collection([{x: 1}, {x: 2}]);
+    var collection = new Backbone.PageableCollection([{x: 1}, {x: 2}]);
     var grouped = collection.groupBy('x');
     strictEqual(_.keys(grouped).length, 2);
     strictEqual(grouped[1][0].get('x'), 1);
@@ -767,7 +728,7 @@ $(document).ready(function() {
   });
 
   test("#1655 - sortBy can be used with a string argument.", 1, function() {
-    var collection = new Backbone.Collection([{x: 3}, {x: 1}, {x: 2}]);
+    var collection = new Backbone.PageableCollection([{x: 3}, {x: 1}, {x: 2}]);
     var values = _.map(collection.sortBy('x'), function(model) {
       return model.get('x');
     });
@@ -775,7 +736,7 @@ $(document).ready(function() {
   });
 
   test("#1604 - Removal during iteration.", 0, function() {
-    var collection = new Backbone.Collection([{}, {}]);
+    var collection = new Backbone.PageableCollection([{}, {}]);
     collection.on('add', function() {
       collection.at(0).destroy();
     });
@@ -783,7 +744,7 @@ $(document).ready(function() {
   });
 
   test("#1638 - `sort` during `add` triggers correctly.", function() {
-    var collection = new Backbone.Collection;
+    var collection = new Backbone.PageableCollection;
     collection.comparator = function(model) { return model.get('x'); };
     var added = [];
     collection.on('add', function(model) {
@@ -797,7 +758,7 @@ $(document).ready(function() {
 
   test("fetch parses models by default", 1, function() {
     var model = {};
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       url: 'test',
       model: Backbone.Model.extend({
         parse: function(resp) {
@@ -810,7 +771,7 @@ $(document).ready(function() {
   });
 
   test("`sort` shouldn't always fire on `add`", 1, function() {
-    var c = new Backbone.Collection([{id: 1}, {id: 2}, {id: 3}], {
+    var c = new Backbone.PageableCollection([{id: 1}, {id: 2}, {id: 3}], {
       comparator: 'id'
     });
     c.sort = function(){ ok(true); };
@@ -824,7 +785,7 @@ $(document).ready(function() {
     var model = {
       namespace : [{id: 1}, {id:2}]
     };
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       model: Backbone.Model.extend({
         parse: function(model) {
           model.name = 'test';
@@ -845,7 +806,7 @@ $(document).ready(function() {
     var model = {
       namespace : [{id: 1}, {id:2}]
     };
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       model: Backbone.Model.extend({
         parse: function(model) {
           model.name = 'test';
@@ -866,18 +827,18 @@ $(document).ready(function() {
 
   test("Reset includes previous models in triggered event.", 1, function() {
     var model = new Backbone.Model();
-    var collection = new Backbone.Collection([model])
+    var collection = new Backbone.PageableCollection([model])
     .on('reset', function(collection, options) {
       deepEqual(options.previousModels, [model]);
     });
     collection.reset([]);
   });
 
-  test("set", function() {
+  test("update", function() {
     var m1 = new Backbone.Model();
     var m2 = new Backbone.Model({id: 2});
     var m3 = new Backbone.Model();
-    var c = new Backbone.Collection([m1, m2]);
+    var c = new Backbone.PageableCollection([m1, m2]);
 
     // Test add/change/remove events
     c.on('add', function(model) {
@@ -891,24 +852,24 @@ $(document).ready(function() {
     });
 
     // remove: false doesn't remove any models
-    c.set([], {remove: false});
+    c.update([], {remove: false});
     strictEqual(c.length, 2);
 
     // add: false doesn't add any models
-    c.set([m1, m2, m3], {add: false});
+    c.update([m1, m2, m3], {add: false});
     strictEqual(c.length, 2);
 
     // merge: false doesn't change any models
-    c.set([m1, {id: 2, a: 1}], {merge: false});
+    c.update([m1, {id: 2, a: 1}], {merge: false});
     strictEqual(m2.get('a'), void 0);
 
     // add: false, remove: false only merges existing models
-    c.set([m1, {id: 2, a: 0}, m3, {id: 4}], {add: false, remove: false});
+    c.update([m1, {id: 2, a: 0}, m3, {id: 4}], {add: false, remove: false});
     strictEqual(c.length, 2);
     strictEqual(m2.get('a'), 0);
 
     // default options add/remove/merge as appropriate
-    c.set([{id: 2, a: 1}, m3]);
+    c.update([{id: 2, a: 1}, m3]);
     strictEqual(c.length, 2);
     strictEqual(m2.get('a'), 1);
 
@@ -916,88 +877,59 @@ $(document).ready(function() {
     c.off('remove').on('remove', function(model) {
       ok(model === m2 || model === m3);
     });
-    c.set([]);
+    c.update([]);
     strictEqual(c.length, 0);
   });
 
-  test("set with only cids", 3, function() {
+  test("update with only cids", 3, function() {
     var m1 = new Backbone.Model;
     var m2 = new Backbone.Model;
-    var c = new Backbone.Collection;
-    c.set([m1, m2]);
+    var c = new Backbone.PageableCollection;
+    c.update([m1, m2]);
     equal(c.length, 2);
-    c.set([m1]);
+    c.update([m1]);
     equal(c.length, 1);
-    c.set([m1, m1, m1, m2, m2], {remove: false});
+    c.update([m1, m1, m1, m2, m2], {remove: false});
     equal(c.length, 2);
   });
 
-  test("set with only idAttribute", 3, function() {
+  test("update with only idAttribute", 3, function() {
     var m1 = { _id: 1 };
     var m2 = { _id: 2 };
-    var col = Backbone.Collection.extend({
+    var col = Backbone.PageableCollection.extend({
       model: Backbone.Model.extend({
         idAttribute: '_id'
       })
     });
     var c = new col;
-    c.set([m1, m2]);
+    c.update([m1, m2]);
     equal(c.length, 2);
-    c.set([m1]);
+    c.update([m1]);
     equal(c.length, 1);
-    c.set([m1, m1, m1, m2, m2], {remove: false});
+    c.update([m1, m1, m1, m2, m2], {remove: false});
     equal(c.length, 2);
   });
 
-  test("set + merge with default values defined", function() {
+  test("update + merge with default values defined", function() {
     var Model = Backbone.Model.extend({
       defaults: {
         key: 'value'
       }
     });
     var m = new Model({id: 1});
-    var col = new Backbone.Collection([m], {model: Model});
+    var col = new Backbone.PageableCollection([m], {model: Model});
     equal(col.first().get('key'), 'value');
 
-    col.set({id: 1, key: 'other'});
+    col.update({id: 1, key: 'other'});
     equal(col.first().get('key'), 'other');
 
-    col.set({id: 1, other: 'value'});
-    equal(col.first().get('key'), 'value');
+    col.update({id: 1, other: 'value'});
+    equal(col.first().get('key'), 'other');
     equal(col.length, 1);
   });
 
-  test("`set` and model level `parse`", function() {
-    var Model = Backbone.Model.extend({
-      parse: function (res) { return res.model; }
-    });
-    var Collection = Backbone.Collection.extend({
-      model: Model,
-      parse: function (res) { return res.models; }
-    });
-    var model = new Model({id: 1});
-    var collection = new Collection(model);
-    collection.set({models: [
-      {model: {id: 1}},
-      {model: {id: 2}}
-    ]}, {parse: true});
-    equal(collection.first(), model);
-  });
-
-  test("`set` data is only parsed once", function() {
-    var collection = new Backbone.Collection();
-    collection.model = Backbone.Model.extend({
-      parse: function (data) {
-        equal(data.parsed, void 0);
-        data.parsed = true;
-        return data;
-      }
-    });
-    collection.set({}, {parse: true});
-  });
-
   test("#1894 - Push should not trigger a sort", 0, function() {
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       comparator: 'id',
       sort: function() {
         ok(false);
@@ -1006,36 +938,36 @@ $(document).ready(function() {
     new Collection().push({id: 1});
   });
 
-  test("`set` with non-normal id", function() {
-    var Collection = Backbone.Collection.extend({
+  test("`update` with non-normal id", function() {
+    var Collection = Backbone.PageableCollection.extend({
       model: Backbone.Model.extend({idAttribute: '_id'})
     });
     var collection = new Collection({_id: 1});
-    collection.set([{_id: 1, a: 1}], {add: false});
+    collection.update([{_id: 1, a: 1}], {add: false});
     equal(collection.first().get('a'), 1);
   });
 
   test("#1894 - `sort` can optionally be turned off", 0, function() {
-    var Collection = Backbone.Collection.extend({
+    var Collection = Backbone.PageableCollection.extend({
       comparator: 'id',
       sort: function() { ok(true); }
     });
     new Collection().add({id: 1}, {sort: false});
   });
 
-  test("#1915 - `parse` data in the right order in `set`", function() {
-    var collection = new (Backbone.Collection.extend({
+  test("#1915 - `parse` data in the right order in `update`", function() {
+    var collection = new (Backbone.PageableCollection.extend({
       parse: function (data) {
         strictEqual(data.status, 'ok');
         return data.data;
       }
     }));
     var res = {status: 'ok', data:[{id: 1}]};
-    collection.set(res, {parse: true});
+    collection.update(res, {parse: true});
   });
 
   asyncTest("#1939 - `parse` is passed `options`", 1, function () {
-    var collection = new (Backbone.Collection.extend({
+    var collection = new (Backbone.PageableCollection.extend({
       url: '/',
       parse: function (data, options) {
         strictEqual(options.xhr.someHeader, 'headerValue');
@@ -1054,7 +986,7 @@ $(document).ready(function() {
   });
 
   test("`add` only `sort`s when necessary", 2, function () {
-    var collection = new (Backbone.Collection.extend({
+    var collection = new (Backbone.PageableCollection.extend({
       comparator: 'a'
     }))([{id: 1}, {id: 2}, {id: 3}]);
     collection.on('sort', function () { ok(true); });
@@ -1067,9 +999,9 @@ $(document).ready(function() {
   });
 
   test("`add` only `sort`s when necessary with comparator function", 3, function () {
-    var collection = new (Backbone.Collection.extend({
+    var collection = new (Backbone.PageableCollection.extend({
       comparator: function(a, b) {
-        return a.get('a') > b.get('a') ? 1 : (a.get('a') < b.get('a') ? -1 : 0);
+        a.get('a') > b.get('a') ? 1 : (a.get('a') < b.get('a') ? -1 : 0);
       }
     }))([{id: 1}, {id: 2}, {id: 3}]);
     collection.on('sort', function () { ok(true); });
@@ -1079,22 +1011,6 @@ $(document).ready(function() {
     collection.add({id: 1, a: 1}, {merge: true}); // don't sort, no model change
     collection.add(collection.models); // don't sort, nothing new
     collection.add(collection.models, {merge: true}); // don't sort
-  });
-
-  test("Attach options to collection.", 3, function() {
-      var url = '/somewhere';
-      var model = new Backbone.Model;
-      var comparator = function(){};
-
-      var collection = new Backbone.Collection([], {
-        url: url,
-        model: model,
-        comparator: comparator
-      });
-
-      strictEqual(collection.url, url);
-      ok(collection.model === model);
-      ok(collection.comparator === comparator);
   });
 
 });

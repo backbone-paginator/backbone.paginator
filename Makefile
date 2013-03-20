@@ -36,4 +36,5 @@ doc:
 test: FORCE
 	phantomjs test/runner.js test/index.html?noglobals=true
 	phantomjs test/runner.js test/test-zepto.html?noglobals=true
+	phantomjs test/runner.js test/index.0.9.10.html?noglobals=true
 	phantomjs test/runner.js test/index.0.9.9.html?noglobals=true
