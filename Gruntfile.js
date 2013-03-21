@@ -30,7 +30,7 @@ module.exports = function(grunt) {
       }
     },
     mocha: {
-      all: [ 'test/test-1*.html' ],
+      all: [ 'test/test*.html' ],
       options: {
         run: true
       }
