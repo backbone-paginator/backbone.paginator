@@ -157,7 +157,7 @@ describe('backbone.paginator.requestPager',function(){
     });
 
     it('should use the correct "options.success" arguments', function(done){
-      // This is to keep compatibility with Backbone older than 0.9.10
+      // This is to keep compatibility with Backbone 0.9.10
       var requestPagerTest = {
         paginator_ui: {},
         paginator_core: {
@@ -172,9 +172,9 @@ describe('backbone.paginator.requestPager',function(){
       server.respondWith([200, { "Content-Type": "application/json" }, '{ "key": "value" }']);
 
       var bbVer = Backbone.VERSION.split('.');
-      var oldSuccessFormat = (parseInt(bbVer[0], 10) === 0 &&
-                              parseInt(bbVer[1], 10) === 9 &&
-                              parseInt(bbVer[2], 10) <= 9);
+      var promiseSuccessFormat = !(parseInt(bbVer[0], 10) === 0 &&
+                                   parseInt(bbVer[1], 10) === 9 &&
+                                   parseInt(bbVer[2], 10) === 10);
 
       var model = {};
 
@@ -182,7 +182,7 @@ describe('backbone.paginator.requestPager',function(){
         success: function(model_, resp_, options) {
           // verify
           var bbVer = Backbone.VERSION.split('.');
-          if (oldSuccessFormat) {
+          if (promiseSuccessFormat) {
             var status_ = resp_;
             resp_ = model_;
             var xhr_ = options;
