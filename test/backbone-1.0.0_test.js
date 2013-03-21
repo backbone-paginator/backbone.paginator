@@ -1,3 +1,7 @@
+/*globals Backbone:false, _:false, jQuery:false, $: false,
+      describe: true, xdescribe: true, expect: true, sinon: true,
+      it: true, xit: true, beforeEach: true, afterEach: true*/
+
 // this file contains tests which target behaviour found in backbone 1.0.0
 
 it('should use "promise-style" `options.success` arguments', function(done){

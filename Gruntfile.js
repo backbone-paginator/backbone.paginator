@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: 'lib/<%= pkg.name %>.js',
-        dest: 'dist/<%= pkg.name %>.js',
+        dest: 'dist/<%= pkg.name %>.js'
       }
     },
     uglify: {
@@ -56,13 +56,13 @@ module.exports = function(grunt) {
         // This is already fixed in master: https://github.com/jshint/jshint/issues/667
         // As soon as it is released the following line can be uncommented
         //indent: 2,
-        trailing: true
+        trailing: true,
+        globals: {
+          exports: true,
+          module: false
+        }
       },
-      globals: {
-        exports: true,
-        module: false
-      },
-      files: ['grunt.js', 'lib/**/*.js', 'test/u.js']
+      files: ['Gruntfile.js', 'lib/**/*.js', 'test/*.js']
     }
   });
 

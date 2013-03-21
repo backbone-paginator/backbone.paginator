@@ -1,5 +1,5 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
-      describe: true, expect: true, sinon: true
+      describe: true, expect: true, sinon: true,
       it: true, beforeEach: true, afterEach: true*/
 describe('backbone.paginator.requestPager',function(){
 
