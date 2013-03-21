@@ -132,13 +132,17 @@ describe('backbone.paginator.clientPager', function() {
       spy.restore();
     });
 
-    it('should call "setDefauls" function', function() {
+    it('should call "setDefaults" function', function() {
       this.clientPagerTest.paginator_core = {};
       this.clientPagerTest.paginator_ui = {};
 
       this.clientPagerTest.sync(null, null, {});
-      // Once from initialize (default) and one in sync
-      expect(this.defaultsStub.calledTwice).to.equal(true);
+
+      expect(this.clientPagerTest.defaults_ui).to.have.property('firstPage', 0);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('currentPage', 1);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('perPage', 5);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('totalPages', 10);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('pagesInRange', 4);
     });
 
     it("should use 'paginator_core' values as query options to ajax call", function(){
