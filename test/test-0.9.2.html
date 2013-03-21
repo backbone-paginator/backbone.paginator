@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>backbone.paginator.requestPager Mocha Test</title>
+    <link rel="stylesheet" href="css/mocha.css" type="text/css" charset="utf-8" />
+</head>
+<body>
+    <!-- Required for browser reporter -->
+    <div id="mocha"></div>
+
+    <!-- backbone/underscore -->
+    <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/underscore.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/backbone-0.9.2.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- mocha -->
+    <script src="js/mocha.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        // This will be overridden by mocha-helper if you run with grunt
+        mocha.setup('bdd');
+    </script>
+
+    <!--
+         IMPORTANT
+         If you are not using AMD, you must include the mocha-helper.js file.
+    -->
+    <script src="js/mocha-helper.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Include your assertion lib of choice -->
+    <script src="js/chai.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/sinon.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        // Setup chai
+        var expect = chai.expect;
+    </script>
+
+    <!-- Include anything you want to test -->
+    <script src="../lib/backbone.paginator.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Spec files -->
+    <script src="backbone.paginator.requestPager_test.js" type="text/javascript" charset="utf-8"></script>
+    <script src="backbone.paginator.clientPager_test.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- run mocha -->
+    <script type="text/javascript" charset="utf-8">
+        mocha
+            .globals(['jQuery*', "XMLHttpRequest"]) // acceptable globals
+            .run();
+    </script>
+</body>
+</html>

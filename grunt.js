@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       }
     },
     mocha: {
-      all: [ 'test/test.html' ]
+      all: [ 'test/test*.html' ]
     },
     lint: {
       files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
