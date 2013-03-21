@@ -16,17 +16,14 @@ module.exports = function(grunt) {
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
-    min: {
-      dist: {
+    uglify: {
+      dist:{
         src: ['<banner>', '<config:concat.dist.dest>'],
         dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
     mocha: {
       all: [ 'test/test*.html' ]
-    },
-    lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
     },
     watch: {
       files: '<config:lint.files>',
@@ -54,17 +51,21 @@ module.exports = function(grunt) {
       globals: {
         exports: true,
         module: false
-      }
+      },
+      files: ['grunt.js', 'lib/**/*.js', 'test/u.js']
     },
     uglify: {}
   });
 
-  // Default task.
-  grunt.registerTask('default', 'lint mocha concat replace-version min');
-  grunt.registerTask('test', 'lint mocha');
-
-  // run `npm install grunt-mocha` in project root dir and uncomment this
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-mocha');
+
+  // Default task.
+  grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'replace-version', 'uglify']);
+  grunt.registerTask('test', ['jshint', 'mocha']);
+
 
   grunt.registerTask('replace-version', 'replace the version placeholder in backbone.paginator.js', function() {
     var pkg = grunt.config.get('pkg');
