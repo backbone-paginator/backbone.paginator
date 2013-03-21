@@ -2,28 +2,35 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("m/d/yyyy") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
+        '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n'
     },
     concat: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        src: ['<banner>', '<file_strip_banner:lib/<%= pkg.name %>.js>'],
-        dest: 'dist/<%= pkg.name %>.js'
+        src: 'lib/<%= pkg.name %>.js',
+        dest: 'dist/<%= pkg.name %>.js',
       }
     },
     uglify: {
-      dist:{
-        src: ['<banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+      options: {
+        banner: '<%= meta.banner %>'
+      },
+      dist: {
+        files: {
+          'dist/backbone.paginator.min.js' : ['<%= concat.dist.dest %>']
+        }
       }
     },
     mocha: {
-      all: [ 'test/test*.html' ],
+      all: [ 'test/test-1*.html' ],
       options: {
         run: true
       }
@@ -56,8 +63,7 @@ module.exports = function(grunt) {
         module: false
       },
       files: ['grunt.js', 'lib/**/*.js', 'test/u.js']
-    },
-    uglify: {}
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
