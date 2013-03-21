@@ -4,6 +4,12 @@
 describe('backbone.paginator.clientPager', function() {
 
   beforeEach(function() {
+    // some test don't seem to clean up after them which makes the phantom run fail
+    _.each([this.addSpy, this.removeSpy, this.defaultsStub], function(spy){
+      if(spy){
+        spy.restore();
+      }
+    });
     this.addSpy = sinon.stub(Backbone.Paginator.clientPager.prototype, 'addModel');
     this.removeSpy = sinon.stub(Backbone.Paginator.clientPager.prototype, 'removeModel');
     this.defaultsStub = sinon.stub(Backbone.Paginator.clientPager.prototype, 'setDefaults');
