@@ -123,6 +123,9 @@ describe('backbone.paginator.clientPager', function() {
 
     var spy;
     beforeEach(function(){
+      if(spy){
+        spy.restore();
+      }
       spy = sinon.spy($, 'ajax');
     });
     afterEach(function(){
@@ -392,6 +395,9 @@ describe('backbone.paginator.clientPager', function() {
   describe("nextPage", function(){
     var pagerSpy;
     beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
       pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
       this.clientPagerTest.information = {totalPages : 99};
     });
@@ -425,6 +431,9 @@ describe('backbone.paginator.clientPager', function() {
   describe('previousPage', function() {
     var pagerSpy;
     beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
       pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
     });
     afterEach(function() {
@@ -455,26 +464,33 @@ describe('backbone.paginator.clientPager', function() {
     });
   });
   describe('goTo', function() {
-    it('should set "currentPage" and call "pager" method', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
 
-      expect(this.clientPagerTest.currentPage).not.to.equal(99);
-      this.clientPagerTest.goTo(99);
-
-      expect(this.clientPagerTest.currentPage).to.equal(99);
-      expect(pagerSpy.calledOnce).to.equal(true);
-
+    var pagerSpy;
+    beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
+      pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
+    });
+    afterEach(function() {
       pagerSpy.restore();
     });
+
+    it('should set "currentPage" and call "pager" method', function() {
+      this.clientPagerTest.goTo(98);
+
+      expect(this.clientPagerTest.currentPage).to.equal(98);
+      expect(pagerSpy.calledOnce).to.equal(true);
+      this.clientPagerTest.goTo(99);
+      expect(this.clientPagerTest.currentPage).to.equal(99);
+    });
+
     it('should not do anything if goTo page is undefined', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
       this.clientPagerTest.currentPage = 7;
       this.clientPagerTest.goTo();
 
       expect(this.clientPagerTest.currentPage).to.equal(7);
       expect(pagerSpy.calledOnce).to.equal(false);
-
-      pagerSpy.restore();
     });
   });
   describe('prevPage', function() {
