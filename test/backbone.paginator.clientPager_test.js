@@ -311,7 +311,7 @@ describe('backbone.paginator.clientPager', function() {
             pagesInRange: 4
           },
           paginator_core: {
-            url: 'http://odata.netflix.com/v2/Catalog/Titles',
+            url: 'test',
             dataType: 'json'
           },
           parse: function (response) {

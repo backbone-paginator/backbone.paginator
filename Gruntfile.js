@@ -23,7 +23,10 @@ module.exports = function(grunt) {
       }
     },
     mocha: {
-      all: [ 'test/test*.html' ]
+      all: [ 'test/test*.html' ],
+      options: {
+        run: true
+      }
     },
     watch: {
       files: '<config:lint.files>',
