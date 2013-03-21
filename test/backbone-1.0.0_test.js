@@ -21,13 +21,10 @@ it('should use "promise-style" `options.success` arguments', function(done){
   var model = {};
 
   var options = {
-    success: function(model_, resp_, options) {
-      var status_ = resp_;
-      resp_ = model_;
-      var xhr_ = options;
-      expect(resp_['key']).to.equal('value');
-      expect(status_).to.equal('success');
-      expect(xhr_).to.have.property('status', 200);
+    success: function(response, status, xhr) {
+      expect(response['key']).to.equal('value');
+      expect(status).to.equal('success');
+      expect(xhr).to.have.property('status', 200);
       done();
     }
   };
