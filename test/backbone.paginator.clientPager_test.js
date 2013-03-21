@@ -32,18 +32,28 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.defaults_ui).to.have.property('totalPages', 10);
       expect(this.clientPagerTest.defaults_ui).to.have.property('pagesInRange', 4);
     });
-    it('should register "add" event', function() {
+
+    it('should fire "add" event', function() {
+      var called = false;
+      this.clientPagerTest.on("add", function(){
+        called = true;
+      });
       this.clientPagerTest.add(new Backbone.Model());
-      expect(this.addSpy.calledOnce).to.equal(true);
+      expect(called).to.equal(true);
     });
-    it('should register "remove" event', function() {
+
+    it('should fire "remove" event', function() {
+      var called = false;
+      this.clientPagerTest.on("remove", function(){
+        called = true;
+      });
       this.clientPagerTest.origModels = [];
       var model = new Backbone.Model();
       this.addSpy.restore();
       this.clientPagerTest.add(model);
       this.clientPagerTest.remove(model);
 
-      expect(this.removeSpy.calledOnce).to.equal(true);
+      expect(called).to.equal(true);
     });
 
     it('should set defauls by calling "setDefaults" function', function() {
