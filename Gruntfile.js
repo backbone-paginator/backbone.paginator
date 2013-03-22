@@ -12,7 +12,8 @@ module.exports = function(grunt) {
     },
     concat: {
       options: {
-        banner: '<%= meta.banner %>'
+        banner: '<%= meta.banner %>',
+        process: true
       },
       dist: {
         src: 'lib/<%= pkg.name %>.js',
@@ -68,15 +69,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha');
 
   // Default task.
-  grunt.registerTask('default', ['test', 'concat', 'replace-version', 'uglify']);
+  grunt.registerTask('default', ['test', 'concat', 'uglify']);
   grunt.registerTask('test', ['jshint', 'mocha']);
 
-
-  grunt.registerTask('replace-version', 'replace the version placeholder in backbone.paginator.js', function() {
-    var pkg = grunt.config.get('pkg');
-    var filename = 'dist/' + pkg.name + '.js';
-    var content = grunt.file.read(filename);
-    var rendered = grunt.template.process(content, { pkg : pkg });
-    grunt.file.write(filename, rendered);
-  });
 };
