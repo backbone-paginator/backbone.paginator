@@ -2,31 +2,38 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("m/d/yyyy") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
+        '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n'
     },
     concat: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        src: ['<banner>', '<file_strip_banner:lib/<%= pkg.name %>.js>'],
+        src: 'lib/<%= pkg.name %>.js',
         dest: 'dist/<%= pkg.name %>.js'
       }
     },
-    min: {
+    uglify: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        src: ['<banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+        files: {
+          'dist/backbone.paginator.min.js' : ['<%= concat.dist.dest %>']
+        }
       }
     },
     mocha: {
-      all: [ 'test/test*.html' ]
-    },
-    lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/backbone.paginator*.js']
+      all: [ 'test/test*.html' ],
+      options: {
+        run: true
+      }
     },
     watch: {
       files: '<config:lint.files>',
@@ -49,22 +56,25 @@ module.exports = function(grunt) {
         // This is already fixed in master: https://github.com/jshint/jshint/issues/667
         // As soon as it is released the following line can be uncommented
         //indent: 2,
-        trailing: true
+        trailing: true,
+        globals: {
+          exports: true,
+          module: false
+        }
       },
-      globals: {
-        exports: true,
-        module: false
-      }
-    },
-    uglify: {}
+      files: ['Gruntfile.js', 'lib/**/*.js', 'test/*.js']
+    }
   });
 
-  // Default task.
-  grunt.registerTask('default', 'lint mocha concat replace-version min');
-  grunt.registerTask('test', 'lint mocha');
-
-  // run `npm install grunt-mocha` in project root dir and uncomment this
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-mocha');
+
+  // Default task.
+  grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'replace-version', 'uglify']);
+  grunt.registerTask('test', ['jshint', 'mocha']);
+
 
   grunt.registerTask('replace-version', 'replace the version placeholder in backbone.paginator.js', function() {
     var pkg = grunt.config.get('pkg');

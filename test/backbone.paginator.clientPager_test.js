@@ -1,9 +1,15 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
-      describe: true, xdescribe: true, expect: true, sinon: true
+      describe: true, xdescribe: true, expect: true, sinon: true,
       it: true, xit: true, beforeEach: true, afterEach: true*/
 describe('backbone.paginator.clientPager', function() {
 
   beforeEach(function() {
+    // some test don't seem to clean up after them which makes the phantom run fail
+    _.each([this.addSpy, this.removeSpy, this.defaultsStub], function(spy){
+      if(spy){
+        spy.restore();
+      }
+    });
     this.addSpy = sinon.stub(Backbone.Paginator.clientPager.prototype, 'addModel');
     this.removeSpy = sinon.stub(Backbone.Paginator.clientPager.prototype, 'removeModel');
     this.defaultsStub = sinon.stub(Backbone.Paginator.clientPager.prototype, 'setDefaults');
@@ -26,18 +32,28 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.defaults_ui).to.have.property('totalPages', 10);
       expect(this.clientPagerTest.defaults_ui).to.have.property('pagesInRange', 4);
     });
-    it('should register "add" event', function() {
+
+    it('should fire "add" event', function() {
+      var called = false;
+      this.clientPagerTest.on("add", function(){
+        called = true;
+      });
       this.clientPagerTest.add(new Backbone.Model());
-      expect(this.addSpy.calledOnce).to.equal(true);
+      expect(called).to.equal(true);
     });
-    it('should register "remove" event', function() {
+
+    it('should fire "remove" event', function() {
+      var called = false;
+      this.clientPagerTest.on("remove", function(){
+        called = true;
+      });
       this.clientPagerTest.origModels = [];
       var model = new Backbone.Model();
       this.addSpy.restore();
       this.clientPagerTest.add(model);
       this.clientPagerTest.remove(model);
 
-      expect(this.removeSpy.calledOnce).to.equal(true);
+      expect(called).to.equal(true);
     });
 
     it('should set defauls by calling "setDefaults" function', function() {
@@ -117,19 +133,26 @@ describe('backbone.paginator.clientPager', function() {
 
     var spy;
     beforeEach(function(){
+      if(spy){
+        spy.restore();
+      }
       spy = sinon.spy($, 'ajax');
     });
     afterEach(function(){
       spy.restore();
     });
 
-    it('should call "setDefauls" function', function() {
+    it('should call "setDefaults" function', function() {
       this.clientPagerTest.paginator_core = {};
       this.clientPagerTest.paginator_ui = {};
 
       this.clientPagerTest.sync(null, null, {});
-      // Once from initialize (default) and one in sync
-      expect(this.defaultsStub.calledTwice).to.equal(true);
+
+      expect(this.clientPagerTest.defaults_ui).to.have.property('firstPage', 0);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('currentPage', 1);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('perPage', 5);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('totalPages', 10);
+      expect(this.clientPagerTest.defaults_ui).to.have.property('pagesInRange', 4);
     });
 
     it("should use 'paginator_core' values as query options to ajax call", function(){
@@ -311,7 +334,7 @@ describe('backbone.paginator.clientPager', function() {
             pagesInRange: 4
           },
           paginator_core: {
-            url: 'http://odata.netflix.com/v2/Catalog/Titles',
+            url: 'test',
             dataType: 'json'
           },
           parse: function (response) {
@@ -386,6 +409,9 @@ describe('backbone.paginator.clientPager', function() {
   describe("nextPage", function(){
     var pagerSpy;
     beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
       pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
       this.clientPagerTest.information = {totalPages : 99};
     });
@@ -419,6 +445,9 @@ describe('backbone.paginator.clientPager', function() {
   describe('previousPage', function() {
     var pagerSpy;
     beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
       pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
     });
     afterEach(function() {
@@ -449,26 +478,33 @@ describe('backbone.paginator.clientPager', function() {
     });
   });
   describe('goTo', function() {
-    it('should set "currentPage" and call "pager" method', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
 
-      expect(this.clientPagerTest.currentPage).not.to.equal(99);
-      this.clientPagerTest.goTo(99);
-
-      expect(this.clientPagerTest.currentPage).to.equal(99);
-      expect(pagerSpy.calledOnce).to.equal(true);
-
+    var pagerSpy;
+    beforeEach(function() {
+      if (pagerSpy){
+        pagerSpy.restore();
+      }
+      pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
+    });
+    afterEach(function() {
       pagerSpy.restore();
     });
+
+    it('should set "currentPage" and call "pager" method', function() {
+      this.clientPagerTest.goTo(98);
+
+      expect(this.clientPagerTest.currentPage).to.equal(98);
+      expect(pagerSpy.calledOnce).to.equal(true);
+      this.clientPagerTest.goTo(99);
+      expect(this.clientPagerTest.currentPage).to.equal(99);
+    });
+
     it('should not do anything if goTo page is undefined', function() {
-      var pagerSpy = sinon.stub(this.clientPagerTest, 'pager');
       this.clientPagerTest.currentPage = 7;
       this.clientPagerTest.goTo();
 
       expect(this.clientPagerTest.currentPage).to.equal(7);
       expect(pagerSpy.calledOnce).to.equal(false);
-
-      pagerSpy.restore();
     });
   });
   describe('prevPage', function() {

@@ -1,5 +1,5 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
-      describe: true, expect: true, sinon: true
+      describe: true, expect: true, sinon: true,
       it: true, beforeEach: true, afterEach: true*/
 describe('backbone.paginator.requestPager',function(){
 
@@ -7,6 +7,10 @@ describe('backbone.paginator.requestPager',function(){
 
     var spy;
     beforeEach(function(){
+      //some tests seem not clean up after them properly (happens only in phantomjs)
+      if (spy){
+        spy.restore();
+      }
       spy = sinon.spy($, 'ajax');
     });
     afterEach(function(){
