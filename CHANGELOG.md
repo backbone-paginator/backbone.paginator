@@ -1,6 +1,8 @@
 # Release History
 
 ## 0.7.0-dev
+* [Bring sync's `success` callback arguments in line with Backbone 1.0.0](https://github.com/addyosmani/backbone.paginator/pull/163)
+* Migrate to grunt 0.4.0
 
 ## 0.6.0
 
