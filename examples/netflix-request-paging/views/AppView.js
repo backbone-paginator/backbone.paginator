@@ -1,32 +1,32 @@
 (function ( views ) {
 
-	views.AppView = Backbone.View.extend({
-		el : '#content',
+  views.AppView = Backbone.View.extend({
+    el : '#content',
 
-		initialize : function () {
+    initialize : function () {
 
-			var tags = this.collection;
+      var tags = this.collection;
 
-			tags.on('add', this.addOne, this);
-			tags.on('reset', this.addAll, this);
-			tags.on('all', this.render, this);
+      tags.on('add', this.addOne, this);
+      tags.on('reset', this.addAll, this);
+      tags.on('all', this.render, this);
 
-			tags.pager();
+      tags.pager();
 
-		},
+    },
 
-		addAll : function () {
-			this.$el.empty();
-			this.collection.each (this.addOne);
-		},
-		
-		addOne : function ( item ) {
-			var view = new views.ResultView({model:item});
-			$('#content').append(view.render().el);
-		},
+    addAll : function () {
+      this.$el.empty();
+      this.collection.each (this.addOne);
+    },
 
-		render: function(){
-		}
-	});
+    addOne : function ( item ) {
+      var view = new views.ResultView({model:item});
+      $('#content').append(view.render().el);
+    },
+
+    render: function(){
+    }
+  });
 
 })( app.views );
