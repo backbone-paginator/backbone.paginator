@@ -1,147 +1,144 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 
-	<head>
+  <head>
+    <meta charset="UTF-8">
+    <title>Backbone.js pagination</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+  </head>
 
-		<meta charset="UTF-8">
-		<title>Backbone.js pagination</title>
-		<link rel="stylesheet" href="../css/bootstrap.min.css">
-	</head>
+  <body>
 
-	<body>
+    <div class="container">
 
-		<div class="container">
+      <p>&nbsp;</p>
+      <div class="page-header">
+        <h1>Paginator.requestPager() <small>Paginating requests to and from an API/backend</small></h1>
+      </div>
 
-		  <p>&nbsp;</p>
-		  <div class="page-header">
-		    <h1>Paginator.requestPager() <small>Paginating requests to and from an API/backend</small></h1>
-		  </div>
+      <h3>NetFlix movies starring Nicole Kidman</h3>
+      <ul id="content">
+      </ul>
 
-			<h3>NetFlix movies starring Nicole Kidman</h3>
-			<ul id="content">
-			</ul>
+      <div id="pagination">
+      </div>
 
-			<div id="pagination">
-			</div>
-	
-		</div>
-
-	
-		<!--sample template for result item-->
-		<script type="text/html" id="resultItemTemplate">
-			<div class="result row">
-					<div class="title">
-					<h4><%= Name %></h4>
-					<div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
-					</div>
-
-					<div class="span12 cover">
-					   <div class="span4">
-					   <img src="<%= BoxArt.MediumUrl %>"/></div>
-					   <div class="synop span8">
-					   	<%= ShortSynopsis %>
-					   	</div>
-					</div>
-
-			</div>
-		</script>
-
-		<!-- sample template for pagination UI -->
-		<script type="text/html" id="tmpServerPagination">
-			<div class="breadcrumb">
-
-			  	<span class="cell">
-					<% for(p=1;p<=totalPages;p++){
-					%>
-						<% if (currentPage == p) { %>
-							<span class="page selected"><%= p %></span>
-						<% } else { %>
-							<a href="#" class="page"><%= p %></a>
-						<% } %>	
-					<%	
-					}%>
-
-					<span class="divider">/</span>
-
-					<% if (currentPage > firstPage) { %>
-						<a href="#" class="serverprevious">Previous</a>
-					<% }else{ %>
-						<span>Previous</span>
-					<% }%>
-
-					<% if (currentPage < totalPages) { %>
-						<a href="#" class="servernext">Next</a>
-					<% } %>
-
-					<% if (firstPage != currentPage) { %>
-						<a href="#" class="serverfirst">First</a>
-					<% } %>
-
-					<% if (lastPage != currentPage) { %>
-						<a href="#" class="serverlast">Last</a>
-					<% } %>
+    </div>
 
 
-					<span class="divider">/</span>
+    <!--sample template for result item-->
+    <script type="text/html" id="resultItemTemplate">
+      <div class="result row">
+        <div class="title">
+        <h4><%= Name %></h4>
+        <div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
+        </div>
 
-					<span class="cell serverhowmany">
-						Show
-						<a href="#" class="selected">3</a>
-						|
-						<a href="#" class="">9</a>
-						|
-						<a href="#" class="">12</a>
-						per page
-					</span>
+        <div class="span12 cover">
+           <div class="span4">
+           <img src="<%= BoxArt.MediumUrl %>"/></div>
+           <div class="synop span8">
+            <%= ShortSynopsis %>
+            </div>
+        </div>
+      </div>
+    </script>
 
-					
-					<span class="divider">/</span>
-					<span class="cell first records">
-						Page: <span class="current"><%= currentPage %></span>
-						of
-						<span class="total"><%= totalPages %></span>
-									shown
-					</span>
+    <!-- sample template for pagination UI -->
+    <script type="text/html" id="tmpServerPagination">
+      <div class="breadcrumb">
 
-			<span class="divider">/</span>
+          <span class="cell">
+          <% for(p=1;p<=totalPages;p++){
+          %>
+            <% if (currentPage == p) { %>
+              <span class="page selected"><%= p %></span>
+            <% } else { %>
+              <a href="#" class="page"><%= p %></a>
+            <% } %>
+          <%
+          }%>
 
-				<span class="cell sort">
-					<a href="#" class="orderUpdate btn small">Sort by:</a>
-				</span>
+          <span class="divider">/</span>
 
-				<select id="sortByField">
-					<option value="cid">Select a field to sort on</option>
-				 	<option value="ReleaseYear">Release year</option>
-				 	<option value="ShortName">Alphabetical</option>
-				</select>
-			  	</span>
+          <% if (currentPage > firstPage) { %>
+            <a href="#" class="serverprevious">Previous</a>
+          <% }else{ %>
+            <span>Previous</span>
+          <% }%>
 
+          <% if (currentPage < totalPages) { %>
+            <a href="#" class="servernext">Next</a>
+          <% } %>
 
-			  </div>
-		  </script>
+          <% if (firstPage != currentPage) { %>
+            <a href="#" class="serverfirst">First</a>
+          <% } %>
 
-
-		
-		<!-- scripts-->
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="../libs/underscore.js"></script>
-		<script src="../libs/json2.js"></script>
-		<script src="../libs/backbone-min.js"></script>
-
-		<script src="app.js"></script>
-
-		<!--Backbone.Paginator-->
-		<script src="../../lib/backbone.paginator.js"></script>
-
-		<!--Models/Collections-->
-		<script src="models/Item.js"></script>
-		<script src="collections/PaginatedCollection.js"></script>
-
-		<!--Views-->
-		<script src="views/ResultView.js"></script>
-		<script src="views/PaginationView.js"></script>
-		<script src="views/AppView.js"></script>
+          <% if (lastPage != currentPage) { %>
+            <a href="#" class="serverlast">Last</a>
+          <% } %>
 
 
-	</body>
+          <span class="divider">/</span>
+
+          <span class="cell serverhowmany">
+            Show
+            <a href="#" class="selected">3</a>
+            |
+            <a href="#" class="">9</a>
+            |
+            <a href="#" class="">12</a>
+            per page
+          </span>
+
+
+          <span class="divider">/</span>
+          <span class="cell first records">
+            Page: <span class="current"><%= currentPage %></span>
+            of
+            <span class="total"><%= totalPages %></span>
+                  shown
+          </span>
+
+      <span class="divider">/</span>
+
+        <span class="cell sort">
+          <a href="#" class="orderUpdate btn small">Sort by:</a>
+        </span>
+
+        <select id="sortByField">
+          <option value="cid">Select a field to sort on</option>
+          <option value="ReleaseYear">Release year</option>
+          <option value="ShortName">Alphabetical</option>
+        </select>
+          </span>
+
+
+        </div>
+      </script>
+
+
+
+    <!-- scripts-->
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone.js"></script>
+
+    <script src="app.js"></script>
+
+    <!--Backbone.Paginator-->
+    <script src="../../lib/backbone.paginator.js"></script>
+
+    <!--Models/Collections-->
+    <script src="models/Item.js"></script>
+    <script src="collections/PaginatedCollection.js"></script>
+
+    <!--Views-->
+    <script src="views/ResultView.js"></script>
+    <script src="views/PaginationView.js"></script>
+    <script src="views/AppView.js"></script>
+
+  </body>
 </html>
