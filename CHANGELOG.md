@@ -1,6 +1,7 @@
 # Release History
 
 ## 0.7.0-dev
+* [Update Netflix request pager example to use Backbone 1.0.0 style events](https://github.com/addyosmani/backbone.paginator/issues/164)
 * [Bring sync's `success` callback arguments in line with Backbone 1.0.0](https://github.com/addyosmani/backbone.paginator/pull/163)
 * Migrate to grunt 0.4.0
 
