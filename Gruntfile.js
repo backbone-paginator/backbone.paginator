@@ -72,7 +72,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mocha', 'concat', 'replace-version', 'uglify']);
+  grunt.registerTask('default', ['test', 'concat', 'replace-version', 'uglify']);
   grunt.registerTask('test', ['jshint', 'mocha']);
 
 

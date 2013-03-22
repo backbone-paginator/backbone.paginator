@@ -129,7 +129,7 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.origModels).not.to.include(model);
     });
   });
- describe('sync', function(){
+  describe('sync', function(){
 
     var spy;
     beforeEach(function(){
