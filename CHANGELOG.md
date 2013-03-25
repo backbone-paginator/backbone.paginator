@@ -1,5 +1,7 @@
 # Release History
 
+## 0.8.0-dev
+
 ## 0.7.0
 [Commits](https://github.com/addyosmani/backbone.paginator/compare/v0.6...v0.7)
 * [Support Backbone 1.0.0](https://github.com/addyosmani/backbone.paginator/pull/163)
