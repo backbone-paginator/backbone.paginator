@@ -21,7 +21,6 @@
 		initialize: function () {
 
 			this.collection.on('reset', this.render, this);
-			this.collection.on('change', this.render, this);
 			this.$el.appendTo('#pagination');
 
 		},
