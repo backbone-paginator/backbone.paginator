@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
 
     <title>backbone-pageable server mode demo</title>
-    
+
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/backgrid.css" />
     <link rel="stylesheet" href="css/extensions/paginator/backgrid-paginator.css" />
@@ -63,14 +63,14 @@
           totalRecords: 242
         }
       });
-      
+
       var territories = new Territories();
 
       // Don't worry about this too much, the URL is only encoded for this demo
       // to emulate the presence of a dynamic server API.
       territories.url = _.bind(function () {
         var state = this.state;
-        return "json/territories.json" + encodeURIComponent("?page=" + state.currentPage + "&per_page=" + state.pageSize);
+        return "json/territories-" + state.currentPage + ".json";
       }, territories);
 
       var grid = new Backgrid.Grid({
