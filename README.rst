@@ -415,7 +415,7 @@ return a links object.
        offset: function () { return this.state.currentPage * this.state.pageSize; }
      },
      // Return all the comments for this Facebook object
-     parse: function (resp) {
+     parseState: function (resp, queryParams, state) {
        return resp.comments;
      },
      // Facebook's `paging` object is in the exact format
