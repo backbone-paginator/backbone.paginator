@@ -8,6 +8,7 @@ A pageable, drop-in replacement for Backbone.Collection inspired by
 much better.
 
 .. contents:: Table of Contents
+   :backlinks: none
 
 Advantages
 ----------
