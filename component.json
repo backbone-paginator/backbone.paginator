@@ -4,6 +4,6 @@
   "main": "lib/backbone-pageable.js",
   "dependencies": {
     "underscore": "~1.4.0",
-    "backbone": "~0.9.9"
+    "backbone": ">=0.9.9"
   }
 }
