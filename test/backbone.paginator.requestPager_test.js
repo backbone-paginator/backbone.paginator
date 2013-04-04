@@ -1,6 +1,25 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
       describe: true, expect: true, sinon: true,
       it: true, beforeEach: true, afterEach: true*/
+
+// helper for easy ajax faking
+var fakeAjax = function(func){
+  var xhr = sinon.useFakeXMLHttpRequest();
+  var requests = [];
+  xhr.onCreate = function(xhr){
+    requests.push(xhr);
+  };
+  try{
+    func(requests);
+  }
+  catch (e){
+    throw e;
+  }
+  finally{
+    xhr.restore();
+  }
+};
+
 describe('backbone.paginator.requestPager',function(){
 
   describe('sync method', function(){
@@ -228,31 +247,32 @@ describe('backbone.paginator.requestPager',function(){
     });
 
     it("should emit 'sync' event when has been successfully synced with the server", function(done){
-      var requestPagerTest = {
+      var requestPager = {
         paginator_ui: {},
         paginator_core: {
           type: 'GET',
           dataType: 'json'
         }
       };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
 
-      var server = sinon.fakeServer.create();
-      server.autoRespond = true;
-      server.respondWith([200, {}, ""]);
+      _.extend(requestPager, new Backbone.Paginator.requestPager());
 
-      // execute
-      var model = {
-        trigger: sinon.spy()
-      };
-      var options = {};
-      requestPagerTest.sync('read', model, options).always(function(){
-        // verify
-        expect(model.trigger.withArgs('sync').calledOnce).to.equal(true);
+      var howManySyncs = 0;
+      requestPager.on("sync", function(){
+        howManySyncs++;
+      });
+
+      fakeAjax(function(requests){
+        expect(requests.length).to.equal(0);
+        requestPager.fetch({ success: function(){} });
+        expect(requests.length).to.equal(1);
+        var req = requests[0];
+        expect(req.method).to.equal("GET");
+        req.respond(200, {}, JSON.stringify([{id:1234}]));
+        expect(howManySyncs).to.equal(1);
         done();
       });
 
-      server.restore();
     });
 
     it("should emit 'error' event when a call fails on the server", function(done){
