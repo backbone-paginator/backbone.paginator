@@ -1,6 +1,7 @@
 # Release History
 
 ## 0.8.0-dev
+* [Fire 'sync' only once on Backbone 1.0.0](https://github.com/addyosmani/backbone.paginator/commit/8faf68e5adfc1f8c61dd2fb5b499a51b0f4d9fba)
 
 ## 0.7.0
 [Commits](https://github.com/addyosmani/backbone.paginator/compare/v0.6...v0.7)
