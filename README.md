@@ -19,10 +19,16 @@ You can either download the raw source code for the project, fork the repository
 [min]: https://raw.github.com/addyosmani/backbone.paginator/v0.7/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/addyosmani/backbone.paginator/v0.7/dist/backbone.paginator.js
 
-We are also available via [Bower](http://twitter.github.com/bower/):
+## Available on
+We are available via [Bower](http://twitter.github.com/bower/):
 
-```shell
+```bash
 bower install backbone.paginator
+```
+
+and on CDNJS
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.7/backbone.paginator.min.js"></script>
 ```
 
 ## Paginator's pieces
