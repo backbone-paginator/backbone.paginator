@@ -557,6 +557,11 @@ FAQ
 Change Log
 ----------
 
+1.2.1
+    - ``parseLinks`` now returns an empty object instead of throwing an error if
+      there's no ``Links`` header found. `(Issue #69)
+      <https://github.com/wyuenho/backbone-pageable/issues/69>`_
+
 1.2.0
     - Tested against Backbone 1.0 and Underscore 1.4.4. `(Issue #56)
       <https://github.com/wyuenho/backbone-pageable/issues/56>`_
