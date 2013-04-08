@@ -66,6 +66,12 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 100);
     strictEqual(col.state.totalPages, 50);
     strictEqual(col.state.lastPage, 50);
+
+    xhr.getResponseHeader = function () {
+      return null;
+    };
+    links = col.parseLinks({}, {xhr: xhr});
+    deepEqual(links, {});
   });
 
   test("fetch", function () {
