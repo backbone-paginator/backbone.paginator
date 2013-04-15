@@ -482,7 +482,7 @@ $(document).ready(function () {
     col.fullCollection.reset();
   });
 
-  test("fetch", 11, function () {
+  test("fetch", 12, function () {
 
     var ajax = $.ajax;
     $.ajax = function (settings) {
@@ -523,7 +523,13 @@ $(document).ready(function () {
     col.on("reset", onReset);
     col.fullCollection.on("reset", onFullReset);
 
+    var oldParse = col.parse;
+    col.parse = function () {
+      ok(true);
+      return oldParse.apply(this, arguments);
+    };
     col.fetch();
+    col.parse = oldParse;
 
     strictEqual(col.at(0).get("name"), "d");
     strictEqual(col.at(1).get("name"), "c");

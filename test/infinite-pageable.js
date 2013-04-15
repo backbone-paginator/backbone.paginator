@@ -74,7 +74,7 @@ $(document).ready(function () {
     deepEqual(links, {});
   });
 
-  test("fetch", function () {
+  test("fetch", 3, function () {
     var ajax = $.ajax;
     $.ajax = function (settings) {
 
@@ -92,6 +92,12 @@ $(document).ready(function () {
       ]);
     };
 
+    var oldParse = col.parse;
+    col.parse = function () {
+      ok(true);
+      return oldParse.apply(this, arguments);
+    };
+
     col.parseLinks = function () {
       return {first: "url-1", next: "url-2"};
     };
@@ -102,6 +108,7 @@ $(document).ready(function () {
     });
 
     col.fetch();
+    col.parse = oldParse;
 
     $.ajax = ajax;
   });
