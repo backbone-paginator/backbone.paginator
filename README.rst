@@ -50,11 +50,11 @@ Playable Demos
 --------------
 
 The following examples utilizes `Backgrid.js
-<http://wyuenho.github.com/backgrid/>`_ to render the collections.
+<http://backgridjs.com>`_ to render the collections.
 
-- `Server Mode <http://wyuenho.github.com/backbone-pageable/examples/server-mode.html>`_
-- `Client Mode <http://wyuenho.github.com/backbone-pageable/examples/client-mode.html>`_
-- `Infinite Mode <http://wyuenho.github.com/backbone-pageable/examples/infinite-mode.html>`_
+- `Server Mode <http://wyuenho.github.io/backbone-pageable/examples/server-mode.html>`_
+- `Client Mode <http://wyuenho.github.io/backbone-pageable/examples/client-mode.html>`_
+- `Infinite Mode <http://wyuenho.github.io/backbone-pageable/examples/infinite-mode.html>`_
 
 
 Installation
@@ -531,8 +531,8 @@ FAQ
 #. Why another paginator?
 
    This project was born out of the needs for a backing model for
-   `Backgrid.Paginator <http://wyuenho.github.com/backgrid/#api-paginator>`_ -
-   an extension for the `Backgrid.js <http://wyuenho.github.com/backgrid/>`_
+   `Backgrid.Paginator <http://backgridjs.com/api/#api-paginator>`_ -
+   an extension for the `Backgrid.js <http://backgridjs.com>`_
    project. The project needed a smart and intuitive model that is
    well-documented and well-tested to manage the paginator view. Upon examining
    the popular project `Backbone.Paginator
@@ -540,7 +540,7 @@ FAQ
    concluded that it does not satisfy the above requirements. Furthermore, the
    progress of the the project is too slow. The author hopes to reinvent a
    better wheel that is better suited and supported for `Backgrid.js
-   <http://wyuenho.github.com/backgrid/>`_.
+   <http://backgridjs.com>`_.
 
 #. Which package managers does backbone-pageable support?
 
