@@ -33,7 +33,7 @@ Bi-directional event handling
 100% compatible with existing code
   ``Backbone.PageableCollection`` is a strict superset of
   ``Backbone.Collection`` and passes its `test suite
-  <http://wyuenho.github.com/backbone-pageable/test/index.html>`_.
+  <http://wyuenho.github.io/backbone-pageable/test/index.html>`_.
 Well tested
   Comes with 100s of tests in addition to the ``Backbone.Collection`` test
   suite.
@@ -201,7 +201,7 @@ order        -1    order         "order"
 ============ ===== ============= ============================
 
 You can consult the `API documentation
-<http://wyuenho.github.com/backbone-pageable/#!/api/Backbone.PageableCollection>`_
+<http://wyuenho.github.io/backbone-pageable/#!/api/Backbone.PageableCollection>`_
 for a detailed explaination of these fields.
 
 Fetching Data and Managing States
@@ -249,7 +249,7 @@ implementation now delegates to two new methods - ``parseState`` and
 ``parseRecords``. You are encouraged to override them instead of ``parse`` if it
 is not clear how to do so.
 
-See the `API <http://wyuenho.github.com/backbone-pageable/>`_ for details on
+See the `API <http://wyuenho.github.io/backbone-pageable/>`_ for details on
 customizing ``parseState`` and ``parseRecords``.
 
 Bootstrapping
@@ -522,7 +522,7 @@ communicated between all the pages throught the two collections.
 API Reference
 -------------
 
-See `here <http://wyuenho.github.com/backbone-pageable/>`_.
+See `here <http://wyuenho.github.io/backbone-pageable/>`_.
 
 
 FAQ
@@ -531,16 +531,15 @@ FAQ
 #. Why another paginator?
 
    This project was born out of the needs for a backing model for
-   `Backgrid.Paginator <http://backgridjs.com/api/#api-paginator>`_ -
-   an extension for the `Backgrid.js <http://backgridjs.com>`_
-   project. The project needed a smart and intuitive model that is
-   well-documented and well-tested to manage the paginator view. Upon examining
-   the popular project `Backbone.Paginator
-   <https://github.com/addyosmani/backbone.paginator/>`_, the author has
-   concluded that it does not satisfy the above requirements. Furthermore, the
-   progress of the the project is too slow. The author hopes to reinvent a
-   better wheel that is better suited and supported for `Backgrid.js
-   <http://backgridjs.com>`_.
+   `Backgrid.Extension.Paginator <http://backgridjs.com/api/#api-paginator>`_ -
+   an extension for the `Backgrid.js <http://backgridjs.com>`_ project. The
+   project needed a smart and intuitive model that is well-documented and
+   well-tested to manage the paginator view. Upon examining the popular project
+   `Backbone.Paginator <https://github.com/addyosmani/backbone.paginator/>`_,
+   the author has concluded that it does not satisfy the above
+   requirements. Furthermore, the progress of the the project is too slow. The
+   author hopes to reinvent a better wheel that is better suited and supported
+   for `Backgrid.js <http://backgridjs.com>`_.
 
 #. Which package managers does backbone-pageable support?
 
