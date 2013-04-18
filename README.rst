@@ -556,6 +556,14 @@ FAQ
 Change Log
 ----------
 
+1.2.2
+    - ``parseRecords`` doesn't get called twice during client and infinite mode
+      anymore. `(Issue #71)
+      <https://github.com/wyuenho/backbone-pageable/issues/71>`_
+    - No ``RangeError`` should be thrown if ``firstPage == 1``, ``currentPage ==
+      1`` and ``totalPages == 0``. `(Issues #74)
+      <https://github.com/wyuenho/backbone-pageable/issues/74>`_
+
 1.2.1
     - ``parseLinks`` now returns an empty object instead of throwing an error if
       there's no ``Links`` header found. `(Issue #69)
