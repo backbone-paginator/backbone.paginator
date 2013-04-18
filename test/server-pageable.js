@@ -134,6 +134,12 @@ $(document).ready(function () {
     state.totalRecords = 0;
     col._checkState(state);
     strictEqual(state.lastPage, 0);
+
+    state.firstPage = 1;
+    state.currentPage = 1;
+    state.totalRecords = 0;
+    col._checkState(state);
+    strictEqual(state.lastPage, 0);
   });
 
   test("extend and initialize", function () {
@@ -419,13 +425,7 @@ $(document).ready(function () {
 
     sinon.stub(col, "getPage");
 
-    col.setPageSize(200);
-    strictEqual(col.state.pageSize, 200);
-    strictEqual(col.getPage.args.length, 1);
-    strictEqual(col.getPage.args[0][0], 1);
-    col.getPage.reset();
-
-    col.setPageSize("50");
+    col.setPageSize(50);
     strictEqual(col.state.pageSize, 50);
     strictEqual(col.getPage.args.length, 1);
     strictEqual(col.getPage.args[0][0], 1);
