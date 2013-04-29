@@ -415,8 +415,8 @@ return a links object.
        offset: function () { return this.state.currentPage * this.state.pageSize; }
      },
      // Return all the comments for this Facebook object
-     parseState: function (resp, queryParams, state) {
-       return resp.comments;
+     parseRecords: function (resp) {
+       return resp.comments.data;
      },
      // Facebook's `paging` object is in the exact format
      // `Backbone.PageableCollection` accepts.
