@@ -80,6 +80,14 @@ $(document).ready(function () {
 
     var mods = models.slice();
 
+    col = new Backbone.PageableCollection(mods[0], {
+      mode: "client"
+    });
+
+    strictEqual(col.state.totalRecords, 1);
+    strictEqual(col.fullCollection.size(), 1);
+    strictEqual(col.fullCollection.at(0).get("name"), "a");
+
     col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
       state: {
