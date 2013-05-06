@@ -549,7 +549,7 @@ $(document).ready(function () {
     $.ajax = ajax;
   });
   
-  test("jumpToOffset - firstPage is 0", function () {
+  test("getPageByOffset - firstPage is 0", function () {
     var manyModels = [
       {"name": "a1"},
       {"name": "a2"},
@@ -568,24 +568,24 @@ $(document).ready(function () {
     });
     strictEqual(col.state.currentPage, 0);
 
-    col.jumpToOffset(2);
+    col.getPageByOffset(2);
     strictEqual(1, col.state.currentPage);
     strictEqual("b1", col.at(0).get("name"));
 
-    col.jumpToOffset(1);
+    col.getPageByOffset(1);
     strictEqual(0, col.state.currentPage);
     strictEqual("a1", col.at(0).get("name"));
 
-    col.jumpToOffset(col.state.totalRecords-1);
+    col.getPageByOffset(col.state.totalRecords - 1);
     strictEqual(2, col.state.currentPage);
     strictEqual("c1", col.at(0).get("name"));
 
     sinon.stub(col, "getPage");
-    col.jumpToOffset(0);
+    col.getPageByOffset(0);
     ok(col.getPage.calledOnce);
   });
 
-  test("jumpToOffset - firstPage is 1", function () {
+  test("getPageByOffset - firstPage is 1", function () {
     var manyModels = [
       {"name": "a1"},
       {"name": "a2"},
@@ -604,20 +604,20 @@ $(document).ready(function () {
     });
     strictEqual(1, col.state.currentPage);
 
-    col.jumpToOffset(2);
+    col.getPageByOffset(2);
     strictEqual(2, col.state.currentPage);
     strictEqual("b1", col.at(0).get("name"));
 
-    col.jumpToOffset(1);
+    col.getPageByOffset(1);
     strictEqual(1, col.state.currentPage);
     strictEqual("a1", col.at(0).get("name"));
 
-    col.jumpToOffset(col.state.totalRecords-1);
+    col.getPageByOffset(col.state.totalRecords - 1);
     strictEqual(3, col.state.currentPage);
     strictEqual("c1", col.at(0).get("name"));
 
     sinon.stub(col, "getPage");
-    col.jumpToOffset(0);
+    col.getPageByOffset(0);
     ok(col.getPage.calledOnce);
   });
 
