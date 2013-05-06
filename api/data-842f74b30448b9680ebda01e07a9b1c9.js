@@ -192,11 +192,11 @@ Docs = {
         "meta": {
           "chainable": true
         },
-        "url": "#!/api/Backbone.PageableCollection-method-jumpToOffset",
+        "url": "#!/api/Backbone.PageableCollection-method-getPageByOffset",
         "sort": 3,
         "icon": "icon-method",
-        "fullName": "Backbone.PageableCollection.jumpToOffset",
-        "name": "jumpToOffset"
+        "fullName": "Backbone.PageableCollection.getPageByOffset",
+        "name": "getPageByOffset"
       },
       {
         "meta": {
