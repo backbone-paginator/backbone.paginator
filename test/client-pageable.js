@@ -548,6 +548,78 @@ $(document).ready(function () {
 
     $.ajax = ajax;
   });
+  
+  test("getPageByOffset - firstPage is 0", function () {
+    var manyModels = [
+      {"name": "a1"},
+      {"name": "a2"},
+      {"name": "b1"},
+      {"name": "b2"},
+      {"name": "c1"},
+      {"name": "c2"}
+    ];
+    var col = new Backbone.PageableCollection(manyModels, {
+      state: {
+        pageSize: 2,
+        firstPage: 0,
+        currentPage: 0,
+      },
+      mode: "client"
+    });
+    strictEqual(col.state.currentPage, 0);
+
+    col.getPageByOffset(2);
+    strictEqual(1, col.state.currentPage);
+    strictEqual("b1", col.at(0).get("name"));
+
+    col.getPageByOffset(1);
+    strictEqual(0, col.state.currentPage);
+    strictEqual("a1", col.at(0).get("name"));
+
+    col.getPageByOffset(col.state.totalRecords - 1);
+    strictEqual(2, col.state.currentPage);
+    strictEqual("c1", col.at(0).get("name"));
+
+    sinon.stub(col, "getPage");
+    col.getPageByOffset(0);
+    ok(col.getPage.calledOnce);
+  });
+
+  test("getPageByOffset - firstPage is 1", function () {
+    var manyModels = [
+      {"name": "a1"},
+      {"name": "a2"},
+      {"name": "b1"},
+      {"name": "b2"},
+      {"name": "c1"},
+      {"name": "c2"}
+    ];
+    var col = new Backbone.PageableCollection(manyModels, {
+      state: {
+        pageSize: 2,
+        firstPage: 1,
+        currentPage: 1
+      },
+      mode: "client"
+    });
+    strictEqual(1, col.state.currentPage);
+
+    col.getPageByOffset(2);
+    strictEqual(2, col.state.currentPage);
+    strictEqual("b1", col.at(0).get("name"));
+
+    col.getPageByOffset(1);
+    strictEqual(1, col.state.currentPage);
+    strictEqual("a1", col.at(0).get("name"));
+
+    col.getPageByOffset(col.state.totalRecords - 1);
+    strictEqual(3, col.state.currentPage);
+    strictEqual("c1", col.at(0).get("name"));
+
+    sinon.stub(col, "getPage");
+    col.getPageByOffset(0);
+    ok(col.getPage.calledOnce);
+  });
 
   test("getPage", function () {
     var col = new Backbone.PageableCollection(models, {
