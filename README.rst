@@ -556,6 +556,13 @@ FAQ
 Change Log
 ----------
 
+1.2.3
+    - Support non-array elements in the constructor. (Thanks Gabriel Bédard
+      Sicé) `(Pull
+      #76) <https://github.com/wyuenho/backbone-pageable/pull/76>`_
+    - Added ``getPageByOffset`` method. (Thanks Kee-Yip Chan) `(Pull #77)
+      <https://github.com/wyuenho/backbone-pageable/pull/77>`_
+
 1.2.2
     - ``parseRecords`` doesn't get called twice during client and infinite mode
       anymore. `(Issue #71)
