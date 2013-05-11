@@ -425,6 +425,46 @@ return a links object.
      }
    });
 
+To act on the newly fetched models under infinite mode, you can listen to the
+``fullCollection`` reference like you would under client mode. By default, the
+``add`` event is silenced to remain compatible with older versions of Backbone,
+you can pass ``silent: false`` to ``get*Page`` to get your ``add`` event
+handlers triggered.
+
+.. code-block:: javascript
+
+   var ToiletPaper = Backbone.View.extend({
+
+     events: {
+       "scroll": "fetchSheets"
+     },
+
+     initialize: function (options) {
+       this.listenTo(this.collection.fullCollection, "add", this.addSheet);
+     },
+
+     addSheet: function () {
+       // ...
+     },
+
+     fetchSheets: function () {
+       this.collection.getNextPage({silent: false});
+     },
+
+     // ...
+
+   });
+
+   var wordsOfTheDay = new Backbone.PageableCollection({
+     mode: "infinite",
+     // url, initial state, etc...
+   });
+
+   var toiletPaper = new ToiletPaper({collection: wordsOfTheDay});
+
+   $("#toilet-paper-dispenser").append(toiletPaper.render().el);
+
+   wordsOfTheDay.fetch();
 
 Sorting
 -------
