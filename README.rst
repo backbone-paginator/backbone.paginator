@@ -315,7 +315,7 @@ to the client is not too time-consuming.
 
 .. code-block:: javascript
 
-  var book = new Book([
+  var books = new Books([
     // Bootstrap all the records for all the pages here
   ], { mode: "client" });
 
