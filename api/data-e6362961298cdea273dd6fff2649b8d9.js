@@ -74,10 +74,10 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "initialize",
-        "fullName": "Backbone.PageableCollection.initialize",
+        "name": "constructor",
+        "fullName": "Backbone.PageableCollection.constructor",
         "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-initialize",
+        "url": "#!/api/Backbone.PageableCollection-method-constructor",
         "meta": {
         },
         "sort": 3
