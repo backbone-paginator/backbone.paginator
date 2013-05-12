@@ -596,6 +596,11 @@ FAQ
 Change Log
 ----------
 
+1.2.4
+    - Moved initialization from ``initialize`` code to the
+      constructor. `(Issue #83)
+      <https://github.com/wyuenho/backbone-pageable/issues/83>`_
+
 1.2.3
     - Support non-array elements in the constructor. (Thanks Gabriel Bédard
       Sicé) `(Pull
