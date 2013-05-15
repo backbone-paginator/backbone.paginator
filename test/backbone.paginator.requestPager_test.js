@@ -461,6 +461,28 @@ describe('backbone.paginator.requestPager',function(){
 
       spy.restore();
     });
+
+    it("should return a rejected promise if currentPage is undefined", function(done){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      requestPagerTest.requestNextPage()
+        .done(function() {
+          // This is always a fail condition, done should never be called.
+          expect().fail("done should not be called");
+          spy.restore();
+          done();
+        })
+        .fail(function() {
+          expect(spy.called).to.equal(false);
+          spy.restore();
+          done();
+        });
+    });
   });
 
   describe("nextPage", function() {
@@ -492,6 +514,28 @@ describe('backbone.paginator.requestPager',function(){
 
       spy.restore();
     });
+
+    it("should return a rejected promise if currentPage is undefined", function(done){
+      var requestPagerTest = {
+        paginator_ui: {},
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      requestPagerTest.requestPreviousPage()
+        .done(function() {
+          // This is always a fail condition, done should never be called.
+          expect().fail("done should not be called");
+          spy.restore();
+          done();
+        })
+        .fail(function() {
+          expect(spy.called).to.equal(false);
+          spy.restore();
+          done();
+        });
+    });
   });
 
   describe("prevPage", function() {
@@ -501,7 +545,56 @@ describe('backbone.paginator.requestPager',function(){
     });
   });
 
-  describe("goto", function(){
+  describe("updateOrder", function(){
+
+    it("should set sortField to the field we want and call pager method", function(){
+      var requestPagerTest = {
+        paginator_ui: {
+          currentPage: 1
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      var options = {};
+      requestPagerTest.sync(null, null, options);
+      requestPagerTest.updateOrder('column');
+
+      expect(requestPagerTest.sortField).to.equal('column');
+      expect(spy.calledOnce).to.equal(true);
+
+      spy.restore();
+    });
+
+    it("should return a rejected promise if column is undefined", function(done){
+      var requestPagerTest = {
+        paginator_ui: {
+          currentPage: 1
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      var options = {};
+      requestPagerTest.sync(null, null, options);
+      requestPagerTest.updateOrder()
+        .done(function() {
+          // This is always a fail condition, done should never be called.
+          expect().fail("done should not be called");
+          spy.restore();
+          done();
+        })
+        .fail(function() {
+          expect(spy.called).to.equal(false);
+          spy.restore();
+          done();
+        });
+    });
+  });
+
+  describe("goTo", function(){
 
     it("should set currentPage to the page we want goto and call pager method", function(){
       var requestPagerTest = {
@@ -521,6 +614,32 @@ describe('backbone.paginator.requestPager',function(){
       expect(spy.calledOnce).to.equal(true);
 
       spy.restore();
+    });
+
+    it("should return a rejected promise if page is undefined", function(done){
+      var requestPagerTest = {
+        paginator_ui: {
+          currentPage: 1
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      var options = {};
+      requestPagerTest.sync(null, null, options);
+      requestPagerTest.goTo()
+        .done(function() {
+          // This is always a fail condition, done should never be called.
+          expect().fail("done should not be called");
+          spy.restore();
+          done();
+        })
+        .fail(function() {
+          expect(spy.called).to.equal(false);
+          spy.restore();
+          done();
+        });
     });
   });
 
@@ -565,6 +684,32 @@ describe('backbone.paginator.requestPager',function(){
       expect(requestPagerTest.currentPage).to.equal(1);
 
       spy.restore();
+    });
+
+    it("should return a rejected promise if count is undefined", function(done){
+      var requestPagerTest = {
+        paginator_ui: {
+          perPage: 5
+        },
+        paginator_core: {}
+      };
+      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
+      var spy = sinon.spy(requestPagerTest, 'pager');
+
+      var options = {};
+      requestPagerTest.sync(null, null, options);
+      requestPagerTest.howManyPer()
+        .done(function() {
+          // This is always a fail condition, done should never be called.
+          expect().fail("done should not be called");
+          spy.restore();
+          done();
+        })
+        .fail(function() {
+          expect(spy.called).to.equal(false);
+          spy.restore();
+          done();
+        });
     });
   });
 
