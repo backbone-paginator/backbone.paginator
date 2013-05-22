@@ -16,7 +16,7 @@
         <h1>Paginator.requestPager() <small>Paginating requests to and from an API/backend</small></h1>
       </div>
 
-      <h3>NetFlix movies starring Nicole Kidman</h3>
+      <h3>GitHub issues for Twitter Bootstrap</h3>
       <ul id="content">
       </ul>
 
@@ -30,16 +30,8 @@
     <script type="text/html" id="resultItemTemplate">
       <div class="result row">
         <div class="title">
-        <h4><%= Name %></h4>
-        <div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
-        </div>
-
-        <div class="span12 cover">
-           <div class="span4">
-           <img src="<%= BoxArt.MediumUrl %>"/></div>
-           <div class="synop span8">
-            <%= ShortSynopsis %>
-            </div>
+        <h4>#<%= number %> <%= title %></h4>
+        <div class="meta"><strong>Meta-data:</strong> Reported by: <%= user.login %>, Comments: <%= comments %></span>
         </div>
       </div>
     </script>
@@ -109,8 +101,9 @@
 
         <select id="sortByField">
           <option value="cid">Select a field to sort on</option>
-          <option value="ReleaseYear">Release year</option>
-          <option value="ShortName">Alphabetical</option>
+          <option value="created">Created time</option>
+          <option value="updated">Updated time</option>
+          <option value="comments">Number of comments</option>
         </select>
           </span>
 

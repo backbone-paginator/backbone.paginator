@@ -9,16 +9,18 @@
 		// with this collection
 		model: model,
 
-		// Next, we're going to map the parameters supported by
+		// We're going to map the parameters supported by
 		// your API or backend data service back to attributes
 		// that are internally used by Backbone.Paginator. 
 
-		// e.g the NetFlix API refers to it's parameter for 
+		// e.g the GitHub API refers to it's parameter for 
 		// stating how many results to skip ahead by as $skip
 		// and it's number of items to return per page as $top
 
 		// We simply map these to the relevant Paginator equivalents
-		// shown on the left hand side to get everything working.
+
+		// Note that you can define support for new custom attributes
+		// adding them with any name you want
 
 		paginator_core: {
 			// the type of the request (GET by default)
@@ -28,7 +30,7 @@
 			dataType: 'jsonp',
 		
 			// the URL (or base URL) for the service
-			url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
+			url: 'https://api.github.com/repos/twitter/bootstrap/issues?'
 		},
 		
 		paginator_ui: {
@@ -40,7 +42,7 @@
 			currentPage: 1,
 			
 			// how many items per page should be shown
-			perPage: 10,
+			perPage: 3,
 			
 			// a default number of total pages to query in case the API or 
 			// service you are using does not support providing the total 
@@ -50,39 +52,31 @@
 		},
 		
 		server_api: {
-			// the query field in the request
-			'$filter': '',
-			
 			// number of items to return per request/page
-			'$top': function() { return this.perPage },
+			'per_page': function() { return this.perPage },
 			
 			// how many results the request should skip ahead to
-			// customize as needed. For the Netflix API, skipping ahead based on
-			// page * number of results per page was necessary.
-			'$skip': function() { return (this.currentPage - 1) * this.perPage },
+			'page': function() { return this.currentPage },
 			
 			// field to sort by
-			'$orderby': 'ReleaseYear',
-			
-			// what format would you like to request results in?
-			'$format': 'json',
-			
+			'sort': function() {
+				if(this.sortField === undefined)
+					return 'created';
+				return this.sortField;
+			},
+
 			// custom parameters
-			'$inlinecount': 'allpages',
-			'$callback': '?'                                     
+			'callback': '?'
 		},
 
 		parse: function (response) {
-			// Be sure to change this based on how your results
-			// are structured (e.g d.results is Netflix specific)
-			var tags = response.d.results;
-			//Normally this.totalPages would equal response.d.__count
-			//but as this particular NetFlix request only returns a
-			//total count of items for the search, we divide.
-			this.totalPages = Math.ceil(response.d.__count / this.perPage);
+			// Normally this would be parsed from the response,
+			// but GitHub doesn't make this readily available
+			this.totalRecords = this.totalPages * this.perPage;
 
-			this.totalRecords = parseInt(response.d.__count);
-			return tags;
+			// Be sure to change this based on how your results
+			// are structured (e.g response.data is GitHub specific)
+			return response.data;
 		}
 
 	});
