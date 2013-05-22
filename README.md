@@ -47,6 +47,7 @@ Live previews of both pagination components using the Netflix API can be found b
 * [Diacritic Plugin](http://addyosmani.github.com/backbone.paginator/examples/google-diacritic/index.html)
 
 Netflix has shut down their OData API hence this example doesn't work:
+
 * [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
 
 ##Paginator.requestPager
