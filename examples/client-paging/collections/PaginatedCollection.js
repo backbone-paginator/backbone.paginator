@@ -12,7 +12,7 @@
 			dataType: 'jsonp',
 		
 			// the URL (or base URL) for the service
-			url: 'http://odata.netflix.com/v2/Catalog/Titles?&'
+			url: 'https://api.github.com/repos/twitter/bootstrap/issues?'
 		},
 		
 		paginator_ui: {
@@ -36,33 +36,24 @@
 		},
 		
 		server_api: {
-			// the query field in the request
-			'$filter': 'substringof(\'america\',Name)',
-			
 			// number of items to return per request/page
-			'$top': function() { return this.totalPages * this.perPage },
+			'per_page': function() { return this.perPage },
 			
 			// how many results the request should skip ahead to
-			// customize as needed. For the Netflix API, skipping ahead based on
-			// page * number of results per page was necessary.
-			'$skip': function() { return this.totalPages * this.perPage },
+			'page': function() { return this.currentPage },
 			
 			// field to sort by
-			'orderby': 'ReleaseYear',
-			
-			// what format would you like to request results in?
-			'$format': 'json',
+			'sort': 'created',
 			
 			// custom parameters
-			'$inlinecount': 'allpages',
-			'$callback': '?'                                     
+			'callback': '?'
 		},
 
 		parse: function (response) {
 			// Be sure to change this based on how your results
 			// are structured
-			var tags = response.d.results;
-			return tags;
+			var issues = response.data;
+			return issues;
 		}
 
 	});

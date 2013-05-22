@@ -17,7 +17,7 @@
 		    <h1>Paginator.clientPager() <small>Paginating data at the UI layer</small></h1>
 		  </div>
 
-		  	<h3>NetFlix movies</h3>
+			<h3>GitHub issues for Twitter Bootstrap</h3>
 
 			<ul id="content">
 			
@@ -31,19 +31,10 @@
 		<!--sample template for result item-->
 		<script type="text/html" id="resultItemTemplate">
 			<div class="result row">
-					<div class="title">
-					<h4><%= Name %></h4>
-					<div class="meta"><strong>Meta-data:</strong> Runtime: <%= Math.floor(Runtime/60) %> mins, Released: <%= ReleaseYear %>, Rating: <%= Rating %></span>
-					</div>
-
-					<div class="span12 cover">
-					   <div class="span4">
-					   <img src="<%= BoxArt.MediumUrl %>"/></div>
-					   <div class="synop span8">
-					   	<%= ShortSynopsis %>
-					   	</div>
-					</div>
-
+        <div class="title">
+        <h4>#<%= number %> <%= title %></h4>
+        <div class="meta"><strong>Meta-data:</strong> Reported by: <%= user.login %>, Comments: <%= comments %></span>
+        </div>
 			</div>
 		</script>
 
