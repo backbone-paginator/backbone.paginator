@@ -1,6 +1,8 @@
 # Release History
 
 ## 0.8.0-dev
+* [Use GitHub API for examples](https://github.com/addyosmani/backbone.paginator/pull/175)
+* [Make API more consistent](https://github.com/addyosmani/backbone.paginator/pull/173)
 * [Use Backbone.ajax instead of $.ajax](https://github.com/addyosmani/backbone.paginator/pull/170)
 * [Fire 'sync' only once on Backbone 1.0.0](https://github.com/addyosmani/backbone.paginator/commit/8faf68e5adfc1f8c61dd2fb5b499a51b0f4d9fba)
 
