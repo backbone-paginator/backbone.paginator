@@ -42,10 +42,12 @@ Backbone.Paginator supports two main pagination components:
 
 Live previews of both pagination components using the Netflix API can be found below. Fork the repository to experiment with these examples further.
 
-* [Backbone.Paginator.requestPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-request-paging/index.html)
-* [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
-* [Infinite Pagination (Backbone.Paginator.requestPager())](http://addyosmani.github.com/backbone.paginator/examples/netflix-infinite-paging/index.html)
+* [Backbone.Paginator.requestPager()](http://addyosmani.github.com/backbone.paginator/examples/request-paging/index.html)
+* [Infinite Pagination (Backbone.Paginator.requestPager())](http://addyosmani.github.com/backbone.paginator/examples/infinite-paging/index.html)
 * [Diacritic Plugin](http://addyosmani.github.com/backbone.paginator/examples/google-diacritic/index.html)
+
+Netflix has shut down their OData API hence this example doesn't work:
+* [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
 
 ##Paginator.requestPager
 
