@@ -43,7 +43,7 @@ No surprising behavior
   ``Backbone.PageableCollection`` performs internal state sanity checks at
   appropriate times, so it is next to impossible to get into a weird state.
 Light-weight
-  The library is only 4.1KB minified and gzipped.
+  The library is only 4.2KB minified and gzipped.
 
 
 Playable Demos
@@ -426,10 +426,8 @@ return a links object.
    });
 
 To act on the newly fetched models under infinite mode, you can listen to the
-``fullCollection`` reference like you would under client mode. By default, the
-``add`` event is silenced to remain compatible with older versions of Backbone,
-you can pass ``silent: false`` to ``get*Page`` to get your ``add`` event
-handlers triggered.
+``fullCollection`` reference's ``add`` event like you would under client mode,
+and render the newly fetched models accordingly.
 
 .. code-block:: javascript
 
@@ -448,7 +446,7 @@ handlers triggered.
      },
 
      fetchSheets: function () {
-       this.collection.getNextPage({silent: false});
+       this.collection.getNextPage();
      },
 
      // ...
@@ -595,6 +593,13 @@ FAQ
 
 Change Log
 ----------
+
+1.3.0
+    - Pass ``from`` and ``to`` to the ``options`` object sent to event handlers
+      after ``get*Page``.
+    - Fetching new page under infinite mode no longer silences ``add`` and
+      triggers ``reset``. It will now simple triggers ``add``.
+    - Slight code clean up.
 
 1.2.4
     - Moved initialization from ``initialize`` code to the
