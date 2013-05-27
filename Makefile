@@ -17,13 +17,13 @@ FORCE:
 	  Licensed under the MIT @license.\n\
 	*/" | cat - $@ > "/tmp/`basename $@`" && mv -f "/tmp/`basename $@`" $@
 
-build:
+build: FORCE
 	uglifyjs $(JS_FILE) --compress --mangle --comments --output $(JS_OUTFILE)
 
-clean:
+clean: FORCE
 	rm -f $(JS_OUTFILE)
 
-doc:
+doc: FORCE
 	jsduck $(JS_FILE) \
 		--external=Backbone.Model,Backbone.Collection,XMLHttpRequest \
 		--title=backbone-pageable \
