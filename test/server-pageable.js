@@ -329,7 +329,7 @@ $(document).ready(function () {
 
     col.getPage(2, {add: true, silent: true});
     strictEqual(col.state.currentPage, 2);
-    deepEqual(col.fetch.args[0][0], {add: true, silent: true});
+    deepEqual(col.fetch.args[0][0], {add: true, silent: true, from: 1, to: 2});
 
     col.fetch.restore();
   });

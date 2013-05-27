@@ -111,7 +111,7 @@ $(document).ready(function () {
 
     col = new Backbone.PageableCollection(mods, {
       state: {
-        pageSize: 1,
+        pageSize: 2,
         sortKey: "name"
       },
       full: true,
@@ -122,8 +122,9 @@ $(document).ready(function () {
     ok(!_.isUndefined(col.fullCollection.comparator));
     ok(_.isUndefined(col.comparator));
 
-    strictEqual(col.size(), 1);
+    strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "b");
     strictEqual(col.fullCollection.size(), 3);
     strictEqual(col.fullCollection.at(0).get("name"), "a");
     strictEqual(col.fullCollection.at(1).get("name"), "b");
@@ -490,11 +491,10 @@ $(document).ready(function () {
     col.fullCollection.reset();
   });
 
-  test("fetch", 12, function () {
+  test("fetch", 14, function () {
 
     var ajax = $.ajax;
     $.ajax = function (settings) {
-
       strictEqual(settings.url, "test-client-fetch");
       deepEqual(settings.data, {
         "sort_by": "name",
@@ -520,25 +520,34 @@ $(document).ready(function () {
       mode: "client"
     });
 
+    var resetCount = 0;
     var onReset = function () {
+      resetCount++;
       ok(true);
     };
 
+    var fullResetCount = 0;
     var onFullReset = function () {
+      fullResetCount++;
       ok(true);
     };
 
     col.on("reset", onReset);
     col.fullCollection.on("reset", onFullReset);
 
+    var parseCount = 0;
     var oldParse = col.parse;
     col.parse = function () {
+      parseCount++;
       ok(true);
       return oldParse.apply(this, arguments);
     };
     col.fetch();
     col.parse = oldParse;
 
+    equal(resetCount, 1);
+    equal(fullResetCount, 1);
+    equal(parseCount, 1);
     strictEqual(col.at(0).get("name"), "d");
     strictEqual(col.at(1).get("name"), "c");
     strictEqual(col.fullCollection.at(0).get("name"), "d");
