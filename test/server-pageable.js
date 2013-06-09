@@ -276,6 +276,7 @@ $(document).ready(function () {
     col.state.pageSize = 50;
     col.state.firstPage = 0;
     col.queryParams.access_token = function () { return this.state.currentPage + 1; };
+    col.queryParams.query = null;
 
     $.ajax = function (settings) {
       strictEqual(settings.url, "test-fetch-2");
