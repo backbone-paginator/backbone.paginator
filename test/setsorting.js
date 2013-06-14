@@ -16,22 +16,31 @@ $(document).ready(function () {
     comparator = col._makeComparator();
     strictEqual(comparator, undefined);
 
-    col = col.reset([{name: "b"}, {name: "c"}, {name: "a"}, {name: "a"}]);
+    col = col.reset([{name: "b"}, {name: "c"}, {name: "A"}, {name: "a"}]);
     col.state.order = -1;
     col.comparator = col._makeComparator();
     col.sort();
-    deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
+    deepEqual(col.pluck("name"), ["A", "a", "b", "c"]);
 
     col.state.order = 1;
     col.comparator = col._makeComparator();
     col.sort();
-    deepEqual(col.pluck("name"), ["c", "b", "a", "a"]);
+    deepEqual(col.pluck("name"), ["c", "b", "a", "A"]);
 
     delete col.state.sortKey;
     delete col.state.order;
     col.comparator = col._makeComparator("name", -1);
     col.sort();
-    deepEqual(col.pluck("name"), ["a", "a", "b", "c"]);
+    deepEqual(col.pluck("name"), ["A", "a", "b", "c"]);
+
+    delete col.state.sortKey;
+    delete col.state.order;
+    delete col.comparator;
+    col.comparator = col._makeComparator("name", 1, function (model, attr) {
+      return model.get(attr).toLowerCase();
+    });
+    col.sort();
+    deepEqual(col.pluck("name"), ["c", "b", "A", "a"]);
   });
 
   test("setSorting", function () {
@@ -89,6 +98,13 @@ $(document).ready(function () {
 
     col.setSorting(null);
     ok(_.isUndefined(col.comparator));
+    ok(_.isUndefined(col.fullCollection.comparator));
+
+    col.setSorting("id", -1, {full: false, sortValue: function (model, sortKey) {
+      return model.get(sortKey) / 3;
+    }});
+    col.sort();
+    deepEqual(col.toJSON(), [{id: 1}, {id: 2}, {id: 3}]);
     ok(_.isUndefined(col.fullCollection.comparator));
   });
 
