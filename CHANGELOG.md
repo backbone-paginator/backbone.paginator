@@ -1,6 +1,7 @@
 # Release History
 
-## 0.8.0-dev
+## 0.8.0
+[Commits](https://github.com/addyosmani/backbone.paginator/compare/v0.7...v0.8)
 * [Use correct callback arguments for `option.error`](https://github.com/addyosmani/backbone.paginator/pull/183)
 * [Use GitHub API for examples](https://github.com/addyosmani/backbone.paginator/pull/175)
 * [Make API more consistent](https://github.com/addyosmani/backbone.paginator/pull/173)
