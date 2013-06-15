@@ -594,6 +594,18 @@ FAQ
 Change Log
 ----------
 
+1.3.1
+    - Exclude extra query parameters with null values from the query string. `(Issue
+      #90) <https://github.com/wyuenho/backbone-pageable/issues/90>`_
+    - Propagate options from ``parse`` to ``parseState`` and
+      ``parseRecords``. `(Pull #91)
+      <https://github.com/wyuenho/backbone-pageable/pull/91>`_
+    - Custom value extractor (sortValue) for ``setSorting`` and
+      ``_makeComparator``. `(Issue #89)
+      <https://github.com/wyuenho/backbone-pageable/issues/89>`_
+    - Changing page size at boundary pages no longer throws errors. `(Issue #92)
+      <https://github.com/wyuenho/backbone-pageable/issues/89>`_
+
 1.3.0
     - Pass ``from`` and ``to`` to the ``options`` object sent to event handlers
       after ``get*Page``.
