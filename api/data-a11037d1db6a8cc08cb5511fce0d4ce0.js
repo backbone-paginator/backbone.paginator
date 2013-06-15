@@ -74,15 +74,6 @@ Docs = {
         "sort": 3
       },
       {
-        "name": "constructor",
-        "fullName": "Backbone.PageableCollection.constructor",
-        "icon": "icon-method",
-        "url": "#!/api/Backbone.PageableCollection-method-constructor",
-        "meta": {
-        },
-        "sort": 3
-      },
-      {
         "name": "_makeFullCollection",
         "fullName": "Backbone.PageableCollection._makeFullCollection",
         "icon": "icon-method",
@@ -285,6 +276,8 @@ Docs = {
         "sort": 3
       }
     ],
+    "guideSearch": {
+    },
     "tests": false,
     "signatures": [
       {
