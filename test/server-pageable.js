@@ -420,7 +420,8 @@ $(document).ready(function () {
   test("setPageSize", function () {
     var col = new Backbone.PageableCollection(null, {
       state: {
-        totalRecords: 100
+        totalRecords: 100,
+        currentPage: 4
       }
     });
 
@@ -428,6 +429,14 @@ $(document).ready(function () {
 
     col.setPageSize(50);
     strictEqual(col.state.pageSize, 50);
+    strictEqual(col.state.currentPage, 2);
+    strictEqual(col.getPage.args.length, 1);
+    strictEqual(col.getPage.args[0][0], 2);
+    col.getPage.reset();
+
+    col.setPageSize(50, {first: true});
+    strictEqual(col.state.pageSize, 50);
+    strictEqual(col.state.currentPage, 1);
     strictEqual(col.getPage.args.length, 1);
     strictEqual(col.getPage.args[0][0], 1);
     col.getPage.reset();
@@ -449,7 +458,7 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 4);
     strictEqual(col.state.lastPage, 4);
     ok(col.getPage.calledOnce);
-    strictEqual(col.getPage.args[0][0], 1);
+    strictEqual(col.getPage.args[0][0], 2);
     deepEqual(col.getPage.args[0][1], {
       add: true,
       silent: true
