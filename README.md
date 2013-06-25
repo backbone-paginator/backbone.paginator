@@ -16,8 +16,8 @@ You can either download the raw source code for the project, fork the repository
 * Development: [development version][max] 30.1K file size (6.8K gzipped)
 * Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
 
-[min]: https://raw.github.com/addyosmani/backbone.paginator/v0.7/dist/backbone.paginator.min.js
-[max]: https://raw.github.com/addyosmani/backbone.paginator/v0.7/dist/backbone.paginator.js
+[min]: https://raw.github.com/addyosmani/backbone.paginator/v0.8/dist/backbone.paginator.min.js
+[max]: https://raw.github.com/addyosmani/backbone.paginator/v0.8/dist/backbone.paginator.js
 
 ## Available on
 We are available via [Bower](http://twitter.github.com/bower/):
@@ -28,7 +28,7 @@ bower install backbone.paginator
 
 and on CDNJS
 ```html
-<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.7/backbone.paginator.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.8/backbone.paginator.min.js"></script>
 ```
 
 ## Paginator's pieces
