@@ -1,6 +1,7 @@
 # Release History
 
-## 0.9.0-dev
+## 0.8.1
+* [Use semver-compliant release tag](https://github.com/backbone-paginator/backbone.paginator/issues/188)
 
 ## 0.8.0
 [Commits](https://github.com/addyosmani/backbone.paginator/compare/v0.7...v0.8)
