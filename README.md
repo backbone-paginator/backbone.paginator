@@ -16,8 +16,8 @@ You can either download the raw source code for the project, fork the repository
 * Development: [development version][max] 30.1K file size (6.8K gzipped)
 * Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
 
-[min]: https://raw.github.com/backbon-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.min.js
-[max]: https://raw.github.com/backbon-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.js
+[min]: https://raw.github.com/backbone-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.min.js
+[max]: https://raw.github.com/backbone-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.js
 
 ## Available on
 We are available via [Bower](http://twitter.github.com/bower/):
