@@ -20,7 +20,7 @@ You can either download the raw source code for the project, fork the repository
 [max]: https://raw.github.com/backbone-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.js
 
 ## Available on
-We are available via [Bower](http://twitter.github.com/bower/):
+We are available via [Bower](http://bower.io/):
 
 ```bash
 bower install backbone.paginator
