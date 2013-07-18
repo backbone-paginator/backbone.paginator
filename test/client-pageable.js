@@ -331,11 +331,6 @@ $(document).ready(function () {
   });
 
   test("sync", 5, function () {
-    var ajax = $.ajax;
-    $.ajax = function (settings) {
-      settings.success();
-    };
-
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-sync"
     }))(models, {
@@ -353,10 +348,13 @@ $(document).ready(function () {
     col.fullCollection.on("sync", onSync);
 
     col.at(0).save();
-    col.fullCollection.at(0).save();
-    col.fullCollection.at(1).save();
+    this.ajaxSettings.success();
 
-    $.ajax = ajax;
+    col.fullCollection.at(0).save();
+    this.ajaxSettings.success();
+
+    col.fullCollection.at(1).save();
+    this.ajaxSettings.success();
   });
 
   test("reset and sort", 76, function () {
@@ -493,22 +491,6 @@ $(document).ready(function () {
 
   test("fetch", 14, function () {
 
-    var ajax = $.ajax;
-    $.ajax = function (settings) {
-      strictEqual(settings.url, "test-client-fetch");
-      deepEqual(settings.data, {
-        "sort_by": "name",
-        "order": "desc"
-      });
-
-      settings.success([
-        {name: "a"},
-        {name: "c"},
-        {name: "d"},
-        {name: "b"}
-      ]);
-    };
-
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-fetch"
     }))(models, {
@@ -543,6 +525,20 @@ $(document).ready(function () {
       return oldParse.apply(this, arguments);
     };
     col.fetch();
+
+    strictEqual(this.ajaxSettings.url, "test-client-fetch");
+    deepEqual(this.ajaxSettings.data, {
+      "sort_by": "name",
+      "order": "desc"
+    });
+
+    this.ajaxSettings.success([
+      {name: "a"},
+      {name: "c"},
+      {name: "d"},
+      {name: "b"}
+    ]);
+
     col.parse = oldParse;
 
     equal(resetCount, 1);
@@ -554,8 +550,6 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(1).get("name"), "c");
     strictEqual(col.fullCollection.at(2).get("name"), "b");
     strictEqual(col.fullCollection.at(3).get("name"), "a");
-
-    $.ajax = ajax;
   });
   
   test("getPageByOffset - firstPage is 0", function () {

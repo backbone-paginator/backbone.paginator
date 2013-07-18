@@ -2,11 +2,9 @@ $(document).ready(function() {
 
   var a, b, c, d, e, col, otherCol;
 
-  module("Backbone.PageableCollection", _.extend(new Environment, {
+  module("Backbone.PageableCollection", {
 
     setup: function() {
-      Environment.prototype.setup.apply(this, arguments);
-
       a         = new Backbone.Model({id: 3, label: 'a'});
       b         = new Backbone.Model({id: 2, label: 'b'});
       c         = new Backbone.Model({id: 1, label: 'c'});
@@ -16,7 +14,7 @@ $(document).ready(function() {
       otherCol  = new Backbone.PageableCollection();
     }
 
-  }));
+  });
 
   test("new and sort", 9, function() {
     var counter = 0;
@@ -87,7 +85,7 @@ $(document).ready(function() {
     equal(col2.get(model.clone()), col2.first());
   });
 
-  test("update index when id changes", 3, function() {
+  test("update index when id changes", 4, function() {
     var col = new Backbone.PageableCollection();
     col.add([
       {id : 0, name : 'one'},
@@ -95,9 +93,10 @@ $(document).ready(function() {
     ]);
     var one = col.get(0);
     equal(one.get('name'), 'one');
-    one.set({id : 101});
+    col.on('change:name', function (model) { ok(this.get(model)); });
+    one.set({name: 'dalmatians', id : 101});
     equal(col.get(0), null);
-    equal(col.get(101).get('name'), 'one');
+    equal(col.get(101).get('name'), 'dalmatians');
   });
 
   test("at", 1, function() {
@@ -502,7 +501,7 @@ $(document).ready(function() {
     equal(coll.findWhere({a: 4}), void 0);
   });
 
-  test("Underscore methods", 13, function() {
+  test("Underscore methods", 14, function() {
     equal(col.map(function(model){ return model.get('label'); }).join(' '), 'a b c d');
     equal(col.any(function(model){ return model.id === 100; }), false);
     equal(col.any(function(model){ return model.id === 0; }), true);
@@ -520,6 +519,7 @@ $(document).ready(function() {
             .map(function(o){ return o.id * 2; })
             .value(),
          [4, 0]);
+    deepEqual(col.difference([c, d]), [a, b]);
   });
 
   test("sortedIndex", function () {
@@ -963,8 +963,26 @@ $(document).ready(function() {
     equal(col.first().get('key'), 'other');
 
     col.set({id: 1, other: 'value'});
-    equal(col.first().get('key'), 'value');
+    equal(col.first().get('key'), 'other');
     equal(col.length, 1);
+  });
+
+  test('merge without mutation', function () {
+    var Model = Backbone.Model.extend({
+      initialize: function (attrs, options) {
+        if (attrs.child) {
+          this.set('child', new Model(attrs.child, options), options);
+        }
+      }
+    });
+    var Collection = Backbone.PageableCollection.extend({model: Model});
+    var data = [{id: 1, child: {id: 2}}];
+    var collection = new Collection(data);
+    equal(collection.first().id, 1);
+    collection.set(data);
+    equal(collection.first().id, 1);
+    collection.set([{id: 2, child: {id: 2}}].concat(data));
+    deepEqual(collection.pluck('id'), [2, 1]);
   });
 
   test("`set` and model level `parse`", function() {
@@ -994,6 +1012,25 @@ $(document).ready(function() {
       }
     });
     collection.set({}, {parse: true});
+  });
+
+  test('`set` matches input order in the absence of a comparator', function () {
+    var one = new Backbone.Model({id: 1});
+    var two = new Backbone.Model({id: 2});
+    var three = new Backbone.Model({id: 3});
+    var collection = new Backbone.PageableCollection([one, two, three]);
+    collection.set([{id: 3}, {id: 2}, {id: 1}]);
+    deepEqual(collection.models, [three, two, one]);
+    collection.set([{id: 1}, {id: 2}]);
+    deepEqual(collection.models, [one, two]);
+    collection.set([two, three, one]);
+    deepEqual(collection.models, [two, three, one]);
+    collection.set([{id: 1}, {id: 2}], {remove: false});
+    deepEqual(collection.models, [two, three, one]);
+    collection.set([{id: 1}, {id: 2}, {id: 3}], {merge: false});
+    deepEqual(collection.models, [one, two, three]);
+    collection.set([three, two, one, {id: 4}], {add: false});
+    deepEqual(collection.models, [one, two, three]);
   });
 
   test("#1894 - Push should not trigger a sort", 0, function() {
@@ -1081,20 +1118,37 @@ $(document).ready(function() {
     collection.add(collection.models, {merge: true}); // don't sort
   });
 
-  test("Attach options to collection.", 3, function() {
-      var url = '/somewhere';
-      var model = new Backbone.Model;
-      var comparator = function(){};
+  test("Attach options to collection.", 2, function() {
+    var model = new Backbone.Model;
+    var comparator = function(){};
 
-      var collection = new Backbone.PageableCollection([], {
-        url: url,
-        model: model,
-        comparator: comparator
-      });
+    var collection = new Backbone.PageableCollection([], {
+      model: model,
+      comparator: comparator
+    });
 
-      strictEqual(collection.url, url);
-      ok(collection.model === model);
-      ok(collection.comparator === comparator);
+    ok(collection.model === model);
+    ok(collection.comparator === comparator);
+  });
+
+  test("`add` overrides `set` flags", function () {
+    var collection = new Backbone.PageableCollection();
+    collection.once('add', function (model, collection, options) {
+      collection.add({id: 2}, options);
+    });
+    collection.set({id: 1});
+    equal(collection.length, 2);
+  });
+
+  test("#2606 - Collection#create, success arguments", 1, function() {
+    var collection = new Backbone.PageableCollection;
+    collection.url = 'test';
+    collection.create({}, {
+      success: function(model, resp, options) {
+        strictEqual(resp, 'response');
+      }
+    });
+    this.ajaxSettings.success('response');
   });
 
 });

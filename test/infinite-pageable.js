@@ -75,23 +75,6 @@ $(document).ready(function () {
   });
 
   test("fetch", 3, function () {
-    var ajax = $.ajax;
-    $.ajax = function (settings) {
-
-      strictEqual(settings.url, "url");
-      deepEqual(settings.data, {
-        page: 2,
-        "per_page": 2,
-        "total_entries": 4,
-        "total_pages": 2
-      });
-
-      settings.success([
-        {id: 5},
-        {id: 6}
-      ]);
-    };
-
     var oldParse = col.parse;
     col.parse = function () {
       ok(true);
@@ -102,15 +85,28 @@ $(document).ready(function () {
       return {first: "url-1", next: "url-2"};
     };
 
-    // makes sure normal add, remove and sort events are suppressed
+    // makes sure normal add, remove and sort events are suppressed when
+    // refetching the same page
     col.on("all", function (event) {
       if (_.contains(["add", "remove", "sort"], event)) ok(false);
     });
 
     col.fetch();
-    col.parse = oldParse;
 
-    $.ajax = ajax;
+    strictEqual(this.ajaxSettings.url, "url");
+    deepEqual(this.ajaxSettings.data, {
+      page: 2,
+      "per_page": 2,
+      "total_entries": 4,
+      "total_pages": 2
+    });
+
+    this.ajaxSettings.success([
+      {id: 1},
+      {id: 3}
+    ]);
+
+    col.parse = oldParse;
   });
 
   test("get*Page", 43, function () {
@@ -130,13 +126,6 @@ $(document).ready(function () {
 
     sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
 
-    var ajax = $.ajax;
-    $.ajax = function (settings) {
-      settings.success([
-        {id: 2},
-        {id: 1}
-      ]);
-    };
 
     // test paging in the first page gets a page full of models and a link for
     // the next page
@@ -153,18 +142,15 @@ $(document).ready(function () {
       deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
       deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}]);
     }});
+    this.ajaxSettings.success([
+      {id: 2},
+      {id: 1}
+    ]);
 
     col.parseLinks.reset();
 
-    col.parseLinks.returns({next: "url3"});
-    $.ajax = function (settings) {
-      settings.success([
-        {id: 3},
-        {id: 4}
-      ]);
-    };
-
     // test paging for a page that has a link but no models results in a fetch
+    col.parseLinks.returns({next: "url3"});
     col.getNextPage({success: function () {
       strictEqual(col.state.currentPage, 2);
       strictEqual(col.state.totalRecords, 4);
@@ -179,11 +165,11 @@ $(document).ready(function () {
       deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
       deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
     }});
-
+    this.ajaxSettings.success([
+      {id: 3},
+      {id: 4}
+    ]);
     col.parseLinks.reset();
-    $.ajax = function () {
-      ok(false, "ajax should not be called");
-    };
 
     // test paging backward use cache
     col.getPreviousPage();
@@ -240,8 +226,6 @@ $(document).ready(function () {
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 4}, {id: 5}]);
 
     col.parseLinks.restore();
-
-    $.ajax = ajax;
   });
 
   test("hasNext and hasPrevious", function () {

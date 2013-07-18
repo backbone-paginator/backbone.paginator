@@ -253,20 +253,17 @@ $(document).ready(function () {
   });
 
   test("fetch", 14, function () {
-    var ajax = $.ajax;
-    $.ajax = function (settings) {
-      strictEqual(settings.url, "test-fetch");
-      deepEqual(settings.data, {
-        page: 1,
-        "per_page": 25
-      });
-    };
-
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
 
     col.fetch();
+
+    strictEqual(this.ajaxSettings.url, "test-fetch");
+    deepEqual(this.ajaxSettings.data, {
+      page: 1,
+      "per_page": 25
+    });
 
     col.state.sortKey = "name",
     col.state.totalRecords = 50;
@@ -278,24 +275,21 @@ $(document).ready(function () {
     col.queryParams.access_token = function () { return this.state.currentPage + 1; };
     col.queryParams.query = null;
 
-    $.ajax = function (settings) {
-      strictEqual(settings.url, "test-fetch-2");
-      strictEqual(settings.add, true);
-      strictEqual(settings.silent, true);
-      deepEqual(settings.data, {
-        page: 0,
-        "per_page": 50,
-        "sort_by": "name",
-        "total_entries": 50,
-        "total_pages": 1,
-        "access_token": 1
-      });
-
-      settings.success([{"total_entries": 0}, []]);
-    };
-
     col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
 
+    strictEqual(this.ajaxSettings.url, "test-fetch-2");
+    strictEqual(this.ajaxSettings.add, true);
+    strictEqual(this.ajaxSettings.silent, true);
+    deepEqual(this.ajaxSettings.data, {
+      page: 0,
+      "per_page": 50,
+      "sort_by": "name",
+      "total_entries": 50,
+      "total_pages": 1,
+      "access_token": 1
+    });
+
+    this.ajaxSettings.success([{"total_entries": 0}, []]);
     strictEqual(col.state.sortKey, "name");
     strictEqual(col.state.firstPage, 0);
     strictEqual(col.state.order, null);
@@ -304,8 +298,6 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 0);
     strictEqual(col.state.lastPage, 0);
     strictEqual(col.state.totalPages, 0);
-
-    $.ajax = ajax;
   });
 
   test("getPage", function () {
