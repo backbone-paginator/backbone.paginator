@@ -13,11 +13,22 @@
   "author": "Jimmy Yuen Ho Wong <wyuenho@gmail.com>",
   "license": "MIT",
   "readmeFilename": "README.rst",
+  "bugs": {
+    "url": "https://github.com/wyuenho/backbone-pageable/issues"
+  },
   "dependencies": {
     "underscore": "~1.4.0",
     "backbone": ">=0.9.9 < 1.0.0 || >= 1.0.1"
   },
+  "devDependencies": {
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-jsduck": "~0.1.4",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-cli": "~0.1.9",
+    "grunt": "~0.4.1",
+    "grunt-qunit-istanbul": "~0.1.3"
+  },
   "scripts": {
-    "test": "make test"
+    "test": "grunt qunit"
   }
 }
