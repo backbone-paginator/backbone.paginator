@@ -109,7 +109,7 @@ $(document).ready(function () {
     col.parse = oldParse;
   });
 
-  test("get*Page", 43, function () {
+  test("get*Page", 47, function () {
 
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
@@ -126,6 +126,20 @@ $(document).ready(function () {
 
     sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
 
+    var fullCollectionAddEventCount = 0;
+    col.fullCollection.on("add", function () {
+      fullCollectionAddEventCount++;
+    });
+
+    var fullCollectionRemoveEventCount = 0;
+    col.fullCollection.on("remove", function () {
+      fullCollectionRemoveEventCount++;
+    });
+
+    var fullCollectionResetEventCount = 0;
+    col.fullCollection.on("reset", function () {
+      fullCollectionResetEventCount++;
+    });
 
     // test paging in the first page gets a page full of models and a link for
     // the next page
@@ -146,6 +160,12 @@ $(document).ready(function () {
       {id: 2},
       {id: 1}
     ]);
+    equal(fullCollectionAddEventCount, 2);
+    equal(fullCollectionRemoveEventCount, 0);
+    equal(fullCollectionResetEventCount, 0);
+    fullCollectionAddEventCount = 0;
+    fullCollectionRemoveEventCount = 0;
+    fullCollectionResetEventCount = 0;
 
     col.parseLinks.reset();
 
@@ -169,6 +189,12 @@ $(document).ready(function () {
       {id: 3},
       {id: 4}
     ]);
+    equal(fullCollectionAddEventCount, 2);
+    equal(fullCollectionRemoveEventCount, 0);
+    equal(fullCollectionResetEventCount, 0);
+    fullCollectionAddEventCount = 0;
+    fullCollectionRemoveEventCount = 0;
+    fullCollectionResetEventCount = 0;
     col.parseLinks.reset();
 
     // test paging backward use cache
@@ -186,6 +212,9 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+    equal(fullCollectionAddEventCount, 0);
+    equal(fullCollectionRemoveEventCount, 0);
+    equal(fullCollectionResetEventCount, 0);
 
     // test paging to last page
     col.getLastPage();
@@ -202,28 +231,9 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
-
-    $.ajax = function (settings) {
-      settings.success([
-        {id: 4},
-        {id: 5}
-      ]);
-    };
-
-    // test force fetch update the current page under 0.9.9+ and resets otherwise
-    col.getPage(col.state.currentPage, {fetch: true});
-    strictEqual(col.state.currentPage, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.fullCollection.length, 4);
-    deepEqual(col.links, {
-      "1": "url",
-      "2": "url2",
-      "3": "url3"
-    });
-    deepEqual(col.toJSON(), [{id: 4}, {id: 5}]);
-    deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 4}, {id: 5}]);
+    equal(fullCollectionAddEventCount, 0);
+    equal(fullCollectionRemoveEventCount, 0);
+    equal(fullCollectionResetEventCount, 0);
 
     col.parseLinks.restore();
   });
