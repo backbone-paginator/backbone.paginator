@@ -416,47 +416,34 @@ $(document).ready(function () {
         currentPage: 4
       }
     });
-
-    sinon.stub(col, "getPage");
+    col.url = "test";
 
     col.setPageSize(50);
     strictEqual(col.state.pageSize, 50);
+    strictEqual(col.state.totalPages, 2);
     strictEqual(col.state.currentPage, 2);
-    strictEqual(col.getPage.args.length, 1);
-    strictEqual(col.getPage.args[0][0], 2);
-    col.getPage.reset();
+    strictEqual(col.state.lastPage, 2);
 
     col.setPageSize(50, {first: true});
     strictEqual(col.state.pageSize, 50);
+    strictEqual(col.state.totalPages, 2);
     strictEqual(col.state.currentPage, 1);
-    strictEqual(col.getPage.args.length, 1);
-    strictEqual(col.getPage.args[0][0], 1);
-    col.getPage.reset();
+    strictEqual(col.state.lastPage, 2);
 
     throws(function() {
       col.setPageSize(Infinity);
     }, "`pageSize` must be a finite integer");
     strictEqual(col.state.pageSize, 50);
-    ok(col.getPage.notCalled);
 
     throws(function() {
       col.setPageSize("foo");
     }, "`pageSize` must be a finite integer");
     strictEqual(col.state.pageSize, 50);
-    ok(col.getPage.notCalled);
 
     col.setPageSize(25, {add: true, silent: true});
     strictEqual(col.state.pageSize, 25);
     strictEqual(col.state.totalPages, 4);
     strictEqual(col.state.lastPage, 4);
-    ok(col.getPage.calledOnce);
-    strictEqual(col.getPage.args[0][0], 2);
-    deepEqual(col.getPage.args[0][1], {
-      add: true,
-      silent: true
-    });
-
-    col.getPage.restore();
   });
 
 });
