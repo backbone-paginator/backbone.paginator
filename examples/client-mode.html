@@ -21,6 +21,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div id="grid"></div>
+            <div id="paginator"></div>
           </div>
         </div>
       </div>
@@ -66,11 +67,16 @@
 
       var grid = new Backgrid.Grid({
         columns: columns,
-        collection: territories,
-        footer: Backgrid.Extension.Paginator
+        collection: territories
+      });
+
+      var paginator = new Backgrid.Extension.Paginator({
+        columns: columns,
+        collection: territories
       });
 
       $("#grid").append(grid.render().$el);
+      $("#paginator").append(paginator.render().$el);
 
       territories.fetch();
     </script>

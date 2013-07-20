@@ -63,12 +63,20 @@ module.exports = function (grunt) {
           "lib/backbone-pageable.min.js": ["lib/backbone-pageable.js"]
         }
       }
+    },
+    connect: {
+      server: {
+        options: {
+          keepalive: true
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-qunit-istanbul");
   grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-jsduck");
 
   grunt.registerTask("default", ["clean", "qunit", "jsduck", "uglify"]);

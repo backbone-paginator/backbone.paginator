@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
 
     <title>backbone-pageable infinite mode demo</title>
-    
+
     <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/backgrid.css" />
     <link rel="stylesheet" href="css/extensions/paginator/backgrid-paginator.css" />
@@ -22,6 +22,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div id="grid"></div>
+            <div id="paginator"></div>
           </div>
         </div>
       </div>
@@ -60,18 +61,18 @@
         editable: false,
         sortable: false
       }];
-      
+
       var Issue = Backbone.Model.extend({});
-      
+
       // Works exactly like Backbone.Collection.
       var Issues = Backbone.PageableCollection.extend({
         model: Issue,
-        
+
         // Enable infinite paging
         mode: "infinite",
-        
-        url: "https://api.github.com/repos/documentcloud/backbone/issues?state=closed",
-        
+
+        url: "https://api.github.com/repos/jashkenas/backbone/issues?state=closed",
+
         // Initial pagination states
         state: {
           firstPage: 0,
@@ -79,7 +80,7 @@
           sortKey: "updated",
           order: 1
         },
-        
+
         // You can remap the query parameters from `state` keys from
         // the default to those your server supports
         queryParams: {
@@ -93,31 +94,38 @@
           }
         }
       });
-      
+
       var issues = new Issues();
 
       var grid = new Backgrid.Grid({
         columns: columns,
-        collection: issues,
-        footer: Backgrid.Extension.Paginator.extend({
-          // If you anticipate a large number of pages, you can adjust
-          // the number of page handles to show. The sliding window
-          // will automatically show the next set of page handles when
-          // you click next at the end of a window.
-          windowSize: 20, // Default is 10
-          // If you anticipate a small number of pages, you can choose
-          // to disable the rendering of fast forward handles to save
-          // space.
-          hasFastForward: true, // true is the default
-          
-          fastForwardHandleLabels: {
-            prev: "<",
-            next: ">"
-          }
-        })
+        collection: issues.fullCollection
+      });
+
+      var Paginator = Backgrid.Extension.Paginator.extend({
+        // If you anticipate a large number of pages, you can adjust
+        // the number of page handles to show. The sliding window
+        // will automatically show the next set of page handles when
+        // you click next at the end of a window.
+        windowSize: 20, // Default is 10
+        // If you anticipate a small number of pages, you can choose
+        // to disable the rendering of fast forward handles to save
+        // space.
+        hasFastForward: true, // true is the default
+
+        fastForwardHandleLabels: {
+          prev: "<",
+          next: ">"
+        }
+      });
+
+      var paginator = new Paginator({
+        columns: columns,
+        collection: issues
       });
 
       $("#grid").append(grid.render().$el);
+      $("#paginator").append(paginator.render().$el);
 
       issues.getFirstPage();
     </script>
