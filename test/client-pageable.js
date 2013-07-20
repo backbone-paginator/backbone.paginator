@@ -727,11 +727,42 @@ $(document).ready(function () {
       mode: "client"
     });
 
+    // decrease page size
     col.setPageSize(1);
 
     strictEqual(col.state.pageSize, 1);
     strictEqual(col.state.totalPages, 3);
     strictEqual(col.state.lastPage, 3);
+    strictEqual(col.state.currentPage, 1);
+
+    // increase page size
+    col.setPageSize(3);
+
+    strictEqual(col.state.pageSize, 3);
+    strictEqual(col.state.totalPages, 1);
+    strictEqual(col.state.lastPage, 1);
+    strictEqual(col.state.currentPage, 1);
+
+    var col = new Backbone.PageableCollection(null, {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+
+    col.setPageSize(1);
+
+    strictEqual(col.state.pageSize, 1);
+    strictEqual(col.state.totalPages, 0);
+    strictEqual(col.state.lastPage, null);
+    strictEqual(col.state.currentPage, 1);
+
+    col.setPageSize(3);
+
+    strictEqual(col.state.pageSize, 3);
+    strictEqual(col.state.totalPages, 0);
+    strictEqual(col.state.lastPage, null);
+    strictEqual(col.state.currentPage, 1);
   });
 
   test("issue #15", function () {
