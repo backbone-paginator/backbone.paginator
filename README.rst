@@ -594,6 +594,19 @@ FAQ
 Change Log
 ----------
 
+1.3.2
+    - Removed support for Backbone <= 1.0.0.
+    - Switched build system to Grunt
+    - `Backbone.PageableCollection` is now set to PageableCollection under all
+      supported environments (CommonJS, AMD and browser).
+    - Fetching under infinite mode no longer triggers a`reset` event everytime. `(Issue #96)
+      <https://github.com/wyuenho/backbone-pageable/issues/96>`_
+    - Setting a page size via `setPageSize` no longer throws exception when the
+      collection is empty. `(Issue #93)
+      <https://github.com/wyuenho/backbone-pageable/issues/93>`_
+    - Fixed broken demos `(Issue #99)
+      <https://github.com/wyuenho/backbone-pageable/issues/99>`_
+
 1.3.1
     - Exclude extra query parameters with null values from the query string. `(Issue
       #90) <https://github.com/wyuenho/backbone-pageable/issues/90>`_

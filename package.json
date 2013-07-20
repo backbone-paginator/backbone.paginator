@@ -1,6 +1,6 @@
 {
   "name": "backbone-pageable",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "main": "lib/backbone-pageable.js",
   "repository": {
@@ -17,8 +17,8 @@
     "url": "https://github.com/wyuenho/backbone-pageable/issues"
   },
   "dependencies": {
-    "underscore": "~1.4.0",
-    "backbone": ">=0.9.9 < 1.0.0 || >= 1.0.1"
+    "underscore": ">=1.4.0",
+    "backbone": "git+https://github.com/jashkenas/backbone.git"
   },
   "devDependencies": {
     "grunt-contrib-clean": "~0.4.1",
