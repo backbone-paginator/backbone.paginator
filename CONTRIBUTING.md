@@ -34,22 +34,32 @@ Basic Email etiquette is appreciated.
 Building
 ========
 
-The build system of this project is designed to be used in a UNIX-like
-environment. backbone-pageable uses [gmake](http://www.gnu.org/software/make/),
-[uglifyjs](https://github.com/mishoo/UglifyJS2) and
-[JSDuck](https://github.com/senchalabs/jsduck).
+Backbone-pageable uses [grunt](http://gruntjs.com), [uglifyjs](https://github.com/mishoo/UglifyJS2)
+and [JSDuck](https://github.com/senchalabs/jsduck).
 
 ### Note:
 
-You need to install [node.js and npm](http://nodejs.org) first before you can
-install uglifyjs.
+You need to install [ruby](http://www.ruby-lang.org/en/downloads/),
+[JSDuck](https://github.com/senchalabs/jsduck/wiki/Installation),
+[node.js and npm](http://nodejs.org) and then:
+
+```shell
+$ cd backbone-pageable
+$ npm install
+```
 
 Once you have everything installed, you can do this to trigger a distribution
 build:
 
 ```shell
 $ cd backbone-pageable
-$ make build
+$ grunt
+```
+
+You can check available tasks with:
+
+```shell
+$ grunt --help
 ```
 
 Code Style
@@ -70,10 +80,10 @@ Testing
 =======
 
 backbone-pageable uses [QUnit](http://qunitjs.com/) for testing. To facilitate
-console based testing, there's a make rule in the toplevel Makefile you can use:
+console based testing, there's a grunt task. You can use:
 
 ```shell
-$ make test
+$ grunt qunit
 ```
 
 Commit Messages
@@ -95,12 +105,12 @@ Documentation
 =============
 
 If you change any Javascript comment documentation, you should rebuild the API
-document and submit a separate pull request. There is also a make rule for this
+document and submit a separate pull request. There is also a grunt task for this
 purpose, but make sure you have installed
 [JSDuck](https://github.com/senchalabs/jsduck) first.
 
 ```shell
-$ make doc
+$ grunt doc
 ```
 
 Changes that come with tests are more equal than others.
