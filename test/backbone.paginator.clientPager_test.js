@@ -323,7 +323,7 @@ describe('backbone.paginator.clientPager', function() {
       server.restore();
     });
 
-    describe('"request" "sync" and "error" events ', function() {
+    describe('"request" event ', function() {
       var OPTS = {
           model: Backbone.Model,
           paginator_ui: {
@@ -359,49 +359,6 @@ describe('backbone.paginator.clientPager', function() {
 
         // verify
         expect(model.trigger.withArgs('request').calledOnce).to.equal(true);
-      });
-
-
-      it("should emit 'sync' event when has been successfully synced with the server", function(done){
-        var coll = new PagedCollection();
-
-        var server = sinon.fakeServer.create();
-        server.autoRespond = true;
-        server.respondWith([200, {}, ""]);
-
-        // execute
-        var model = {
-          trigger: sinon.spy()
-        };
-        var options = {};
-        coll.sync('read', model, options).always(function(){
-          // verify
-          expect(model.trigger.withArgs('sync').calledOnce).to.equal(true);
-          done();
-        });
-
-        server.restore();
-      });
-
-      it("should emit 'error' event when a call fails on the server", function(done){
-        var coll = new PagedCollection();
-
-        var server = sinon.fakeServer.create();
-        server.autoRespond = true;
-        server.respondWith([404, {}, ""]);
-
-        // execute
-        var model = {
-          trigger: sinon.spy()
-        };
-        var options = {};
-        coll.sync('read', model, options).always(function(){
-          // verify
-          expect(model.trigger.withArgs('error').calledOnce).to.equal(true);
-          done();
-        });
-
-        server.restore();
       });
     });
   });
