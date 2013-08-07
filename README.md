@@ -1,8 +1,8 @@
 # Backbone.Paginator (0.9.0-dev)
 
-[![Continuous Integration status](https://secure.travis-ci.org/addyosmani/backbone.paginator.png)](http://travis-ci.org/addyosmani/backbone.paginator)
+[![Continuous Integration status](https://secure.travis-ci.org/backbone-paginator/backbone.paginator.png)](http://travis-ci.org/backbone-paginator/backbone.paginator)
 
-![](https://raw.github.com/addyosmani/backbone.paginator/master/media/logo.png)
+![](https://raw.github.com/backbone-paginator/backbone.paginator/master/media/logo.png)
 
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
@@ -14,7 +14,7 @@ You can either download the raw source code for the project, fork the repository
 
 * Production: [production version][min] 10.2K file size (2.79K gzipped)
 * Development: [development version][max] 30.1K file size (6.8K gzipped)
-* Examples: [tarball](https://github.com/addyosmani/backbone.paginator/zipball/)
+* Examples: [tarball](https://github.com/backbone-paginator/backbone.paginator/zipball/)
 
 [min]: https://raw.github.com/backbone-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.min.js
 [max]: https://raw.github.com/backbone-paginator/backbone.paginator/0.8.1/dist/backbone.paginator.js
@@ -42,13 +42,13 @@ Backbone.Paginator supports two main pagination components:
 
 Live previews of both pagination components using the Netflix API can be found below. Fork the repository to experiment with these examples further.
 
-* [Backbone.Paginator.requestPager()](http://addyosmani.github.com/backbone.paginator/examples/request-paging/index.html)
-* [Infinite Pagination (Backbone.Paginator.requestPager())](http://addyosmani.github.com/backbone.paginator/examples/infinite-paging/index.html)
-* [Diacritic Plugin](http://addyosmani.github.com/backbone.paginator/examples/google-diacritic/index.html)
+* [Backbone.Paginator.requestPager()](http://backbone-paginator.github.com/backbone.paginator/examples/request-paging/index.html)
+* [Infinite Pagination (Backbone.Paginator.requestPager())](http://backbone-paginator.github.com/backbone.paginator/examples/infinite-paging/index.html)
+* [Diacritic Plugin](http://backbone-paginator.github.com/backbone.paginator/examples/google-diacritic/index.html)
 
 Netflix has shut down their OData API hence this example doesn't work:
 
-* [Backbone.Paginator.clientPager()](http://addyosmani.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
+* [Backbone.Paginator.clientPager()](http://backbone-paginator.github.com/backbone.paginator/examples/netflix-client-paging/index.html)
 
 ##Paginator.requestPager
 

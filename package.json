@@ -2,7 +2,7 @@
   "name": "backbone.paginator",
   "description": "A set of pagination components for Backbone.js",
   "version": "0.9.0-dev",
-  "homepage": "http://github.com/addyosmani/backbone.paginator",
+  "homepage": "http://github.com/backbone-paginator/backbone.paginator",
   "author": {
     "name": "Addy Osmani",
     "email": "addyosmani@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/addyosmani/backbone.paginator"
+    "url": "http://github.com/backbone-paginator/backbone.paginator"
   },
   "bugs": {
-    "url": "https://github.com/addyosmani/backbone.paginator/issues"
+    "url": "https://github.com/backbone-paginator/backbone.paginator/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/addyosmani/backbone.paginator/blob/master/LICENSE-MIT"
+      "url": "http://github.com/backbone-paginator/backbone.paginator/blob/master/LICENSE-MIT"
     }
   ],
   "preferGlobal": true,
