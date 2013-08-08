@@ -77,7 +77,7 @@ describe("Backbone 0.9.2 specific functionality", function() {
         doSync(new PagedCollection(), 200, 'sync', done);
       });
 
-        it("should emit 'sync' event when has been successfully synced with the server in ServerPager", function(done){
+      it("should emit 'sync' event when has been successfully synced with the server in ServerPager", function(done){
         doSync(makePager(), 200, 'sync', done);
       });
 
