@@ -1,24 +1,7 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
       describe: true, expect: true, sinon: true,
-      it: true, beforeEach: true, afterEach: true*/
-
-// helper for easy ajax faking
-var fakeAjax = function(func){
-  var xhr = sinon.useFakeXMLHttpRequest();
-  var requests = [];
-  xhr.onCreate = function(xhr){
-    requests.push(xhr);
-  };
-  try{
-    func(requests);
-  }
-  catch (e){
-    throw e;
-  }
-  finally{
-    xhr.restore();
-  }
-};
+      it: true, beforeEach: true, afterEach: true,
+      fakeAjax: true, makePager: true*/
 
 describe('backbone.paginator.requestPager',function(){
 
@@ -34,6 +17,23 @@ describe('backbone.paginator.requestPager',function(){
     });
     afterEach(function(){
       spy.restore();
+    });
+
+
+    it("should emit 'sync' only once", function(done){
+      var counter = 0,
+          requestPager = makePager();
+      requestPager.on("sync", function(){
+        counter++;
+      });
+
+      fakeAjax(function(requests){
+        requestPager.fetch();
+        expect(requests.length).to.equal(1);
+        requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
+        expect(counter).to.equal(1);
+        done();
+      });
     });
 
     it("should use 'paginator_core' values as query options to ajax call", function(){

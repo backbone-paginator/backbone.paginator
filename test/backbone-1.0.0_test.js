@@ -1,21 +1,9 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
       describe: true, xdescribe: true, expect: true, sinon: true,
-      it: true, xit: true, beforeEach: true, afterEach: true, fakeAjax: true */
+      it: true, xit: true, beforeEach: true, afterEach: true,
+      fakeAjax: true, makePager: true */
 
 // this file contains tests which target behaviour found in backbone 1.0.0
-
-var makePager = function(){
-  var pager = {
-    paginator_ui: {},
-    paginator_core: {
-      type: 'GET',
-      dataType: 'json',
-      url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
-    }
-  };
-  _.extend(pager, new Backbone.Paginator.requestPager());
-  return pager;
-};
 
 /* 0.9.10 had changed the arguments but 1.0.0 reverted back to what it used to be
    in 0.9.9 and earlier */
@@ -81,20 +69,5 @@ describe("Backbone 1.0.0 specific functionality", function() {
     });
   });
 
-  it("should emit 'sync' only once", function(done){
-    var counter = 0,
-        requestPager = makePager();
-    requestPager.on("sync", function(){
-      counter++;
-    });
-
-    fakeAjax(function(requests){
-      requestPager.fetch();
-      expect(requests.length).to.equal(1);
-      requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
-      expect(counter).to.equal(1);
-      done();
-    });
-  });
 });
 
