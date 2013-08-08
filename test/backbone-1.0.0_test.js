@@ -69,5 +69,70 @@ describe("Backbone 1.0.0 specific functionality", function() {
     });
   });
 
+  describe('"sync" and "error" events ', function() {
+    var OPTS = {
+        model: Backbone.Model,
+        paginator_ui: {
+          firstPage: 1,
+          currentPage: 1,
+          perPage: 3,
+          totalPages: 10,
+          pagesInRange: 4
+        },
+        paginator_core: {
+          url: 'test',
+          dataType: 'json'
+        },
+        parse: function (response) {
+          return response;
+        }
+      }, getModels = function(){
+        return _.map(_.range(30), function(i){
+          return {name: "Johnny Cash", id: i};
+        });
+      }, PagedCollection = Backbone.Paginator.clientPager.extend(OPTS);
+
+    it("should not emit 'sync' event when has been successfully synced with the server", function(done){
+      var coll = new PagedCollection();
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([200, {}, ""]);
+
+      // execute
+      var model = {
+        trigger: sinon.spy()
+      };
+      var options = {};
+      coll.sync('read', model, options).always(function(){
+        // verify
+        expect(model.trigger.withArgs('sync').called).to.equal(false);
+        done();
+      });
+
+      server.restore();
+    });
+
+    it("should not emit 'error' event when a call fails on the server", function(done){
+      var coll = new PagedCollection();
+
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([404, {}, ""]);
+
+      // execute
+      var model = {
+        trigger: sinon.spy()
+      };
+      var options = {};
+      coll.sync('read', model, options).always(function(){
+        // verify
+        expect(model.trigger.withArgs('error').called).to.equal(false);
+        done();
+      });
+
+      server.restore();
+    });
+  });
 });
 
