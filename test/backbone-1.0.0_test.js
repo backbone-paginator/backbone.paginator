@@ -26,8 +26,6 @@ describe("Backbone 1.0.0 specific functionality", function() {
       expect(requests.length).to.equal(1);
       requests[0].respond(200, {"Content-Type": "application/json"},'{ "key": "value" }');
     });
-
-
   });
 
   it("should use 'promise-style' `options.success` arguments for fetch", function(done){
@@ -46,8 +44,6 @@ describe("Backbone 1.0.0 specific functionality", function() {
       expect(requests.length).to.equal(1);
       requests[0].respond(200, {"Content-Type": "application/json"},'{ "key": "value" }');
     });
-
-
   });
 
   it('should use "promise-style" `options.error` arguments', function(done){
@@ -128,4 +124,3 @@ describe("Backbone 1.0.0 specific functionality", function() {
     });
   });
 });
-

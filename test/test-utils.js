@@ -33,5 +33,3 @@ var makePager = function(){
   _.extend(pager, new Backbone.Paginator.requestPager());
   return pager;
 };
-
-
