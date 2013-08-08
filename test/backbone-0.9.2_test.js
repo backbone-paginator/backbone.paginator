@@ -18,6 +18,38 @@ describe("Backbone 0.9.2 specific functionality", function() {
       spy.restore();
     });
 
+    var makePager = function(){
+      var pager = {
+        paginator_ui: {},
+        paginator_core: {
+          type: 'GET',
+          dataType: 'json',
+          url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
+        }
+      };
+      _.extend(pager, new Backbone.Paginator.requestPager());
+      return pager;
+    };
+
+    var doSync = function(coll, respStatus, ev, done) {
+      var server = sinon.fakeServer.create();
+      server.autoRespond = true;
+      server.respondWith([respStatus, {}, ""]);
+
+      // execute
+      var model = {
+        trigger: sinon.spy()
+      };
+      var options = {};
+      coll.sync('read', model, options).always(function(){
+        // verify
+        expect(model.trigger.withArgs(ev).called).to.equal(true);
+        done();
+      });
+
+      server.restore();
+    };
+
     describe('"sync" and "error" events ', function() {
       var OPTS = {
           model: Backbone.Model,
@@ -41,46 +73,20 @@ describe("Backbone 0.9.2 specific functionality", function() {
           });
         }, PagedCollection = Backbone.Paginator.clientPager.extend(OPTS);
 
-      it("should emit 'sync' event when has been successfully synced with the server", function(done){
-        var coll = new PagedCollection();
-
-        var server = sinon.fakeServer.create();
-        server.autoRespond = true;
-        server.respondWith([200, {}, ""]);
-
-        // execute
-        var model = {
-          trigger: sinon.spy()
-        };
-        var options = {};
-        coll.sync('read', model, options).always(function(){
-          // verify
-          expect(model.trigger.withArgs('sync').calledOnce).to.equal(true);
-          done();
-        });
-
-        server.restore();
+      it("should emit 'sync' event when has been successfully synced with the server in ClientPager", function(done){
+        doSync(new PagedCollection(), 200, 'sync', done);
       });
 
-      it("should emit 'error' event when a call fails on the server", function(done){
-        var coll = new PagedCollection();
+        it("should emit 'sync' event when has been successfully synced with the server in ServerPager", function(done){
+        doSync(makePager(), 200, 'sync', done);
+      });
 
-        var server = sinon.fakeServer.create();
-        server.autoRespond = true;
-        server.respondWith([404, {}, ""]);
+      it("should emit 'error' event when a call fails on the server in ClientPager", function(done){
+        doSync(new PagedCollection(), 404, 'error', done);
+      });
 
-        // execute
-        var model = {
-          trigger: sinon.spy()
-        };
-        var options = {};
-        coll.sync('read', model, options).always(function(){
-          // verify
-          expect(model.trigger.withArgs('error').calledOnce).to.equal(true);
-          done();
-        });
-
-        server.restore();
+      it("should emit 'error' event when a call fails on the server in ServerPager", function(done){
+        doSync(makePager(), 404, 'error', done);
       });
     });
   });
