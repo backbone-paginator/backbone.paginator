@@ -1,6 +1,7 @@
 /*globals Backbone:false, _:false, jQuery:false, $: false,
       describe: true, xdescribe: true, expect: true, sinon: true,
-      it: true, xit: true, beforeEach: true, afterEach: true, fakeAjax: true */
+      it: true, xit: true, beforeEach: true, afterEach: true,
+      fakeAjax: true, makePager: true */
 
 // this file contains tests which target behaviour found in backbone 0.9.2
 describe("Backbone 0.9.2 specific functionality", function() {
@@ -17,19 +18,6 @@ describe("Backbone 0.9.2 specific functionality", function() {
     afterEach(function(){
       spy.restore();
     });
-
-    var makePager = function(){
-      var pager = {
-        paginator_ui: {},
-        paginator_core: {
-          type: 'GET',
-          dataType: 'json',
-          url: 'http://odata.netflix.com/Catalog/People(49446)/TitlesActedIn?'
-        }
-      };
-      _.extend(pager, new Backbone.Paginator.requestPager());
-      return pager;
-    };
 
     var doSync = function(coll, respStatus, ev, done) {
       var server = sinon.fakeServer.create();
