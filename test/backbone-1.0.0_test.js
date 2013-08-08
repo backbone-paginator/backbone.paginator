@@ -80,5 +80,21 @@ describe("Backbone 1.0.0 specific functionality", function() {
       requests[0].respond(401, {"Content-Type": "application/json"}, "{}");
     });
   });
+
+  it("should emit 'sync' only once", function(done){
+    var counter = 0,
+        requestPager = makePager();
+    requestPager.on("sync", function(){
+      counter++;
+    });
+
+    fakeAjax(function(requests){
+      requestPager.fetch();
+      expect(requests.length).to.equal(1);
+      requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
+      expect(counter).to.equal(1);
+      done();
+    });
+  });
 });
 
