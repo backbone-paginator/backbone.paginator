@@ -36,6 +36,29 @@ describe('backbone.paginator.requestPager',function(){
       });
     });
 
+    it("should emit 'sync' only once even is `options.success` is defined", function(done){
+      var eventCounter = 0,
+          callbackCounter = 0,
+          requestPager = makePager();
+
+      requestPager.on("sync", function(){
+        eventCounter++;
+      });
+
+      fakeAjax(function(requests){
+        requestPager.fetch({
+          success: function(){
+            callbackCounter++;
+          }
+        });
+        expect(requests.length).to.equal(1);
+        requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
+        expect(eventCounter).to.equal(1);
+        expect(callbackCounter).to.equal(1);
+        done();
+      });
+    });
+
     it("should use 'paginator_core' values as query options to ajax call", function(){
       var requestPagerTest = {
         paginator_ui: {},
