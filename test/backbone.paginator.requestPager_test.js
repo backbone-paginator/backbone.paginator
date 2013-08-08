@@ -275,63 +275,6 @@ describe('backbone.paginator.requestPager',function(){
       // verify
       expect(model.trigger.withArgs('request').calledOnce).to.equal(true);
     });
-
-    it("should emit 'sync' event when has been successfully synced with the server", function(done){
-      var requestPager = {
-        paginator_ui: {},
-        paginator_core: {
-          type: 'GET',
-          dataType: 'json'
-        }
-      };
-
-      _.extend(requestPager, new Backbone.Paginator.requestPager());
-
-      var howManySyncs = 0;
-      requestPager.on("sync", function(){
-        howManySyncs++;
-      });
-
-      fakeAjax(function(requests){
-        expect(requests.length).to.equal(0);
-        requestPager.fetch({ success: function(){} });
-        expect(requests.length).to.equal(1);
-        var req = requests[0];
-        expect(req.method).to.equal("GET");
-        req.respond(200, {}, JSON.stringify([{id:1234}]));
-        expect(howManySyncs).to.equal(1);
-        done();
-      });
-
-    });
-
-    it("should emit 'error' event when a call fails on the server", function(done){
-      var requestPagerTest = {
-        paginator_ui: {},
-        paginator_core: {
-          type: 'GET',
-          dataType: 'json'
-        }
-      };
-      _.extend(requestPagerTest, new Backbone.Paginator.requestPager());
-
-      var server = sinon.fakeServer.create();
-      server.autoRespond = true;
-      server.respondWith([404, {}, ""]);
-
-      // execute
-      var model = {
-        trigger: sinon.spy()
-      };
-      var options = {};
-      requestPagerTest.sync('read', model, options).always(function(){
-        // verify
-        expect(model.trigger.withArgs('error').calledOnce).to.equal(true);
-        done();
-      });
-
-      server.restore();
-    });
   });
 
   describe('setDefaults method', function() {
