@@ -26,8 +26,6 @@ describe("Backbone 1.0.0 specific functionality", function() {
       expect(requests.length).to.equal(1);
       requests[0].respond(200, {"Content-Type": "application/json"},'{ "key": "value" }');
     });
-
-
   });
 
   it("should use 'promise-style' `options.success` arguments for fetch", function(done){
@@ -46,8 +44,6 @@ describe("Backbone 1.0.0 specific functionality", function() {
       expect(requests.length).to.equal(1);
       requests[0].respond(200, {"Content-Type": "application/json"},'{ "key": "value" }');
     });
-
-
   });
 
   it('should use "promise-style" `options.error` arguments', function(done){
@@ -69,5 +65,62 @@ describe("Backbone 1.0.0 specific functionality", function() {
     });
   });
 
-});
+  describe('"sync" and "error" events ', function() {
+    var OPTS = {
+        model: Backbone.Model,
+        paginator_ui: {
+          firstPage: 1,
+          currentPage: 1,
+          perPage: 3,
+          totalPages: 10,
+          pagesInRange: 4
+        },
+        paginator_core: {
+          url: 'test',
+          dataType: 'json'
+        },
+        parse: function (response) {
+          return response;
+        }
+      }, getModels = function(){
+        return _.map(_.range(30), function(i){
+          return {name: "Johnny Cash", id: i};
+        });
+      }, PagedCollection = Backbone.Paginator.clientPager.extend(OPTS),
 
+      doSync = function(coll, respStatus, ev, done) {
+        var server = sinon.fakeServer.create();
+        server.autoRespond = true;
+        server.respondWith([respStatus, {}, ""]);
+
+        // execute
+        var model = {
+          trigger: sinon.spy()
+        };
+        var options = {};
+        coll.sync('read', model, options).always(function(){
+          // verify
+          expect(model.trigger.withArgs(ev).called).to.equal(false);
+          done();
+        });
+
+        server.restore();
+      };
+
+    it("should not emit 'sync' event when has been successfully synced with the server in ClientPager", function(done){
+      doSync(new PagedCollection(), 200, 'sync', done);
+    });
+
+    it("should not emit 'sync' event when has been successfully synced with the server in RequestPager", function(done){
+      doSync(makePager(), 200, 'sync', done);
+    });
+
+    it("should not emit 'error' event when a call fails on the server in ClientPager", function(done){
+      doSync(new PagedCollection(), 404, 'error', done);
+    });
+
+    it("should not emit 'error' event when a call fails on the server in RequestPager", function(done){
+      doSync(makePager(), 404, 'error', done);
+    });
+  });
+});
