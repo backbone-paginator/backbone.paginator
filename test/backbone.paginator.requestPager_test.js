@@ -20,43 +20,50 @@ describe('backbone.paginator.requestPager',function(){
     });
 
 
-    it("should emit 'sync' only once", function(done){
-      var counter = 0,
-          requestPager = makePager();
-      requestPager.on("sync", function(){
-        counter++;
-      });
+    _.each([["sync", 200, "success"], ["error", 400, "error"]], function(array){
+      var event = array[0],
+          statusCode = array[1],
+          callbackName = array[2];
 
-      fakeAjax(function(requests){
-        requestPager.fetch();
-        expect(requests.length).to.equal(1);
-        requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
-        expect(counter).to.equal(1);
-        done();
-      });
-    });
+      (function(event, statusCode, callbackName){
+        it("should emit '" + event +"' only once", function(done){
+          var counter = 0,
+              requestPager = makePager();
+          requestPager.on(event, function(){
+            counter++;
+          });
 
-    it("should emit 'sync' only once even is `options.success` is defined", function(done){
-      var eventCounter = 0,
-          callbackCounter = 0,
-          requestPager = makePager();
-
-      requestPager.on("sync", function(){
-        eventCounter++;
-      });
-
-      fakeAjax(function(requests){
-        requestPager.fetch({
-          success: function(){
-            callbackCounter++;
-          }
+          fakeAjax(function(requests){
+            requestPager.fetch();
+            expect(requests.length).to.equal(1);
+            requests[0].respond(statusCode, {"Content-Type": "application/json"}, "{}");
+            expect(counter).to.equal(1);
+            done();
+          });
         });
-        expect(requests.length).to.equal(1);
-        requests[0].respond(200, {"Content-Type": "application/json"}, "{}");
-        expect(eventCounter).to.equal(1);
-        expect(callbackCounter).to.equal(1);
-        done();
-      });
+
+        it("should emit '" + event +"' only once even if `options." + callbackName + "` is defined", function(done){
+          var eventCounter = 0,
+              callbackCounter = 0,
+              requestPager = makePager();
+
+          requestPager.on(event, function(){
+            eventCounter++;
+          });
+          fakeAjax(function(requests){
+            var opts = {};
+            opts[callbackName] = function(){
+              callbackCounter++;
+            };
+            requestPager.fetch(opts);
+            expect(requests.length).to.equal(1);
+            requests[0].respond(statusCode, {"Content-Type": "application/json"}, "{}");
+            expect(eventCounter).to.equal(1);
+            expect(callbackCounter).to.equal(1);
+            done();
+          });
+        });
+      })(event, statusCode, callbackName);
     });
 
     it("should use 'paginator_core' values as query options to ajax call", function(){
