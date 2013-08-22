@@ -151,6 +151,10 @@ describe('backbone.paginator.clientPager', function() {
       this.clientPagerTest.reset();
 
       expect(this.clientPagerTest.origModels).to.eql([]);
+
+      this.clientPagerTest.reset([model.toJSON(), model.toJSON()]);
+
+      expect(this.clientPagerTest.origModels).to.have.length(2);
     });
   });
 
