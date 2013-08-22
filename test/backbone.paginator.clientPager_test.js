@@ -150,7 +150,7 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.origModels).to.include(model);
       this.clientPagerTest.reset();
 
-      expect(this.clientPagerTest.origModels).to.equal([]);
+      expect(this.clientPagerTest.origModels).to.eql([]);
     });
   });
 
