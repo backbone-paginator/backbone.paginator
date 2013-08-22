@@ -56,6 +56,18 @@ describe('backbone.paginator.clientPager', function() {
       expect(called).to.equal(true);
     });
 
+    it('should fire "reset" event', function(){
+      var called = false;
+      this.clientPagerTest.on("reset", function(){
+        called = true;
+      });
+      var model = new Backbone.Model();
+      this.clientPagerTest.add(model);
+      this.clientPagerTest.reset();
+
+      expect(called).to.equal(true);
+    });
+
     it('should set defauls by calling "setDefaults" function', function() {
       this.clientPagerTest.add(new Backbone.Model());
       expect(this.defaultsStub.calledOnce).to.equal(true);
