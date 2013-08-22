@@ -61,6 +61,7 @@ describe('backbone.paginator.clientPager', function() {
       this.clientPagerTest.on("reset", function(){
         called = true;
       });
+      this.clientPagerTest.origModels = [];
       var model = new Backbone.Model();
       this.clientPagerTest.add(model);
       this.clientPagerTest.reset();
@@ -141,6 +142,18 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.origModels).not.to.include(model);
     });
   });
+  describe('resetModel', function(){
+    it('should reset the "origModels" array', function(){
+      var model = new Backbone.Model();
+      this.clientPagerTest.origModels = [model];
+
+      expect(this.clientPagerTest.origModels).to.include(model);
+      this.clientPagerTest.reset();
+
+      expect(this.clientPagerTest.origModels).to.equal([]);
+    });
+  });
+
   describe('sync', function(){
 
     var spy;
