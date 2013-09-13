@@ -12,7 +12,7 @@
 			dataType: 'jsonp',
 		
 			// the URL (or base URL) for the service
-			url: 'https://api.github.com/repos/twitter/bootstrap/issues?'
+			url: 'https://api.github.com/repos/twbs/bootstrap/issues?'
 		},
 		
 		paginator_ui: {
@@ -36,11 +36,15 @@
 		},
 		
 		server_api: {
-			// number of items to return per request/page
-			'per_page': function() { return this.perPage },
+			// number of items displayed is controlled on the client
+			// but can still use the server API to restrict 
+			// what gets sent over the wire
 			
-			// how many results the request should skip ahead to
-			'page': function() { return this.currentPage },
+			// // number of items to return per request/page
+			// 'per_page': function() { return this.perPage },
+			// 
+			// // how many results the request should skip ahead to
+			// 'page': function() { return this.currentPage },
 			
 			// field to sort by
 			'sort': 'created',
