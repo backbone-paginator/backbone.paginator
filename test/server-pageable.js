@@ -139,7 +139,7 @@ $(document).ready(function () {
     state.currentPage = 1;
     state.totalRecords = 0;
     col._checkState(state);
-    strictEqual(state.lastPage, 0);
+    strictEqual(state.lastPage, 1);
   });
 
   test("extend and initialize", function () {
