@@ -100,12 +100,12 @@ $(document).ready(function () {
     strictEqual(col.comparator, comparator);
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
+    strictEqual(col.at(1).get("name"), "b");
     strictEqual(col.fullCollection.size(), 3);
     strictEqual(col.at(0), col.fullCollection.at(0));
     strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(2).get("name"), "b");
+    strictEqual(col.fullCollection.at(1).get("name"), "b");
+    strictEqual(col.fullCollection.at(2).get("name"), "c");
 
     mods = models.slice();
 
@@ -556,7 +556,7 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "b");
     strictEqual(col.fullCollection.at(3).get("name"), "a");
   });
-  
+
   test("getPageByOffset - firstPage is 0", function () {
     var manyModels = [
       {"name": "a1"},
@@ -806,6 +806,27 @@ $(document).ready(function () {
 
     strictEqual(col.hasPrevious(), true);
     strictEqual(col.hasNext(), false);
+  });
+
+  test("parsing from constructor #112", function () {
+    var Model = Backbone.Model.extend({
+      parse: function (raw) {
+        return { value: raw }
+      }
+    });
+
+    var MyCollection = Backbone.PageableCollection.extend({
+      model: Model,
+      mode: 'client',
+      state: {
+        firstPage: 0,
+        pageSize: 2
+      }
+    });
+
+    var col = new MyCollection([1, 2, 3], {parse: true});
+    deepEqual(col.toJSON(), [{"value": 1}, {"value": 2}]);
+    deepEqual(col.fullCollection.toJSON(), [{"value": 1}, {"value": 2}, {"value": 3}]);
   });
 
 });
