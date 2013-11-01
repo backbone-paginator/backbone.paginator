@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "underscore": ">=1.4.0",
-    "backbone": "git+https://github.com/jashkenas/backbone.git"
+    "backbone": ">=1.1.0"
   },
   "devDependencies": {
     "grunt-contrib-clean": "~0.4.1",

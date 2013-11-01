@@ -16,7 +16,7 @@ $(document).ready(function () {
     comparator = col._makeComparator();
     strictEqual(comparator, undefined);
 
-    col = col.reset([{name: "b"}, {name: "c"}, {name: "A"}, {name: "a"}]);
+    col.reset([{name: "b"}, {name: "c"}, {name: "A"}, {name: "a"}]);
     col.state.order = -1;
     col.comparator = col._makeComparator();
     col.sort();
