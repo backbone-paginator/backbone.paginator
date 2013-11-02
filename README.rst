@@ -4,8 +4,21 @@ backbone-pageable
 |travis-status|_
 
 A pageable, drop-in replacement for Backbone.Collection inspired by
-`Backbone.Paginator <https://github.com/addyosmani/backbone.paginator/>`_, but
-much better.
+`Backbone.Paginator
+<https://github.com/backbone-paginator/backbone.paginator>`_, but much better.
+
+
+IMPORTANT NOTE:
+---------------
+
+This version of backbone-pageable (1.4.0) will be the last version carrying the
+name. Future development of this plugin will be done over at `Backbone.Paginator
+<https://github.com/backbone-paginator/backbone.paginator>`_, effectively
+replacing it. So stay tunes at developement over there.
+
+Special thanks to @addyosmani for the original idea of a pageable Backbone
+Collection.
+
 
 .. contents:: Table of Contents
    :backlinks: none
@@ -593,6 +606,27 @@ FAQ
 
 Change Log
 ----------
+
+1.4.0 (unreleased)
+    - Models passed to the constructor are now copied. `(Issue #114)
+      <https://github.com/wyuenho/backbone-pageable/issues/114>`_
+    - Fixed an edge case where someone attempting to replace Backbone.Collection
+      with PageableCollection will cause an infinite loop. `(Issue #120)
+      <https://github.com/wyuenho/backbone-pageable/pull/120>`_
+    - The lower bound of `lastPage` is set to equal to `firstPage` now when
+      `totalRecords` is 0. `(Issue #100)
+      <https://github.com/wyuenho/backbone-pageable/issues/100>`_
+    - Fixed bug where query string parameter values in the supplied URL weren't
+      URI decoded when merging. `(Issue #117)
+      <https://github.com/wyuenho/backbone-pageable/pull/117>`_
+    - Models passed to the constructor will now be parsed correctly. `(Issue
+      #112) <https://github.com/wyuenho/backbone-pageable/issues/112>`_
+    - Removing from the fullCollection will no longer calculate the wrong index
+      to insert into the current page. `(Issue #122)
+      <https://github.com/wyuenho/backbone-pageable/issues/122>`_
+    - `setSorting` will now set the comparators to null to prevent inadvertently
+      inheriting the comparators defined on the collection prototype. `(Issue
+      #108) <https://github.com/wyuenho/backbone-pageable/issues/108>`_
 
 1.3.2
     - Removed support for Backbone <= 1.0.0.
