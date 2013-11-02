@@ -325,25 +325,52 @@ $(document).ready(function () {
     strictEqual(col.length, 0)
   });
 
-  test("add handlers are run before remove handlers", 2, function () {
-    var addRan = false;
-    var onAdd = function () {
-      addRan = true;
-    };
-    var onRemove = function () {
-      strictEqual(addRan, true);
-      addRan = false;
-    };
+  test("add handlers on pageCol are run before remove handlers", 2, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
       },
       mode: "client"
     });
-    col.on("add", onAdd);
-    col.on("remove", onRemove);
+
+    var queue = [];
+    col.on("add", function () {
+      queue.push("add");
+    });
+    col.on("remove", function () {
+      queue.push("remove");
+    });
+
     col.unshift(new Backbone.Model({name: "d"}));
+    deepEqual(queue, ["add", "remove"]);
+
+    queue = []
     col.fullCollection.unshift(new Backbone.Model({name: "e"}));
+    deepEqual(queue, ["add", "remove"]);
+  });
+
+  test("remove handlers on pageCol are run before add handlers", 2, function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        pageSize: 1
+      },
+      mode: "client"
+    });
+
+    var queue = [];
+    col.on("add", function () {
+      queue.push("add");
+    });
+    col.on("remove", function () {
+      queue.push("remove");
+    });
+
+    col.remove(col.at(0));
+    deepEqual(queue, ["remove", "add"]);
+
+    queue = [];
+    col.fullCollection.remove(col.at(0));
+    deepEqual(queue, ["remove", "add"]);
   });
 
   test("change", 6, function () {
