@@ -223,7 +223,7 @@ $(document).ready(function () {
     deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
   });
 
-  test("remove", 46, function () {
+  test("remove", 56, function () {
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -232,7 +232,7 @@ $(document).ready(function () {
       {"name": "d"}
     ], {
       state: {
-        pageSize: 1
+        pageSize: 2
       },
       mode: "client"
     });
@@ -242,16 +242,17 @@ $(document).ready(function () {
     var onRemove = function () {
       ok(true);
       strictEqual(col.state.totalRecords, lastTotalRecords - 1);
-      strictEqual(col.state.totalPages, lastTotalPages - 1);
+      strictEqual(col.state.totalPages, Math.ceil(col.state.totalRecords / col.state.pageSize));
     };
     col.on("remove", onRemove);
     col.fullCollection.on("remove", onRemove);
 
     col.fullCollection.remove(col.fullCollection.last());
     strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.size(), 1);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
     strictEqual(col.fullCollection.size(), 3);
     strictEqual(col.fullCollection.at(0).get("name"), "a");
     strictEqual(col.fullCollection.at(1).get("name"), "c");
@@ -261,9 +262,10 @@ $(document).ready(function () {
     lastTotalPages = col.state.totalPages;
     col.fullCollection.remove(col.fullCollection.first());
     strictEqual(col.state.totalRecords, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.size(), 1);
+    strictEqual(col.state.totalPages, 1);
+    strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.at(1).get("name"), "b");
     strictEqual(col.fullCollection.size(), 2);
     strictEqual(col.fullCollection.at(0).get("name"), "c");
     strictEqual(col.fullCollection.at(1).get("name"), "b");
@@ -293,6 +295,34 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, null);
     strictEqual(col.size(), 0);
     strictEqual(col.fullCollection.size(), 0);
+
+    col = new Backbone.PageableCollection([
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"},
+      {"name": "d"},
+      {"name": "f"},
+    ], {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+
+    // tests for insertion into current page by removing from fullCollection
+    col.fullCollection.remove(col.fullCollection.at(0));
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.at(1).get("name"), "b");
+    col.fullCollection.remove(col.fullCollection.at(2));
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.at(1).get("name"), "b");
+    col.fullCollection.remove(col.fullCollection.at(1));
+    strictEqual(col.at(0).get("name"), "c");
+    strictEqual(col.at(1).get("name"), "f");
+    col.fullCollection.remove(col.fullCollection.at(0));
+    strictEqual(col.at(0).get("name"), "f");
+    col.fullCollection.remove(col.fullCollection.at(0));
+    strictEqual(col.length, 0)
   });
 
   test("add handlers are run before remove handlers", 2, function () {
