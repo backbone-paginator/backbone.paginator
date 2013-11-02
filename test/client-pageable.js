@@ -119,8 +119,8 @@ $(document).ready(function () {
     });
 
     strictEqual(col.state.totalRecords, 3);
-    ok(!_.isUndefined(col.fullCollection.comparator));
-    ok(_.isUndefined(col.comparator));
+    ok(col.fullCollection.comparator);
+    ok(!col.comparator);
 
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "a");
