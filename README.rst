@@ -23,6 +23,7 @@ Collection.
 .. contents:: Table of Contents
    :backlinks: none
 
+
 Advantages
 ----------
 
@@ -607,7 +608,7 @@ FAQ
 Change Log
 ----------
 
-1.4.0 (unreleased)
+1.4.0
     - Models passed to the constructor are now copied. `(Issue #114)
       <https://github.com/wyuenho/backbone-pageable/issues/114>`_
     - Fixed an edge case where someone attempting to replace Backbone.Collection
@@ -627,6 +628,9 @@ Change Log
     - `setSorting` will now set the comparators to null to prevent inadvertently
       inheriting the comparators defined on the collection prototype. `(Issue
       #108) <https://github.com/wyuenho/backbone-pageable/issues/108>`_
+    - `remove` event handlers on the current page are called before `add`
+      handlers under client mode when removing from the current page. `(Issue
+      #118) <https://github.com/wyuenho/backbone-pageable/issues/118>`_
 
 1.3.2
     - Removed support for Backbone <= 1.0.0.
