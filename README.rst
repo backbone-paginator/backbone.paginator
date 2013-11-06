@@ -14,7 +14,7 @@ IMPORTANT NOTE:
 This version of backbone-pageable (1.4.0) will be the last version carrying the
 name. Future development of this plugin will be done over at `Backbone.Paginator
 <https://github.com/backbone-paginator/backbone.paginator>`_, effectively
-replacing it. So stay tunes at developement over there.
+replacing it. So stay tuned at developement over there.
 
 Special thanks to @addyosmani for the original idea of a pageable Backbone
 Collection.
