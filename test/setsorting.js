@@ -4,6 +4,21 @@ $(document).ready(function () {
 
   module("Backbone.PageableCollection - setSorting");
 
+  test("constructor", function () {
+    var comparator = function () { return 0; };
+    var Col = Backbone.PageableCollection.extend({
+      comparator: function () { return 1; }
+    });
+    var col = new Col([], {
+      mode: "client",
+      comparator: comparator,
+      full: true
+    });
+
+    ok(col.fullCollection.comparator === comparator);
+    ok(!col.comparator);
+  });
+
   test("_makeComparator", function () {
     var col, comparator;
 
