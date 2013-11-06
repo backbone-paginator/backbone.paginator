@@ -608,6 +608,12 @@ FAQ
 Change Log
 ----------
 
+1.4.1
+    - Fixed a slight oversight when fixing #108. Now the current page's
+      comparator will be set to null explicitly even when the comparator is
+      given to the constructor with `options.full` set to `true`. `(Issue #108)
+      <https://github.com/wyuenho/backbone-pageable/issues/108>`_
+
 1.4.0
     - Models passed to the constructor are now copied. `(Issue #114)
       <https://github.com/wyuenho/backbone-pageable/issues/114>`_
