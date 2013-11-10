@@ -1,0 +1,16 @@
+{
+  "name": "backbone-pageable",
+  "repo": "wyuenho/backbone-pageable",
+  "version": "1.4.1",
+  "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
+  "keywords": [
+    "backbone"
+  ],
+  "main": "lib/backbone-pageable.js",
+  "scripts": ["lib/backbone-pageable.js"],
+  "dependencies": {
+    "jashkenas/backbone": "*"
+  },
+  "demo": "https://github.com/wyuenho/backbone-pageable#playable-demos",
+  "license": "MIT"
+}
