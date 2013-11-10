@@ -7,8 +7,11 @@
     "backbone"
   ],
   "main": "lib/backbone-pageable.js",
-  "scripts": ["lib/backbone-pageable.js"],
+  "scripts": [
+    "lib/backbone-pageable.js"
+  ],
   "dependencies": {
+    "jashkenas/underscore": "*",
     "jashkenas/backbone": "*"
   },
   "demo": "https://github.com/wyuenho/backbone-pageable#playable-demos",
