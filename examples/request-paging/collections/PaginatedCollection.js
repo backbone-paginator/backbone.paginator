@@ -30,7 +30,7 @@
 			dataType: 'jsonp',
 		
 			// the URL (or base URL) for the service
-			url: 'https://api.github.com/repos/twitter/bootstrap/issues?'
+			url: 'https://api.github.com/repos/twbs/bootstrap/issues?'
 		},
 		
 		paginator_ui: {
