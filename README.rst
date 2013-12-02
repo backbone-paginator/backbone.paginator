@@ -74,7 +74,7 @@ The following examples utilizes `Backgrid.js
 Installation
 ------------
 
-Installing from Node.js
+Installing from Node js
 +++++++++++++++++++++++
 
 .. code-block:: bash
