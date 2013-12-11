@@ -223,7 +223,7 @@ $(document).ready(function () {
     deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
   });
 
-  test("remove", 56, function () {
+  test("remove", 59, function () {
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -322,7 +322,25 @@ $(document).ready(function () {
     col.fullCollection.remove(col.fullCollection.at(0));
     strictEqual(col.at(0).get("name"), "f");
     col.fullCollection.remove(col.fullCollection.at(0));
-    strictEqual(col.length, 0)
+    strictEqual(col.length, 0);
+
+    // issue 129
+    col = new Backbone.PageableCollection([
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"},
+      {"name": "d"}
+    ], {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+
+    col.remove(col.first());
+    strictEqual(col.state.totalRecords, 3);
+    strictEqual(col.size(), 2);
+    strictEqual(col.fullCollection.size(), 3);
   });
 
   test("add handlers on pageCol are run before remove handlers", 2, function () {

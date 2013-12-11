@@ -11,8 +11,9 @@ A pageable, drop-in replacement for Backbone.Collection inspired by
 IMPORTANT NOTE:
 ---------------
 
-This version of backbone-pageable (1.4.0) will be the last version carrying the
-name. Future development of this plugin will be done over at `Backbone.Paginator
+This major version of backbone-pageable (1.4) will be the last version carrying
+the name. Future development of this plugin will be done over at
+`Backbone.Paginator
 <https://github.com/backbone-paginator/backbone.paginator>`_, effectively
 replacing it. So stay tuned at developement over there.
 
@@ -595,7 +596,7 @@ FAQ
 
 #. Which package managers does backbone-pageable support?
 
-   bower, CommonJS and AMD as of 0.9.0.
+   bower, npm, CommonJS and AMD as of 0.9.0. Component as of 1.4.1.
 
 #. Why doesn't backbone-pageable support filtering?
 
@@ -607,6 +608,12 @@ FAQ
 
 Change Log
 ----------
+
+1.4.2
+    - Fixed a regression where `state.totalRecords` is not decremented probably
+      when a model is shifted from the `fullCollection` to the currege page
+      after a direct removal from the current page. `(Issue #129)
+      <https://github.com/wyuenho/backbone-pageable/issues/129>`_
 
 1.4.1
     - Fixed a slight oversight when fixing #108. Now the current page's
