@@ -283,152 +283,62 @@ Docs = {
       {
         "long": "abstract",
         "short": "ABS",
-        "tagname": "abstract"
+        "key": "abstract"
       },
       {
         "long": "chainable",
         "short": "&gt;",
-        "tagname": "chainable"
+        "key": "chainable"
       },
       {
         "long": "deprecated",
         "short": "DEP",
-        "tagname": "deprecated"
-      },
-      {
-        "long": "experimental",
-        "short": "EXP",
-        "tagname": "experimental"
+        "key": "deprecated"
       },
       {
         "long": "&#9733;",
         "short": "&#9733;",
-        "tagname": "new"
+        "key": "new"
       },
       {
         "long": "preventable",
         "short": "PREV",
-        "tagname": "preventable"
+        "key": "preventable"
       },
       {
         "long": "private",
         "short": "PRI",
-        "tagname": "private"
+        "key": "private"
       },
       {
         "long": "protected",
         "short": "PRO",
-        "tagname": "protected"
+        "key": "protected"
       },
       {
         "long": "readonly",
         "short": "R O",
-        "tagname": "readonly"
+        "key": "readonly"
       },
       {
         "long": "removed",
         "short": "REM",
-        "tagname": "removed"
+        "key": "removed"
       },
       {
         "long": "required",
         "short": "REQ",
-        "tagname": "required"
+        "key": "required"
       },
       {
         "long": "static",
         "short": "STA",
-        "tagname": "static"
+        "key": "static"
       },
       {
         "long": "template",
         "short": "TMP",
-        "tagname": "template"
-      }
-    ],
-    "memberTypes": [
-      {
-        "title": "Config options",
-        "toolbar_title": "Configs",
-        "position": 1,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/cfg.png",
-        "subsections": [
-          {
-            "title": "Required config options",
-            "filter": {
-              "required": true
-            }
-          },
-          {
-            "title": "Optional config options",
-            "filter": {
-              "required": false
-            },
-            "default": true
-          }
-        ],
-        "name": "cfg"
-      },
-      {
-        "title": "Properties",
-        "position": 2,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/property.png",
-        "subsections": [
-          {
-            "title": "Instance properties",
-            "filter": {
-              "static": false
-            },
-            "default": true
-          },
-          {
-            "title": "Static properties",
-            "filter": {
-              "static": true
-            }
-          }
-        ],
-        "name": "property"
-      },
-      {
-        "title": "Methods",
-        "position": 3,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/method.png",
-        "subsections": [
-          {
-            "title": "Instance methods",
-            "filter": {
-              "static": false
-            },
-            "default": true
-          },
-          {
-            "title": "Static methods",
-            "filter": {
-              "static": true
-            }
-          }
-        ],
-        "name": "method"
-      },
-      {
-        "title": "Events",
-        "position": 4,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/event.png",
-        "name": "event"
-      },
-      {
-        "title": "CSS Variables",
-        "toolbar_title": "CSS Vars",
-        "position": 5,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/css_var.png",
-        "name": "css_var"
-      },
-      {
-        "title": "CSS Mixins",
-        "position": 6,
-        "icon": "/Users/wyuenho/.gem/ruby/2.0.0/gems/jsduck-5.3.4/lib/jsduck/tag/icons/css_mixin.png",
-        "name": "css_mixin"
+        "key": "template"
       }
     ],
     "localStorageDb": "docs",
