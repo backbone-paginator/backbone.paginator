@@ -610,7 +610,7 @@ Change Log
 ----------
 
 1.4.2
-    - Fixed a regression where `state.totalRecords` is not decremented probably
+    - Fixed a regression where `state.totalRecords` is not decremented properly
       when a model is shifted from the `fullCollection` to the currege page
       after a direct removal from the current page. `(Issue #129)
       <https://github.com/wyuenho/backbone-pageable/issues/129>`_
