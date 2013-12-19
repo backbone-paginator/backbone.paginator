@@ -85,10 +85,12 @@ $(document).ready(function () {
       return {first: "url-1", next: "url-2"};
     };
 
-    // makes sure normal add, remove and sort events are suppressed when
+    // makes sure collection events on the current page are not suppressed when
     // refetching the same page
     col.on("all", function (event) {
-      if (_.contains(["add", "remove", "sort"], event)) ok(false);
+      if (!_.contains(["request", "sync", "reset"], event)) {
+        ok(false);
+      }
     });
 
     col.fetch();
@@ -109,7 +111,7 @@ $(document).ready(function () {
     col.parse = oldParse;
   });
 
-  test("get*Page", 47, function () {
+  test("get*Page", 51, function () {
 
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
@@ -125,6 +127,11 @@ $(document).ready(function () {
     });
 
     sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
+
+    var currentPageResetEventCount = 0;
+    col.on("reset", function () {
+      currentPageResetEventCount++;
+    });
 
     var fullCollectionAddEventCount = 0;
     col.fullCollection.on("add", function () {
@@ -160,9 +167,11 @@ $(document).ready(function () {
       {id: 2},
       {id: 1}
     ]);
+    equal(currentPageResetEventCount, 1);
     equal(fullCollectionAddEventCount, 2);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
+    currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
@@ -189,9 +198,11 @@ $(document).ready(function () {
       {id: 3},
       {id: 4}
     ]);
+    equal(currentPageResetEventCount, 1);
     equal(fullCollectionAddEventCount, 2);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
+    currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
@@ -212,9 +223,11 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+    equal(currentPageResetEventCount, 1);
     equal(fullCollectionAddEventCount, 0);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
+    currentPageResetEventCount = 0;
 
     // test paging to last page
     col.getLastPage();
@@ -231,6 +244,7 @@ $(document).ready(function () {
     });
     deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
     deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+    equal(currentPageResetEventCount, 1);
     equal(fullCollectionAddEventCount, 0);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
