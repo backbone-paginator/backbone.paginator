@@ -75,7 +75,7 @@
 
         // Initial pagination states
         state: {
-          firstPage: 0,
+          firstPage: 1,
           pageSize: 15,
           sortKey: "updated",
           order: 1
@@ -99,7 +99,7 @@
 
       var grid = new Backgrid.Grid({
         columns: columns,
-        collection: issues.fullCollection
+        collection: issues
       });
 
       var Paginator = Backgrid.Extension.Paginator.extend({
@@ -108,17 +108,10 @@
         // will automatically show the next set of page handles when
         // you click next at the end of a window.
         windowSize: 20, // Default is 10
-        // If you anticipate a small number of pages, you can choose
-        // to disable the rendering of fast forward handles to save
-        // space.
-        hasFastForward: true, // true is the default
-
-        fastForwardHandleLabels: {
-          prev: "<",
-          next: ">"
-        }
+        renderIndexedPageHandles: false // hide the index page handles
       });
 
+      // make a new paginator straightly for infinite paging
       var paginator = new Paginator({
         columns: columns,
         collection: issues
@@ -127,7 +120,7 @@
       $("#grid").append(grid.render().$el);
       $("#paginator").append(paginator.render().$el);
 
-      issues.getFirstPage();
+      issues.fetch();
     </script>
   </body>
 </html>
