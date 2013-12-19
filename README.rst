@@ -609,6 +609,14 @@ FAQ
 Change Log
 ----------
 
+1.4.3
+    - Fixed a regression where removing a model from the current page doesn't
+      get a model shifted back from the full collection. `(Issue #132)
+      <https://github.com/wyuenho/backbone-pageable/issues/132>`_
+    - Fixed a regression where fetching under infinite mode will no longer
+      trigger a `reset` from the current page. `(Issue #133)
+      <https://github.com/wyuenho/backbone-pageable/issues/133>`_
+
 1.4.2
     - Fixed a regression where `state.totalRecords` is not decremented properly
       when a model is shifted from the `fullCollection` to the currege page
