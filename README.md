@@ -326,7 +326,7 @@ As mentioned, your views can hook into a number of convenience methods to naviga
 * **Collection.prevPage(options)** - go to the previous page
 * **Collection.nextPage(options)** - go to the next page
 * **Collection.howManyPer(n)** - set how many items to display per page
-* **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing.
+* **Collection.setSort(sortBy, sortDirection)** - update sort on the current view. Sorting will automatically detect if you're trying to sort numbers (even if they're strored as strings) and will do the right thing. **Note** This works by calling .toString().toLower() so javascript Date objects don't sort properly. Also, setting a comparator on your collection will cause this to break.
 * **Collection.setFilter(filterFields, filterWords)** - filter the current view. Filtering supports multiple words without any specific order, so you'll basically get a full-text search ability. Also, you can pass it only one field from the model, or you can pass an array with fields and all of them will get filtered. Last option is to pass it an object containing a comparison method and rules. Currently, only ```levenshtein``` method is available.
 
 The `goTo()`, `prevPage()`, and `nextPage()` functions do not require the `options` param since they will be executed synchronously. However, when specified, the success callback will be invoked before the function returns. For example:

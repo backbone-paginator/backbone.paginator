@@ -1,3 +1,15 @@
+# --------------------
+# OSX Files
+# --------------------
 .DS_Store
-node_modules
-dist
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# --------------------
+# App Files
+# --------------------
+node_modules/
