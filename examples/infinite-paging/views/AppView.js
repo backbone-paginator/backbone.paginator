@@ -16,7 +16,7 @@
 
 		addOne : function ( item ) {
 			var view = new views.ResultView({model:item});
-			$('#content').append(view.render().el);
+			this.$el.append(view.render().el);
 		},
 
 		render: function(){
