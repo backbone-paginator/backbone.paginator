@@ -538,8 +538,147 @@ describe('backbone.paginator.clientPager', function() {
     });
   });
 
+  describe('setSort', function() {
+    var names, i, expected;
+    var data = [
+      {display_name: 'bash', created_at: '622180800000'},
+      {display_name: 'joe', created_at: '511678800000'},
+      {display_name: 'rob'},
+      {display_name: 'sam', created_at: '599979600000'},
+      {display_name: 'rachel'}
+    ];
+
+    var OPTS = {
+      paginator_ui: {
+        currentPage: 1,
+        perPage: 10
+      }
+    };
+
+    function setup(extraOpts) {
+      if ( extraOpts === undefined ) {
+        extraOpts = {};
+      }
+
+      _.extend(this.clientPagerTest, OPTS, extraOpts);
+
+      this.defaultsStub.restore();
+      this.clientPagerTest.setDefaults();
+      this.clientPagerTest.reset(data);
+      this.clientPagerTest.pager();
+    }
+
+    function testList(result, expected) {
+      expect(result.join(',')).to.equal(expected.join(','));
+    }
+
+    it('should be able to set sortColumn and sortDirection attributes for initial sorting', function() {
+      setup.call(this, {sortColumn: 'created_at', sortDirection: 'asc'});
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rob', 'rachel'];
+      testList(names, expected);
+
+      setup.call(this, {sortColumn: 'created_at', sortDirection: 'desc'});
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rob', 'rachel'];
+      testList(names, expected);
+    });
+
+    it('should be able to set sorting array attribute for initial sorting', function() {
+      setup.call(this, {sorting: [{column: 'created_at', direction: 'asc'}]});
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rob', 'rachel'];
+      testList(names, expected);
+
+      setup.call(this, {sorting: [{column: 'created_at', direction: 'desc'}]});
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rob', 'rachel'];
+      testList(names, expected);
+    });
+
+    it('should respect multiple sorts in sequential order for initial sorting', function() {
+      // Sequential order, so rob will be before rachel
+      setup.call(this, {sorting: [{column: 'created_at', direction: 'asc'}]});
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rob', 'rachel'];
+      testList(names, expected);
+
+      // Alphabetical order for rob and rachel, so rachel will be first
+      setup.call(this, {sorting: [
+        {column: 'created_at', direction: 'asc'},
+        {column: 'display_name', direction: 'asc'}
+      ]});
+
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rachel', 'rob'];
+      testList(names, expected);
+
+      // Reverse-alphabetical order for rob and rachel, so rob will be first
+      setup.call(this, {sorting: [
+        {column: 'created_at', direction: 'desc'},
+        {column: 'display_name', direction: 'desc'}
+      ]});
+
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rob', 'rachel'];
+      testList(names, expected);
+    });
+
+    it('should be able to sort via setSort() with a column and direction', function() {
+      setup.call(this);
+      this.clientPagerTest.setSort('created_at', 'asc');
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rob', 'rachel'];
+      testList(names, expected);
+
+      this.clientPagerTest.setSort('display_name', 'asc');
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'joe', 'rachel', 'rob', 'sam'];
+      testList(names, expected);
+
+      this.clientPagerTest.setSort('created_at', 'desc');
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rob', 'rachel'];
+      testList(names, expected);
+
+      this.clientPagerTest.setSort('display_name', 'desc');
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['sam', 'rob', 'rachel', 'joe', 'bash'];
+      testList(names, expected);
+    });
+
+    it('should be able to sort via setSort() with a sorting array', function() {
+      setup.call(this);
+      this.clientPagerTest.setSort([
+        {column: 'created_at', direction: 'asc'},
+        {column: 'display_name', direction: 'asc'}
+      ]);
+
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['joe', 'sam', 'bash', 'rachel', 'rob'];
+      testList(names, expected);
+
+      this.clientPagerTest.setSort([
+        {column: 'created_at', direction: 'desc'},
+        {column: 'display_name', direction: 'desc'}
+      ]);
+
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rob', 'rachel'];
+      testList(names, expected);
+
+      this.clientPagerTest.setSort([
+        {column: 'created_at', direction: 'desc'},
+        {column: 'display_name', direction: 'asc'}
+      ]);
+
+      names = _.pluck(this.clientPagerTest.toJSON(), 'display_name');
+      expected = ['bash', 'sam', 'joe', 'rachel', 'rob'];
+      testList(names, expected);
+    });
+  });
+
   //TODO: write tests for these methods
-  //setSort
   //setFieldFilter
   //doFakeFieldFilter
   //setFilter
