@@ -5,7 +5,7 @@
   Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
   Licensed under the MIT @license.
 */
-(function (factory) {
+(function (root, factory) {
 
   // CommonJS
   if (typeof exports == "object") {
@@ -15,13 +15,11 @@
                              require("backbone-pageable"));
   }
   // Browser
-  else if (typeof _ !== "undefined" &&
-           typeof Backbone !== "undefined" &&
-           typeof Backgrid !== "undefined") {
-    factory(_, Backbone, Backgrid);
+  else {
+    factory(root._, root.Backbone, root.Backgrid);
   }
 
-}(function (_, Backbone, Backgrid) {
+}(this, function (_, Backbone, Backgrid) {
 
   "use strict";
 
@@ -58,7 +56,7 @@
      If this page handle represents the current page, an `active` class will be
      placed on the root list element.
 
-     if this page handle is at the border of the list of pages, a `disabled`
+     If this page handle is at the border of the list of pages, a `disabled`
      class will be placed on the root list element.
 
      Only page handles that are neither `active` nor `disabled` will respond to
@@ -149,7 +147,8 @@
       this.pageIndex = pageIndex;
 
       if (((this.isRewind || this.isBack) && currentPage == firstPage) ||
-          ((this.isForward || this.isFastForward) && currentPage == lastPage)) {
+          ((this.isForward || this.isFastForward) &&
+           (currentPage == lastPage || collection.state.totalPages < 1))) {
         this.$el.addClass("disabled");
       }
       else if (!(this.isRewind ||
@@ -214,11 +213,10 @@
 
     /**
        @property {number} slideScale the number used by #slideHowMuch to scale
-       `windowSize` to yield the number of pages to slide when half of the pages
-       from within a window have been reached. For example, the default
-       windowSize(10) * slideScale(0.5) yields 5, which means the window will
-       slide forward 5 pages as soon as you've reached page 6. The smaller the
-       scale factor the less pages to slide, and vice versa.
+       `windowSize` to yield the number of pages to slide. For example, the
+       default windowSize(10) * slideScale(0.5) yields 5, which means the window
+       will slide forward 5 pages as soon as you've reached page 6. The smaller
+       the scale factor the less pages to slide, and vice versa.
 
        Also See:
 
@@ -274,20 +272,21 @@
        @param {boolean} [options.goBackFirstOnSort=true]
     */
     initialize: function (options) {
-      this.controls = _.defaults(options.controls || {}, this.controls, Paginator.prototype.controls);
-      this.pageHandle = options.pageHandle || this.pageHandle;
-      this.slideScale = options.slideScale || this.slideScale;
+      var self = this;
+      self.controls = _.defaults(options.controls || {}, self.controls,
+                                 Paginator.prototype.controls);
 
-      var collection = this.collection;
-      this.listenTo(collection, "add", this.render);
-      this.listenTo(collection, "remove", this.render);
-      this.listenTo(collection, "reset", this.render);
-      var goBackFirstOnSort = options.goBackFirstOnSort !== undefined ? options.goBackFirstOnSort : this.goBackFirstOnSort;
-      if (goBackFirstOnSort && collection.fullCollection) {
-        this.listenTo(collection.fullCollection, "sort", function () {
-          collection.getFirstPage();
-        });
-      }
+      _.extend(this, _.pick(options || {}, "windowSize", "pageHandle",
+                            "slideScale", "goBackFirstOnSort",
+                            "renderIndexedPageHandles"));
+
+      var collection = self.collection;
+      self.listenTo(collection, "add", self.render);
+      self.listenTo(collection, "remove", self.render);
+      self.listenTo(collection, "reset", self.render);
+      self.listenTo(collection, "backgrid:sort", function () {
+        if (self.goBackFirstOnSort) collection.getFirstPage();
+      });
     },
 
     /**
@@ -341,7 +340,7 @@
       var windowSize = this.windowSize;
       var slideScale = this.slideScale;
       var windowStart = Math.floor(currentPage / windowSize) * windowSize;
-      if (currentPage <= lastPage - this.slideMaybe()) {
+      if (currentPage <= lastPage - this.slideThisMuch()) {
         windowStart += (this.slideMaybe(firstPage, lastPage, currentPage, windowSize, slideScale) *
                         this.slideThisMuch(firstPage, lastPage, currentPage, windowSize, slideScale));
       }

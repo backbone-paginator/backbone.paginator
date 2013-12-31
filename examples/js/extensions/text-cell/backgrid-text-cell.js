@@ -5,8 +5,17 @@
   Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
   Licensed under the MIT @license.
 */
+(function (root, factory) {
 
-(function (window, $, _, Backbone, Backgrid)  {
+  // CommonJS
+  if (typeof exports == "object") {
+    module.exports = factory(require("underscore"),
+                             require("backgrid"));
+  }
+  // Browser
+  else factory(root._, root.Backgrid);
+
+}(this, function (_, Backgrid)  {
 
   /**
      Renders a form with a text area and a save button in a modal dialog.
@@ -20,10 +29,10 @@
     tagName: "div",
 
     /** @property */
-    className: "modal hide fade",
+    className: "modal fade",
 
     /** @property {function(Object, ?Object=): string} template */
-    template: _.template('<form><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h3><%- column.get("label") %></h3></div><div class="modal-body"><textarea cols="<%= cols %>" rows="<%= rows %>"><%- content %></textarea></div><div class="modal-footer"><input class="btn" type="submit" value="Save"/></div></form>'),
+    template: _.template('<div class="modal-dialog"><div class="modal-content"><form><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button><h3><%- column.get("label") %></h3></div><div class="modal-body"><textarea cols="<%= cols %>" rows="<%= rows %>"><%- content %></textarea></div><div class="modal-footer"><input class="btn btn-primary" type="submit" value="Save"/></div></form></div></div>', null, {variable: null}),
 
     /** @property */
     cols: 80,
@@ -35,9 +44,9 @@
     events: {
       "keydown textarea": "clearError",
       "submit": "saveOrCancel",
-      "hide": "saveOrCancel",
-      "hidden": "close",
-      "shown": "focus"
+      "hide.bs.modal": "saveOrCancel",
+      "hidden.bs.modal": "close",
+      "shown.bs.modal": "focus"
     },
 
     /**
@@ -100,7 +109,7 @@
       else if (!e || e.type == "submit" ||
                (e.type == "hide" &&
                 newValue !== (this.model.get(this.column.get("name")) || '').replace(/\r/g, '') &&
-                window.confirm("Would you like to save your changes?"))) {
+                confirm("Would you like to save your changes?"))) {
 
         model.set(column.get("name"), newValue);
         this.$el.modal("hide");
@@ -146,7 +155,7 @@
      @class Backgrid.Extension.TextCell
      @extends Backgrid.StringCell
   */
-  var TextCell = Backgrid.Extension.TextCell = Backgrid.StringCell.extend({
+  Backgrid.Extension.TextCell = Backgrid.StringCell.extend({
 
     /** @property */
     className: "text-cell",
@@ -156,4 +165,4 @@
 
   });
 
-}(window, jQuery, _, Backbone, Backgrid));
+}));
