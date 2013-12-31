@@ -6,20 +6,29 @@
     <title>backbone-pageable server mode demo</title>
 
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.css" />
     <link rel="stylesheet" href="css/backgrid.css" />
     <link rel="stylesheet" href="css/extensions/paginator/backgrid-paginator.css" />
+    <link rel="stylesheet" href="css/extensions/text-cell/backgrid-text-cell.css" />
 
   </head>
   <body>
     <div id="main">
       <div class="container">
-        <div class="row-fluid">
-          <div class="span12 alert">
+        <div class="row">
+          <div class="col-md-12 alert alert-info">
             Feel free to peek into the source of this page and play with the code in your browser&apos;s console.
           </div>
         </div>
-        <div class="row-fluid">
-          <div class="span12">
+        <div class="row">
+          <div class="col-md-12">
+            <aside class="note">
+              <h3>Note:</h3>
+              <p>Github's API is <a
+                href="http://developer.github.com/v3/search/#rate-limit" title="Github
+                API Rate Limit">rate limited</a>, if the example doesn't work, you
+                may want to try again in a few minutes.</p>
+            </aside>
             <div id="grid"></div>
             <div id="paginator"></div>
           </div>
@@ -34,60 +43,75 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/backgrid.js"></script>
     <script src="js/extensions/paginator/backgrid-paginator.js"></script>
+    <script src="js/extensions/text-cell/backgrid-text-cell.js"></script>
     <script>
-      var columns = [{
-        name: "id",
-        editable: false,
-        cell: Backgrid.IntegerCell.extend({
-          orderSeparator: ''
-        })
-      }, {
-        name: "name",
-        cell: "string"
-      }, {
-        name: "pop",
-        cell: "integer"
-      }, {
-        name: "percentage",
-        cell: "number"
-      }, {
-        name: "date",
-        cell: "date"
-      }, {
-        name: "url",
-        cell: "uri"
-      }];
+      // Works exactly like Backbone.Collection.
+      var Issues = Backbone.PageableCollection.extend({
 
-      var Territories = Backbone.PageableCollection.extend({
+        url: "https://api.github.com/search/issues",
+
+        // Initial pagination states
         state: {
           pageSize: 15,
-          totalRecords: 242
+          sortKey: "updated",
+          order: 1
+        },
+
+        // You can remap the query parameters from `state` keys from
+        // the default to those your server supports
+        queryParams: {
+          firstPage: 0,
+          totalPages: null,
+          totalRecords: null,
+          sortKey: "sort",
+          q: "state:closed repo:jashkenas/backbone"
+        },
+
+        // get the state from Github's search API result
+        parseState: function (resp, queryParams, state, options) {
+          return {totalRecords: resp.total_count};
+        },
+
+        // get the actual records
+        parseRecords: function (resp, options) {
+          return resp.items;
         }
+
       });
 
-      var territories = new Territories();
-
-      // Don't worry about this too much, the URL is only encoded for this demo
-      // to emulate the presence of a dynamic server API.
-      territories.url = _.bind(function () {
-        var state = this.state;
-        return "json/territories-" + state.currentPage + ".json";
-      }, territories);
+      var issues = new Issues();
 
       var grid = new Backgrid.Grid({
-        columns: columns,
-        collection: territories
+        columns: [{
+          name: "id",
+          cell: Backgrid.IntegerCell.extend({ orderSeparator: '' }),
+          sortable: false,
+          editable: false
+        }, {
+           name: "title",
+           cell: "string",
+           sortable: false,
+           editable: false
+         }, {
+           name: "body",
+           cell: "text", // See the TextCell extension
+           sortable: false
+         }, {
+           name: "comments",
+           cell: "integer"
+         }],
+
+        collection: issues
       });
 
       var paginator = new Backgrid.Extension.Paginator({
-        columns: columns,
-        collection: territories
+        collection: issues
       });
 
       $("#grid").append(grid.render().$el);
       $("#paginator").append(paginator.render().$el);
 
-      territories.fetch();
+      issues.fetch({reset: true});
     </script>
   </body>
 </html>
