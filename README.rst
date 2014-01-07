@@ -48,7 +48,7 @@ Bi-directional event handling
 100% compatible with existing code
   ``Backbone.PageableCollection`` is a strict superset of
   ``Backbone.Collection`` and passes its `test suite
-  <http://wyuenho.github.io/backbone-pageable/test/index.html>`_.
+  <http://backbone-paginator.github.io/backbone-pageable/test/index.html>`_.
 Well tested
   Comes with 100s of tests in addition to the ``Backbone.Collection`` test
   suite.
@@ -67,9 +67,9 @@ Playable Demos
 The following examples utilizes `Backgrid.js
 <http://backgridjs.com>`_ to render the collections.
 
-- `Server Mode <http://wyuenho.github.io/backbone-pageable/examples/server-mode.html>`_
-- `Client Mode <http://wyuenho.github.io/backbone-pageable/examples/client-mode.html>`_
-- `Infinite Mode <http://wyuenho.github.io/backbone-pageable/examples/infinite-mode.html>`_
+- `Server Mode <http://backbone-paginator.github.io/backbone-pageable/examples/server-mode.html>`_
+- `Client Mode <http://backbone-paginator.github.io/backbone-pageable/examples/client-mode.html>`_
+- `Infinite Mode <http://backbone-paginator.github.io/backbone-pageable/examples/infinite-mode.html>`_
 
 
 Installation
@@ -216,7 +216,7 @@ order        -1    order         "order"
 ============ ===== ============= ============================
 
 You can consult the `API documentation
-<http://wyuenho.github.io/backbone-pageable/#!/api/Backbone.PageableCollection>`_
+<http://backbone-paginator.github.io/backbone-pageable/#!/api/Backbone.PageableCollection>`_
 for a detailed explaination of these fields.
 
 Fetching Data and Managing States
@@ -264,7 +264,7 @@ implementation now delegates to two new methods - ``parseState`` and
 ``parseRecords``. You are encouraged to override them instead of ``parse`` if it
 is not clear how to do so.
 
-See the `API <http://wyuenho.github.io/backbone-pageable/>`_ for details on
+See the `API <http://backbone-paginator.github.io/backbone-pageable/>`_ for details on
 customizing ``parseState`` and ``parseRecords``.
 
 Bootstrapping
@@ -575,7 +575,7 @@ communicated between all the pages throught the two collections.
 API Reference
 -------------
 
-See `here <http://wyuenho.github.io/backbone-pageable/>`_.
+See `here <http://backbone-paginator.github.io/backbone-pageable/>`_.
 
 
 FAQ
@@ -612,46 +612,46 @@ Change Log
 1.4.3
     - Fixed a regression where removing a model from the current page doesn't
       get a model shifted back from the full collection. `(Issue #132)
-      <https://github.com/wyuenho/backbone-pageable/issues/132>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/132>`_
     - Fixed a regression where fetching under infinite mode will no longer
       trigger a `reset` from the current page. `(Issue #133)
-      <https://github.com/wyuenho/backbone-pageable/issues/133>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/133>`_
 
 1.4.2
     - Fixed a regression where `state.totalRecords` is not decremented properly
       when a model is shifted from the `fullCollection` to the currege page
       after a direct removal from the current page. `(Issue #129)
-      <https://github.com/wyuenho/backbone-pageable/issues/129>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/129>`_
 
 1.4.1
     - Fixed a slight oversight when fixing #108. Now the current page's
       comparator will be set to null explicitly even when the comparator is
       given to the constructor with `options.full` set to `true`. `(Issue #108)
-      <https://github.com/wyuenho/backbone-pageable/issues/108>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/108>`_
 
 1.4.0
     - Models passed to the constructor are now copied. `(Issue #114)
-      <https://github.com/wyuenho/backbone-pageable/issues/114>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/114>`_
     - Fixed an edge case where someone attempting to replace Backbone.Collection
       with PageableCollection will cause an infinite loop. `(Issue #120)
-      <https://github.com/wyuenho/backbone-pageable/pull/120>`_
+      <https://github.com/backbone-paginator/backbone-pageable/pull/120>`_
     - The lower bound of `lastPage` is set to equal to `firstPage` now when
       `totalRecords` is 0. `(Issue #100)
-      <https://github.com/wyuenho/backbone-pageable/issues/100>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/100>`_
     - Fixed bug where query string parameter values in the supplied URL weren't
       URI decoded when merging. `(Issue #117)
-      <https://github.com/wyuenho/backbone-pageable/pull/117>`_
+      <https://github.com/backbone-paginator/backbone-pageable/pull/117>`_
     - Models passed to the constructor will now be parsed correctly. `(Issue
-      #112) <https://github.com/wyuenho/backbone-pageable/issues/112>`_
+      #112) <https://github.com/backbone-paginator/backbone-pageable/issues/112>`_
     - Removing from the fullCollection will no longer calculate the wrong index
       to insert into the current page. `(Issue #122)
-      <https://github.com/wyuenho/backbone-pageable/issues/122>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/122>`_
     - `setSorting` will now set the comparators to null to prevent inadvertently
       inheriting the comparators defined on the collection prototype. `(Issue
-      #108) <https://github.com/wyuenho/backbone-pageable/issues/108>`_
+      #108) <https://github.com/backbone-paginator/backbone-pageable/issues/108>`_
     - `remove` event handlers on the current page are called before `add`
       handlers under client mode when removing from the current page. `(Issue
-      #118) <https://github.com/wyuenho/backbone-pageable/issues/118>`_
+      #118) <https://github.com/backbone-paginator/backbone-pageable/issues/118>`_
 
 1.3.2
     - Removed support for Backbone <= 1.0.0.
@@ -659,24 +659,24 @@ Change Log
     - `Backbone.PageableCollection` is now set to PageableCollection under all
       supported environments (CommonJS, AMD and browser).
     - Fetching under infinite mode no longer triggers a`reset` event everytime. `(Issue #96)
-      <https://github.com/wyuenho/backbone-pageable/issues/96>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/96>`_
     - Setting a page size via `setPageSize` no longer throws exception when the
       collection is empty. `(Issue #93)
-      <https://github.com/wyuenho/backbone-pageable/issues/93>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/93>`_
     - Fixed broken demos `(Issue #99)
-      <https://github.com/wyuenho/backbone-pageable/issues/99>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/99>`_
 
 1.3.1
     - Exclude extra query parameters with null values from the query string. `(Issue
-      #90) <https://github.com/wyuenho/backbone-pageable/issues/90>`_
+      #90) <https://github.com/backbone-paginator/backbone-pageable/issues/90>`_
     - Propagate options from ``parse`` to ``parseState`` and
       ``parseRecords``. `(Pull #91)
-      <https://github.com/wyuenho/backbone-pageable/pull/91>`_
+      <https://github.com/backbone-paginator/backbone-pageable/pull/91>`_
     - Custom value extractor (sortValue) for ``setSorting`` and
       ``_makeComparator``. `(Issue #89)
-      <https://github.com/wyuenho/backbone-pageable/issues/89>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/89>`_
     - Changing page size at boundary pages no longer throws errors. `(Issue #92)
-      <https://github.com/wyuenho/backbone-pageable/issues/89>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/89>`_
 
 1.3.0
     - Pass ``from`` and ``to`` to the ``options`` object sent to event handlers
@@ -688,66 +688,66 @@ Change Log
 1.2.4
     - Moved initialization from ``initialize`` code to the
       constructor. `(Issue #83)
-      <https://github.com/wyuenho/backbone-pageable/issues/83>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/83>`_
 
 1.2.3
     - Support non-array elements in the constructor. (Thanks Gabriel Bédard
       Sicé) `(Pull
-      #76) <https://github.com/wyuenho/backbone-pageable/pull/76>`_
+      #76) <https://github.com/backbone-paginator/backbone-pageable/pull/76>`_
     - Added ``getPageByOffset`` method. (Thanks Kee-Yip Chan) `(Pull #77)
-      <https://github.com/wyuenho/backbone-pageable/pull/77>`_
+      <https://github.com/backbone-paginator/backbone-pageable/pull/77>`_
 
 1.2.2
     - ``parseRecords`` doesn't get called twice during client and infinite mode
       anymore. `(Issue #71)
-      <https://github.com/wyuenho/backbone-pageable/issues/71>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/71>`_
     - No ``RangeError`` should be thrown if ``firstPage == 1``, ``currentPage ==
       1`` and ``totalPages == 0``. `(Issues #74)
-      <https://github.com/wyuenho/backbone-pageable/issues/74>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/74>`_
 
 1.2.1
     - ``parseLinks`` now returns an empty object instead of throwing an error if
       there's no ``Links`` header found. `(Issue #69)
-      <https://github.com/wyuenho/backbone-pageable/issues/69>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/69>`_
 
 1.2.0
     - Tested against Backbone 1.0 and Underscore 1.4.4. `(Issue #56)
-      <https://github.com/wyuenho/backbone-pageable/issues/56>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/56>`_
 
 1.1.9
   Bugs Fixed
     - Copy instance properties from pageable collection to full
       collection. `(Issue #55)
-      <https://github.com/wyuenho/backbone-pageable/issues/55>`_
+      <https://github.com/backbone-paginator/backbone-pageable/issues/55>`_
 
 1.1.8
   Bugs Fixed
     - Server can now return partial state and 0 for totalRecords. `(Issue #41)
-      <https://github.com/wyuenho/backbone-pageable/issues/41>`_, `(Issue #52)
-      <https://github.com/wyuenho/backbone-pageable/issues/52>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/41>`_, `(Issue #52)
+      <https://github.com/backbone-paginator/backbone-pageable/issues/52>`_.
     - 0-based infinite mode pageable collection now initializes
       correctly. `(Issue #51)
-      <https://github.com/wyuenho/backbone-pageable/issues/51>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/51>`_.
 1.1.7
   Changes
     - Simplified ``parse``. ``parse`` now delegates to two new methods -
       ``parseState`` and ``parseRecords``. `(Issue #49)
-      <https://github.com/wyuenho/backbone-pageable/issues/49>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/49>`_.
   Bugs Fixed
     - ``fetch`` now accepts function as its ``options.url`` value. `(Issue #50)
-      <https://github.com/wyuenho/backbone-pageable/issues/50>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/50>`_.
 
 1.1.6
   Bugs Fixed
     - Fixed bug where a page of models disappeared after adding an array of
       models to the current page under client mode. `(Issue #43)
-      <https://github.com/wyuenho/backbone-pageable/issues/43>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/43>`_.
 
 1.1.5
   Bugs Fixed
     - Add event handlers should be triggered before remove handlers during
       client mode. `(Issue #42)
-      <https://github.com/wyuenho/backbone-pageable/issues/42>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/42>`_.
 
 1.1.4
   Changes
@@ -755,31 +755,31 @@ Change Log
   Bugs Fixed
     - TypeError thrown when adding a model to an empty client mode
       collection. `(Issue #38)
-      <https://github.com/wyuenho/backbone-pageable/issues/38>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/38>`_.
     - Adding with an index inserts into the wrong page under client
       mode. `(Issue #39)
-      <https://github.com/wyuenho/backbone-pageable/issues/39>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/39>`_.
 
 1.1.3
   Bugs Fixed
     - Updating after fetching under infinite mode should not create useless
       ``add``, ``remove`` and ``sort`` events. `(Issue #34)
-      <https://github.com/wyuenho/backbone-pageable/issues/34>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/34>`_.
     - RangeError when emptying fullCollection during reset `(Issue #37)
-      <https://github.com/wyuenho/backbone-pageable/issues/37>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/37>`_.
 
 1.1.2
   Bugs Fixed
     - Fix off by 1 error with ``hasNext`` and ``hasPrevious`` `(Issue #32)
-      <https://github.com/wyuenho/backbone-pageable/issues/32>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/32>`_.
 
 1.1.1
   Bugs Fixed
     - Fix regression where ``fetch`` errors out if ``url`` is a function `(Issue
-      #30) <https://github.com/wyuenho/backbone-pageable/issues/30>`_.
+      #30) <https://github.com/backbone-paginator/backbone-pageable/issues/30>`_.
     - Fix temperatory state inconsistency when accessing ``state`` in event
       handlers during client mode. `(Issue #27)
-      <https://github.com/wyuenho/backbone-pageable/issues/27>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/27>`_.
 
 1.1
   Bugs Fixed
@@ -799,9 +799,9 @@ Change Log
   Enhancements
     - Improved infinite-mode. Infinite paging mode now runs in a hybrid
       mode. `(Issue #17)
-      <https://github.com/wyuenho/backbone-pageable/issues/17>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/17>`_.
     - Greatly simplified sorting. `(Issue #19)
-      <https://github.com/wyuenho/backbone-pageable/issues/19>`_.
+      <https://github.com/backbone-paginator/backbone-pageable/issues/19>`_.
 
 0.9.13
   Bugs Fixed
@@ -884,5 +884,5 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-.. |travis-status| image:: https://travis-ci.org/wyuenho/backbone-pageable.png
-.. _travis-status: https://travis-ci.org/wyuenho/backbone-pageable
+.. |travis-status| image:: https://travis-ci.org/backbone-paginator/backbone-pageable.png
+.. _travis-status: https://travis-ci.org/backbone-paginator/backbone-pageable
