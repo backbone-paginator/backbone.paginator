@@ -2,7 +2,7 @@
   backgrid
   http://github.com/wyuenho/backgrid
 
-  Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors <wyuenho@gmail.com>
+  Copyright (c) 2014 Jimmy Yuen Ho Wong and contributors <wyuenho@gmail.com>
   Licensed under the MIT license.
 */
 
@@ -2871,6 +2871,104 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
     return Backbone.View.prototype.remove.apply(this, arguments);
   }
 
+});
+
+/*
+  backgrid
+  http://github.com/wyuenho/backgrid
+
+  Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
+  Licensed under the MIT license.
+*/
+
+var Container = Backgrid.Container = Backbone.View.extend({
+  events: {
+    "scroll": "onScroll"
+  },
+
+  /** @property */
+  prefetch: 1,
+
+  /** @property */
+  throttle: 200,
+
+  /** @property */
+  tagName: "div",
+
+  /** @property */
+  className: "backgrid-container",
+
+  /** @property */
+  height: null,
+
+  initialize: function (options) {
+    if (!options.grid) throw "grid is a mandatory options for Backgrid.Container";
+
+    this.height = options.height || this.height;
+    this.throttle = options.throttle || this.throttle;
+    this.prefetch = "prefetch" in options ? options.prefetch : this.prefetch;
+    this.grid = options.grid;
+    this.onScroll = _.debounce(_.bind(this.onScroll, this), this.throttle);
+    // this.indicator = $("<h1>HEY I'M LOADING OVER HERE</h1>").hide();
+
+    // this.listenTo(this.collection, "request", this.onRequest);
+  },
+
+  onScroll: function (e) {
+    var top = e.target.scrollTop,
+        shouldFetch = top >= e.target.scrollHeight - this.$el.height(),
+        collection = this.collection,
+        // hideIndicator = _.bind(this.hideIndicator, this),
+        // prefetch = this.prefetch,
+        next;
+
+    if (shouldFetch) {
+      if (next = collection.getNextPage({ scrolling: true })) {
+        var noop = null;
+        // next.then(function() {
+        //   if (!prefetch) return;
+
+        //   // Prefetching sequence
+        //   (function prefetchNext(remaining) {
+        //     if (!remaining) return;
+
+        //     console.info("prefetching, remaining ", remaining);
+
+        //     if (collection.hasNext()) {
+        //       collection.getNextPage({
+        //         scrolling: true
+        //       }).then(function() {
+        //         console.info("prefetched ", remaining, "decreasing remaining");
+        //         return --remaining;
+        //       }).then(prefetchNext)/*.always(hideIndicator)*/;
+        //     }
+        //   })(prefetch);
+
+        // }).always(hideIndicator);
+      }
+    }
+  },
+
+  // showIndicator: function() {
+  //   this.indicator.detach().appendTo(this.grid.footer.el);
+  // },
+
+  // hideIndicator: function() {
+  //   this.indicator.hide();
+  // },
+
+  // onRequest: function (collection, xhr, options) {
+  //   if (options.scrolling) this.indicator.show();
+  // },
+
+  render: function () {
+    this.$el.empty();
+    this.grid.remove();
+    this.$el.append(this.grid.render().$el);
+    // this.hideIndicator();
+    this.delegateEvents();
+    return this;
+  }
 });
 return Backgrid;
 }));
