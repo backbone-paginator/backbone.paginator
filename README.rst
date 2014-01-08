@@ -609,6 +609,10 @@ FAQ
 Change Log
 ----------
 
+1.4.4
+    - Fixed bug where `parse` is called twice under infinite mode. `(Issue #134)
+      <https://github.com/backbone-paginator/backbone-pageable/issues/134>`_
+
 1.4.3
     - Fixed a regression where removing a model from the current page doesn't
       get a model shifted back from the full collection. `(Issue #132)
