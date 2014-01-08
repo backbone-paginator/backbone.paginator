@@ -111,7 +111,7 @@ $(document).ready(function () {
     col.parse = oldParse;
   });
 
-  test("get*Page", 51, function () {
+  test("get*Page", 53, function () {
 
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
@@ -126,6 +126,7 @@ $(document).ready(function () {
       col.getPage("nosuchpage");
     });
 
+    sinon.spy(col, "parse");
     sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
 
     var currentPageResetEventCount = 0;
@@ -171,11 +172,12 @@ $(document).ready(function () {
     equal(fullCollectionAddEventCount, 2);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
+    equal(col.parse.callCount, 1);
     currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
-
+    col.parse.reset();
     col.parseLinks.reset();
 
     // test paging for a page that has a link but no models results in a fetch
@@ -202,10 +204,12 @@ $(document).ready(function () {
     equal(fullCollectionAddEventCount, 2);
     equal(fullCollectionRemoveEventCount, 0);
     equal(fullCollectionResetEventCount, 0);
+    equal(col.parse.callCount, 1);
     currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
+    col.parse.reset();
     col.parseLinks.reset();
 
     // test paging backward use cache
