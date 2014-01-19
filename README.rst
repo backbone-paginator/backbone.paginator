@@ -365,8 +365,8 @@ page has been fetched, you can use ``getPage`` directly with the page number, an
 error will be thrown if the page has not been fetched yet.
 
 By default, ``Backbone.PageableCollection`` parses the response headers to find
-out what the ``first``, ``last``, ``next`` and ``prev`` links are. The parsed
-links are available in the ``links`` field.
+out what the ``first``, ``next`` and ``prev`` links are. The parsed links are
+available in the ``links`` field.
 
 .. code-block:: javascript
 
@@ -478,6 +478,18 @@ and render the newly fetched models accordingly.
    $("#toilet-paper-dispenser").append(toiletPaper.render().el);
 
    wordsOfTheDay.fetch();
+
+
+[ **Be Careful** ]
+
+You should not override ``parseState`` and should only send down a stateless
+list of records as described in `Fetching Data and Managing States`_.
+
+Under infinite mode, ``totalRecords`` will always equal to the number of models
+inside ``fullCollection`` i.e. ``fullCollection.length``. PagebleCollection will
+automatically keep all the states consistent. Modifying the state during
+infinite paging results in undefined behavior.
+
 
 Sorting
 -------
