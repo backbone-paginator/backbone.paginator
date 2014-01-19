@@ -74,7 +74,7 @@ $(document).ready(function () {
     deepEqual(links, {});
   });
 
-  test("fetch", 4, function () {
+  test("fetch", 3, function () {
     var oldParse = col.parse;
     col.parse = function () {
       ok(true);
@@ -103,22 +103,10 @@ $(document).ready(function () {
       "total_pages": 2
     });
 
-    this.ajaxSettings.success([{
-      page: 1,
-      "total_entries": 2
-    }, [{id: 1}, {id: 3}
-    ]]);
-
-    deepEqual(col.state, {
-      currentPage: 1,
-      firstPage: 1,
-      lastPage: 1,
-      order: -1,
-      pageSize: 2,
-      sortKey: null,
-      totalPages: 1,
-      totalRecords: 2
-    });
+    this.ajaxSettings.success([
+      {id: 1},
+      {id: 3}
+    ]);
 
     col.parse = oldParse;
   });
