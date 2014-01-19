@@ -63,10 +63,6 @@ $(document).ready(function () {
       next: "https://api.github.com/user/repos?page=3&per_page=2"
     });
 
-    strictEqual(col.state.totalRecords, 100);
-    strictEqual(col.state.totalPages, 50);
-    strictEqual(col.state.lastPage, 50);
-
     xhr.getResponseHeader = function () {
       return null;
     };
