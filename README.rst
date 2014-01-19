@@ -262,10 +262,12 @@ for updating the pagination state.
 Since 1.1.7, customizing ``parse`` has been simplified and the default
 implementation now delegates to two new methods - ``parseState`` and
 ``parseRecords``. You are encouraged to override them instead of ``parse`` if it
-is not clear how to do so.
+is not clear how to do so. For infinite mode, you should override ``parseLinks``
+instead of ``parseState`` to return an object of links.
 
-See the `API <http://backbone-paginator.github.io/backbone-pageable/>`_ for details on
-customizing ``parseState`` and ``parseRecords``.
+See the examples below or the `API
+<http://backbone-paginator.github.io/backbone-pageable/>`_ for details on
+customizing ``parseState``, ``parseRecords`` and ``parseLinks``.
 
 Bootstrapping
 -------------
@@ -480,15 +482,18 @@ and render the newly fetched models accordingly.
    wordsOfTheDay.fetch();
 
 
-[ **Be Careful** ]
+Note:
++++++
 
-You should not override ``parseState`` and should only send down a stateless
-list of records as described in `Fetching Data and Managing States`_.
+**Don't** override ``parseState`` or send down a stateful list of records from
+the server.
 
 Under infinite mode, ``totalRecords`` will always equal to the number of models
 inside ``fullCollection`` i.e. ``fullCollection.length``. PagebleCollection will
 automatically keep all the states consistent. Modifying the state during
-infinite paging results in undefined behavior.
+infinite paging results in undefined behavior. As such, you shouldn't override
+``parseState`` and should only send down a stateless list of records as
+described in `Fetching Data and Managing States`_.
 
 
 Sorting
