@@ -48,9 +48,11 @@
 
 .backgrid th {
   font-weight: bold;
+  text-align: center;
 }
 
 .backgrid th.sortable a {
+  text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
 }

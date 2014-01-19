@@ -19,6 +19,7 @@
 }(function (root, _, Backbone) {
 
   "use strict";
+
 /*
   backgrid
   http://github.com/wyuenho/backgrid
@@ -64,8 +65,6 @@ var $ = Backbone.$;
 
 var Backgrid = root.Backgrid = {
 
-  VERSION: "0.3.0",
-
   Extension: {},
 
   resolveNameToClass: function (name, suffix) {
@@ -89,7 +88,7 @@ var Backgrid = root.Backgrid = {
 
     var context = arguments[1];
     var args = [].slice.call(arguments, 2);
-    return value.apply(context, !!(args + '') ? args : void 0);
+    return value.apply(context, !!(args + '') ? args : []);
   }
 
 };
@@ -169,7 +168,6 @@ _.extend(Command.prototype, {
              this.moveRight() || this.save() || this.cancel());
   }
 });
-
 
 /*
   backgrid
@@ -1021,7 +1019,7 @@ var UriCell = Backgrid.UriCell = Cell.extend({
       tabIndex: -1,
       href: rawValue,
       title: this.title || formattedValue,
-      target: this.target,
+      target: this.target
     }).text(formattedValue));
     this.delegateEvents();
     return this;
@@ -1419,7 +1417,7 @@ var SelectCellEditor = Backgrid.SelectCellEditor = CellEditor.extend({
       options = options + this.template({
         text: nvps[i][0],
         value: nvps[i][1],
-        selected: selectedValues.indexOf(nvps[i][1]) > -1
+        selected: _.indexOf(selectedValues, nvps[i][1]) > -1
       });
     }
     return options;
@@ -1457,13 +1455,13 @@ var SelectCellEditor = Backgrid.SelectCellEditor = CellEditor.extend({
         this.$el.append(this.template({
           text: optionText,
           value: optionValue,
-          selected: selectedValues.indexOf(optionValue) > -1
+          selected: _.indexOf(selectedValues, optionValue) > -1
         }));
       }
       else if (_.isObject(optionValue)) {
         optgroupName = optionValue.name;
         optgroup = $("<optgroup></optgroup>", { label: optgroupName });
-        optgroup.append(this._renderOptions(optionValue.values, selectedValues));
+        optgroup.append(this._renderOptions.call(this, optionValue.values, selectedValues));
         this.$el.append(optgroup);
       }
       else {
@@ -1477,14 +1475,12 @@ var SelectCellEditor = Backgrid.SelectCellEditor = CellEditor.extend({
   },
 
   /**
-     Saves the value of the selected option to the model attribute. Triggers a
-     `backgrid:edited` Backbone event from the model.
+     Saves the value of the selected option to the model attribute.
   */
   save: function (e) {
     var model = this.model;
     var column = this.column;
     model.set(column.get("name"), this.formatter.toRaw(this.$el.val(), model));
-    model.trigger("backgrid:edited", model, column, new Command(e));
   },
 
   /**
@@ -1504,6 +1500,7 @@ var SelectCellEditor = Backgrid.SelectCellEditor = CellEditor.extend({
       e.preventDefault();
       e.stopPropagation();
       this.save(e);
+      model.trigger("backgrid:edited", model, column, new Command(e));
     }
   }
 
@@ -2014,9 +2011,9 @@ var EmptyRow = Backgrid.EmptyRow = Backbone.View.extend({
 
     var td = document.createElement("td");
     td.setAttribute("colspan", this.columns.length);
-    td.textContent = _.result(this, "emptyText");
+    td.appendChild(document.createTextNode(_.result(this, "emptyText")));
 
-    this.el.setAttribute("class", "empty");
+    this.el.className = "empty";
     this.el.appendChild(td);
 
     return this;
@@ -2074,44 +2071,34 @@ var HeaderCell = Backgrid.HeaderCell = Backbone.View.extend({
                       }
                     }
                   });
-
+    this.listenTo(column, "change:direction", this.setCellDirection);
     this.listenTo(column, "change:name change:label", this.render);
 
     if (Backgrid.callByNeed(column.editable(), column, collection)) $el.addClass("editable");
     if (Backgrid.callByNeed(column.sortable(), column, collection)) $el.addClass("sortable");
     if (Backgrid.callByNeed(column.renderable(), column, collection)) $el.addClass("renderable");
 
-    this.listenTo(collection, "backgrid:sort", this._resetCellDirection);
+    this.listenTo(collection.fullCollection || collection, "sort", this.removeCellDirection);
   },
 
   /**
-     Gets or sets the direction of this cell. If called directly without
-     parameters, returns the current direction of this cell, otherwise sets
-     it. If a `null` is given, sets this cell back to the default order.
-
-     @param {null|"ascending"|"descending"} dir
-     @return {null|string} The current direction or the changed direction.
+     Event handler for the collection's `sort` event. Removes all the CSS
+     direction classes.
    */
-  direction: function (dir) {
-    if (arguments.length) {
-      var direction = this.column.get('direction');
-      if (direction) this.$el.removeClass(direction);
-      if (dir) this.$el.addClass(dir);
-      this.column.set('direction', dir);
-    }
-
-    return this.column.get('direction');
+  removeCellDirection: function () {
+    this.$el.removeClass("ascending").removeClass("descending");
+    this.column.set("direction", null);
   },
 
   /**
-     Event handler for the Backbone `backgrid:sort` event. Resets this cell's
-     direction to default if sorting is being done on another column.
-
-     @private
+     Event handler for the column's `change:direction` event. If this
+     HeaderCell's column is being sorted on, it applies the direction given as a
+     CSS class to the header cell. Removes all the CSS direction classes
+     otherwise.
    */
-  _resetCellDirection: function (columnToSort, direction) {
-    if (columnToSort !== this.column) this.direction(null);
-    else this.direction(direction);
+  setCellDirection: function (column, direction) {
+    this.$el.removeClass("ascending").removeClass("descending");
+    if (column.cid == this.column.cid) this.$el.addClass(direction);
   },
 
   /**
@@ -2122,20 +2109,21 @@ var HeaderCell = Backgrid.HeaderCell = Backbone.View.extend({
   onClick: function (e) {
     e.preventDefault();
 
-    var collection = this.collection, event = "backgrid:sort";
+    var column = this.column;
+    var collection = this.collection;
+    var event = "backgrid:sort";
 
     function cycleSort(header, col) {
-      if (header.direction() === "ascending") collection.trigger(event, col, "descending");
-      else if (header.direction() === "descending") collection.trigger(event, col, null);
+      if (column.get("direction") === "ascending") collection.trigger(event, col, "descending");
+      else if (column.get("direction") === "descending") collection.trigger(event, col, null);
       else collection.trigger(event, col, "ascending");
     }
 
     function toggleSort(header, col) {
-      if (header.direction() === "ascending") collection.trigger(event, col, "descending");
+      if (column.get("direction") === "ascending") collection.trigger(event, col, "descending");
       else collection.trigger(event, col, "ascending");
     }
 
-    var column = this.column;
     var sortable = Backgrid.callByNeed(column.sortable(), column, this.collection);
     if (sortable) {
       var sortType = column.get("sortType");
@@ -2161,8 +2149,8 @@ var HeaderCell = Backgrid.HeaderCell = Backbone.View.extend({
 
     this.$el.append(label);
     this.$el.addClass(column.get("name"));
+    this.$el.addClass(column.get("direction"));
     this.delegateEvents();
-    this.direction(column.get("direction"));
     return this;
   }
 
@@ -2365,8 +2353,6 @@ var Body = Backgrid.Body = Backbone.View.extend({
       return;
     }
 
-    options = _.extend({render: true}, options || {});
-
     var row = new this.row({
       columns: this.columns,
       model: model
@@ -2379,13 +2365,11 @@ var Body = Backgrid.Body = Backbone.View.extend({
     var $children = $el.children();
     var $rowEl = row.render().$el;
 
-    if (options.render) {
-      if (index >= $children.length) {
-        $el.append($rowEl);
-      }
-      else {
-        $children.eq(index).before($rowEl);
-      }
+    if (index >= $children.length) {
+      $el.append($rowEl);
+    }
+    else {
+      $children.eq(index).before($rowEl);
     }
 
     return this;
@@ -2517,6 +2501,10 @@ var Body = Backgrid.Body = Backbone.View.extend({
   */
   sort: function (column, direction) {
 
+    if (!_.contains(["ascending", "descending", null], direction)) {
+      throw new RangeError('direction must be one of "ascending", "descending" or `null`');
+    }
+
     if (_.isString(column)) column = this.columns.findWhere({name: column});
 
     var collection = this.collection;
@@ -2530,7 +2518,7 @@ var Body = Backgrid.Body = Backbone.View.extend({
                                          order ?
                                          column.sortValue() :
                                          function (model) {
-                                           return model.cid;
+                                           return model.cid.replace('c', '') * 1;
                                          });
 
     if (Backbone.PageableCollection &&
@@ -2539,7 +2527,7 @@ var Body = Backgrid.Body = Backbone.View.extend({
       collection.setSorting(order && column.get("name"), order,
                             {sortValue: column.sortValue()});
 
-      if (collection.mode == "client") {
+      if (collection.fullCollection) {
         if (collection.fullCollection.comparator == null) {
           collection.fullCollection.comparator = comparator;
         }
@@ -2551,6 +2539,8 @@ var Body = Backgrid.Body = Backbone.View.extend({
       collection.comparator = comparator;
       collection.sort();
     }
+
+    column.set("direction", direction);
 
     return this;
   },
@@ -2575,15 +2565,20 @@ var Body = Backgrid.Body = Backbone.View.extend({
      Moves focus to the next renderable and editable cell and return the
      currently editing cell to display mode.
 
+     Triggers a `backgrid:next` event on the model with the indices of the row
+     and column the user *intended* to move to, and whether the intended move
+     was going to go out of bounds. Note that *out of bound* always means an
+     attempt to go past the end of the last row.
+
      @param {Backbone.Model} model The originating model
      @param {Backgrid.Column} column The originating model column
      @param {Backgrid.Command} command The Command object constructed from a DOM
-     Event
+     event
   */
   moveToNextCell: function (model, column, command) {
     var i = this.collection.indexOf(model);
     var j = this.columns.indexOf(column);
-    var cell, renderable, editable;
+    var cell, renderable, editable, m, n;
 
     this.rows[i].cells[j].exitEditMode();
 
@@ -2593,28 +2588,36 @@ var Body = Backgrid.Body = Backbone.View.extend({
       var maxOffset = l * this.collection.length;
 
       if (command.moveUp() || command.moveDown()) {
-        var row = this.rows[i + (command.moveUp() ? -1 : 1)];
+        m = i + (command.moveUp() ? -1 : 1);
+        var row = this.rows[m];
         if (row) {
           cell = row.cells[j];
           if (Backgrid.callByNeed(cell.column.editable(), cell.column, model)) {
             cell.enterEditMode();
+            model.trigger("backgrid:next", m, j, false);
           }
         }
+        else model.trigger("backgrid:next", m, j, true);
       }
       else if (command.moveLeft() || command.moveRight()) {
         var right = command.moveRight();
         for (var offset = i * l + j + (right ? 1 : -1);
              offset >= 0 && offset < maxOffset;
              right ? offset++ : offset--) {
-          var m = ~~(offset / l);
-          var n = offset - m * l;
+          m = ~~(offset / l);
+          n = offset - m * l;
           cell = this.rows[m].cells[n];
           renderable = Backgrid.callByNeed(cell.column.renderable(), cell.column, cell.model);
           editable = Backgrid.callByNeed(cell.column.editable(), cell.column, model);
           if (renderable && editable) {
             cell.enterEditMode();
+            model.trigger("backgrid:next", m, n, false);
             break;
           }
+        }
+
+        if (offset == maxOffset) {
+          model.trigger("backgrid:next", ~~(offset / l), offset - m * l, true);
         }
       }
     }
@@ -2786,16 +2789,16 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
   /**
      Delegates to Backgrid.Body#insertRow.
    */
-  insertRow: function (model, collection, options) {
-    this.body.insertRow(model, collection, options);
+  insertRow: function () {
+    this.body.insertRow.apply(this.body, arguments);
     return this;
   },
 
   /**
      Delegates to Backgrid.Body#removeRow.
    */
-  removeRow: function (model, collection, options) {
-    this.body.removeRow(model, collection, options);
+  removeRow: function () {
+    this.body.removeRow.apply(this.body, arguments);
     return this;
   },
 
@@ -2805,12 +2808,9 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
      happen.
 
      @param {Object} [options] Options for `Backgrid.Columns#add`.
-     @param {boolean} [options.render=true] Whether to render the column
-     immediately after insertion.
    */
-  insertColumn: function (column, options) {
-    options = options || {render: true};
-    this.columns.add(column, options);
+  insertColumn: function () {
+    this.columns.add.apply(this.columns, arguments);
     return this;
   },
 
@@ -2821,8 +2821,8 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
 
      @param {Object} [options] Options for `Backgrid.Columns#remove`.
    */
-  removeColumn: function (column, options) {
-    this.columns.remove(column, options);
+  removeColumn: function () {
+    this.columns.remove.apply(this.columns, arguments);
     return this;
   },
 
@@ -2830,7 +2830,7 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
      Delegates to Backgrid.Body#sort.
    */
   sort: function () {
-    this.body.sort(arguments);
+    this.body.sort.apply(this.body, arguments);
     return this;
   },
 
@@ -2871,104 +2871,6 @@ var Grid = Backgrid.Grid = Backbone.View.extend({
     return Backbone.View.prototype.remove.apply(this, arguments);
   }
 
-});
-
-/*
-  backgrid
-  http://github.com/wyuenho/backgrid
-
-  Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
-  Licensed under the MIT license.
-*/
-
-var Container = Backgrid.Container = Backbone.View.extend({
-  events: {
-    "scroll": "onScroll"
-  },
-
-  /** @property */
-  prefetch: 1,
-
-  /** @property */
-  throttle: 200,
-
-  /** @property */
-  tagName: "div",
-
-  /** @property */
-  className: "backgrid-container",
-
-  /** @property */
-  height: null,
-
-  initialize: function (options) {
-    if (!options.grid) throw "grid is a mandatory options for Backgrid.Container";
-
-    this.height = options.height || this.height;
-    this.throttle = options.throttle || this.throttle;
-    this.prefetch = "prefetch" in options ? options.prefetch : this.prefetch;
-    this.grid = options.grid;
-    this.onScroll = _.debounce(_.bind(this.onScroll, this), this.throttle);
-    // this.indicator = $("<h1>HEY I'M LOADING OVER HERE</h1>").hide();
-
-    // this.listenTo(this.collection, "request", this.onRequest);
-  },
-
-  onScroll: function (e) {
-    var top = e.target.scrollTop,
-        shouldFetch = top >= e.target.scrollHeight - this.$el.height(),
-        collection = this.collection,
-        // hideIndicator = _.bind(this.hideIndicator, this),
-        // prefetch = this.prefetch,
-        next;
-
-    if (shouldFetch) {
-      if (next = collection.getNextPage({ scrolling: true })) {
-        var noop = null;
-        // next.then(function() {
-        //   if (!prefetch) return;
-
-        //   // Prefetching sequence
-        //   (function prefetchNext(remaining) {
-        //     if (!remaining) return;
-
-        //     console.info("prefetching, remaining ", remaining);
-
-        //     if (collection.hasNext()) {
-        //       collection.getNextPage({
-        //         scrolling: true
-        //       }).then(function() {
-        //         console.info("prefetched ", remaining, "decreasing remaining");
-        //         return --remaining;
-        //       }).then(prefetchNext)/*.always(hideIndicator)*/;
-        //     }
-        //   })(prefetch);
-
-        // }).always(hideIndicator);
-      }
-    }
-  },
-
-  // showIndicator: function() {
-  //   this.indicator.detach().appendTo(this.grid.footer.el);
-  // },
-
-  // hideIndicator: function() {
-  //   this.indicator.hide();
-  // },
-
-  // onRequest: function (collection, xhr, options) {
-  //   if (options.scrolling) this.indicator.show();
-  // },
-
-  render: function () {
-    this.$el.empty();
-    this.grid.remove();
-    this.$el.append(this.grid.render().$el);
-    // this.hideIndicator();
-    this.delegateEvents();
-    return this;
-  }
 });
 return Backgrid;
 }));
