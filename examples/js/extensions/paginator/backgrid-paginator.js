@@ -124,8 +124,6 @@
        @param {boolean} [options.isFastForward=false]
     */
     initialize: function (options) {
-      Backbone.View.prototype.initialize.apply(this, arguments);
-
       var collection = this.collection;
       var state = collection.state;
       var currentPage = state.currentPage;
@@ -146,19 +144,6 @@
       }
       this.pageIndex = pageIndex;
 
-      if (((this.isRewind || this.isBack) && currentPage == firstPage) ||
-          ((this.isForward || this.isFastForward) &&
-           (currentPage == lastPage || collection.state.totalPages < 1))) {
-        this.$el.addClass("disabled");
-      }
-      else if (!(this.isRewind ||
-                 this.isBack ||
-                 this.isForward ||
-                 this.isFastForward) &&
-               currentPage == pageIndex) {
-        this.$el.addClass("active");
-      }
-
       this.label = (options.label || (firstPage ? pageIndex : pageIndex + 1)) + '';
       var title = options.title || this.title;
       this.title = _.isFunction(title) ? title({label: this.label}) : title;
@@ -174,6 +159,26 @@
       if (this.title) anchor.title = this.title;
       anchor.innerHTML = this.label;
       this.el.appendChild(anchor);
+
+      var collection = this.collection;
+      var state = collection.state;
+      var currentPage = state.currentPage;
+      var pageIndex = this.pageIndex;
+
+      if (this.isRewind && currentPage == state.firstPage ||
+         this.isBack && !collection.hasPrevious() ||
+         this.isForward && !collection.hasNext() ||
+         this.isFastForward && (currentPage == state.lastPage || state.totalPages < 1)) {
+        this.$el.addClass("disabled");
+      }
+      else if (!(this.isRewind ||
+                 this.isBack ||
+                 this.isForward ||
+                 this.isFastForward) &&
+               state.currentPage == pageIndex) {
+        this.$el.addClass("active");
+      }
+
       this.delegateEvents();
       return this;
     },
@@ -184,9 +189,13 @@
     */
     changePage: function (e) {
       e.preventDefault();
-      var $el = this.$el;
+      var $el = this.$el, col = this.collection;
       if (!$el.hasClass("active") && !$el.hasClass("disabled")) {
-        this.collection.getPage(this.pageIndex);
+        if (this.isRewind) col.getFirstPage();
+        else if (this.isBack) col.getPreviousPage();
+        else if (this.isForward) col.getNextPage();
+        else if (this.isFastForward) col.getLastPage();
+        else col.getPage(this.pageIndex, {reset: true});
       }
       return this;
     }
@@ -276,16 +285,16 @@
       self.controls = _.defaults(options.controls || {}, self.controls,
                                  Paginator.prototype.controls);
 
-      _.extend(this, _.pick(options || {}, "windowSize", "pageHandle",
+      _.extend(self, _.pick(options || {}, "windowSize", "pageHandle",
                             "slideScale", "goBackFirstOnSort",
                             "renderIndexedPageHandles"));
 
-      var collection = self.collection;
-      self.listenTo(collection, "add", self.render);
-      self.listenTo(collection, "remove", self.render);
-      self.listenTo(collection, "reset", self.render);
-      self.listenTo(collection, "backgrid:sort", function () {
-        if (self.goBackFirstOnSort) collection.getFirstPage();
+      var col = self.collection;
+      self.listenTo(col, "add", self.render);
+      self.listenTo(col, "remove", self.render);
+      self.listenTo(col, "reset", self.render);
+      self.listenTo(col, "backgrid:sorted", function () {
+        if (self.goBackFirstOnSort) col.getFirstPage({reset: true});
       });
     },
 

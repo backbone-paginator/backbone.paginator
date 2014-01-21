@@ -626,6 +626,13 @@ FAQ
 Change Log
 ----------
 
+1.4.5
+    - A more correct parsing of RFC 5988 Links header relations in
+      `parseLinks`. `(Issue #140)
+      <https://github.com/backbone-paginator/backbone-pageable/issues/140>`_
+    - `parseLinks` will no longer update states. `(Issue #141)
+      <https://github.com/backbone-paginator/backbone-pageable/issues/141>`_
+
 1.4.4
     - Fixed bug where `parse` is called twice under infinite mode. `(Issue #134)
       <https://github.com/backbone-paginator/backbone-pageable/issues/134>`_

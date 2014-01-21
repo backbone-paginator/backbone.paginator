@@ -1,11 +1,11 @@
 {
   "name": "backbone-pageable",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "main": "lib/backbone-pageable.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/wyuenho/backbone-pageable.git"
+    "url": "git://github.com/backbone-paginator/backbone-pageable.git"
   },
   "keywords": [
     "backbone"
@@ -14,7 +14,7 @@
   "license": "MIT",
   "readmeFilename": "README.rst",
   "bugs": {
-    "url": "https://github.com/wyuenho/backbone-pageable/issues"
+    "url": "https://github.com/backbone-paginator/backbone-pageable/issues"
   },
   "dependencies": {
     "underscore": ">=1.4.0",
