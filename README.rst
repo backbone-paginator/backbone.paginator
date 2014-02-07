@@ -238,7 +238,7 @@ Method                   Use When
 ``switchMode``           Switching between modes
 ``state``                Need to read the internal state
 ``get*Page``             Need to go to a different page
-``hasPrevious, hasNext`` Check if paging backward or forward is possible
+``hasPreviousPage, hasNextPage`` Check if paging backward or forward is possible
 ======================== ===============================================
 
 In addition to the above methods, you can also synchronize the state with the
