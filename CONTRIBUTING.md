@@ -110,7 +110,7 @@ purpose, but make sure you have installed
 [JSDuck](https://github.com/senchalabs/jsduck) first.
 
 ```shell
-$ grunt doc
+$ grunt jsduck
 ```
 
 Changes that come with tests are more equal than others.
