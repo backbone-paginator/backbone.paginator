@@ -23,6 +23,17 @@ $(document).ready(function () {
     }
   });
 
+  test("clone", function () {
+    var clone = col.clone();
+    deepEqual(col.toJSON(), clone.toJSON());
+    deepEqual(col.fullCollection.toJSON(), clone.fullCollection.toJSON());
+    deepEqual(col.state, clone.state);
+    deepEqual(col.queryParams, clone.queryParams);
+    deepEqual(col.comparator, clone.comparator);
+    deepEqual(col.links, clone.links);
+    deepEqual(col.options, clone.options);
+  });
+
   test("initialize", function () {
     ok(col.fullCollection instanceof Backbone.Collection);
     strictEqual(col.url, "url");

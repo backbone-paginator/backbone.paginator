@@ -24,6 +24,21 @@ $(document).ready(function () {
     }
   });
 
+  test("clone", function () {
+    var col = new Backbone.PageableCollection(models, {
+      mode: "client",
+      comparator: comparator,
+      full: true
+    });
+    var clone = col.clone();
+    deepEqual(col.toJSON(), clone.toJSON());
+    deepEqual(col.fullCollection.toJSON(), clone.fullCollection.toJSON());
+    deepEqual(col.state, clone.state);
+    deepEqual(col.queryParams, clone.queryParams);
+    deepEqual(col.comparator, clone.comparator);
+    deepEqual(col.options, clone.options);
+  });
+
   test("_makeFullCollection", function () {
 
     var sync = function () {};
