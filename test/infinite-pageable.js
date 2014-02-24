@@ -252,36 +252,8 @@ $(document).ready(function () {
     col.parseLinks.restore();
   });
 
-  test("hasNextPage and hasPreviousPage", function () {
-    var col = new (Backbone.PageableCollection.extend({
-      url: "url"
-    }))([
-      {id: 1},
-      {id: 2},
-      {id: 3}
-    ], {
-      state: {
-        pageSize: 1
-      },
-      mode: "infinite"
-    });
-
-    strictEqual(col.hasPreviousPage(), false);
-    strictEqual(col.hasNextPage(), true);
-
-    col.getNextPage();
-
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), true);
-
-    col.getLastPage();
-
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), false);
-  });
-
-  // Just a duplicate of the above
-  test("deprecated hasNext and hasPrevious", function () {
+  // emits some deprecation warnings
+  test("hasNext and hasPrevious", function () {
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
     }))([

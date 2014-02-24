@@ -922,30 +922,8 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 1);
   });
 
-  test("hasNextPage and hasPreviousPage", function () {
-    var col = new Backbone.PageableCollection(models, {
-      state: {
-        pageSize: 1
-      },
-      mode: "client"
-    });
-
-    strictEqual(col.hasPreviousPage(), false);
-    strictEqual(col.hasNextPage(), true);
-
-    col.getNextPage();
-
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), true);
-
-    col.getLastPage();
-
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), false);
-  });
-
-  // Just a duplicate of the above
-  test("deprecated hasNext and hasPrevious", function () {
+  // emits some deprecation warnings
+  test("hasNext and hasPrevious", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
