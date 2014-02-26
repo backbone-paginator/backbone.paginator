@@ -4,6 +4,12 @@
 
 ![](https://raw.github.com/backbone-paginator/backbone.paginator/master/media/logo.png)
 
+## Notice!
+
+This implementation is pending merge with [backbone-pageable](https://github.com/backbone-paginator/backbone-pageable). If you are starting new, it might be advisable to start there. Special thanks to Jimmy Yuen Ho Wong and @addyosmani for their contributions and agreement to provide a single optimized solution for the backbone community.
+
+---
+
 Backbone.Paginator is a set of opinionated components for paginating collections of data using Backbone.js.
 
 It aims to provide both solutions for assisting with pagination of requests to a server (e.g an API) as well as pagination of single-loads of data, where we may wish to further paginate a collection of N results into M pages within a view.
