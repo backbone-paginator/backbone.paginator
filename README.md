@@ -1,4 +1,4 @@
-# Backbone.Paginator (0.9.0-dev)
+# Backbone.Paginator (1.0.0-dev)
 
 [![Continuous Integration status](https://secure.travis-ci.org/backbone-paginator/backbone.paginator.png)](http://travis-ci.org/backbone-paginator/backbone.paginator)
 
