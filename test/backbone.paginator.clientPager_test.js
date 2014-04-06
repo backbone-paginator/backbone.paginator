@@ -56,6 +56,19 @@ describe('backbone.paginator.clientPager', function() {
       expect(called).to.equal(true);
     });
 
+    it('should fire "reset" event', function(){
+      var called = false;
+      this.clientPagerTest.on("reset", function(){
+        called = true;
+      });
+      this.clientPagerTest.origModels = [];
+      var model = new Backbone.Model();
+      this.clientPagerTest.add(model);
+      this.clientPagerTest.reset();
+
+      expect(called).to.equal(true);
+    });
+
     it('should set defauls by calling "setDefaults" function', function() {
       this.clientPagerTest.add(new Backbone.Model());
       expect(this.defaultsStub.calledOnce).to.equal(true);
@@ -129,6 +142,22 @@ describe('backbone.paginator.clientPager', function() {
       expect(this.clientPagerTest.origModels).not.to.include(model);
     });
   });
+  describe('resetModel', function(){
+    it('should reset the "origModels" array', function(){
+      var model = new Backbone.Model();
+      this.clientPagerTest.origModels = [model];
+
+      expect(this.clientPagerTest.origModels).to.include(model);
+      this.clientPagerTest.reset();
+
+      expect(this.clientPagerTest.origModels).to.eql([]);
+
+      this.clientPagerTest.reset([model.toJSON(), model.toJSON()]);
+
+      expect(this.clientPagerTest.origModels).to.have.length(2);
+    });
+  });
+
   describe('sync', function(){
 
     var spy;
