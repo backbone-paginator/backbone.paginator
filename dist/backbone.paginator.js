@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.9.0-dev - 3/17/2014
+/*! backbone.paginator - v0.9.0-dev - 4/6/2014
 * http://github.com/backbone-paginator/backbone.paginator
 * Copyright (c) 2014 Addy Osmani; Licensed MIT */
 /*globals Backbone:true, _:true, jQuery:true*/
@@ -138,7 +138,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
       var error = queryOptions.error;
       queryOptions.error = function ( xhr ) {
         if ( error ) {
-          error( model, xhr, queryOptions );
+          error( xhr );
         }
         if ( isBeforeBackbone_1_0 && model && model.trigger ) {
           model.trigger( 'error', model, xhr, queryOptions );
