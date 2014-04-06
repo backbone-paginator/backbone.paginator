@@ -1,4 +1,4 @@
-/*! backbone.paginator - v0.9.0-dev - 4/6/2014
+/*! backbone.paginator - v1.0.0-dev - 4/6/2014
 * http://github.com/backbone-paginator/backbone.paginator
 * Copyright (c) 2014 Addy Osmani; Licensed MIT */
 /*globals Backbone:true, _:true, jQuery:true*/
@@ -11,7 +11,7 @@ Backbone.Paginator = (function ( Backbone, _, $ ) {
   });
 
   var Paginator = {};
-  Paginator.version = "0.9.0-dev";
+  Paginator.version = "1.0.0-dev";
 
   // @name: clientPager
   //
