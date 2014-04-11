@@ -999,7 +999,7 @@ $(document).ready(function () {
   test("parsing from constructor #112", function () {
     var Model = Backbone.Model.extend({
       parse: function (raw) {
-        return { value: raw }
+        return { value: raw };
       }
     });
 
