@@ -124,10 +124,28 @@ Docs = {
         "sort": 3
       },
       {
+        "name": "hasPreviousPage",
+        "fullName": "Backbone.PageableCollection.hasPreviousPage",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-hasPreviousPage",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
         "name": "hasPrevious",
         "fullName": "Backbone.PageableCollection.hasPrevious",
         "icon": "icon-method",
         "url": "#!/api/Backbone.PageableCollection-method-hasPrevious",
+        "meta": {
+        },
+        "sort": 3
+      },
+      {
+        "name": "hasNextPage",
+        "fullName": "Backbone.PageableCollection.hasNextPage",
+        "icon": "icon-method",
+        "url": "#!/api/Backbone.PageableCollection-method-hasNextPage",
         "meta": {
         },
         "sort": 3
