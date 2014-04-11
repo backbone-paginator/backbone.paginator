@@ -604,12 +604,7 @@ FAQ
    `Backgrid.Extension.Paginator <http://backgridjs.com/api/#api-paginator>`_ -
    an extension for the `Backgrid.js <http://backgridjs.com>`_ project. The
    project needed a smart and intuitive model that is well-documented and
-   well-tested to manage the paginator view. Upon examining the popular project
-   `Backbone.Paginator <https://github.com/addyosmani/backbone.paginator/>`_,
-   the author has concluded that it does not satisfy the above
-   requirements. Furthermore, the progress of the the project is too slow. The
-   author hopes to reinvent a better wheel that is better suited and supported
-   for `Backgrid.js <http://backgridjs.com>`_.
+   well-tested to manage the paginator view.
 
 #. Which package managers does backbone-pageable support?
 
@@ -625,6 +620,16 @@ FAQ
 
 Change Log
 ----------
+
+1.4.6
+    - Really really fixed `(Issue #114)
+      <https://github.com/backbone-paginator/backbone-pageable/issues/114>`_
+    - Deprecated `hasPrevious` and `hasPrevious` in favor of `hasPreviousPage`
+      and `hasNextPage`. `(Issue #148)
+      <https://github.com/backbone-paginator/backbone-pageable/pull/148>`_
+    - Fixed RangeError when downsizing a 0-based non-server mode pageable
+      collection. `(Issue #158)
+      <https://github.com/backbone-paginator/backbone-pageable/pull/158>`_
 
 1.4.5
     - A more correct parsing of RFC 5988 Links header relations in
