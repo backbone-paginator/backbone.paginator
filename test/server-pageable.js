@@ -155,7 +155,7 @@ $(document).ready(function () {
     strictEqual(state.lastPage, 1);
   });
 
-  test("extend and initialize", function () {
+  test("extend and constructor", function () {
 
     // test extending state and query params merge with defaults in prototype too
     var col = new (Backbone.PageableCollection.extend({

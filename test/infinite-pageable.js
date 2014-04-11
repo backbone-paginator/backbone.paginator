@@ -34,7 +34,7 @@ $(document).ready(function () {
     deepEqual(col.options, clone.options);
   });
 
-  test("initialize", function () {
+  test("constructor", function () {
     ok(col.fullCollection instanceof Backbone.Collection);
     strictEqual(col.url, "url");
     strictEqual(col.mode, "infinite");
