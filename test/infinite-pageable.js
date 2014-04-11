@@ -263,8 +263,7 @@ $(document).ready(function () {
     col.parseLinks.restore();
   });
 
-  // emits some deprecation warnings
-  test("hasNext and hasPrevious", function () {
+  test("hasNextPage and hasPreviousPage", function () {
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
     }))([
@@ -278,18 +277,18 @@ $(document).ready(function () {
       mode: "infinite"
     });
 
-    strictEqual(col.hasPrevious(), false);
-    strictEqual(col.hasNext(), true);
+    strictEqual(col.hasPreviousPage(), false);
+    strictEqual(col.hasNextPage(), true);
 
     col.getNextPage();
 
-    strictEqual(col.hasPrevious(), true);
-    strictEqual(col.hasNext(), true);
+    strictEqual(col.hasPreviousPage(), true);
+    strictEqual(col.hasNextPage(), true);
 
     col.getLastPage();
 
-    strictEqual(col.hasPrevious(), true);
-    strictEqual(col.hasNext(), false);
+    strictEqual(col.hasPreviousPage(), true);
+    strictEqual(col.hasNextPage(), false);
   });
 
 });
