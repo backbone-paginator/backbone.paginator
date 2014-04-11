@@ -230,16 +230,16 @@ unusual circumstances where you need to modify the ``state`` object directly, a
 sanity check will be performed at the next time you perform any
 pagination-specific operations to ensure internal state consistency.
 
-======================== ===============================================
-Method                   Use When
-======================== ===============================================
-``setPageSize``          Changing the page size
-``setSorting``           Changing the sorting
-``switchMode``           Switching between modes
-``state``                Need to read the internal state
-``get*Page``             Need to go to a different page
+================================ ===============================================
+Method                           Use When
+================================ ===============================================
+``setPageSize``                  Changing the page size
+``setSorting``                   Changing the sorting
+``switchMode``                   Switching between modes
+``state``                        Need to read the internal state
+``get*Page``                     Need to go to a different page
 ``hasPreviousPage, hasNextPage`` Check if paging backward or forward is possible
-======================== ===============================================
+================================ ===============================================
 
 In addition to the above methods, you can also synchronize the state with the
 server during a fetch. ``Backbone.PageableCollection`` overrides the default
