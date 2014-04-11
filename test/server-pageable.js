@@ -6,19 +6,6 @@ $(document).ready(function () {
 
   module("Backbone.PageableCollection - Server");
 
-  test("clone", function () {
-    var col = new Backbone.PageableCollection([{id: 1}, {id: 3}, {id: 2}], {
-      comparator: function () {},
-      full: true
-    });
-    var clone = col.clone();
-    deepEqual(col.toJSON(), clone.toJSON());
-    deepEqual(col.state, clone.state);
-    deepEqual(col.queryParams, clone.queryParams);
-    deepEqual(col.comparator, clone.comparator);
-    deepEqual(col.options, clone.options);
-  });
-
   test("parse", function () {
     var resp = [{"page": 1,
                  "per_page": 2,
