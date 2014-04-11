@@ -263,6 +263,7 @@ $(document).ready(function () {
     col.parseLinks.restore();
   });
 
+  // emits some deprecation warnings
   test("hasNext and hasPrevious", function () {
     var col = new (Backbone.PageableCollection.extend({
       url: "url"

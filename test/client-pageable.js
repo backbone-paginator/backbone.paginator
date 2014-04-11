@@ -974,6 +974,7 @@ $(document).ready(function () {
     strictEqual(col.state.totalPages, 1);
   });
 
+  // emits some deprecation warnings
   test("hasNext and hasPrevious", function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
