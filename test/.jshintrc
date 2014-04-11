@@ -22,6 +22,8 @@
     "test": false,
     "module": false,
     "equal": false,
+    "notStrictEqual": false,
+    "notDeepEqual": false,
     "strictEqual": false,
     "deepEqual": false,
     "expect": false,

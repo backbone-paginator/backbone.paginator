@@ -82,7 +82,7 @@ $(document).ready(function () {
     strictEqual(fullCol.at(2).collection, col);
   });
 
-  test("initialize", 26, function () {
+  test("constructor", 28, function () {
 
     // TODO: test options.full attaches comparator to fullcollection only
 
@@ -146,9 +146,15 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(2).get("name"), "c");
 
     // make sure the given models are copied
-    var a = [1, 2, 3];
-    col = new Backbone.PageableCollection(a, {mode: "client"});
-    notEqual(a, col.models);
+    col = new Backbone.PageableCollection(mods, {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+    notStrictEqual(mods.length, col.models.length);
+    notDeepEqual(mods, col.models);
+    strictEqual(mods.length, col.fullCollection.length);
   });
 
   test("add", 49, function () {
