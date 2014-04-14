@@ -621,6 +621,9 @@ FAQ
 Change Log
 ----------
 
+1.4.8
+    - Exactly the same as 1.4.6, bumped to deal with the README on npm.
+
 1.4.7
     - Exactly the same as 1.4.6, bumped to deal with a recent change in npm.
 

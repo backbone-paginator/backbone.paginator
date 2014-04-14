@@ -1,7 +1,7 @@
 {
   "name": "backbone-pageable",
   "repository": "backbone-paginator/backbone-pageable",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "keywords": [
     "backbone"
