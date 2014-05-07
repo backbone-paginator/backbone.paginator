@@ -1,7 +1,7 @@
 {
   "name": "backbone.paginator",
   "description": "A set of pagination components for Backbone.js",
-  "version": "1.0.0-dev",
+  "version": "1.0.0",
   "homepage": "http://github.com/backbone-paginator/backbone.paginator",
   "author": {
     "name": "Addy Osmani",
