@@ -1,6 +1,6 @@
 [
   {
-    "name": "Pageable",
+    "name": "Backbone.Paginator",
     "groups": [
       {
         "name": "Backbone",

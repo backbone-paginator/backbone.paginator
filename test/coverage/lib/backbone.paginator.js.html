@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for lib/backbone-pageable.js</title>
+    <title>Code coverage report for lib/backbone.paginator.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../prettify.css">
@@ -180,22 +180,22 @@
 </head>
 <body>
 <div class="header high">
-    <h1>Code coverage report for <span class="entity">lib/backbone-pageable.js</span></h1>
+    <h1>Code coverage report for <span class="entity">lib/backbone.paginator.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">93.27% <small>(416 / 446)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">94.55% <small>(416 / 440)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">89.39% <small>(320 / 358)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">90.91% <small>(320 / 352)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">93.62% <small>(44 / 47)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">97.78% <small>(44 / 45)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">93.9% <small>(385 / 410)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">95.3% <small>(385 / 404)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
     </h2>
-    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; backbone-pageable.js</div>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">lib/</a> &#187; backbone.paginator.js</div>
 </div>
 <div class="body">
 <pre><table class="coverage">
@@ -1513,27 +1513,7 @@
 1312
 1313
 1314
-1315
-1316
-1317
-1318
-1319
-1320
-1321
-1322
-1323
-1324
-1325
-1326
-1327
-1328
-1329
-1330
-1331
-1332
-1333
-1334
-1335</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+1315</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2287,31 +2267,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-yes">6</span>
 <span class="cline-any cline-yes">3</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2868,10 +2828,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
-  backbone-pageable 1.4.8
-  http://github.com/backbone-paginator/backbone-pageable
+  backbone.paginator 2.0.0
+  http://github.com/backbone-paginator/backbone.paginator
 &nbsp;
-  Copyright (c) 2013 Jimmy Yuen Ho Wong
+  Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
   Licensed under the MIT @license.
 */
 &nbsp;
@@ -3618,16 +3578,6 @@
     },
 &nbsp;
     /**
-       Delegates to hasPreviousPage.
-    */
-    hasPrevious: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >      var msg = "hasPrevious has been deprecated, use hasPreviousPage instead";</span>
-<span class="cstat-no" title="statement not covered" >      typeof console != 'undefined' &amp;&amp; console.warn &amp;&amp; console.warn(msg);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      return this.hasPreviousPage();</span>
-    },
-&nbsp;
-    /**
        @return {boolean} `true` if this collection can page forward, `false`
        otherwise.
     */
@@ -3636,16 +3586,6 @@
       var currentPage = this.state.currentPage;
       if (this.mode != "infinite") return currentPage &lt; state.lastPage;
       return !!this.links[currentPage + 1];
-    },
-&nbsp;
-    /**
-       Delegates to hasNextPage.
-    */
-    hasNext: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >      var msg = "hasNext has been deprecated, use hasNextPage instead";</span>
-<span class="cstat-no" title="statement not covered" >      typeof console != 'undefined' &amp;&amp; console.warn &amp;&amp; console.warn(msg);</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >      return this.hasNextPage();</span>
     },
 &nbsp;
     /**
@@ -4206,7 +4146,7 @@
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Apr 14 2014 15:58:16 GMT+0800 (HKT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat May 10 2014 23:19:36 GMT+0800 (HKT)</div>
 </div>
 
 <script src="../prettify.js"></script>

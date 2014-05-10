@@ -1,11 +1,11 @@
 {
-  "name": "backbone-pageable",
-  "version": "1.4.8",
+  "name": "backbone.paginator",
+  "version": "2.0.0",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
-  "main": "lib/backbone-pageable.js",
+  "main": "lib/backbone.paginator.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/backbone-paginator/backbone-pageable.git"
+    "url": "git://github.com/backbone-paginator/backbone.paginator.git"
   },
   "keywords": [
     "backbone"
@@ -13,11 +13,11 @@
   "author": "Jimmy Yuen Ho Wong <wyuenho@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/backbone-paginator/backbone-pageable/issues"
+    "url": "https://github.com/backbone-paginator/backbone.paginator/issues"
   },
   "dependencies": {
-    "underscore": ">=1.4.0",
-    "backbone": ">=1.1.1"
+    "underscore": "^1.5.0",
+    "backbone": "^1.1.2"
   },
   "devDependencies": {
     "grunt-contrib-clean": "^0.4.1",

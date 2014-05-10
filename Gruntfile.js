@@ -1,6 +1,6 @@
 /*
-  backbone-pageable
-  http://github.com/wyuenho/backbone-pageable
+  backbone.paginator
+  http://github.com/backbone-paginator/backbone.paginator
 
   Copyright (c) 2013 Jimmy Yuen Ho Wong and contributors
   Licensed under the MIT license.
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
       all: ["test/*.html"],
       options: {
         coverage: {
-          src: ["lib/backbone-pageable.js"],
+          src: ["lib/backbone.paginator.js"],
           instrumentedFiles: "test/coverage/temp",
           htmlReport: "test/coverage"
         }
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
     },
     jsduck: {
       main: {
-        src: ["lib/backbone-pageable.js"],
+        src: ["lib/backbone.paginator.js"],
         dest: "api",
         options: {
           "external": ["Backbone.Model,Backbone.Collection,XMLHttpRequest"],
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
       },
       "default": {
         files: {
-          "lib/backbone-pageable.min.js": ["lib/backbone-pageable.js"]
+          "lib/backbone.paginator.min.js": ["lib/backbone.paginator.js"]
         }
       }
     },

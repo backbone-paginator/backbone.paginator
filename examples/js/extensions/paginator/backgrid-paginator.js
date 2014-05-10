@@ -166,8 +166,8 @@
       var pageIndex = this.pageIndex;
 
       if (this.isRewind && currentPage == state.firstPage ||
-         this.isBack && !collection.hasPrevious() ||
-         this.isForward && !collection.hasNext() ||
+         this.isBack && !collection.hasPreviousPage() ||
+         this.isForward && !collection.hasNextPage() ||
          this.isFastForward && (currentPage == state.lastPage || state.totalPages < 1)) {
         this.$el.addClass("disabled");
       }

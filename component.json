@@ -1,14 +1,14 @@
 {
-  "name": "backbone-pageable",
-  "repository": "backbone-paginator/backbone-pageable",
-  "version": "1.4.8",
+  "name": "backbone.paginator",
+  "repository": "backbone-paginator/backbone.paginator",
+  "version": "2.0.0",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "keywords": [
     "backbone"
   ],
-  "main": "lib/backbone-pageable.js",
+  "main": "lib/backbone.paginator.js",
   "scripts": [
-    "lib/backbone-pageable.js"
+    "lib/backbone.paginator.js"
   ],
   "dependencies": {
     "jashkenas/underscore": "^1.5.0",
