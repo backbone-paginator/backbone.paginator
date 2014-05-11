@@ -15,7 +15,7 @@ Migrating from Backbone.Paginator 1.0
 -------------------------------------
 
 Backbone.Paginator 2.0 was originally called backbone-pageable, which in turn
-was inspired by Backbone.Paginator < 1.0 by @addyosmani. The two project has
+was inspired by Backbone.Paginator < 1.0 by @addyosmani. The two projects have
 merged as of May 2014 and backbone-pageable has effectively become
 Backbone.Paginator 2.0. This guide describes some of the differences and
 similarities to ease migration.
