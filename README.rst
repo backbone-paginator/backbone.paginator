@@ -46,7 +46,7 @@ Backbone.Paginator <= 1.0           Backbone.Paginator 2.0
 ``paginator_core``                  Override ``PageableCollection#sync`` or use ``PagableCollection.fetch({data: {...}})``
 ``paginator_ui``                    ``state``
 ``server_api``                      ``queryParams``
-``bootstrap()``                     ``new Backbone.PageaableCollection([{...}, ...])``
+``bootstrap()``                     ``new Backbone.PageableCollection([{...}, ...])``
 ``parse()``                         ``parse()``, ``parseRecords()``, ``parseState()``, ``parseLinks()``
 ``goTo()``                          ``getPage()``
 ``prevPage()``, ``nextPage()``      ``getPreviousPage()``, ``getNextPage()``
