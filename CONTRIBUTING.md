@@ -44,7 +44,7 @@ You need to install [ruby](http://www.ruby-lang.org/en/downloads/),
 [node.js and npm](http://nodejs.org) and then:
 
 ```shell
-$ cd backbone-pageable
+$ cd backbone.paginator
 $ npm install
 ```
 
@@ -52,7 +52,7 @@ Once you have everything installed, you can do this to trigger a distribution
 build:
 
 ```shell
-$ cd backbone-pageable
+$ cd backbone.paginator
 $ grunt
 ```
 
