@@ -43,7 +43,7 @@ Backbone.Paginator <= 1.0           Backbone.Paginator 2.0
 ``Backbone.Paginator``              ``Backbone.PageableCollection``
 ``Backbone.Paginator.requestPager`` ``PageableCollection.extend({mode: "server" | "infinite"})``
 ``Backbone.Paginator.clientPager``  ``PageableCollection.extend({mode: "client"})``
-``paginator_core``                  Override ``PageableCollection#sync`` or use ``PagableCollection.fetch({data: {...}})``
+``paginator_core``                  Override ``PageableCollection#sync``
 ``paginator_ui``                    ``state``
 ``server_api``                      ``queryParams``
 ``bootstrap()``                     ``new Backbone.PageableCollection([{...}, ...])``
