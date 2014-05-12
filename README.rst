@@ -110,8 +110,8 @@ The following examples utilizes `Backgrid.js
 Installation
 ------------
 
-Installing from Node.js
-+++++++++++++++++++++++
+Installing from Component
++++++++++++++++++++++++++
 
 .. code-block:: bash
 
