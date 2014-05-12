@@ -115,6 +115,14 @@ Installing from Node.js
 
 .. code-block:: bash
 
+  component install backbone.paginator
+
+
+Installing from Node.js
++++++++++++++++++++++++
+
+.. code-block:: bash
+
   npm install backbone.paginator
 
 
