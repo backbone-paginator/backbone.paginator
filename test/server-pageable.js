@@ -252,7 +252,7 @@ $(document).ready(function () {
     strictEqual(col.comparator, comparator);
   });
 
-  test("fetch", 14, function () {
+  test("fetch", 15, function () {
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
@@ -264,6 +264,17 @@ $(document).ready(function () {
       page: 1,
       "per_page": 25
     });
+
+    col.queryParams.order = function () { return 'order_test'; };
+    col.state.sortKey = "title",
+    col.fetch();
+    deepEqual(this.ajaxSettings.data, {
+      page: 1,
+      "sort_by": "title",
+      "order_test": 'asc',
+      "per_page": 25
+    });
+
 
     col.state.sortKey = "name",
     col.state.totalRecords = 50;
@@ -288,6 +299,7 @@ $(document).ready(function () {
       "total_pages": 1,
       "access_token": 1
     });
+
 
     this.ajaxSettings.success([{"total_entries": 0}, []]);
     strictEqual(col.state.sortKey, "name");
