@@ -229,7 +229,7 @@ $(document).ready(function () {
     deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
   });
 
-  test("remove", 84, function () {
+  test("remove", 94, function () {
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -408,6 +408,52 @@ $(document).ready(function () {
     strictEqual(col.size(), 0);
     strictEqual(col.fullCollection.size(), 0);
     deepEqual(col.toJSON(), []);
+
+    // Make sure removing the last model from the last page will reset the
+    // current page to the actual last page
+    col = new Backbone.PageableCollection([
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"},
+      {"name": "d"}
+    ], {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+    col.getLastPage();
+
+    col.remove(col.last());
+    strictEqual(col.length, 1);
+    strictEqual(col.at(0).get("name"), "b");
+
+    col.remove(col.last());
+    strictEqual(col.length, 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
+
+    col = new Backbone.PageableCollection([
+      {"name": "a"},
+      {"name": "c"},
+      {"name": "b"},
+      {"name": "d"}
+    ], {
+      state: {
+        pageSize: 2
+      },
+      mode: "client"
+    });
+    col.getLastPage();
+
+    col.fullCollection.remove(col.fullCollection.last());
+    strictEqual(col.length, 1);
+    strictEqual(col.at(0).get("name"), "b");
+
+    col.fullCollection.remove(col.fullCollection.last());
+    strictEqual(col.length, 2);
+    strictEqual(col.at(0).get("name"), "a");
+    strictEqual(col.at(1).get("name"), "c");
   });
 
   test("add handlers on pageCol are run before remove handlers", 2, function () {
