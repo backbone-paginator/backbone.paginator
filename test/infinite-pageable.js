@@ -70,6 +70,25 @@ $(document).ready(function () {
     deepEqual(links, {});
   });
 
+  test("#237 url function is called with the right context", function () {
+    var col = new (Backbone.PageableCollection.extend({
+      name: "name",
+      url: function () {
+        return "/" + this.name;
+      },
+      mode: "infinite",
+      parseLinks: function () {
+        return {};
+      }
+    }));
+
+    col.getFirstPage();
+
+    strictEqual(this.ajaxSettings.url, "/name");
+
+    this.ajaxSettings.success([{"total_entries": 1}, [{id: 1}]]);
+  });
+
   test("fetch", 3, function () {
     var oldParse = col.parse;
     col.parse = function () {
