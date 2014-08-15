@@ -1,6 +1,3 @@
 {
-  "name": "backbone.paginator",
-  "homepage": "https://github.com/addyosmani/backbone.paginator",
-  "version": "2.0.3",
   "main": "lib/backbone.paginator.js"
 }
