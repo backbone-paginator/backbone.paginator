@@ -140,6 +140,16 @@ $(document).ready(function () {
     state.totalRecords = 0;
     col._checkState(state);
     strictEqual(state.lastPage, 1);
+
+    state.firstPage = 1;
+    state.currentPage = 5;
+    state.totalRecords = 40;
+    state.totalPages = 4;
+    state.pageSize = 10;
+    throws(function () {
+      col._checkState(state);
+    });
+    strictEqual(state.currentPage, 4);
   });
 
   test("extend and constructor", function () {
