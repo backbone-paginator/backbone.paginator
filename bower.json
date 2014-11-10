@@ -1,0 +1,18 @@
+{
+  "name": "backbone.paginator",
+  "version": "2.0.2",
+  "homepage": "https://github.com/backbone-paginator/backbone.paginator",
+  "authors": [
+    "Jimmy Yuen Ho Wong <wyuenho@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "api",
+    "examples"
+  ]
+}
