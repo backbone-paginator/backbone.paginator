@@ -11,8 +11,8 @@
     "lib/backbone.paginator.js"
   ],
   "dependencies": {
-    "components/underscore": "^1.5.0",
-    "components/backbone": "^1.1.2"
+    "jashkenas/underscore": "^1.5.0",
+    "jashkenas/backbone": "^1.1.2"
   },
   "demo": "https://github.com/backbone-paginator/backbone-pageable#playable-demos",
   "license": "MIT"
