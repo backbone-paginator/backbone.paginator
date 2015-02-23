@@ -260,7 +260,7 @@ order        -1    order         "order"
 
 You can consult the `API documentation
 <http://backbone-paginator.github.io/backbone.paginator/#!/api/Backbone.PageableCollection>`_
-for a detailed explaination of these fields.
+for a detailed explanation of these fields.
 
 Fetching Data and Managing States
 +++++++++++++++++++++++++++++++++
@@ -598,7 +598,7 @@ page and the full collection.
 Manipulation
 ------------
 
-This is one of the areas where ``Backbone.PageableCollection`` truely shines. A
+This is one of the areas where ``Backbone.PageableCollection`` truly shines. A
 ``Backbone.PageableCollection`` instance not only can do everything a plain
 ``Backbone.Collection`` can for the current page, in client-mode, it can also
 synchronize changes and events across all of the pages. For example, you can add
@@ -608,7 +608,7 @@ is holding the current page, or the
 ``Backbone.Collection`` holding the models for all of the pages, and the pages
 will all update themselves to maintain within a page size. Any additions,
 removals, resets, model attribute changes and synchronization actions are
-communicated between all the pages throught the two collections.
+communicated between all the pages throughout the two collections.
 
 .. code-block:: javascript
 
