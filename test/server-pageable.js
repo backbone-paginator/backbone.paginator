@@ -252,7 +252,7 @@ $(document).ready(function () {
     strictEqual(col.comparator, comparator);
   });
 
-  test("fetch", 15, function () {
+  test("fetch", 16, function () {
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
@@ -310,6 +310,24 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 0);
     strictEqual(col.state.lastPage, 0);
     strictEqual(col.state.totalPages, 0);
+
+    col.state.sortKey = ["firstSort", "secondSort"];
+    col.state.order = [-1, 1];
+    col.state.totalRecords = 50;
+    col.state.totalPages = 1;
+    col.state.currentPage = 0;
+    col.state.pageSize = 50;
+    col.state.firstPage = 0;
+    col.fetch();
+    deepEqual(this.ajaxSettings.data, {
+      page: 0,
+      "per_page": 50,
+      "sort_by": ["firstSort", "secondSort"],
+      "order_test": ["asc", "desc"],
+      "total_entries": 50,
+      "total_pages": 1,
+      "access_token": 1
+    });
   });
 
   test("getPage", function () {
