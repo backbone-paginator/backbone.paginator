@@ -2,7 +2,6 @@
   "name": "backbone.paginator",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "homepage": "https://github.com/backbone-paginator/backbone.paginator",
-  "version": "2.0.2",
   "main": "lib/backbone.paginator.js",
   "authors": [
     "Jimmy Yuen Ho Wong <wyuenho@gmail.com>"
