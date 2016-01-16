@@ -476,4 +476,18 @@ $(document).ready(function () {
     strictEqual(col.state.lastPage, 4);
   });
 
+  test("issue 298", function () {
+    var col = new Backbone.PageableCollection();
+    col.url = "test?a=";
+    col.fetch();
+
+    strictEqual(this.ajaxSettings.url, "test");
+    deepEqual(this.ajaxSettings.data, {
+      page: 1,
+      "per_page": 25,
+      a: ''
+    });
+
+  });
+
 });
