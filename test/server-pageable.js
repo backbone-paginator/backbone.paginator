@@ -252,7 +252,7 @@ $(document).ready(function () {
     strictEqual(col.comparator, comparator);
   });
 
-  test("fetch", 16, function () {
+  test("fetch", 17, function () {
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
@@ -328,6 +328,10 @@ $(document).ready(function () {
       "total_pages": 1,
       "access_token": 1
     });
+
+    col.state.page = 0;
+    col.fetch({data: {page: 1}});
+    deepEqual(this.ajaxSettings.data.page, 1);
   });
 
   test("getPage", function () {
