@@ -1048,4 +1048,23 @@ $(document).ready(function () {
     deepEqual(col.fullCollection.toJSON(), [{"value": 1}, {"value": 2}, {"value": 3}]);
   });
 
+   test("issue #309", function () {
+    var col = new Backbone.PageableCollection(models, {
+      state: {
+        pageSize: 2,
+        currentPage: 2
+      },
+      mode: "client"
+    });
+
+    strictEqual(col.state.totalRecords, 3);
+    strictEqual(col.state.lastPage, 2);
+    strictEqual(col.state.totalPages, 2);
+    strictEqual(col.state.currentPage, 2);
+    strictEqual(col.at(0).get("name"), "b");
+    col.fullCollection.reset(models);
+    strictEqual(col.state.currentPage, 1);
+    strictEqual(col.at(0).get("name"), "a");
+  });
+
 });
