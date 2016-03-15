@@ -1,14 +1,13 @@
-$(document).ready(function () {
+(function() {
 
-  "use strict";
+  QUnit.module('Backbone.noConflict');
 
-  module("Backbone.PageableCollection.noConflict");
-
-  test('noConflict', 2, function () {
-    var noconflictBackbonePageableCollection = Backbone.PageableCollection.noConflict();
-    equal(window.Backbone.PageableCollection, undefined, 'Returned window.Backbone.PageableCollection');
-    window.Backbone.PageableCollection = noconflictBackbonePageableCollection;
-    equal(window.Backbone.PageableCollection, noconflictBackbonePageableCollection, 'Backbone.PageableCollection is still pointing to the original Backbone.PageableCollection');
+  QUnit.test('noConflict', function(assert) {
+    assert.expect(2);
+    var noconflictBackbone = Backbone.noConflict();
+    assert.equal(window.Backbone, undefined, 'Returned window.Backbone');
+    window.Backbone = noconflictBackbone;
+    assert.equal(window.Backbone, noconflictBackbone, 'Backbone is still pointing to the original Backbone');
   });
 
-});
+})();

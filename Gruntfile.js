@@ -28,16 +28,14 @@ module.exports = function (grunt) {
         "test/coverage/**/*"
       ]
     },
-    qunit: {
-      all: ["test/*.html"],
-      options: {
-        coverage: {
-          src: ["lib/backbone.paginator.js"],
-          instrumentedFiles: "test/coverage/temp",
-          htmlReport: "test/coverage"
-        }
+
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        singleRun: true
       }
     },
+
     jsduck: {
       main: {
         src: ["lib/backbone.paginator.js"],
@@ -52,6 +50,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     uglify: {
       options: {
         mangle: true,
@@ -64,6 +63,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     connect: {
       server: {
         options: {
@@ -74,10 +74,10 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-qunit-istanbul");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-jsduck");
+  grunt.loadNpmTasks("grunt-karma");
 
-  grunt.registerTask("default", ["clean", "qunit", "jsduck", "uglify"]);
+  grunt.registerTask("default", ["clean", "karma", "jsduck", "uglify"]);
 };
