@@ -1,4 +1,4 @@
-{
+ {
   "name": "backbone.paginator",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "homepage": "https://github.com/backbone-paginator/backbone.paginator",
@@ -11,8 +11,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "underscore": "^1.5.0",
-    "backbone": "^1.1.2"
+    "underscore": "^1.8.3",
+    "backbone": "^1.2.3"
   },
   "ignore": [
     "**/.*",
