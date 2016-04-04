@@ -36,17 +36,14 @@ module.exports = function (grunt) {
       }
     },
 
-    jsduck: {
-      main: {
-        src: ["lib/backbone.paginator.js"],
-        dest: "api",
+    documentation: {
+      "default": {
+        files: {
+          src: ["lib/backbone.paginator.js"]
+        },
         options: {
-          "external": ["Backbone.Model,Backbone.Collection,XMLHttpRequest"],
-          "title": "backbone-pageable",
-          "no-source": true,
-          "categories": "categories.json",
-          "warnings": "-no_doc",
-          "pretty-json": true
+          access: ['public', 'protected', 'private', 'undefined'],
+          destination: "api"
         }
       }
     },
@@ -76,8 +73,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-connect");
-  grunt.loadNpmTasks("grunt-jsduck");
+  grunt.loadNpmTasks("grunt-documentation");
   grunt.loadNpmTasks("grunt-karma");
 
-  grunt.registerTask("default", ["clean", "karma", "jsduck", "uglify"]);
+  grunt.registerTask("default", ["clean", "karma", "documentation", "uglify"]);
 };

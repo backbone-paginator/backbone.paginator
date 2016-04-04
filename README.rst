@@ -291,6 +291,9 @@ support an additional response data structure that contains an object hash of
 pagination state. The following is a table of the response data structure
 formats ``Backbone.PageableCollection`` accepts.
 
+In your UI code, you can listen to the ``pageable:state:change`` event on the
+pageable collection to receive state updates.
+
 ================= ========================================
 Without State     With State
 ================= ========================================
