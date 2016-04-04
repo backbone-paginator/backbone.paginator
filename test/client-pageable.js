@@ -142,7 +142,7 @@ $(document).ready(function () {
     strictEqual(mods.length, col.fullCollection.length);
   });
 
-  test("add", 49, function () {
+  test("add", 55, function () {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -156,6 +156,7 @@ $(document).ready(function () {
     };
     col.fullCollection.on("add", onAdd);
     col.on("add", onAdd);
+    sinon.spy(col, "trigger");
 
     var d = new Backbone.Model({name: "d"});
     col.add(d);
@@ -169,6 +170,7 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(1).get("name"), "c");
     strictEqual(col.fullCollection.at(2).get("name"), "d");
     strictEqual(col.fullCollection.at(3).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     lastTotalRecords = col.state.totalRecords;
     var e = new Backbone.Model({name: "e"});
@@ -181,6 +183,7 @@ $(document).ready(function () {
     strictEqual(col.at(1).get("name"), "c");
     strictEqual(col.fullCollection.at(4).get("name"), "e");
     strictEqual(col.indexOf(e.cid), -1);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     lastTotalRecords = col.state.totalRecords;
     var f = new Backbone.Model({name: "f"});
@@ -191,6 +194,7 @@ $(document).ready(function () {
     strictEqual(col.size(), 2);
     strictEqual(col.at(0).get("name"), "f");
     strictEqual(col.at(1).get("name"), "a");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // test add at page col on page 2
     col.getPage(2);
@@ -205,6 +209,7 @@ $(document).ready(function () {
     strictEqual(col.state.currentPage, 2);
     strictEqual(col.last().get("name"), "g");
     strictEqual(col.fullCollection.at(3).get("name"), "g");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // test ability to add to empty collection
     col.fullCollection.reset();
@@ -220,16 +225,19 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.size(), 3);
     deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
     deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
+    col.trigger.reset();
     col.fullCollection.reset();
     col.fullCollection.add([{name: "a"}, {name: "c"}, {name: "b"}]);
     strictEqual(col.size(), 2);
     strictEqual(col.fullCollection.size(), 3);
     deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
     deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
-  test("remove", 94, function () {
+  test("remove", 114, function () {
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -251,6 +259,7 @@ $(document).ready(function () {
       strictEqual(col.state.totalPages, Math.ceil(col.state.totalRecords / col.state.pageSize));
     };
     col.on("remove", onRemove);
+    sinon.spy(col, "trigger");
     col.fullCollection.on("remove", onRemove);
 
     col.fullCollection.remove(col.fullCollection.last());
@@ -263,6 +272,9 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(0).get("name"), "a");
     strictEqual(col.fullCollection.at(1).get("name"), "c");
     strictEqual(col.fullCollection.at(2).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     lastTotalRecords = col.state.totalRecords;
     lastTotalPages = col.state.totalPages;
@@ -275,6 +287,9 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.size(), 2);
     strictEqual(col.fullCollection.at(0).get("name"), "c");
     strictEqual(col.fullCollection.at(1).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     lastTotalRecords = col.state.totalRecords;
     lastTotalPages = col.state.totalPages;
@@ -285,6 +300,7 @@ $(document).ready(function () {
     strictEqual(col.at(0).get("name"), "b");
     strictEqual(col.fullCollection.size(), 1);
     strictEqual(col.fullCollection.at(0).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col.off("remove", onRemove);
     col.fullCollection.off("remove", onRemove);
@@ -296,6 +312,7 @@ $(document).ready(function () {
     col.on("remove", onRemove);
     col.fullCollection.on("remove", onRemove);
     col.remove(col.fullCollection.first());
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     strictEqual(col.state.totalRecords, null);
     strictEqual(col.state.totalPages, null);
@@ -314,21 +331,41 @@ $(document).ready(function () {
       },
       mode: "client"
     });
+    sinon.spy(col, "trigger");
 
     // tests for insertion into current page by removing from fullCollection
     col.fullCollection.remove(col.fullCollection.at(0));
     strictEqual(col.at(0).get("name"), "c");
     strictEqual(col.at(1).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
+
     col.fullCollection.remove(col.fullCollection.at(2));
     strictEqual(col.at(0).get("name"), "c");
     strictEqual(col.at(1).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
+
     col.fullCollection.remove(col.fullCollection.at(1));
     strictEqual(col.at(0).get("name"), "c");
     strictEqual(col.at(1).get("name"), "f");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
+
     col.fullCollection.remove(col.fullCollection.at(0));
     strictEqual(col.at(0).get("name"), "f");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
+
     col.fullCollection.remove(col.fullCollection.at(0));
     strictEqual(col.length, 0);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     // issue 129 and 132, insertion into current page by removing from the current page
     col = new Backbone.PageableCollection([
@@ -345,6 +382,7 @@ $(document).ready(function () {
       },
       mode: "client"
     });
+    sinon.spy(col, "trigger");
 
     col.remove(col.first());
     strictEqual(col.state.totalRecords, 6);
@@ -355,6 +393,9 @@ $(document).ready(function () {
       {"name": "b"},
       {"name": "e"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.at(1));
     strictEqual(col.state.totalRecords, 5);
@@ -365,6 +406,9 @@ $(document).ready(function () {
       {"name": "e"},
       {"name": "f"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.last());
     strictEqual(col.state.totalRecords, 4);
@@ -375,6 +419,9 @@ $(document).ready(function () {
       {"name": "e"},
       {"name": "d"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.first());
     strictEqual(col.state.totalRecords, 3);
@@ -385,6 +432,9 @@ $(document).ready(function () {
       {"name": "d"},
       {"name": "g"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.at(1));
     strictEqual(col.state.totalRecords, 2);
@@ -394,6 +444,9 @@ $(document).ready(function () {
       {"name": "e"},
       {"name": "g"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.last());
     strictEqual(col.state.totalRecords, 1);
@@ -402,12 +455,16 @@ $(document).ready(function () {
     deepEqual(col.toJSON(), [
       {"name": "e"}
     ]);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.first());
     strictEqual(col.state.totalRecords, null);
     strictEqual(col.size(), 0);
     strictEqual(col.fullCollection.size(), 0);
     deepEqual(col.toJSON(), []);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // Make sure removing the last model from the last page will reset the
     // current page to the actual last page
@@ -422,16 +479,21 @@ $(document).ready(function () {
       },
       mode: "client"
     });
+    sinon.spy(col, "trigger");
     col.getLastPage();
 
     col.remove(col.last());
     strictEqual(col.length, 1);
     strictEqual(col.at(0).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.remove(col.last());
     strictEqual(col.length, 2);
     strictEqual(col.at(0).get("name"), "a");
     strictEqual(col.at(1).get("name"), "c");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -444,16 +506,21 @@ $(document).ready(function () {
       },
       mode: "client"
     });
+    sinon.spy(col, "trigger");
     col.getLastPage();
 
     col.fullCollection.remove(col.fullCollection.last());
     strictEqual(col.length, 1);
     strictEqual(col.at(0).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.fullCollection.remove(col.fullCollection.last());
     strictEqual(col.length, 2);
     strictEqual(col.at(0).get("name"), "a");
     strictEqual(col.at(1).get("name"), "c");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
   test("add handlers on pageCol are run before remove handlers", 2, function () {
@@ -550,7 +617,7 @@ $(document).ready(function () {
     this.ajaxSettings.success();
   });
 
-  test("reset and sort", 76, function () {
+  test("reset and sort", 79, function () {
 
     var mods = models.slice();
     var col = new Backbone.PageableCollection(mods, {
@@ -605,6 +672,7 @@ $(document).ready(function () {
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
+    sinon.spy(col, "trigger");
     col.comparator = comparator;
     col.sort();
 
@@ -635,6 +703,9 @@ $(document).ready(function () {
     strictEqual(col.fullCollection.at(0).get("name"), "g");
     strictEqual(col.fullCollection.at(1).get("name"), "a");
     strictEqual(col.fullCollection.at(2).get("name"), "b");
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.off("reset", onReset);
     col.fullCollection.off("reset", onReset);
@@ -664,6 +735,9 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 4);
     strictEqual(col.state.lastPage, 2);
     strictEqual(col.state.totalPages, 2);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.reset();
 
     col.off("reset", onReset);
     col.fullCollection.off("reset", onReset);
@@ -680,6 +754,7 @@ $(document).ready(function () {
     col.fullCollection.on("reset", onReset);
 
     col.fullCollection.reset();
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
   test("fetch", 14, function () {

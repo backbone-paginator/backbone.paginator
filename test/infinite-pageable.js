@@ -103,7 +103,7 @@ $(document).ready(function () {
     // makes sure collection events on the current page are not suppressed when
     // refetching the same page
     col.on("all", function (event) {
-      if (!_.contains(["request", "sync", "reset"], event)) {
+      if (!_.contains(["request", "sync", "reset", "pageable:state:change"], event)) {
         ok(false);
       }
     });

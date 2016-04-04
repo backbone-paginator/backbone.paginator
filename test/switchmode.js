@@ -23,14 +23,17 @@ $(document).ready(function () {
   test("switchMode", function () {
 
     sinon.stub(col, "fetch");
+    sinon.spy(col, "trigger");
 
     col.switchMode("client");
 
     strictEqual(col.mode, "client");
     ok(col.fullCollection instanceof Backbone.Collection);
     ok(col.fetch.calledOnce);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col.fetch.reset();
+    col.trigger.reset();
 
     var comparator = col.fullCollection.comparator = function (model) {
       return model.get("name");
@@ -41,18 +44,21 @@ $(document).ready(function () {
     strictEqual(col.mode, "server");
     ok(_.isUndefined(col.fullCollection));
     ok(col.fetch.calledOnce);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col.fetch.reset();
+    col.trigger.reset();
 
     col.state.totalRecords = 20;
     col.switchMode("client", {fetch: false, resetState: false});
 
     strictEqual(col.state.totalRecords, 20);
     strictEqual(col.fullCollection.comparator, comparator);
-
     ok(col.fetch.notCalled);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col.fetch.reset();
+    col.trigger.reset();
 
     col.switchMode("infinite");
 
@@ -60,8 +66,7 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, null);
     ok(col.fullCollection);
     ok(col.fetch.calledOnce);
-
-    col.fetch.reset();
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
 });
