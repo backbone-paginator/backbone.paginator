@@ -30,7 +30,7 @@
     "jquery": "^2.2.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-coverage": "^0.5.5",
+    "karma-coverage": "^1.0.0",
     "karma-firefox-launcher": "^0.1.7",
     "karma-qunit": "^0.1.9",
     "karma-safari-launcher": "^0.1.1",
