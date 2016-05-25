@@ -113,9 +113,7 @@ $(document).ready(function () {
     strictEqual(this.ajaxSettings.url, "url");
     deepEqual(this.ajaxSettings.data, {
       page: 2,
-      "per_page": 2,
-      "total_entries": 4,
-      "total_pages": 2
+      "per_page": 2
     });
 
     this.ajaxSettings.success([
