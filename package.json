@@ -26,7 +26,7 @@
     "grunt-contrib-connect": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.0",
     "grunt-documentation": "^1.1.2",
-    "grunt-karma": "^0.12.1",
+    "grunt-karma": "^1.0.0",
     "jquery": "^2.2.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
