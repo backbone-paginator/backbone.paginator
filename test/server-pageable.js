@@ -295,8 +295,6 @@ $(document).ready(function () {
       page: 0,
       "per_page": 50,
       "sort_by": "name",
-      "total_entries": 50,
-      "total_pages": 1,
       "access_token": 1
     });
 
@@ -324,8 +322,6 @@ $(document).ready(function () {
       "per_page": 50,
       "sort_by": ["firstSort", "secondSort"],
       "order_test": ["asc", "desc"],
-      "total_entries": 50,
-      "total_pages": 1,
       "access_token": 1
     });
 
