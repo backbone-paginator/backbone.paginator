@@ -27,7 +27,7 @@
     "grunt-contrib-uglify": "^1.0.0",
     "grunt-documentation": "^1.1.2",
     "grunt-karma": "^1.0.0",
-    "jquery": "^2.2.1",
+    "jquery": "^3.0.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
