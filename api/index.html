@@ -9,373 +9,799 @@
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
 </head>
 <body class='documentation'>
-  <div class='container'>
+  <div class='max-width-4 mx-auto'>
     <div class='clearfix md-mxn2'>
-      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'></h3>
           <div class='mb1'><code></code></div>
           <input
             placeholder='Filter'
             id='filter-input'
-            class='col12 block field'
+            class='col12 block input'
             type='text' />
           <div id='toc'>
-              <a
-                href='#_checkState'
-                class='block bold'>
-                _checkState
-              </a>
-              <a
-                href='#_makeCollectionEventHandler'
-                class='block bold'>
-                _makeCollectionEventHandler
-              </a>
-              <a
-                href='#_makeComparator'
-                class='block bold'>
-                _makeComparator
-              </a>
-              <a
-                href='#_makeFullCollection'
-                class='block bold'>
-                _makeFullCollection
-              </a>
-              <a
-                href='#constructor'
-                class='block bold'>
-                constructor
-              </a>
-              <a
-                href='#fetch'
-                class='block bold'>
-                fetch
-              </a>
-              <a
-                href='#getFirstPage'
-                class='block bold'>
-                getFirstPage
-              </a>
-              <a
-                href='#getLastPage'
-                class='block bold'>
-                getLastPage
-              </a>
-              <a
-                href='#getNextPage'
-                class='block bold'>
-                getNextPage
-              </a>
-              <a
-                href='#getPage'
-                class='block bold'>
-                getPage
-              </a>
-              <a
-                href='#getPageByOffset'
-                class='block bold'>
-                getPageByOffset
-              </a>
-              <a
-                href='#getPreviousPage'
-                class='block bold'>
-                getPreviousPage
-              </a>
-              <a
-                href='#hasNextPage'
-                class='block bold'>
-                hasNextPage
-              </a>
-              <a
-                href='#hasPreviousPage'
-                class='block bold'>
-                hasPreviousPage
-              </a>
-              <a
-                href='#mode'
-                class='block bold'>
-                mode
-              </a>
-              <a
-                href='#noConflict'
-                class='block bold'>
-                noConflict
-              </a>
-              <a
-                href='#pageable:state:change'
-                class='block bold'>
-                pageable:state:change
-              </a>
-              <a
-                href='#PageableCollection'
-                class='block bold'>
-                PageableCollection
-              </a>
-              <a
-                href='#parse'
-                class='block bold'>
-                parse
-              </a>
-              <a
-                href='#parseLinks'
-                class='block bold'>
-                parseLinks
-              </a>
-              <a
-                href='#parseRecords'
-                class='block bold'>
-                parseRecords
-              </a>
-              <a
-                href='#parseState'
-                class='block bold'>
-                parseState
-              </a>
-              <a
-                href='#queryParams'
-                class='block bold'>
-                queryParams
-              </a>
-              <a
-                href='#setPageSize'
-                class='block bold'>
-                setPageSize
-              </a>
-              <a
-                href='#setSorting'
-                class='block bold'>
-                setSorting
-              </a>
-              <a
-                href='#state'
-                class='block bold'>
-                state
-              </a>
-              <a
-                href='#switchMode'
-                class='block bold'>
-                switchMode
-              </a>
-              <a
-                href='#sync'
-                class='block bold'>
-                sync
-              </a>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#noconflict'
+                  class="">
+                  noConflict
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventpageablestatechange'
+                  class="">
+                  pageable:state:change
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pageablecollection'
+                  class="">
+                  PageableCollection
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#state'
+                  class="">
+                  state
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#mode'
+                  class="">
+                  mode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#queryparams'
+                  class="">
+                  queryParams
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#constructor'
+                  class="">
+                  constructor
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#_makefullcollection'
+                  class="">
+                  _makeFullCollection
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#_makecollectioneventhandler'
+                  class="">
+                  _makeCollectionEventHandler
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#_checkstate'
+                  class="">
+                  _checkState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setpagesize'
+                  class="">
+                  setPageSize
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#switchmode'
+                  class="">
+                  switchMode
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#haspreviouspage'
+                  class="">
+                  hasPreviousPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#hasnextpage'
+                  class="">
+                  hasNextPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getfirstpage'
+                  class="">
+                  getFirstPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getpreviouspage'
+                  class="">
+                  getPreviousPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getnextpage'
+                  class="">
+                  getNextPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlastpage'
+                  class="">
+                  getLastPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getpage'
+                  class="">
+                  getPage
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getpagebyoffset'
+                  class="">
+                  getPageByOffset
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#sync'
+                  class="">
+                  sync
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parselinks'
+                  class="">
+                  parseLinks
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parse'
+                  class="">
+                  parse
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parsestate'
+                  class="">
+                  parseState
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#parserecords'
+                  class="">
+                  parseRecords
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#fetch'
+                  class="">
+                  fetch
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#_makecomparator'
+                  class="">
+                  _makeComparator
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setsorting'
+                  class="">
+                  setSorting
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
           </div>
         </div>
       </div>
       <div class='fix-margin-3'>
-        <div class='px2'>
-<div class='py1'><section class='py2 clearfix'>
-  <h2 id='_checkState' class='mt0'>
-    _checkState<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Sanity check this collection's pagination states. Only perform checks
-when all the required pagination state values are defined and not null.
-If <code>totalPages</code> is undefined or null, it is set to <code>totalRecords</code> /
-<code>pageSize</code>. <code>lastPage</code> is set according to whether <code>firstPage</code> is 0 or 1
-when no error occurs.</p>
-
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-</code>
-      :
-      <div class='force-inline'>
-        <p>Returns the <code>state</code> object if no error was found.</p>
-
-      </div>
-    <h4>Throws</h4>
-    <ul>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>
-: <div class='force-inline'><p>If <code>totalRecords</code>, <code>pageSize</code>, <code>currentPage</code> or
-<code>firstPage</code> is not a finite integer.</p>
-</div></li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>
-: <div class='force-inline'><p>If <code>pageSize</code>, <code>currentPage</code> or <code>firstPage</code> is out
-of bounds.</p>
-</div></li>
-    </ul>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='_makeCollectionEventHandler' class='mt0'>
-    _makeCollectionEventHandler<span class='gray'>(pageCol, fullCol)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Factory method that returns a Backbone event handler that responses to
-the <code>add</code>, <code>remove</code>, <code>reset</code>, and the <code>sort</code> events. The returned event
-handler will synchronize the current page collection and the full
-collection's models.</p>
-
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li>PageableCollection
- <strong>pageCol</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-        <li>Backbone.Collection
- <strong>fullCol</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>function (
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-, 
-Backbone.Model
-, 
-Backbone.Collection
-, 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>Collection event handler</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='_makeComparator' class='mt0'>
-    _makeComparator<span class='gray'>(sortKey, order, sortValue)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Convenient method for making a <code>comparator</code> sorted by a model attribute
-identified by <code>sortKey</code> and ordered by <code>order</code>.</p>
-<p>Like a Backbone.Collection, a PageableCollection will maintain the
-<strong>current page</strong> in sorted order on the client side if a <code>comparator</code> is
-attached to it. If the collection is in client mode, you can attach a
-comparator toPageableCollection#fullCollection to have all the pages
-reflect the global sorting order by specifying an option <code>full</code> to
-<code>true</code>. You <strong>must</strong> call <code>sort</code> manually
-orPageableCollection#fullCollection.sort after calling this method to
-force a resort.</p>
-<p>While you can use this method to sort the current page in server mode,
-the sorting order may not reflect the global sorting order due to the
-additions or removals of the records on the server since the last
-fetch. If you want the most updated page in a global sorting order, it is
-recommended that you set PageableCollection#state.sortKey and optionally
-PageableCollection#state.order, and then callPageableCollection#fetch.</p>
-
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>sortKey</strong>
-          :
-          <div class='force-inline'>
-            <p>= this.state.sortKey - See <code>state.sortKey</code>.</p>
-
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>order</strong>
-          :
-          <div class='force-inline'>
-            <p>= this.state.order - See <code>state.order</code>.</p>
-
-          </div>
-        </li>
-        <li>(
-(
-function (
-Backbone.Model
-, 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-)
-: 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-)
-|
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-)
- <strong>sortValue</strong>
-          :
-          <div class='force-inline'>
-            <p>See PageableCollection#setSorting.</p>
-<p>See <a href="http://backbonejs.org/#Collection-comparator">Backbone.Collection.comparator</a>.</p>
-
-          </div>
-        </li>
-    </ul>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='_makeFullCollection' class='mt0'>
-    _makeFullCollection<span class='gray'>(models, options)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Makes a Backbone.Collection that contains all the pages.</p>
-
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
-.<
-(
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-|
-Backbone.Model
-)
->
- <strong>models</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>Options for Backbone.Collection constructor.</p>
-
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>Backbone.Collection
-</code>
-      
-      <div class='force-inline'>
         
-      </div>
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='noconflict'>
+      noConflict
+    </h3>
+    
+  </div>
+  
+
+  <p><strong>BROWSER ONLY</strong></p>
+<p>If you already have an object named <code>PageableCollection</code> attached to the
+<code>Backbone</code> module, you can use this to return a local reference to this
+PageableCollection class and reset the name PageableCollection to its
+previous definition.</p>
+<p>// The left hand side gives you a reference to this
+// PageableCollection implementation, the right hand side
+// resets PageableCollection to your other PageableCollection.
+var PageableCollection = PageableCollection.noConflict();</p>
+
+
+  <div class='pre p1 fill-light mt0'>noConflict(): <a href="#pageablecollection">PageableCollection</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#pageablecollection">PageableCollection</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='constructor' class='mt0'>
-    constructor<span class='gray'>(models, options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='eventpageablestatechange'>
+      pageable:state:change
+    </h3>
+    
+  </div>
+  
+
+  <p>State change event. Fired when PageableCollection#state gets updated</p>
+
+
+  <div class='pre p1 fill-light mt0'>pageable:state:change</div>
+
+  
+
   
   
   
   
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='pageablecollection'>
+      PageableCollection
+    </h3>
+    
+  </div>
+  
+
+  <p>Drop-in replacement for Backbone.Collection. Supports server-side and
+client-side pagination and sorting. Client-side mode also support fully
+multi-directional synchronization of changes between pages.</p>
+
+
+  <div class='pre p1 fill-light mt0'>new PageableCollection()</div>
+
+  
+    <p>
+      Extends
+      
+        Backbone.Collection
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='state'>
+      state
+    </h3>
+    
+  </div>
+  
+
+  <p>The container object to store all pagination states.</p>
+<p>You can override the default state by extending this class or specifying
+them in an <code>options</code> hash to the constructor.</p>
+
+
+  <div class='pre p1 fill-light mt0'>state</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>firstPage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = 1 - The first page index. Set to 0 if
+your server API uses 0-based indices. You should only override this value
+during extension, initialization or reset by the server after
+fetching. This value should be read only at other times.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>lastPage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = null - The last page index. This value
+is 
+<strong>read only</strong>
+ and it&#x27;s calculated based on whether 
+<code>firstPage</code>
+ is 0 or
+1, during bootstrapping, fetching and resetting. Please don&#x27;t change this
+value under any circumstances.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>currentPage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = null - The current page index. You
+should only override this value during extension, initialization or reset
+by the server after fetching. This value should be read only at other
+times. Can be a 0-based or 1-based index, depending on whether
+
+<code>firstPage</code>
+ is 0 or 1. If left as default, it will be set to 
+<code>firstPage</code>
+
+on initialization.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = 25 - How many records to show per
+page. This value is 
+<strong>read only</strong>
+ after initialization, if you want to
+change the page size after initialization, you must call
+PageableCollection#setPageSize.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>totalPages</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = null - How many pages there are. This
+value is 
+<strong>read only</strong>
+ and it is calculated from 
+<code>totalRecords</code>
+.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>totalRecords</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = null - How many records there
+are. This value is 
+<strong>required</strong>
+ under server mode. This value is optional
+for client mode as the number will be the same as the number of models
+during bootstrapping and during fetching, either supplied by the server
+in the metadata, or calculated from the size of the response.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = null - The model attribute to use for
+sorting.
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+          : = -1 - The order to use for sorting. Specify
+-1 for ascending order or 1 for descending order. If 0, no client side
+sorting will be done and the order query parameter will not be sent to
+the server during a fetch.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='mode'>
+      mode
+    </h3>
+    
+  </div>
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>mode</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>mode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;server&quot; The mode of operations for this
+collection. 
+<code>&quot;server&quot;</code>
+ paginates on the server-side, 
+<code>&quot;client&quot;</code>
+ paginates
+on the client-side and 
+<code>&quot;infinite&quot;</code>
+ paginates on the server-side for APIs
+that do not support 
+<code>totalRecords</code>
+.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='queryparams'>
+      queryParams
+    </h3>
+    
+  </div>
+  
+
+  <p>A translation map to convert PageableCollection state attributes
+to the query parameters accepted by your server API.</p>
+<p>You can override the default state by extending this class or specifying
+them in <code>options.queryParams</code> object hash to the constructor.</p>
+
+
+  <div class='pre p1 fill-light mt0'>queryParams</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>currentPage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;page&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;per_page&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>totalPages</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;total_pages&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>totalRecords</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;total_entries&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;sort_by&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = &quot;order&quot;
+
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>directions</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : = {&quot;-1&quot;: &quot;asc&quot;, &quot;1&quot;: &quot;desc&quot;} - A map for
+translating a PageableCollection#state.order constant to the ones your
+server API accepts.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='constructor'>
+      constructor
+    </h3>
+    
+  </div>
+  
+
   <p>Given a list of models or model attributues, bootstraps the full
 collection in client mode or infinite mode, or just the page you want in
 server mode.</p>
 <p>If you want to initialize a collection to a different state than the
 default, you can specify them in <code>options.state</code>. Any state parameters
 supplied will be merged with the default. If you want to change the
-default mapping from PageableCollection#state keys to your server API's
+default mapping from PageableCollection#state keys to your server API&#x27;s
 query parameter names, you can specifiy an object hash in
 <code>option.queryParams</code>. Likewise, any mapping provided will be merged with
 the default. Lastly, all Backbone.Collection constructor options are also
@@ -387,226 +813,1000 @@ accepted.</p>
 <li><a href="http://backbonejs.org/#Collection-constructor">Backbone.Collection#initialize</a></li>
 </ul>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
-.<
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
->
- <strong>models</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-            <ul>
-                <li>function (
-Any
-, 
-Any
-)
-: 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- options.comparator
-                  <p>If specified, this
-comparator is set to the current page under server mode, or the
-PageableCollection#fullCollection otherwise.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.full
-                  <p>0 If <code>false</code> and either a
-<code>options.comparator</code> or <code>sortKey</code> is defined, the comparator is attached
-to the current page. Default is <code>true</code> under client or infinite mode and
-the comparator will be attached to the PageableCollection#fullCollection.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- options.state
-                  <p>The state attributes overriding the defaults.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- options.queryParam
-                  </li>
-            </ul>
-        </li>
-    </ul>
-    <h4>Properties</h4>
-    <ul class='suppress-p-margin'>
-        <li>Backbone.Collection
- <strong>fullCollection</strong>
-              :
-              <div class='force-inline'>
-                <p><strong>CLIENT MODE ONLY</strong>
-This collection is the internal storage for the bootstrapped or fetched
-models. You can use this if you want to operate on all the pages.</p>
 
-              </div>
-            </li>
-    </li>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='fetch' class='mt0'>
-    fetch<span class='gray'>(options)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Fetch a page from the server in server mode, or all the pages in client
-mode. Under infinite mode, the current page is refetched by default and
-then reset.</p>
-<p>The query string is constructed by translating the current pagination
-state to your server API query parameter
-usingPageableCollection#queryParams. The current page will reset after
-fetch.</p>
+  <div class='pre p1 fill-light mt0'>new constructor(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>Accepts all
-<a href="http://backbonejs.org/#Collection-fetch">Backbone.Collection#fetch</a>
-options.</p>
+  
 
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-</code>
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-      <div class='force-inline'>
-        
-      </div>
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.comparator</span> <code class='quiet'>function (Any, Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  </td>
+                  <td class='break-word'><span>If specified, this
+comparator is set to the current page under server mode, or the
+PageableCollection#fullCollection otherwise.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.full</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>0 If 
+<code>false</code>
+ and either a
+
+<code>options.comparator</code>
+ or 
+<code>sortKey</code>
+ is defined, the comparator is attached
+to the current page. Default is 
+<code>true</code>
+ under client or infinite mode and
+the comparator will be attached to the PageableCollection#fullCollection.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.state</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
+                  </td>
+                  <td class='break-word'><span>The state attributes overriding the defaults.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.queryParam</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
+                  </td>
+                  <td class='break-word'><span></span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>fullCollection</span> <code class='quiet'>(Backbone.Collection)</code>
+          : <strong>CLIENT MODE ONLY</strong>
+
+This collection is the internal storage for the bootstrapped or fetched
+models. You can use this if you want to operate on all the pages.
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getFirstPage' class='mt0'>
-    getFirstPage<span class='gray'>(options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='_makefullcollection'>
+      _makeFullCollection
+    </h3>
+    
+  </div>
+  
+
+  <p>Makes a Backbone.Collection that contains all the pages.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_makeFullCollection(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)&gt;, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): Backbone.Collection</div>
+
+  
+
   
   
   
   
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)&gt;)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Options for Backbone.Collection constructor.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Backbone.Collection</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='_makecollectioneventhandler'>
+      _makeCollectionEventHandler
+    </h3>
+    
+  </div>
+  
+
+  <p>Factory method that returns a Backbone event handler that responses to
+the <code>add</code>, <code>remove</code>, <code>reset</code>, and the <code>sort</code> events. The returned event
+handler will synchronize the current page collection and the full
+collection&#x27;s models.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_makeCollectionEventHandler(pageCol: <a href="#pageablecollection">PageableCollection</a>, fullCol: Backbone.Collection): function (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, Backbone.Model, Backbone.Collection, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pageCol</span> <code class='quiet'>(<a href="#pageablecollection">PageableCollection</a>)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>fullCol</span> <code class='quiet'>(Backbone.Collection)</code> 
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>function (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, Backbone.Model, Backbone.Collection, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>:
+        Collection event handler
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='_checkstate'>
+      _checkState
+    </h3>
+    
+  </div>
+  
+
+  <p>Sanity check this collection&#x27;s pagination states. Only perform checks
+when all the required pagination state values are defined and not null.
+If <code>totalPages</code> is undefined or null, it is set to <code>totalRecords</code> /
+<code>pageSize</code>. <code>lastPage</code> is set according to whether <code>firstPage</code> is 0 or 1
+when no error occurs.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_checkState(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        Returns the 
+<code>state</code>
+ object if no error was found.
+
+      
+    
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>: If 
+<code>totalRecords</code>
+, 
+<code>pageSize</code>
+, 
+<code>currentPage</code>
+ or
+
+<code>firstPage</code>
+ is not a finite integer.
+</li>
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>: If 
+<code>pageSize</code>
+, 
+<code>currentPage</code>
+ or 
+<code>firstPage</code>
+ is out
+of bounds.
+</li>
+      
+    </ul>
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='setpagesize'>
+      setPageSize
+    </h3>
+    
+  </div>
+  
+
+  <p>Change the page size of this collection.</p>
+<p>Under most if not all circumstances, you should call this method to
+change the page size of a pageable collection because it will keep the
+pagination state sane. By default, the method will recalculate the
+current page number to one that will retain the current page&#x27;s models
+when increasing the page size. When decreasing the page size, this method
+will retain the last models to the current page that will fit into the
+smaller page size.</p>
+<p>If <code>options.first</code> is true, changing the page size will also reset the
+current page back to the first page instead of trying to be smart.</p>
+<p>For server mode operations, changing the page size will trigger a
+PageableCollection#fetch and subsequently a <code>reset</code> event.</p>
+<p>For client mode operations, changing the page size will <code>reset</code> the
+current page by recalculating the current page boundary on the client
+side.</p>
+<p>If <code>options.fetch</code> is true, a fetch can be forced if the collection is in
+client mode.</p>
+
+
+  <div class='pre p1 fill-light mt0'>setPageSize(pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> The new page size to set to PageableCollection#state.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> <a href="PageableCollection#fetch">PageableCollection#fetch</a>
+ options.
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.first</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>= false 0 Reset the current page number to
+the first page if 
+<code>true</code>
+.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.fetch</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>If 
+<code>true</code>
+, force a fetch in client mode.
+</span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>: If 
+<code>pageSize</code>
+ is not a finite integer.
+</li>
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>: If 
+<code>pageSize</code>
+ is less than 1.
+</li>
+      
+    </ul>
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='switchmode'>
+      switchMode
+    </h3>
+    
+  </div>
+  
+
+  <p>Switching between client, server and infinite mode.</p>
+<p>If switching from client to server mode, the #fullCollection is emptied
+first and then deleted and a fetch is immediately issued for the current
+page from the server. Pass <code>false</code> to <code>options.fetch</code> to skip fetching.</p>
+<p>If switching to infinite mode, and if <code>options.models</code> is given for an
+array of models,PageableCollection#links will be populated with a URL per
+page, using the default URL for this collection.</p>
+<p>If switching from server to client mode, all of the pages are immediately
+refetched. If you have too many pages, you can pass <code>false</code> to
+<code>options.fetch</code> to skip fetching.</p>
+<p>If switching to any mode from infinite mode, thePageableCollection#links
+will be deleted.</p>
+
+
+  <div class='pre p1 fill-light mt0'>switchMode(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.fetch</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>= true - If 
+<code>false</code>
+, no fetching is done.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.resetState</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>= true - If &#x27;false&#x27;, the state is not
+reset, but checked for sanity instead.
+</span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this if 
+<code>options.fetch</code>
+ is 
+<code>false</code>
+.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='haspreviouspage'>
+      hasPreviousPage
+    </h3>
+    
+  </div>
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>hasPreviousPage(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        <code>true</code>
+ if this collection can page backward, 
+<code>false</code>
+
+otherwise.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='hasnextpage'>
+      hasNextPage
+    </h3>
+    
+  </div>
+  
+
+  
+
+  <div class='pre p1 fill-light mt0'>hasNextPage(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        <code>true</code>
+ if this collection can page forward, 
+<code>false</code>
+
+otherwise.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getfirstpage'>
+      getFirstPage
+    </h3>
+    
+  </div>
+  
+
   <p>Fetch the first page in server mode, or reset the current page of this
 collection to the first page in client or infinite mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#getPage} options.</p>
+
+  <div class='pre p1 fill-light mt0'>getFirstPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
 
           </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getLastPage' class='mt0'>
-    getLastPage<span class='gray'>(options)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Fetch the last page in server mode, or reset the current page of this
-collection to the last page in client mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#getPage} options.</p>
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getpreviouspage'>
+      getPreviousPage
+    </h3>
+    
+  </div>
+  
+
+  <p>Fetch the previous page in server mode, or reset the current page of this
+collection to the previous page in client or infinite mode.</p>
+
+
+  <div class='pre p1 fill-light mt0'>getPreviousPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
 
           </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getNextPage' class='mt0'>
-    getNextPage<span class='gray'>(options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
   
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getnextpage'>
+      getNextPage
+    </h3>
+    
+  </div>
   
-  
-  
-  
+
   <p>Fetch the next page in server mode, or reset the current page of this
 collection to the next page in client mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#getPage} options.</p>
+
+  <div class='pre p1 fill-light mt0'>getNextPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
 
           </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getPage' class='mt0'>
-    getPage<span class='gray'>(index, options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getlastpage'>
+      getLastPage
+    </h3>
+    
+  </div>
+  
+
+  <p>Fetch the last page in server mode, or reset the current page of this
+collection to the last page in client mode.</p>
+
+
+  <div class='pre p1 fill-light mt0'>getLastPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
   
   
   
   
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getpage'>
+      getPage
+    </h3>
+    
+  </div>
+  
+
   <p>Given a page index, set PageableCollection#state.currentPage to that
 index. If this collection is in server mode, fetch the page using the
 updated state, otherwise, reset the current page of this collection to
@@ -618,270 +1818,376 @@ page number, a fetch is made with the results <strong>appended</strong>
 toPageableCollection#fullCollection.  The current page will then be reset
 after fetching.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-|
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-)
- <strong>index</strong>
-          :
-          <div class='force-inline'>
-            <p>The page index to go to, or the page name to
-look up fromPageableCollection#links in infinite mode.</p>
+
+  <div class='pre p1 fill-light mt0'>getPage(index: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>), options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code> The page index to go to, or the page name to
+look up fromPageableCollection#links in infinite mode.
 
           </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#fetch} options or
-<a href="http://backbonejs.org/#Collection-reset">reset</a> options for client mode
-when <code>options.fetch</code> is <code>false</code>.</p>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#fetch} options or
+
+<a href="http://backbonejs.org/#Collection-reset">reset</a>
+ options for client mode
+when 
+<code>options.fetch</code>
+ is 
+<code>false</code>
+.
 
           </div>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.fetch
-                  <p>= false - If true, force a
-{@linkPageableCollection#fetch} in client mode.</p>
-</li>
-            </ul>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.fetch</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>= false - If true, force a
+{@linkPageableCollection#fetch} in client mode.
+</span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
-    <h4>Throws</h4>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
     <ul>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>
-: <div class='force-inline'><p>If <code>index</code> is not a finite integer under server or
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>: If 
+<code>index</code>
+ is not a finite integer under server or
 client mode, or does not yield a URL fromPageableCollection#links under
-infinite mode.</p>
-</div></li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>
-: <div class='force-inline'><p>If <code>index</code> is out of bounds.</p>
-</div></li>
+infinite mode.
+</li>
+      
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>: If 
+<code>index</code>
+ is out of bounds.
+</li>
+      
     </ul>
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getPageByOffset' class='mt0'>
-    getPageByOffset<span class='gray'>(options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
   
+  <div class='clearfix'>
+    <h3 class='fl m0' id='getpagebyoffset'>
+      getPageByOffset
+    </h3>
+    
+  </div>
   
-  
-  
-  
+
   <p>Fetch the page for the provided item offset in server mode, or reset the
 current page of this collection to the page for the provided item offset
 in client mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#getPage} options.</p>
 
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+  <div class='pre p1 fill-light mt0'>getPageByOffset(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
 
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='getPreviousPage' class='mt0'>
-    getPreviousPage<span class='gray'>(options)</span>
-  </h2>
   
-  
-  
-  
-  
-  <p>Fetch the previous page in server mode, or reset the current page of this
-collection to the previous page in client or infinite mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>{@linkPageableCollection#getPage} options.</p>
+  
+  
+  
+  
+  
 
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='hasNextPage' class='mt0'>
-    hasNextPage<span class='gray'></span>
-  </h2>
   
-  
-  
-  
-  
-  
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
-</code>
-      :
-      <div class='force-inline'>
-        <p><code>true</code> if this collection can page forward, <code>false</code>
-otherwise.</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='hasPreviousPage' class='mt0'>
-    hasPreviousPage<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
-</code>
-      :
-      <div class='force-inline'>
-        <p><code>true</code> if this collection can page backward, <code>false</code>
-otherwise.</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='mode' class='mt0'>
-    mode<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  
-    <h4>Properties</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>mode</strong>
-              :
-              <div class='force-inline'>
-                <p>= "server" The mode of operations for this
-collection. <code>"server"</code> paginates on the server-side, <code>"client"</code> paginates
-on the client-side and <code>"infinite"</code> paginates on the server-side for APIs
-that do not support <code>totalRecords</code>.</p>
-
-              </div>
-            </li>
-    </li>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='noConflict' class='mt0'>
-    noConflict<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  <p><strong>BROWSER ONLY</strong></p>
-<p>If you already have an object named <code>PageableCollection</code> attached to the
-<code>Backbone</code> module, you can use this to return a local reference to this
-PageableCollection class and reset the name PageableCollection to its
-previous definition.</p>
-<p>// The left hand side gives you a reference to this
-// PageableCollection implementation, the right hand side
-// resets PageableCollection to your other PageableCollection.
-var PageableCollection = PageableCollection.noConflict();</p>
-
-      <h4>Returns</h4>
-      <code>PageableCollection
-</code>
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-      <div class='force-inline'>
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>(<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</code>:
+        The XMLHttpRequest
+from fetch or this.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
         
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='pageable:state:change' class='mt0'>
-    pageable:state:change<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>State change event. Fired when PageableCollection#state gets updated</p>
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='PageableCollection' class='mt0'>
-    PageableCollection<span class='gray'></span>
-  </h2>
-    <p>
-      Extends
-        Backbone.Collection
-    </p>
   
+  <div class='clearfix'>
+    <h3 class='fl m0' id='sync'>
+      sync
+    </h3>
+    
+  </div>
   
-  
-  
-  
-  <p>Drop-in replacement for Backbone.Collection. Supports server-side and
-client-side pagination and sorting. Client-side mode also support fully
-multi-directional synchronization of changes between pages.</p>
 
+  <p>Overidden to make <code>getPage</code> compatible with Zepto.</p>
+
+
+  <div class='pre p1 fill-light mt0'>sync(method: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, model: (Backbone.Model | Backbone.Collection), options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>method</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>model</span> <code class='quiet'>((Backbone.Model | Backbone.Collection))</code> 
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='parse' class='mt0'>
-    parse<span class='gray'>(resp, the)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='parselinks'>
+      parseLinks
+    </h3>
+    
+  </div>
+  
+
+  <p>Parse pagination links from the server response. Only valid under
+infinite mode.</p>
+<p>Given a response body and a XMLHttpRequest object, extract pagination
+links from them for infinite paging.</p>
+<p>This default implementation parses the RFC 5988 <code>Link</code> header and extract
+3 links from it - <code>first</code>, <code>prev</code>, <code>next</code>. Any subclasses overriding this
+method <strong>must</strong> return an object hash having only the keys
+above. However, simply returning a <code>next</code> link or an empty hash if there
+are no more links should be enough for most implementations.</p>
+
+
+  <div class='pre p1 fill-light mt0'>parseLinks(resp: Any, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+  
+
   
   
   
   
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resp</span> <code class='quiet'>(Any)</code> The deserialized response body.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.xhr</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></code>
+                  </td>
+                  <td class='break-word'><span>The XMLHttpRequest object for this
+response.
+</span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='parse'>
+      parse
+    </h3>
+    
+  </div>
+  
+
   <p>Parse server response data.</p>
 <p>This default implementation assumes the response data is in one of two
 structures:</p>
@@ -903,151 +2209,83 @@ existingPageableCollection#parse implementations will continue to work,
 new code is encouraged to overridePageableCollection#parseState
 andPageableCollection#parseRecords instead.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>resp</strong>
-          :
-          <div class='force-inline'>
-            <p>The deserialized response data from the server.</p>
 
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>the</strong>
-          :
-          <div class='force-inline'>
-            <p>options for the ajax request</p>
+  <div class='pre p1 fill-light mt0'>parse(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, the: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</div>
 
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
-.<
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
->
-</code>
-      :
-      <div class='force-inline'>
-        <p>An array of model objects</p>
+  
 
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='parseLinks' class='mt0'>
-    parseLinks<span class='gray'>(resp, options)</span>
-  </h2>
   
   
   
   
   
-  <p>Parse pagination links from the server response. Only valid under
-infinite mode.</p>
-<p>Given a response body and a XMLHttpRequest object, extract pagination
-links from them for infinite paging.</p>
-<p>This default implementation parses the RFC 5988 <code>Link</code> header and extract
-3 links from it - <code>first</code>, <code>prev</code>, <code>next</code>. Any subclasses overriding this
-method <strong>must</strong> return an object hash having only the keys
-above. However, simply returning a <code>next</code> link or an empty hash if there
-are no more links should be enough for most implementations.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li>Any
- <strong>resp</strong>
-          :
-          <div class='force-inline'>
-            <p>The deserialized response body.</p>
-
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
- options.xhr
-                  <p>The XMLHttpRequest object for this
-response.</p>
-</li>
-            </ul>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-</code>
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-      <div class='force-inline'>
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>the</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> options for the ajax request
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</code>:
+        An array of model objects
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
         
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='parseRecords' class='mt0'>
-    parseRecords<span class='gray'>(resp, options)</span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>Parse server response for an array of model objects.</p>
-<p>This default implementation first checks whether the response has any
-state object as documented inPageableCollection#parse. If it exists, the
-array of model objects is assumed to be the second element, otherwise the
-entire response is returned directly.</p>
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>resp</strong>
-          :
-          <div class='force-inline'>
-            <p>The deserialized response data from the server.</p>
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='parsestate'>
+      parseState
+    </h3>
+    
+  </div>
+  
 
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>The options passed through from the
-<code>parse</code>. (backbone >= 0.9.10 only)</p>
-
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
-.<
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
->
-</code>
-      :
-      <div class='force-inline'>
-        <p>An array of model objects</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='parseState' class='mt0'>
-    parseState<span class='gray'>(resp, queryParams, state, options)</span>
-  </h2>
-  
-  
-  
-  
-  
   <p>Parse server response for server pagination state updates. Not applicable
 under infinite mode.</p>
 <p>This default implementation first checks whether the response has any
 state object as documented inPageableCollection#parse. If it exists, a
 state object is returned by mapping the server state keys to this
-pageable collection instance's query parameter keys using <code>queryParams</code>.</p>
+pageable collection instance&#x27;s query parameter keys using <code>queryParams</code>.</p>
 <p>It is <strong>NOT</strong> neccessary to return a full state object complete with all
 the mappings defined inPageableCollection#queryParams. Any state object
 resulted is merged with a copy of the current pageable collection state
@@ -1059,226 +2297,353 @@ return {totalRecords: resp.total_entries};
 }</p>
 <p>If you want to use header fields use:</p>
 <p>parseState: function (resp, queryParams, state, options) {
-return {totalRecords: options.xhr.getResponseHeader("X-total")};
+return {totalRecords: options.xhr.getResponseHeader(&quot;X-total&quot;)};
 }</p>
 <p>This method <strong>MUST</strong> return a new state object instead of directly
 modifying the PageableCollection#state object. The behavior of directly
 modifying PageableCollection#state is undefined.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>resp</strong>
-          :
-          <div class='force-inline'>
-            <p>The deserialized response data from the server.</p>
+
+  <div class='pre p1 fill-light mt0'>parseState(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, queryParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, state: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
 
           </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>queryParams</strong>
-          :
-          <div class='force-inline'>
-            <p>A copy of PageableCollection#queryParams.</p>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>queryParams</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A copy of PageableCollection#queryParams.
 
           </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>state</strong>
-          :
-          <div class='force-inline'>
-            <p>A copy of PageableCollection#state.</p>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A copy of PageableCollection#state.
 
           </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>The options passed through from
-<code>parse</code>. (backbone >= 0.9.10 only)</p>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The options passed through from
+
+<code>parse</code>
+. (backbone &gt;= 0.9.10 only)
 
           </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-</code>
-      :
-      <div class='force-inline'>
-        <p>A new (partial) state object.</p>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        A new (partial) state object.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='queryParams' class='mt0'>
-    queryParams<span class='gray'></span>
-  </h2>
-  
-  
-  
-  
-  
-  <p>A translation map to convert PageableCollection state attributes
-to the query parameters accepted by your server API.</p>
-<p>You can override the default state by extending this class or specifying
-them in <code>options.queryParams</code> object hash to the constructor.</p>
 
-    <h4>Properties</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>currentPage</strong>
-              :
-              <div class='force-inline'>
-                <p>= "page"</p>
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>pageSize</strong>
-              :
-              <div class='force-inline'>
-                <p>= "per_page"</p>
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='parserecords'>
+      parseRecords
+    </h3>
+    
+  </div>
+  
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>totalPages</strong>
-              :
-              <div class='force-inline'>
-                <p>= "total_pages"</p>
+  <p>Parse server response for an array of model objects.</p>
+<p>This default implementation first checks whether the response has any
+state object as documented inPageableCollection#parse. If it exists, the
+array of model objects is assumed to be the second element, otherwise the
+entire response is returned directly.</p>
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>totalRecords</strong>
-              :
-              <div class='force-inline'>
-                <p>= "total_entries"</p>
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>sortKey</strong>
-              :
-              <div class='force-inline'>
-                <p>= "sort_by"</p>
+  <div class='pre p1 fill-light mt0'>parseRecords(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</div>
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>order</strong>
-              :
-              <div class='force-inline'>
-                <p>= "order"</p>
+  
 
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>directions</strong>
-              :
-              <div class='force-inline'>
-                <p>= {"-1": "asc", "1": "desc"} - A map for
-translating a PageableCollection#state.order constant to the ones your
-server API accepts.</p>
-
-              </div>
-            </li>
-    </li>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='setPageSize' class='mt0'>
-    setPageSize<span class='gray'>(pageSize, options)</span>
-  </h2>
   
   
   
   
   
-  <p>Change the page size of this collection.</p>
-<p>Under most if not all circumstances, you should call this method to
-change the page size of a pageable collection because it will keep the
-pagination state sane. By default, the method will recalculate the
-current page number to one that will retain the current page's models
-when increasing the page size. When decreasing the page size, this method
-will retain the last models to the current page that will fit into the
-smaller page size.</p>
-<p>If <code>options.first</code> is true, changing the page size will also reset the
-current page back to the first page instead of trying to be smart.</p>
-<p>For server mode operations, changing the page size will trigger a
-PageableCollection#fetch and subsequently a <code>reset</code> event.</p>
-<p>For client mode operations, changing the page size will <code>reset</code> the
-current page by recalculating the current page boundary on the client
-side.</p>
-<p>If <code>options.fetch</code> is true, a fetch can be forced if the collection is in
-client mode.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>pageSize</strong>
-          :
-          <div class='force-inline'>
-            <p>The new page size to set to PageableCollection#state.</p>
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
 
           </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            <p>PageableCollection#fetch options.</p>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The options passed through from the
+
+<code>parse</code>
+. (backbone &gt;= 0.9.10 only)
 
           </div>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.first
-                  <p>= false 0 Reset the current page number to
-the first page if <code>true</code>.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.fetch
-                  <p>If <code>true</code>, force a fetch in client mode.</p>
-</li>
-            </ul>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this.</p>
+          
+        </div>
+      
+    </div>
+  
 
-      </div>
-    <h4>Throws</h4>
-    <ul>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>
-: <div class='force-inline'><p>If <code>pageSize</code> is not a finite integer.</p>
-</div></li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError">RangeError</a>
-: <div class='force-inline'><p>If <code>pageSize</code> is less than 1.</p>
-</div></li>
-    </ul>
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</code>:
+        An array of model objects
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 </section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='setSorting' class='mt0'>
-    setSorting<span class='gray'>(sortKey, order, options)</span>
-  </h2>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='fetch'>
+      fetch
+    </h3>
+    
+  </div>
+  
+
+  <p>Fetch a page from the server in server mode, or all the pages in client
+mode. Under infinite mode, the current page is refetched by default and
+then reset.</p>
+<p>The query string is constructed by translating the current pagination
+state to your server API query parameter
+usingPageableCollection#queryParams. The current page will reset after
+fetch.</p>
+
+
+  <div class='pre p1 fill-light mt0'>fetch(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></div>
+
+  
+
   
   
   
   
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Accepts all
+
+<a href="http://backbonejs.org/#Collection-fetch">Backbone.Collection#fetch</a>
+
+options.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='_makecomparator'>
+      _makeComparator
+    </h3>
+    
+  </div>
+  
+
+  <p>Convenient method for making a <code>comparator</code> sorted by a model attribute
+identified by <code>sortKey</code> and ordered by <code>order</code>.</p>
+<p>Like a Backbone.Collection, a PageableCollection will maintain the
+<strong>current page</strong> in sorted order on the client side if a <code>comparator</code> is
+attached to it. If the collection is in client mode, you can attach a
+comparator toPageableCollection#fullCollection to have all the pages
+reflect the global sorting order by specifying an option <code>full</code> to
+<code>true</code>. You <strong>must</strong> call <code>sort</code> manually
+orPageableCollection#fullCollection.sort after calling this method to
+force a resort.</p>
+<p>While you can use this method to sort the current page in server mode,
+the sorting order may not reflect the global sorting order due to the
+additions or removals of the records on the server since the last
+fetch. If you want the most updated page in a global sorting order, it is
+recommended that you set PageableCollection#state.sortKey and optionally
+PageableCollection#state.order, and then callPageableCollection#fetch.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_makeComparator(sortKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, order: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, sortValue: ((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</div>
+
+  
+
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> = this.state.sortKey - See 
+<code>state.sortKey</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> = this.state.order - See 
+<code>state.order</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sortValue</span> <code class='quiet'>(((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code> See PageableCollection#setSorting.
+<p>See <a href="http://backbonejs.org/#Collection-comparator">Backbone.Collection.comparator</a>.</p>
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    <h3 class='fl m0' id='setsorting'>
+      setSorting
+    </h3>
+    
+  </div>
+  
+
   <p>Adjusts the sorting for this pageable collection.</p>
 <p>Given a <code>sortKey</code> and an <code>order</code>, sets <code>state.sortKey</code> and
 <code>state.order</code>. A comparator can be applied on the client side to sort in
-the order defined if <code>options.side</code> is <code>"client"</code>. By default the
+the order defined if <code>options.side</code> is <code>&quot;client&quot;</code>. By default the
 comparator is applied to thePageableCollection#fullCollection. Set
 <code>options.full</code> to <code>false</code> to apply a comparator to the current page under
 any mode. Setting <code>sortKey</code> to <code>null</code> removes the comparator from both
@@ -1287,269 +2652,113 @@ the current page and the full collection.</p>
 comparison sorts. If <code>sortValue</code> is not given, <code>model.get(sortKey)</code> is
 used for sorting.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>sortKey</strong>
-          :
-          <div class='force-inline'>
-            <p>See <code>state.sortKey</code>.</p>
 
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>order</strong>
-          :
-          <div class='force-inline'>
-            <p>=this.state.order - See <code>state.order</code>.</p>
+  <div class='pre p1 fill-light mt0'>setSorting(sortKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, order: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
 
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- options.side
-                  <p>By default, <code>"client"</code> if <code>mode</code> is
-<code>"client"</code>, <code>"server"</code> otherwise.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.full
-                  <p>= true</p>
-</li>
-                <li>(
-(
-function (
-Backbone.Model
-, 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-)
-: 
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-)
-|
-<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
-)
- options.sortValue
-                  </li>
-            </ul>
-        </li>
-    </ul>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='state' class='mt0'>
-    state<span class='gray'></span>
-  </h2>
   
-  
-  
-  
-  
-  <p>The container object to store all pagination states.</p>
-<p>You can override the default state by extending this class or specifying
-them in an <code>options</code> hash to the constructor.</p>
 
-    <h4>Properties</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>firstPage</strong>
-              :
-              <div class='force-inline'>
-                <p>= 1 - The first page index. Set to 0 if
-your server API uses 0-based indices. You should only override this value
-during extension, initialization or reset by the server after
-fetching. This value should be read only at other times.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>lastPage</strong>
-              :
-              <div class='force-inline'>
-                <p>= null - The last page index. This value
-is <strong>read only</strong> and it's calculated based on whether <code>firstPage</code> is 0 or
-1, during bootstrapping, fetching and resetting. Please don't change this
-value under any circumstances.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>currentPage</strong>
-              :
-              <div class='force-inline'>
-                <p>= null - The current page index. You
-should only override this value during extension, initialization or reset
-by the server after fetching. This value should be read only at other
-times. Can be a 0-based or 1-based index, depending on whether
-<code>firstPage</code> is 0 or 1. If left as default, it will be set to <code>firstPage</code>
-on initialization.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>pageSize</strong>
-              :
-              <div class='force-inline'>
-                <p>= 25 - How many records to show per
-page. This value is <strong>read only</strong> after initialization, if you want to
-change the page size after initialization, you must call
-PageableCollection#setPageSize.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>totalPages</strong>
-              :
-              <div class='force-inline'>
-                <p>= null - How many pages there are. This
-value is <strong>read only</strong> and it is calculated from <code>totalRecords</code>.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>totalRecords</strong>
-              :
-              <div class='force-inline'>
-                <p>= null - How many records there
-are. This value is <strong>required</strong> under server mode. This value is optional
-for client mode as the number will be the same as the number of models
-during bootstrapping and during fetching, either supplied by the server
-in the metadata, or calculated from the size of the response.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>sortKey</strong>
-              :
-              <div class='force-inline'>
-                <p>= null - The model attribute to use for
-sorting.</p>
-
-              </div>
-            </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
- <strong>order</strong>
-              :
-              <div class='force-inline'>
-                <p>= -1 - The order to use for sorting. Specify
--1 for ascending order or 1 for descending order. If 0, no client side
-sorting will be done and the order query parameter will not be sent to
-the server during a fetch.</p>
-
-              </div>
-            </li>
-    </li>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='switchMode' class='mt0'>
-    switchMode<span class='gray'>(options)</span>
-  </h2>
   
   
   
   
   
-  <p>Switching between client, server and infinite mode.</p>
-<p>If switching from client to server mode, the #fullCollection is emptied
-first and then deleted and a fetch is immediately issued for the current
-page from the server. Pass <code>false</code> to <code>options.fetch</code> to skip fetching.</p>
-<p>If switching to infinite mode, and if <code>options.models</code> is given for an
-array of models,PageableCollection#links will be populated with a URL per
-page, using the default URL for this collection.</p>
-<p>If switching from server to client mode, all of the pages are immediately
-refetched. If you have too many pages, you can pass <code>false</code> to
-<code>options.fetch</code> to skip fetching.</p>
-<p>If switching to any mode from infinite mode, thePageableCollection#links
-will be deleted.</p>
 
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-            <ul>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.fetch
-                  <p>= true - If <code>false</code>, no fetching is done.</p>
-</li>
-                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
- options.resetState
-                  <p>= true - If 'false', the state is not
-reset, but checked for sanity instead.</p>
-</li>
-            </ul>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code>(
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-|
-PageableCollection
-)
-</code>
-      :
-      <div class='force-inline'>
-        <p>The XMLHttpRequest
-from fetch or this if <code>options.fetch</code> is <code>false</code>.</p>
-
-      </div>
-</section>
-</div><div class='py1'><section class='py2 clearfix'>
-  <h2 id='sync' class='mt0'>
-    sync<span class='gray'>(method, model, options)</span>
-  </h2>
   
-  
-  
-  
-  
-  <p>Overidden to make <code>getPage</code> compatible with Zepto.</p>
-
-    <h4>Parameters</h4>
-    <ul class='suppress-p-margin'>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
- <strong>method</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-        <li>(
-Backbone.Model
-|
-Backbone.Collection
-)
- <strong>model</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
- <strong>options</strong>
-          :
-          <div class='force-inline'>
-            
-          </div>
-        </li>
-    </ul>
-      <h4>Returns</h4>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a>
-</code>
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
       
-      <div class='force-inline'>
-        
-      </div>
-</section>
-</div>
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> See 
+<code>state.sortKey</code>
+.
+
+          </div>
+          
         </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> =this.state.order - See 
+<code>state.order</code>
+.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.side</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
+                  </td>
+                  <td class='break-word'><span>By default, 
+<code>&quot;client&quot;</code>
+ if 
+<code>mode</code>
+ is
+
+<code>&quot;client&quot;</code>
+, 
+<code>&quot;server&quot;</code>
+ otherwise.
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.full</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  </td>
+                  <td class='break-word'><span>= true
+</span></td>
+                </tr>
+              
+                <tr>
+                  <td class='break-word'><span class='code bold'>options.sortValue</span> <code class='quiet'>((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+                  </td>
+                  <td class='break-word'><span></span></td>
+                </tr>
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
       </div>
     </div>
   </div>
