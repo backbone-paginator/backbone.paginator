@@ -420,7 +420,7 @@ available in the ``links`` field.
 
    var Issues = Backbone.PageableCollection.extend({
      url: "https://api.github.com/repos/documentclound/backbone/issues?state=closed",
-     mode: "infinite"
+     mode: "infinite",
 
      // Initial pagination states
      state: {
