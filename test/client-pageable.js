@@ -1140,6 +1140,11 @@ $(document).ready(function () {
     col.fullCollection.reset(models);
     strictEqual(col.state.currentPage, 1);
     strictEqual(col.at(0).get("name"), "a");
+   });
+
+  test("issue #340 totalRecords should not take into account of dupe models under client mode", function() {
+    var col = new Backbone.PageableCollection([{id: 1}, {id: 1}], {mode: "client"});
+    strictEqual(col.state.totalRecords, 1);
   });
 
 });
