@@ -1147,4 +1147,26 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 1);
   });
 
+  test("issue #345 setting sortKey to null should remove the query param from appearing in the query string", function () {
+    var col = new (Backbone.PageableCollection.extend({
+      url: "test-client-fetch",
+    }))([], {
+
+      state: {
+        sortKey: "column"
+      },
+
+      queryParams: {
+        hello: null,
+        sortKey: null
+      },
+
+      mode: "client"
+    });
+
+    col.fetch();
+
+    deepEqual(this.ajaxSettings.data, {});
+  });
+
 });
