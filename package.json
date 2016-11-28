@@ -34,7 +34,7 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-qunit": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
-    "qunitjs": "^1.22.0",
+    "qunitjs": "^2.0.0",
     "sinon": "^1.17.3"
   },
   "scripts": {
