@@ -18,6 +18,8 @@ $(document).ready(function () {
                  {"name": "a"},
                  {"name": "a"}]];
     var col = new Backbone.PageableCollection();
+    sinon.spy(col, "trigger");
+
     var models = col.parse(resp);
     deepEqual(models, [{"name": "b"},
                        {"name": "c"},
@@ -29,6 +31,7 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 4);
     strictEqual(col.state.sortKey, "name");
     strictEqual(col.state.order, 1);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     resp  = [{"name": "a"},
              {"name": "a"},
@@ -46,6 +49,25 @@ $(document).ready(function () {
     strictEqual(col.state.totalRecords, 4);
     strictEqual(col.state.sortKey, "name");
     strictEqual(col.state.order, 1);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    resp  = [{total_entries: 6}, [{"name": "a"},
+      {"name": "a"},
+      {"name": "b"},
+      {"name": "c"}]];
+
+    models = col.parse(resp);
+    deepEqual(models, [{"name": "a"},
+      {"name": "a"},
+      {"name": "b"},
+      {"name": "c"}]);
+    strictEqual(col.state.currentPage, 1);
+    strictEqual(col.state.pageSize, 2);
+    strictEqual(col.state.totalPages, 3);
+    strictEqual(col.state.totalRecords, 6);
+    strictEqual(col.state.sortKey, "name");
+    strictEqual(col.state.order, 1);
+    ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
   test("_checkState", function () {
