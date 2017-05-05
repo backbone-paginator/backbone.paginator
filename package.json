@@ -29,7 +29,7 @@
     "grunt-karma": "^1.0.0",
     "jquery": "^2.2.1",
     "karma": "^1.0.0",
-    "karma-chrome-launcher": "^1.0.0",
+    "karma-chrome-launcher": "^2.1.1",
     "karma-coverage": "^1.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-qunit": "^1.0.0",
