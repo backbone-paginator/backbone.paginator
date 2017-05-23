@@ -35,7 +35,7 @@
     "karma-qunit": "^1.0.0",
     "karma-safari-launcher": "^1.0.0",
     "qunitjs": "^1.22.0",
-    "sinon": "^1.17.3"
+    "sinon": "^2.3.1"
   },
   "scripts": {
     "test": "karma start --single-run --browsers Chrome,Firefox"
