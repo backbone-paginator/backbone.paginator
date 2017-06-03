@@ -1,6 +1,6 @@
 {
   "name": "backbone.paginator",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "A pageable Backbone.Collection superset. Supports server-side/client-side/infinite pagination and sorting.",
   "main": "lib/backbone.paginator.js",
   "repository": {
