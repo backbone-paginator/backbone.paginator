@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>  | Documentation</title>
+  <title>backbone.paginator 2.0.5 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -13,8 +13,8 @@
     <div class='clearfix md-mxn2'>
       <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
         <div class='py1 px2'>
-          <h3 class='mb0 no-anchor'></h3>
-          <div class='mb1'><code></code></div>
+          <h3 class='mb0 no-anchor'>backbone.paginator</h3>
+          <div class='mb1'><code>2.0.5</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -317,9 +317,11 @@
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='noconflict'>
       noConflict
     </h3>
+    
     
   </div>
   
@@ -336,9 +338,10 @@ var PageableCollection = PageableCollection.noConflict();</p>
 
 
   <div class='pre p1 fill-light mt0'>noConflict(): <a href="#pageablecollection">PageableCollection</a></div>
-
+  
   
 
+  
   
   
   
@@ -354,6 +357,7 @@ var PageableCollection = PageableCollection.noConflict();</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="#pageablecollection">PageableCollection</a></code>:
         
+
       
     
   
@@ -376,9 +380,11 @@ var PageableCollection = PageableCollection.noConflict();</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='eventpageablestatechange'>
       pageable:state:change
     </h3>
+    
     
   </div>
   
@@ -387,9 +393,10 @@ var PageableCollection = PageableCollection.noConflict();</p>
 
 
   <div class='pre p1 fill-light mt0'>pageable:state:change</div>
-
+  
   
 
+  
   
   
   
@@ -420,9 +427,11 @@ var PageableCollection = PageableCollection.noConflict();</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='pageablecollection'>
       PageableCollection
     </h3>
+    
     
   </div>
   
@@ -433,7 +442,7 @@ multi-directional synchronization of changes between pages.</p>
 
 
   <div class='pre p1 fill-light mt0'>new PageableCollection()</div>
-
+  
   
     <p>
       Extends
@@ -448,6 +457,7 @@ multi-directional synchronization of changes between pages.</p>
   
   
   
+  
 
   
 
@@ -473,9 +483,11 @@ multi-directional synchronization of changes between pages.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='state'>
       state
     </h3>
+    
     
   </div>
   
@@ -486,9 +498,10 @@ them in an <code>options</code> hash to the constructor.</p>
 
 
   <div class='pre p1 fill-light mt0'>state</div>
-
+  
   
 
+  
   
   
   
@@ -516,10 +529,10 @@ fetching. This value should be read only at other times.
           : = null - The last page index. This value
 is 
 <strong>read only</strong>
- and it&#x27;s calculated based on whether 
+ and it's calculated based on whether 
 <code>firstPage</code>
  is 0 or
-1, during bootstrapping, fetching and resetting. Please don&#x27;t change this
+1, during bootstrapping, fetching and resetting. Please don't change this
 value under any circumstances.
 
           
@@ -619,9 +632,11 @@ the server during a fetch.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='mode'>
       mode
     </h3>
+    
     
   </div>
   
@@ -629,9 +644,10 @@ the server during a fetch.
   
 
   <div class='pre p1 fill-light mt0'>mode</div>
-
+  
   
 
+  
   
   
   
@@ -646,14 +662,14 @@ the server during a fetch.
       
         <div class='space-bottom0'>
           <span class='code bold'>mode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;server&quot; The mode of operations for this
+          : = "server" The mode of operations for this
 collection. 
-<code>&quot;server&quot;</code>
+<code>"server"</code>
  paginates on the server-side, 
-<code>&quot;client&quot;</code>
+<code>"client"</code>
  paginates
 on the client-side and 
-<code>&quot;infinite&quot;</code>
+<code>"infinite"</code>
  paginates on the server-side for APIs
 that do not support 
 <code>totalRecords</code>
@@ -685,9 +701,11 @@ that do not support
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='queryparams'>
       queryParams
     </h3>
+    
     
   </div>
   
@@ -699,9 +717,10 @@ them in <code>options.queryParams</code> object hash to the constructor.</p>
 
 
   <div class='pre p1 fill-light mt0'>queryParams</div>
-
+  
   
 
+  
   
   
   
@@ -715,50 +734,50 @@ them in <code>options.queryParams</code> object hash to the constructor.</p>
     <div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>currentPage</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;page&quot;
+          <span class='code bold'>currentPage</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "page"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;per_page&quot;
+          <span class='code bold'>pageSize</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "per_page"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>totalPages</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;total_pages&quot;
+          <span class='code bold'>totalPages</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "total_pages"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>totalRecords</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;total_entries&quot;
+          <span class='code bold'>totalRecords</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "total_entries"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;sort_by&quot;
+          <span class='code bold'>sortKey</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "sort_by"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = &quot;order&quot;
+          <span class='code bold'>order</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | function (): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+          : = "order"
 
           
         </div>
       
         <div class='space-bottom0'>
-          <span class='code bold'>directions</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : = {&quot;-1&quot;: &quot;asc&quot;, &quot;1&quot;: &quot;desc&quot;} - A map for
+          <span class='code bold'>directions</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+          : = {"-1": "asc", "1": "desc"} - A map for
 translating a PageableCollection#state.order constant to the ones your
 server API accepts.
 
@@ -788,9 +807,11 @@ server API accepts.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='constructor'>
       constructor
     </h3>
+    
     
   </div>
   
@@ -801,7 +822,7 @@ server mode.</p>
 <p>If you want to initialize a collection to a different state than the
 default, you can specify them in <code>options.state</code>. Any state parameters
 supplied will be merged with the default. If you want to change the
-default mapping from PageableCollection#state keys to your server API&#x27;s
+default mapping from PageableCollection#state keys to your server API's
 query parameter names, you can specifiy an object hash in
 <code>option.queryParams</code>. Likewise, any mapping provided will be merged with
 the default. Lastly, all Backbone.Collection constructor options are also
@@ -814,10 +835,11 @@ accepted.</p>
 </ul>
 
 
-  <div class='pre p1 fill-light mt0'>new constructor(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
-
+  <div class='pre p1 fill-light mt0'>new constructor(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+  
   
 
+  
   
   
   
@@ -830,14 +852,16 @@ accepted.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;)</code> 
+            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
           </div>
           
           <table class='mt1 mb2 fixed-table h5 col-12'>
@@ -854,7 +878,7 @@ accepted.</p>
             <tbody class='mt1'>
               
                 <tr>
-                  <td class='break-word'><span class='code bold'>options.comparator</span> <code class='quiet'>function (Any, Any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
+                  <td class='break-word'><span class='code bold'>options.comparator</span> <code class='quiet'>function (any, any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
                   </td>
                   <td class='break-word'><span>If specified, this
 comparator is set to the current page under server mode, or the
@@ -938,9 +962,11 @@ models. You can use this if you want to operate on all the pages.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='_makefullcollection'>
       _makeFullCollection
     </h3>
+    
     
   </div>
   
@@ -948,10 +974,11 @@ models. You can use this if you want to operate on all the pages.
   <p>Makes a Backbone.Collection that contains all the pages.</p>
 
 
-  <div class='pre p1 fill-light mt0'>_makeFullCollection(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)&gt;, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): Backbone.Collection</div>
-
+  <div class='pre p1 fill-light mt0'>_makeFullCollection(models: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): Backbone.Collection</div>
+  
   
 
+  
   
   
   
@@ -964,14 +991,16 @@ models. You can use this if you want to operate on all the pages.
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)&gt;)</code> 
+            <span class='code bold'>models</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | Backbone.Model)>)</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Options for Backbone.Collection constructor.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Options for Backbone.Collection constructor.
 
           </div>
           
@@ -987,6 +1016,7 @@ models. You can use this if you want to operate on all the pages.
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>Backbone.Collection</code>:
         
+
       
     
   
@@ -1009,9 +1039,11 @@ models. You can use this if you want to operate on all the pages.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='_makecollectioneventhandler'>
       _makeCollectionEventHandler
     </h3>
+    
     
   </div>
   
@@ -1019,13 +1051,14 @@ models. You can use this if you want to operate on all the pages.
   <p>Factory method that returns a Backbone event handler that responses to
 the <code>add</code>, <code>remove</code>, <code>reset</code>, and the <code>sort</code> events. The returned event
 handler will synchronize the current page collection and the full
-collection&#x27;s models.</p>
+collection's models.</p>
 
 
   <div class='pre p1 fill-light mt0'>_makeCollectionEventHandler(pageCol: <a href="#pageablecollection">PageableCollection</a>, fullCol: Backbone.Collection): function (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, Backbone.Model, Backbone.Collection, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1038,14 +1071,16 @@ collection&#x27;s models.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>pageCol</span> <code class='quiet'>(<a href="#pageablecollection">PageableCollection</a>)</code> 
+            <span class='code bold'>pageCol</span> <code class='quiet'>(<a href="#pageablecollection">PageableCollection</a>)</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>fullCol</span> <code class='quiet'>(Backbone.Collection)</code> 
+            <span class='code bold'>fullCol</span> <code class='quiet'>(Backbone.Collection)</code>
+	    
           </div>
           
         </div>
@@ -1083,30 +1118,46 @@ collection&#x27;s models.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='_checkstate'>
       _checkState
     </h3>
     
+    
   </div>
   
 
-  <p>Sanity check this collection&#x27;s pagination states. Only perform checks
+  <p>Sanity check this collection's pagination states. Only perform checks
 when all the required pagination state values are defined and not null.
 If <code>totalPages</code> is undefined or null, it is set to <code>totalRecords</code> /
 <code>pageSize</code>. <code>lastPage</code> is set according to whether <code>firstPage</code> is 0 or 1
 when no error occurs.</p>
 
 
-  <div class='pre p1 fill-light mt0'>_checkState(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
-
-  
-
-  
-  
-  
+  <div class='pre p1 fill-light mt0'>_checkState(state: any): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
   
 
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
   
 
   
@@ -1168,9 +1219,11 @@ of bounds.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='setpagesize'>
       setPageSize
     </h3>
+    
     
   </div>
   
@@ -1179,7 +1232,7 @@ of bounds.
 <p>Under most if not all circumstances, you should call this method to
 change the page size of a pageable collection because it will keep the
 pagination state sane. By default, the method will recalculate the
-current page number to one that will retain the current page&#x27;s models
+current page number to one that will retain the current page's models
 when increasing the page size. When decreasing the page size, this method
 will retain the last models to the current page that will fit into the
 smaller page size.</p>
@@ -1195,9 +1248,10 @@ client mode.</p>
 
 
   <div class='pre p1 fill-light mt0'>setPageSize(pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1210,7 +1264,8 @@ client mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> The new page size to set to PageableCollection#state.
+            <span class='code bold'>pageSize</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The new page size to set to PageableCollection#state.
 
           </div>
           
@@ -1218,7 +1273,8 @@ client mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> <a href="PageableCollection#fetch">PageableCollection#fetch</a>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    <a href="PageableCollection#fetch">PageableCollection#fetch</a>
  options.
 
           </div>
@@ -1309,9 +1365,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='switchmode'>
       switchMode
     </h3>
+    
     
   </div>
   
@@ -1330,10 +1388,11 @@ refetched. If you have too many pages, you can pass <code>false</code> to
 will be deleted.</p>
 
 
-  <div class='pre p1 fill-light mt0'>switchMode(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  <div class='pre p1 fill-light mt0'>switchMode(mode: (<code>"server"</code> | <code>"client"</code> | <code>"infinite"</code>), options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+  
   
 
+  
   
   
   
@@ -1346,7 +1405,17 @@ will be deleted.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+            <span class='code bold'>mode</span> <code class='quiet'>((<code>"server"</code> | <code>"client"</code> | <code>"infinite"</code>))</code>
+	    The mode to switch to.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
           </div>
           
           <table class='mt1 mb2 fixed-table h5 col-12'>
@@ -1374,7 +1443,7 @@ will be deleted.</p>
                 <tr>
                   <td class='break-word'><span class='code bold'>options.resetState</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
                   </td>
-                  <td class='break-word'><span>= true - If &#x27;false&#x27;, the state is not
+                  <td class='break-word'><span>= true - If 'false', the state is not
 reset, but checked for sanity instead.
 </span></td>
                 </tr>
@@ -1422,9 +1491,11 @@ from fetch or this if
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='haspreviouspage'>
       hasPreviousPage
     </h3>
+    
     
   </div>
   
@@ -1432,9 +1503,10 @@ from fetch or this if
   
 
   <div class='pre p1 fill-light mt0'>hasPreviousPage(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
-
+  
   
 
+  
   
   
   
@@ -1477,9 +1549,11 @@ otherwise.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='hasnextpage'>
       hasNextPage
     </h3>
+    
     
   </div>
   
@@ -1487,9 +1561,10 @@ otherwise.
   
 
   <div class='pre p1 fill-light mt0'>hasNextPage(): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
-
+  
   
 
+  
   
   
   
@@ -1532,9 +1607,11 @@ otherwise.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getfirstpage'>
       getFirstPage
     </h3>
+    
     
   </div>
   
@@ -1544,9 +1621,10 @@ collection to the first page in client or infinite mode.</p>
 
 
   <div class='pre p1 fill-light mt0'>getFirstPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1559,7 +1637,8 @@ collection to the first page in client or infinite mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#getPage} options.
 
           </div>
           
@@ -1599,9 +1678,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getpreviouspage'>
       getPreviousPage
     </h3>
+    
     
   </div>
   
@@ -1611,9 +1692,10 @@ collection to the previous page in client or infinite mode.</p>
 
 
   <div class='pre p1 fill-light mt0'>getPreviousPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1626,7 +1708,8 @@ collection to the previous page in client or infinite mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#getPage} options.
 
           </div>
           
@@ -1666,9 +1749,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getnextpage'>
       getNextPage
     </h3>
+    
     
   </div>
   
@@ -1678,9 +1763,10 @@ collection to the next page in client mode.</p>
 
 
   <div class='pre p1 fill-light mt0'>getNextPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1693,7 +1779,8 @@ collection to the next page in client mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#getPage} options.
 
           </div>
           
@@ -1733,9 +1820,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getlastpage'>
       getLastPage
     </h3>
+    
     
   </div>
   
@@ -1745,9 +1834,10 @@ collection to the last page in client mode.</p>
 
 
   <div class='pre p1 fill-light mt0'>getLastPage(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1760,7 +1850,8 @@ collection to the last page in client mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#getPage} options.
 
           </div>
           
@@ -1800,9 +1891,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getpage'>
       getPage
     </h3>
+    
     
   </div>
   
@@ -1820,9 +1913,10 @@ after fetching.</p>
 
 
   <div class='pre p1 fill-light mt0'>getPage(index: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>), options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -1835,7 +1929,8 @@ after fetching.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>index</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code> The page index to go to, or the page name to
+            <span class='code bold'>index</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+	    The page index to go to, or the page name to
 look up fromPageableCollection#links in infinite mode.
 
           </div>
@@ -1844,7 +1939,8 @@ look up fromPageableCollection#links in infinite mode.
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#fetch} options or
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#fetch} options or
 
 <a href="http://backbonejs.org/#Collection-reset">reset</a>
  options for client mode
@@ -1933,9 +2029,11 @@ infinite mode.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='getpagebyoffset'>
       getPageByOffset
     </h3>
+    
     
   </div>
   
@@ -1945,10 +2043,11 @@ current page of this collection to the page for the provided item offset
 in client mode.</p>
 
 
-  <div class='pre p1 fill-light mt0'>getPageByOffset(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
-
+  <div class='pre p1 fill-light mt0'>getPageByOffset(offset: any, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): (<a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a> | <a href="#pageablecollection">PageableCollection</a>)</div>
+  
   
 
+  
   
   
   
@@ -1961,7 +2060,16 @@ in client mode.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> {@linkPageableCollection#getPage} options.
+            <span class='code bold'>offset</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    {@linkPageableCollection#getPage} options.
 
           </div>
           
@@ -2001,9 +2109,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='sync'>
       sync
     </h3>
+    
     
   </div>
   
@@ -2012,9 +2122,10 @@ from fetch or this.
 
 
   <div class='pre p1 fill-light mt0'>sync(method: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, model: (Backbone.Model | Backbone.Collection), options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></div>
-
+  
   
 
+  
   
   
   
@@ -2027,21 +2138,24 @@ from fetch or this.
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>method</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> 
+            <span class='code bold'>method</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>model</span> <code class='quiet'>((Backbone.Model | Backbone.Collection))</code> 
+            <span class='code bold'>model</span> <code class='quiet'>((Backbone.Model | Backbone.Collection))</code>
+	    
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
           </div>
           
         </div>
@@ -2056,6 +2170,7 @@ from fetch or this.
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></code>:
         
+
       
     
   
@@ -2078,9 +2193,11 @@ from fetch or this.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='parselinks'>
       parseLinks
     </h3>
+    
     
   </div>
   
@@ -2096,10 +2213,11 @@ above. However, simply returning a <code>next</code> link or an empty hash if th
 are no more links should be enough for most implementations.</p>
 
 
-  <div class='pre p1 fill-light mt0'>parseLinks(resp: Any, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
-
+  <div class='pre p1 fill-light mt0'>parseLinks(resp: any, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+  
   
 
+  
   
   
   
@@ -2112,7 +2230,8 @@ are no more links should be enough for most implementations.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>resp</span> <code class='quiet'>(Any)</code> The deserialized response body.
+            <span class='code bold'>resp</span> <code class='quiet'>(any)</code>
+	    The deserialized response body.
 
           </div>
           
@@ -2120,7 +2239,8 @@ are no more links should be enough for most implementations.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
           </div>
           
           <table class='mt1 mb2 fixed-table h5 col-12'>
@@ -2159,6 +2279,7 @@ response.
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
         
+
       
     
   
@@ -2181,9 +2302,11 @@ response.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='parse'>
       parse
     </h3>
+    
     
   </div>
   
@@ -2210,10 +2333,11 @@ new code is encouraged to overridePageableCollection#parseState
 andPageableCollection#parseRecords instead.</p>
 
 
-  <div class='pre p1 fill-light mt0'>parse(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, the: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</div>
-
+  <div class='pre p1 fill-light mt0'>parse(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: any, the: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
+  
   
 
+  
   
   
   
@@ -2226,7 +2350,8 @@ andPageableCollection#parseRecords instead.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    The deserialized response data from the server.
 
           </div>
           
@@ -2234,7 +2359,16 @@ andPageableCollection#parseRecords instead.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>the</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> options for the ajax request
+            <span class='code bold'>options</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>the</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    options for the ajax request
 
           </div>
           
@@ -2248,7 +2382,7 @@ andPageableCollection#parseRecords instead.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</code>:
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
         An array of model objects
 
       
@@ -2273,9 +2407,11 @@ andPageableCollection#parseRecords instead.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='parsestate'>
       parseState
     </h3>
+    
     
   </div>
   
@@ -2285,7 +2421,7 @@ under infinite mode.</p>
 <p>This default implementation first checks whether the response has any
 state object as documented inPageableCollection#parse. If it exists, a
 state object is returned by mapping the server state keys to this
-pageable collection instance&#x27;s query parameter keys using <code>queryParams</code>.</p>
+pageable collection instance's query parameter keys using <code>queryParams</code>.</p>
 <p>It is <strong>NOT</strong> neccessary to return a full state object complete with all
 the mappings defined inPageableCollection#queryParams. Any state object
 resulted is merged with a copy of the current pageable collection state
@@ -2297,7 +2433,7 @@ return {totalRecords: resp.total_entries};
 }</p>
 <p>If you want to use header fields use:</p>
 <p>parseState: function (resp, queryParams, state, options) {
-return {totalRecords: options.xhr.getResponseHeader(&quot;X-total&quot;)};
+return {totalRecords: options.xhr.getResponseHeader("X-total")};
 }</p>
 <p>This method <strong>MUST</strong> return a new state object instead of directly
 modifying the PageableCollection#state object. The behavior of directly
@@ -2305,9 +2441,10 @@ modifying PageableCollection#state is undefined.</p>
 
 
   <div class='pre p1 fill-light mt0'>parseState(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, queryParams: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, state: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
-
+  
   
 
+  
   
   
   
@@ -2320,7 +2457,8 @@ modifying PageableCollection#state is undefined.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    The deserialized response data from the server.
 
           </div>
           
@@ -2328,7 +2466,8 @@ modifying PageableCollection#state is undefined.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>queryParams</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A copy of PageableCollection#queryParams.
+            <span class='code bold'>queryParams</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    A copy of PageableCollection#queryParams.
 
           </div>
           
@@ -2336,7 +2475,8 @@ modifying PageableCollection#state is undefined.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> A copy of PageableCollection#state.
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    A copy of PageableCollection#state.
 
           </div>
           
@@ -2344,10 +2484,11 @@ modifying PageableCollection#state is undefined.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The options passed through from
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    The options passed through from
 
 <code>parse</code>
-. (backbone &gt;= 0.9.10 only)
+. (backbone >= 0.9.10 only)
 
           </div>
           
@@ -2386,9 +2527,11 @@ modifying PageableCollection#state is undefined.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='parserecords'>
       parseRecords
     </h3>
+    
     
   </div>
   
@@ -2400,10 +2543,11 @@ array of model objects is assumed to be the second element, otherwise the
 entire response is returned directly.</p>
 
 
-  <div class='pre p1 fill-light mt0'>parseRecords(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</div>
-
+  <div class='pre p1 fill-light mt0'>parseRecords(resp: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
+  
   
 
+  
   
   
   
@@ -2416,7 +2560,8 @@ entire response is returned directly.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The deserialized response data from the server.
+            <span class='code bold'>resp</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    The deserialized response data from the server.
 
           </div>
           
@@ -2424,10 +2569,11 @@ entire response is returned directly.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> The options passed through from the
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    The options passed through from the
 
 <code>parse</code>
-. (backbone &gt;= 0.9.10 only)
+. (backbone >= 0.9.10 only)
 
           </div>
           
@@ -2441,7 +2587,7 @@ entire response is returned directly.</p>
   
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&lt;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&gt;</code>:
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
         An array of model objects
 
       
@@ -2466,9 +2612,11 @@ entire response is returned directly.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='fetch'>
       fetch
     </h3>
+    
     
   </div>
   
@@ -2483,9 +2631,10 @@ fetch.</p>
 
 
   <div class='pre p1 fill-light mt0'>fetch(options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></div>
-
+  
   
 
+  
   
   
   
@@ -2498,7 +2647,8 @@ fetch.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> Accepts all
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Accepts all
 
 <a href="http://backbonejs.org/#Collection-fetch">Backbone.Collection#fetch</a>
 
@@ -2518,6 +2668,7 @@ options.
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">XMLHttpRequest</a></code>:
         
+
       
     
   
@@ -2540,9 +2691,11 @@ options.
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='_makecomparator'>
       _makeComparator
     </h3>
+    
     
   </div>
   
@@ -2566,9 +2719,10 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
 
 
   <div class='pre p1 fill-light mt0'>_makeComparator(sortKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, order: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, sortValue: ((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</div>
-
+  
   
 
+  
   
   
   
@@ -2581,7 +2735,8 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> = this.state.sortKey - See 
+            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    = this.state.sortKey - See 
 <code>state.sortKey</code>
 .
 
@@ -2591,7 +2746,8 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> = this.state.order - See 
+            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    = this.state.order - See 
 <code>state.order</code>
 .
 
@@ -2601,7 +2757,8 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>sortValue</span> <code class='quiet'>(((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code> See PageableCollection#setSorting.
+            <span class='code bold'>sortValue</span> <code class='quiet'>(((function (Backbone.Model, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>) | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+	    See PageableCollection#setSorting.
 <p>See <a href="http://backbonejs.org/#Collection-comparator">Backbone.Collection.comparator</a>.</p>
 
           </div>
@@ -2633,9 +2790,11 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
 
   
   <div class='clearfix'>
+    
     <h3 class='fl m0' id='setsorting'>
       setSorting
     </h3>
+    
     
   </div>
   
@@ -2643,7 +2802,7 @@ PageableCollection#state.order, and then callPageableCollection#fetch.</p>
   <p>Adjusts the sorting for this pageable collection.</p>
 <p>Given a <code>sortKey</code> and an <code>order</code>, sets <code>state.sortKey</code> and
 <code>state.order</code>. A comparator can be applied on the client side to sort in
-the order defined if <code>options.side</code> is <code>&quot;client&quot;</code>. By default the
+the order defined if <code>options.side</code> is <code>"client"</code>. By default the
 comparator is applied to thePageableCollection#fullCollection. Set
 <code>options.full</code> to <code>false</code> to apply a comparator to the current page under
 any mode. Setting <code>sortKey</code> to <code>null</code> removes the comparator from both
@@ -2654,9 +2813,10 @@ used for sorting.</p>
 
 
   <div class='pre p1 fill-light mt0'>setSorting(sortKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, order: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, options: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
-
+  
   
 
+  
   
   
   
@@ -2669,7 +2829,8 @@ used for sorting.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code> See 
+            <span class='code bold'>sortKey</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    See 
 <code>state.sortKey</code>
 .
 
@@ -2679,7 +2840,8 @@ used for sorting.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code> =this.state.order - See 
+            <span class='code bold'>order</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    =this.state.order - See 
 <code>state.order</code>
 .
 
@@ -2689,7 +2851,8 @@ used for sorting.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code> 
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    
           </div>
           
           <table class='mt1 mb2 fixed-table h5 col-12'>
@@ -2709,14 +2872,14 @@ used for sorting.</p>
                   <td class='break-word'><span class='code bold'>options.side</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
                   </td>
                   <td class='break-word'><span>By default, 
-<code>&quot;client&quot;</code>
+<code>"client"</code>
  if 
 <code>mode</code>
  is
 
-<code>&quot;client&quot;</code>
+<code>"client"</code>
 , 
-<code>&quot;server&quot;</code>
+<code>"server"</code>
  otherwise.
 </span></td>
                 </tr>
