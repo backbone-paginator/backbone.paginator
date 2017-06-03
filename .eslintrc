@@ -1,0 +1,58 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "amd": true,
+    "jquery": true,
+    "qunit": true
+  },
+  "extends": "google",
+  "plugins": [
+    "compat"
+  ],
+  "rules": {
+    "compat/compat": "error",
+    "quotes": [
+      "error",
+      "double",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "space-before-function-paren": [
+      "error",
+      "always"
+    ],
+    "brace-style": [
+      "error",
+      "stroustrup",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "padded-blocks": "off",
+    "one-var": "off",
+    "no-var": "off",
+    "require-jsdoc": [
+      "error",
+      {
+        "require": {
+          "FunctionDeclaration": false,
+          "ClassDeclaration": true,
+          "MethodDefinition": true
+        }
+      }
+    ],
+    "prefer-rest-params": "off",
+    "prefer-spread": "off",
+    "comma-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "no-invalid-this": "off",
+    "max-len": [
+      "error",
+      100
+    ]
+  }
+}
