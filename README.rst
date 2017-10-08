@@ -2,6 +2,7 @@ backbone.paginator
 ==================
 
 |travis-status|_
+|cdnjs-version|_
 
 A pageable, drop-in replacement for Backbone.Collection called
 Backbone.PageableCollection.
@@ -681,3 +682,5 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 .. |travis-status| image:: https://travis-ci.org/backbone-paginator/backbone.paginator.png
 .. _travis-status: https://travis-ci.org/backbone-paginator/backbone.paginator
+.. |cdnjs-version| image:: https://img.shields.io/cdnjs/v/backbone.paginator.svg
+.. _cdnjs-version: https://cdnjs.com/libraries/backbone.paginator
