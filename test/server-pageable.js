@@ -4,9 +4,9 @@ $(document).ready(function () {
 
   // TODO: test invalid state
 
-  module("Backbone.PageableCollection - Server");
+  QUnit.module("Backbone.PageableCollection - Server");
 
-  test("parse", function () {
+  QUnit.test("parse", function (assert) {
     var resp = [{"page": 1,
                  "per_page": 2,
                  "total_pages": 2,
@@ -21,17 +21,17 @@ $(document).ready(function () {
     sinon.spy(col, "trigger");
 
     var models = col.parse(resp);
-    deepEqual(models, [{"name": "b"},
+    assert.deepEqual(models, [{"name": "b"},
                        {"name": "c"},
                        {"name": "a"},
                        {"name": "a"}]);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.pageSize, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.pageSize, 2);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.sortKey, "name");
+    assert.strictEqual(col.state.order, 1);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     resp  = [{"name": "a"},
              {"name": "a"},
@@ -39,17 +39,17 @@ $(document).ready(function () {
              {"name": "c"}];
 
     models = col.parse(resp);
-    deepEqual(models, [{"name": "a"},
+    assert.deepEqual(models, [{"name": "a"},
                        {"name": "a"},
                        {"name": "b"},
                        {"name": "c"}]);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.pageSize, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.pageSize, 2);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.sortKey, "name");
+    assert.strictEqual(col.state.order, 1);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     resp  = [{total_entries: 6}, [{"name": "a"},
       {"name": "a"},
@@ -57,49 +57,49 @@ $(document).ready(function () {
       {"name": "c"}]];
 
     models = col.parse(resp);
-    deepEqual(models, [{"name": "a"},
+    assert.deepEqual(models, [{"name": "a"},
       {"name": "a"},
       {"name": "b"},
       {"name": "c"}]);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.pageSize, 2);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.state.totalRecords, 6);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.pageSize, 2);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.state.totalRecords, 6);
+    assert.strictEqual(col.state.sortKey, "name");
+    assert.strictEqual(col.state.order, 1);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
-  test("_checkState", function () {
+  QUnit.test("_checkState", function (assert) {
     var col = new Backbone.PageableCollection();
     var state = _.clone(col.state);
 
     state.totalRecords = "";
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`totalRecords` must be a number");
 
     state.totalRecords = 0;
     state.pageSize = "";
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`pageSize` must be a number");
 
     state.totalPages = 0;
     state.currentPage = "";
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`currentPage` must be a number");
 
     state.currentPage = 0;
     state.firstPage = "";
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`firstPage` must be a number");
 
     state.firstPage = 0;
     state.pageSize = -1;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`pageSize` must be >= 1");
 
@@ -110,61 +110,61 @@ $(document).ready(function () {
     state.totalRecords = 2;
     state.pageSize = 1;
     col._checkState(state);
-    strictEqual(state.totalPages, 2);
+    assert.strictEqual(state.totalPages, 2);
 
     state.totalPages = 100;
     col._checkState(state);
-    strictEqual(state.totalPages, 2);
+    assert.strictEqual(state.totalPages, 2);
 
     state.totalPages = 2;
     state.firstPage = -1;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`firstPage must be 0 or 1`");
 
     state.firstPage = 0;
     state.currentPage = -1;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`currentPage` must be firstPage <= currentPage < totalPages if 0-based.");
 
     state.currentPage = 2;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`currentPage` must be firstPage <= currentPage < totalPages if 0-based.");
 
     state.currentPage = 0;
     col._checkState(state);
-    strictEqual(state.lastPage, 1);
+    assert.strictEqual(state.lastPage, 1);
 
     state.firstPage = 1;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`currentPage` must be firstPage <= currentPage <= totalPages if 1-based.");
 
     state.currentPage = 3;
-    throws(function () {
+    assert.throws(function () {
       col._checkState(state);
     }, "`currentPage` must be firstPage <= currentPage <= totalPages if 1-based.");
 
     state.currentPage = 1;
     col._checkState(state);
-    strictEqual(state.lastPage, 2);
+    assert.strictEqual(state.lastPage, 2);
 
     state.firstPage = 0;
     state.currentPage = 0;
     state.totalRecords = 0;
     col._checkState(state);
-    strictEqual(state.lastPage, 0);
+    assert.strictEqual(state.lastPage, 0);
 
     state.firstPage = 1;
     state.currentPage = 1;
     state.totalRecords = 0;
     col._checkState(state);
-    strictEqual(state.lastPage, 1);
+    assert.strictEqual(state.lastPage, 1);
   });
 
-  test("extend and constructor", function () {
+  QUnit.test("extend and constructor", function (assert) {
 
     // test extending state and query params merge with defaults in prototype too
     var col = new (Backbone.PageableCollection.extend({
@@ -176,7 +176,7 @@ $(document).ready(function () {
       }
     }))();
 
-    deepEqual(col.state, {
+    assert.deepEqual(col.state, {
       firstPage: 1,
       lastPage: null,
       currentPage: 1,
@@ -187,7 +187,7 @@ $(document).ready(function () {
       order: -1
     });
 
-    deepEqual(col.queryParams, {
+    assert.deepEqual(col.queryParams, {
       currentPage: "page",
       pageSize: "per_page",
       totalPages: "total_pages",
@@ -225,27 +225,27 @@ $(document).ready(function () {
       }
     });
 
-    strictEqual(col.state.firstPage, 0);
-    strictEqual(col.state.currentPage, 0);
-    strictEqual(col.state.pageSize, 1);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.order, 1);
-    strictEqual(col.comparator, undefined);
+    assert.strictEqual(col.state.firstPage, 0);
+    assert.strictEqual(col.state.currentPage, 0);
+    assert.strictEqual(col.state.pageSize, 1);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.strictEqual(col.state.sortKey, "name");
+    assert.strictEqual(col.state.order, 1);
+    assert.strictEqual(col.comparator, undefined);
 
-    strictEqual(col.queryParams.currentPage, "current_page");
-    strictEqual(col.queryParams.pageSize, "page_size");
-    strictEqual(col.queryParams.totalPages, "total_pages");
-    strictEqual(col.queryParams.totalRecords, "total_records");
-    strictEqual(col.queryParams.sortKey, "sort_key");
-    strictEqual(col.queryParams.order, "direction");
-    deepEqual(col.queryParams.directions, {"-1": -1, "1": 1});
+    assert.strictEqual(col.queryParams.currentPage, "current_page");
+    assert.strictEqual(col.queryParams.pageSize, "page_size");
+    assert.strictEqual(col.queryParams.totalPages, "total_pages");
+    assert.strictEqual(col.queryParams.totalRecords, "total_records");
+    assert.strictEqual(col.queryParams.sortKey, "sort_key");
+    assert.strictEqual(col.queryParams.order, "direction");
+    assert.deepEqual(col.queryParams.directions, {"-1": -1, "1": 1});
 
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.at(2).get("name"), "b");
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.at(2).get("name"), "b");
 
     var comparator = function (model) {
       return model.get("name");
@@ -268,21 +268,23 @@ $(document).ready(function () {
       comparator: comparator
     });
 
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "b");
-    strictEqual(col.at(2).get("name"), "c");
-    strictEqual(col.comparator, comparator);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.strictEqual(col.at(2).get("name"), "c");
+    assert.strictEqual(col.comparator, comparator);
   });
 
-  test("fetch", 17, function () {
+  QUnit.test("fetch", function (assert) {
+    assert.expect(17);
+
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
     }))();
 
     col.fetch();
 
-    strictEqual(this.ajaxSettings.url, "test-fetch");
-    deepEqual(this.ajaxSettings.data, {
+    assert.strictEqual(this.ajaxSettings.url, "test-fetch");
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 1,
       "per_page": 25
     });
@@ -290,7 +292,7 @@ $(document).ready(function () {
     col.queryParams.order = function () { return 'order_test'; };
     col.state.sortKey = "title",
     col.fetch();
-    deepEqual(this.ajaxSettings.data, {
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 1,
       "sort_by": "title",
       "order_test": 'asc',
@@ -310,10 +312,10 @@ $(document).ready(function () {
 
     col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
 
-    strictEqual(this.ajaxSettings.url, "test-fetch-2");
-    strictEqual(this.ajaxSettings.add, true);
-    strictEqual(this.ajaxSettings.silent, true);
-    deepEqual(this.ajaxSettings.data, {
+    assert.strictEqual(this.ajaxSettings.url, "test-fetch-2");
+    assert.strictEqual(this.ajaxSettings.add, true);
+    assert.strictEqual(this.ajaxSettings.silent, true);
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 0,
       "per_page": 50,
       "sort_by": "name",
@@ -322,14 +324,14 @@ $(document).ready(function () {
 
 
     this.ajaxSettings.success([{"total_entries": 0}, []]);
-    strictEqual(col.state.sortKey, "name");
-    strictEqual(col.state.firstPage, 0);
-    strictEqual(col.state.order, null);
-    strictEqual(col.state.currentPage, 0);
-    strictEqual(col.state.pageSize, 50);
-    strictEqual(col.state.totalRecords, 0);
-    strictEqual(col.state.lastPage, 0);
-    strictEqual(col.state.totalPages, 0);
+    assert.strictEqual(col.state.sortKey, "name");
+    assert.strictEqual(col.state.firstPage, 0);
+    assert.strictEqual(col.state.order, null);
+    assert.strictEqual(col.state.currentPage, 0);
+    assert.strictEqual(col.state.pageSize, 50);
+    assert.strictEqual(col.state.totalRecords, 0);
+    assert.strictEqual(col.state.lastPage, 0);
+    assert.strictEqual(col.state.totalPages, 0);
 
     col.state.sortKey = ["firstSort", "secondSort"];
     col.state.order = [-1, 1];
@@ -339,7 +341,7 @@ $(document).ready(function () {
     col.state.pageSize = 50;
     col.state.firstPage = 0;
     col.fetch();
-    deepEqual(this.ajaxSettings.data, {
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 0,
       "per_page": 50,
       "sort_by": ["firstSort", "secondSort"],
@@ -349,37 +351,37 @@ $(document).ready(function () {
 
     col.state.page = 0;
     col.fetch({data: {page: 1}});
-    deepEqual(this.ajaxSettings.data.page, 1);
+    assert.deepEqual(this.ajaxSettings.data.page, 1);
   });
 
-  test("getPage", function () {
+  QUnit.test("getPage", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100
       }
     });
-    throws(function () {
+    assert.throws(function () {
       col.getPage('0');
     }, "`index` must be a finite integer");
 
-    throws(function () {
+    assert.throws(function () {
       col.getPage(0);
     }, "`index` must be firstPage <= index <= lastPage");
 
-    throws(function () {
+    assert.throws(function () {
       col.getPage(5);
     }, "`index` must be firstPage <= index <= lastPage");
 
     sinon.stub(col, "fetch");
 
     col.getPage(2, {add: true, silent: true});
-    strictEqual(col.state.currentPage, 2);
-    deepEqual(col.fetch.args[0][0], {add: true, silent: true, from: 1, to: 2});
+    assert.strictEqual(col.state.currentPage, 2);
+    assert.deepEqual(col.fetch.args[0][0], {add: true, silent: true, from: 1, to: 2});
 
     col.fetch.restore();
   });
 
-  test("getFirstPage", function () {
+  QUnit.test("getFirstPage", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100,
@@ -391,13 +393,13 @@ $(document).ready(function () {
 
     col.getFirstPage();
 
-    strictEqual(col.state.currentPage, 1);
-    ok(col.fetch.calledOnce);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.ok(col.fetch.calledOnce);
 
     col.fetch.restore();
   });
 
-  test("getPreviousPage", function () {
+  QUnit.test("getPreviousPage", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100,
@@ -409,18 +411,18 @@ $(document).ready(function () {
 
     col.getPreviousPage();
 
-    strictEqual(col.state.currentPage, 1);
-    ok(col.fetch.calledOnce);
-    col.fetch.reset();
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.ok(col.fetch.calledOnce);
+    col.fetch.resetHistory();
 
-    throws(function () {
+    assert.throws(function () {
       col.getPreviousPage();
     }, "`index` must be firstPage <= index <= lastPage");
 
     col.fetch.restore();
   });
 
-  test("getNextPage", function () {
+  QUnit.test("getNextPage", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100,
@@ -432,18 +434,18 @@ $(document).ready(function () {
 
     col.getNextPage();
 
-    strictEqual(col.state.currentPage, 4);
-    ok(col.fetch.calledOnce);
-    col.fetch.reset();
+    assert.strictEqual(col.state.currentPage, 4);
+    assert.ok(col.fetch.calledOnce);
+    col.fetch.resetHistory();
 
-    throws(function () {
+    assert.throws(function () {
       col.getNextPage();
     }, "`index` must be firstPage <= index <= lastPage");
 
     col.fetch.restore();
   });
 
-  test("getLastPage", function () {
+  QUnit.test("getLastPage", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100,
@@ -455,13 +457,13 @@ $(document).ready(function () {
 
     col.getLastPage();
 
-    strictEqual(col.state.currentPage, 4);
-    ok(col.fetch.calledOnce);
+    assert.strictEqual(col.state.currentPage, 4);
+    assert.ok(col.fetch.calledOnce);
 
     col.fetch.restore();
   });
 
-  test("setPageSize", function () {
+  QUnit.test("setPageSize", function (assert) {
     var col = new Backbone.PageableCollection(null, {
       state: {
         totalRecords: 100,
@@ -471,40 +473,40 @@ $(document).ready(function () {
     col.url = "test";
 
     col.setPageSize(50);
-    strictEqual(col.state.pageSize, 50);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.currentPage, 2);
-    strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.pageSize, 50);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.currentPage, 2);
+    assert.strictEqual(col.state.lastPage, 2);
 
     col.setPageSize(50, {first: true});
-    strictEqual(col.state.pageSize, 50);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.pageSize, 50);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.lastPage, 2);
 
-    throws(function() {
+    assert.throws(function() {
       col.setPageSize(Infinity);
     }, "`pageSize` must be a finite integer");
-    strictEqual(col.state.pageSize, 50);
+    assert.strictEqual(col.state.pageSize, 50);
 
-    throws(function() {
+    assert.throws(function() {
       col.setPageSize("foo");
     }, "`pageSize` must be a finite integer");
-    strictEqual(col.state.pageSize, 50);
+    assert.strictEqual(col.state.pageSize, 50);
 
     col.setPageSize(25, {add: true, silent: true});
-    strictEqual(col.state.pageSize, 25);
-    strictEqual(col.state.totalPages, 4);
-    strictEqual(col.state.lastPage, 4);
+    assert.strictEqual(col.state.pageSize, 25);
+    assert.strictEqual(col.state.totalPages, 4);
+    assert.strictEqual(col.state.lastPage, 4);
   });
 
-  test("issue 298", function () {
+  QUnit.test("issue 298", function (assert) {
     var col = new Backbone.PageableCollection();
     col.url = "test?a=";
     col.fetch();
 
-    strictEqual(this.ajaxSettings.url, "test");
-    deepEqual(this.ajaxSettings.data, {
+    assert.strictEqual(this.ajaxSettings.url, "test");
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 1,
       "per_page": 25,
       a: ''
