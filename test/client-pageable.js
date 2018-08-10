@@ -4,9 +4,9 @@ $(document).ready(function () {
 
   var a, c, b, models, comparator;
 
-  module("Backbone.PageableCollection - Client", {
+  QUnit.module("Backbone.PageableCollection - Client", {
 
-    setup: function () {
+    beforeEach: function () {
 
       a = new Backbone.Model({"name": "a"});
       c = new Backbone.Model({"name": "c"});
@@ -24,7 +24,7 @@ $(document).ready(function () {
     }
   });
 
-  test("_makeFullCollection", function () {
+  QUnit.test("_makeFullCollection", function (assert) {
 
     var sync = function () {};
 
@@ -38,17 +38,17 @@ $(document).ready(function () {
     var fullCol = col._makeFullCollection(models,
                                           {comparator: comparator});
 
-    ok(!_.isUndefined(fullCol));
-    ok(_.isUndefined(fullCol.constructor.prototype.comparator));
-    strictEqual(fullCol.comparator, comparator);
-    strictEqual(fullCol.sync, sync);
-    strictEqual(fullCol.constructor.prototype.model, Backbone.Model);
-    strictEqual(fullCol.model, Backbone.Model);
-    strictEqual(fullCol.constructor.prototype.url, "test/makeFullCollection");
-    strictEqual(fullCol.url, "test/makeFullCollection");
-    strictEqual(fullCol.at(0).get("name"), "a");
-    strictEqual(fullCol.at(1).get("name"), "b");
-    strictEqual(fullCol.at(2).get("name"), "c");
+    assert.ok(!_.isUndefined(fullCol));
+    assert.ok(_.isUndefined(fullCol.constructor.prototype.comparator));
+    assert.strictEqual(fullCol.comparator, comparator);
+    assert.strictEqual(fullCol.sync, sync);
+    assert.strictEqual(fullCol.constructor.prototype.model, Backbone.Model);
+    assert.strictEqual(fullCol.model, Backbone.Model);
+    assert.strictEqual(fullCol.constructor.prototype.url, "test/makeFullCollection");
+    assert.strictEqual(fullCol.url, "test/makeFullCollection");
+    assert.strictEqual(fullCol.at(0).get("name"), "a");
+    assert.strictEqual(fullCol.at(1).get("name"), "b");
+    assert.strictEqual(fullCol.at(2).get("name"), "c");
 
     a.collection = col;
     c.collection = col;
@@ -58,25 +58,27 @@ $(document).ready(function () {
       a, c, b
     ]);
 
-    strictEqual(fullCol.at(0).get("name"), "a");
-    strictEqual(fullCol.at(1).get("name"), "c");
-    strictEqual(fullCol.at(2).get("name"), "b");
+    assert.strictEqual(fullCol.at(0).get("name"), "a");
+    assert.strictEqual(fullCol.at(1).get("name"), "c");
+    assert.strictEqual(fullCol.at(2).get("name"), "b");
 
-    strictEqual(fullCol.at(0).collection, col);
-    strictEqual(fullCol.at(1).collection, col);
-    strictEqual(fullCol.at(2).collection, col);
+    assert.strictEqual(fullCol.at(0).collection, col);
+    assert.strictEqual(fullCol.at(1).collection, col);
+    assert.strictEqual(fullCol.at(2).collection, col);
   });
 
-  test("constructor", 28, function () {
+  QUnit.test("constructor", function (assert) {
 
     // TODO: test options.full attaches comparator to fullcollection only
+
+    assert.expect(28);
 
     var col = new Backbone.PageableCollection(null, {
       mode: "client"
     });
 
-    ok(col);
-    ok(col.fullCollection);
+    assert.ok(col);
+    assert.ok(col.fullCollection);
 
     var mods = models.slice();
 
@@ -84,9 +86,9 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    strictEqual(col.state.totalRecords, 1);
-    strictEqual(col.fullCollection.size(), 1);
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.state.totalRecords, 1);
+    assert.strictEqual(col.fullCollection.size(), 1);
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
 
     col = new Backbone.PageableCollection(mods, {
       comparator: comparator,
@@ -96,16 +98,16 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.comparator, comparator);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "b");
-    strictEqual(col.fullCollection.size(), 3);
-    strictEqual(col.at(0), col.fullCollection.at(0));
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "b");
-    strictEqual(col.fullCollection.at(2).get("name"), "c");
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.strictEqual(col.comparator, comparator);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.strictEqual(col.at(0), col.fullCollection.at(0));
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "b");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "c");
 
     mods = models.slice();
 
@@ -118,17 +120,17 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    strictEqual(col.state.totalRecords, 3);
-    ok(col.fullCollection.comparator);
-    ok(!col.comparator);
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.ok(col.fullCollection.comparator);
+    assert.ok(!col.comparator);
 
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "b");
-    strictEqual(col.fullCollection.size(), 3);
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "b");
-    strictEqual(col.fullCollection.at(2).get("name"), "c");
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "b");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "c");
 
     // make sure the given models are copied
     col = new Backbone.PageableCollection(mods, {
@@ -137,12 +139,14 @@ $(document).ready(function () {
       },
       mode: "client"
     });
-    notStrictEqual(mods.length, col.models.length);
-    notDeepEqual(mods, col.models);
-    strictEqual(mods.length, col.fullCollection.length);
+    assert.notStrictEqual(mods.length, col.models.length);
+    assert.notDeepEqual(mods, col.models);
+    assert.strictEqual(mods.length, col.fullCollection.length);
   });
 
-  test("add", 55, function () {
+  QUnit.test("add", function (assert) {
+    assert.expect(55);
+
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -152,7 +156,7 @@ $(document).ready(function () {
 
     var lastTotalRecords = col.state.totalRecords;
     var onAdd = function () {
-      strictEqual(col.state.totalRecords, lastTotalRecords + 1);
+      assert.strictEqual(col.state.totalRecords, lastTotalRecords + 1);
     };
     col.fullCollection.on("add", onAdd);
     col.on("add", onAdd);
@@ -160,56 +164,56 @@ $(document).ready(function () {
 
     var d = new Backbone.Model({name: "d"});
     col.add(d);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.fullCollection.size(), 4);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(2).get("name"), "d");
-    strictEqual(col.fullCollection.at(3).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.fullCollection.size(), 4);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "d");
+    assert.strictEqual(col.fullCollection.at(3).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     lastTotalRecords = col.state.totalRecords;
     var e = new Backbone.Model({name: "e"});
     col.fullCollection.push(e);
-    strictEqual(col.state.totalRecords, 5);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.fullCollection.size(), 5);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(4).get("name"), "e");
-    strictEqual(col.indexOf(e.cid), -1);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 5);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.fullCollection.size(), 5);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(4).get("name"), "e");
+    assert.strictEqual(col.indexOf(e.cid), -1);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     lastTotalRecords = col.state.totalRecords;
     var f = new Backbone.Model({name: "f"});
     col.fullCollection.unshift(f);
-    strictEqual(col.state.totalRecords, 6);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.fullCollection.size(), 6);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "f");
-    strictEqual(col.at(1).get("name"), "a");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 6);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.fullCollection.size(), 6);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "f");
+    assert.strictEqual(col.at(1).get("name"), "a");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // test add at page col on page 2
     col.getPage(2);
     lastTotalRecords = col.state.totalRecords;
     var g = new Backbone.Model({name: "g"});
     col.add(g, {at: 1});
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 7);
-    strictEqual(col.state.totalRecords, 7);
-    strictEqual(col.state.totalPages, 4);
-    strictEqual(col.state.lastPage, 4);
-    strictEqual(col.state.currentPage, 2);
-    strictEqual(col.last().get("name"), "g");
-    strictEqual(col.fullCollection.at(3).get("name"), "g");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 7);
+    assert.strictEqual(col.state.totalRecords, 7);
+    assert.strictEqual(col.state.totalPages, 4);
+    assert.strictEqual(col.state.lastPage, 4);
+    assert.strictEqual(col.state.currentPage, 2);
+    assert.strictEqual(col.last().get("name"), "g");
+    assert.strictEqual(col.fullCollection.at(3).get("name"), "g");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // test ability to add to empty collection
     col.fullCollection.reset();
@@ -221,23 +225,24 @@ $(document).ready(function () {
     col.fullCollection.off("add", onAdd);
     col.fullCollection.reset();
     col.add([{name: "a"}, {name: "c"}, {name: "b"}]);
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 3);
-    deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
-    deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
     col.fullCollection.reset();
     col.fullCollection.add([{name: "a"}, {name: "c"}, {name: "b"}]);
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 3);
-    deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
-    deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.deepEqual(col.toJSON(), [{name: "a"}, {name: "c"}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{name: "a"}, {name: "c"}, {name: "b"}]);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
-  test("remove", 114, function () {
+  QUnit.test("remove", function (assert) {
+    assert.expect(114);
 
     var col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -254,70 +259,70 @@ $(document).ready(function () {
     var lastTotalRecords = col.state.totalRecords;
     var lastTotalPages = col.state.totalPages;
     var onRemove = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, lastTotalRecords - 1);
-      strictEqual(col.state.totalPages, Math.ceil(col.state.totalRecords / col.state.pageSize));
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, lastTotalRecords - 1);
+      assert.strictEqual(col.state.totalPages, Math.ceil(col.state.totalRecords / col.state.pageSize));
     };
     col.on("remove", onRemove);
     sinon.spy(col, "trigger");
     col.fullCollection.on("remove", onRemove);
 
     col.fullCollection.remove(col.fullCollection.last());
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.size(), 3);
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(2).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     lastTotalRecords = col.state.totalRecords;
     lastTotalPages = col.state.totalPages;
     col.fullCollection.remove(col.fullCollection.first());
-    strictEqual(col.state.totalRecords, 2);
-    strictEqual(col.state.totalPages, 1);
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "c");
-    strictEqual(col.at(1).get("name"), "b");
-    strictEqual(col.fullCollection.size(), 2);
-    strictEqual(col.fullCollection.at(0).get("name"), "c");
-    strictEqual(col.fullCollection.at(1).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 2);
+    assert.strictEqual(col.state.totalPages, 1);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "c");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.strictEqual(col.fullCollection.size(), 2);
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     lastTotalRecords = col.state.totalRecords;
     lastTotalPages = col.state.totalPages;
     col.remove(col.first());
-    strictEqual(col.state.totalRecords, 1);
-    strictEqual(col.state.totalPages, 1);
-    strictEqual(col.size(), 1);
-    strictEqual(col.at(0).get("name"), "b");
-    strictEqual(col.fullCollection.size(), 1);
-    strictEqual(col.fullCollection.at(0).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 1);
+    assert.strictEqual(col.state.totalPages, 1);
+    assert.strictEqual(col.size(), 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
+    assert.strictEqual(col.fullCollection.size(), 1);
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col.off("remove", onRemove);
     col.fullCollection.off("remove", onRemove);
     onRemove = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, null);
-      strictEqual(col.state.totalPages, null);
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, null);
+      assert.strictEqual(col.state.totalPages, null);
     };
     col.on("remove", onRemove);
     col.fullCollection.on("remove", onRemove);
     col.remove(col.fullCollection.first());
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    strictEqual(col.state.totalRecords, null);
-    strictEqual(col.state.totalPages, null);
-    strictEqual(col.size(), 0);
-    strictEqual(col.fullCollection.size(), 0);
+    assert.strictEqual(col.state.totalRecords, null);
+    assert.strictEqual(col.state.totalPages, null);
+    assert.strictEqual(col.size(), 0);
+    assert.strictEqual(col.fullCollection.size(), 0);
 
     col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -335,37 +340,37 @@ $(document).ready(function () {
 
     // tests for insertion into current page by removing from fullCollection
     col.fullCollection.remove(col.fullCollection.at(0));
-    strictEqual(col.at(0).get("name"), "c");
-    strictEqual(col.at(1).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.at(0).get("name"), "c");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.fullCollection.remove(col.fullCollection.at(2));
-    strictEqual(col.at(0).get("name"), "c");
-    strictEqual(col.at(1).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.at(0).get("name"), "c");
+    assert.strictEqual(col.at(1).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.fullCollection.remove(col.fullCollection.at(1));
-    strictEqual(col.at(0).get("name"), "c");
-    strictEqual(col.at(1).get("name"), "f");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.at(0).get("name"), "c");
+    assert.strictEqual(col.at(1).get("name"), "f");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
-
-    col.fullCollection.remove(col.fullCollection.at(0));
-    strictEqual(col.at(0).get("name"), "f");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
-
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.fullCollection.remove(col.fullCollection.at(0));
-    strictEqual(col.length, 0);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.at(0).get("name"), "f");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
+
+    col.fullCollection.remove(col.fullCollection.at(0));
+    assert.strictEqual(col.length, 0);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
+
+    col.trigger.resetHistory();
 
     // issue 129 and 132, insertion into current page by removing from the current page
     col = new Backbone.PageableCollection([
@@ -385,86 +390,86 @@ $(document).ready(function () {
     sinon.spy(col, "trigger");
 
     col.remove(col.first());
-    strictEqual(col.state.totalRecords, 6);
-    strictEqual(col.size(), 3);
-    strictEqual(col.fullCollection.size(), 6);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 6);
+    assert.strictEqual(col.size(), 3);
+    assert.strictEqual(col.fullCollection.size(), 6);
+    assert.deepEqual(col.toJSON(), [
       {"name": "c"},
       {"name": "b"},
       {"name": "e"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.at(1));
-    strictEqual(col.state.totalRecords, 5);
-    strictEqual(col.size(), 3);
-    strictEqual(col.fullCollection.size(), 5);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 5);
+    assert.strictEqual(col.size(), 3);
+    assert.strictEqual(col.fullCollection.size(), 5);
+    assert.deepEqual(col.toJSON(), [
       {"name": "c"},
       {"name": "e"},
       {"name": "f"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.last());
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.size(), 3);
-    strictEqual(col.fullCollection.size(), 4);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.size(), 3);
+    assert.strictEqual(col.fullCollection.size(), 4);
+    assert.deepEqual(col.toJSON(), [
       {"name": "c"},
       {"name": "e"},
       {"name": "d"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.first());
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.size(), 3);
-    strictEqual(col.fullCollection.size(), 3);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.strictEqual(col.size(), 3);
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.deepEqual(col.toJSON(), [
       {"name": "e"},
       {"name": "d"},
       {"name": "g"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.at(1));
-    strictEqual(col.state.totalRecords, 2);
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 2);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 2);
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 2);
+    assert.deepEqual(col.toJSON(), [
       {"name": "e"},
       {"name": "g"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.last());
-    strictEqual(col.state.totalRecords, 1);
-    strictEqual(col.size(), 1);
-    strictEqual(col.fullCollection.size(), 1);
-    deepEqual(col.toJSON(), [
+    assert.strictEqual(col.state.totalRecords, 1);
+    assert.strictEqual(col.size(), 1);
+    assert.strictEqual(col.fullCollection.size(), 1);
+    assert.deepEqual(col.toJSON(), [
       {"name": "e"}
     ]);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.first());
-    strictEqual(col.state.totalRecords, null);
-    strictEqual(col.size(), 0);
-    strictEqual(col.fullCollection.size(), 0);
-    deepEqual(col.toJSON(), []);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, null);
+    assert.strictEqual(col.size(), 0);
+    assert.strictEqual(col.fullCollection.size(), 0);
+    assert.deepEqual(col.toJSON(), []);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     // Make sure removing the last model from the last page will reset the
     // current page to the actual last page
@@ -483,17 +488,17 @@ $(document).ready(function () {
     col.getLastPage();
 
     col.remove(col.last());
-    strictEqual(col.length, 1);
-    strictEqual(col.at(0).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.length, 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.remove(col.last());
-    strictEqual(col.length, 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.length, 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
     col = new Backbone.PageableCollection([
       {"name": "a"},
@@ -510,20 +515,22 @@ $(document).ready(function () {
     col.getLastPage();
 
     col.fullCollection.remove(col.fullCollection.last());
-    strictEqual(col.length, 1);
-    strictEqual(col.at(0).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.length, 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.fullCollection.remove(col.fullCollection.last());
-    strictEqual(col.length, 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.length, 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
-  test("add handlers on pageCol are run before remove handlers", 2, function () {
+  QUnit.test("add handlers on pageCol are run before remove handlers", function (assert) {
+    assert.expect(2);
+
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
@@ -540,14 +547,16 @@ $(document).ready(function () {
     });
 
     col.unshift(new Backbone.Model({name: "d"}));
-    deepEqual(queue, ["add", "remove"]);
+    assert.deepEqual(queue, ["add", "remove"]);
 
     queue = [];
     col.fullCollection.unshift(new Backbone.Model({name: "e"}));
-    deepEqual(queue, ["add", "remove"]);
+    assert.deepEqual(queue, ["add", "remove"]);
   });
 
-  test("remove handlers on pageCol are run before add handlers", 2, function () {
+  QUnit.test("remove handlers on pageCol are run before add handlers", function (assert) {
+    assert.expect(2);
+
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
@@ -564,14 +573,16 @@ $(document).ready(function () {
     });
 
     col.remove(col.at(0));
-    deepEqual(queue, ["remove", "add"]);
+    assert.deepEqual(queue, ["remove", "add"]);
 
     queue = [];
     col.fullCollection.remove(col.at(0));
-    deepEqual(queue, ["remove", "add"]);
+    assert.deepEqual(queue, ["remove", "add"]);
   });
 
-  test("change", 6, function () {
+  QUnit.test("change", function (assert) {
+    assert.expect(6);
+
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
@@ -580,17 +591,19 @@ $(document).ready(function () {
     });
 
     var onChange = function () {
-      ok(true);
+      assert.ok(true);
     };
     col.on("change", onChange);
     col.fullCollection.on("change", onChange);
     col.at(0).set("name", "e");
-    strictEqual(col.fullCollection.at(0).get("name"), "e");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "e");
     col.fullCollection.at(1).set("name", "f");
     col.fullCollection.at(0).set("name", "g");
   });
 
-  test("sync", 5, function () {
+  QUnit.test("sync", function (assert) {
+    assert.expect(5);
+
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-sync"
     }))(models, {
@@ -601,7 +614,7 @@ $(document).ready(function () {
     });
 
     var onSync = function () {
-      ok(true);
+      assert.ok(true);
     };
 
     col.on("sync", onSync);
@@ -617,7 +630,8 @@ $(document).ready(function () {
     this.ajaxSettings.success();
   });
 
-  test("reset and sort", 79, function () {
+  QUnit.test("reset and sort", function (assert) {
+    assert.expect(79);
 
     var mods = models.slice();
     var col = new Backbone.PageableCollection(mods, {
@@ -627,10 +641,10 @@ $(document).ready(function () {
       mode: "client"
     });
     var onReset = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, 4);
-      strictEqual(col.state.totalPages, 2);
-      strictEqual(col.state.lastPage, 2);
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, 4);
+      assert.strictEqual(col.state.totalPages, 2);
+      assert.strictEqual(col.state.lastPage, 2);
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
@@ -641,21 +655,21 @@ $(document).ready(function () {
       {name: "g"}
     ]);
 
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 4);
-    strictEqual(col.at(0).get("name"), "e");
-    strictEqual(col.at(1).get("name"), "f");
-    strictEqual(col.fullCollection.at(0).get("name"), "e");
-    strictEqual(col.fullCollection.at(1).get("name"), "f");
-    strictEqual(col.fullCollection.at(2).get("name"), "d");
-    strictEqual(col.fullCollection.at(3).get("name"), "g");
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 4);
+    assert.strictEqual(col.at(0).get("name"), "e");
+    assert.strictEqual(col.at(1).get("name"), "f");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "e");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "f");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "d");
+    assert.strictEqual(col.fullCollection.at(3).get("name"), "g");
 
     col.fullCollection.comparator = comparator;
     col.fullCollection.sort();
 
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "d");
-    strictEqual(col.at(1).get("name"), "e");
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "d");
+    assert.strictEqual(col.at(1).get("name"), "e");
 
     mods = models.slice();
     col = new Backbone.PageableCollection(mods, {
@@ -665,10 +679,10 @@ $(document).ready(function () {
       mode: "client"
     });
     onReset = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, 3);
-      strictEqual(col.state.totalPages, 2);
-      strictEqual(col.state.lastPage, 2);
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, 3);
+      assert.strictEqual(col.state.totalPages, 2);
+      assert.strictEqual(col.state.lastPage, 2);
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
@@ -676,44 +690,44 @@ $(document).ready(function () {
     col.comparator = comparator;
     col.sort();
 
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(0).get("name"), "a");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(2).get("name"), "b");
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "b");
 
     col.comparator = null;
     col.off("reset", onReset);
     col.fullCollection.off("reset", onReset);
     onReset = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, 3);
-      strictEqual(col.state.totalPages, 2);
-      strictEqual(col.state.lastPage, 2);
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, 3);
+      assert.strictEqual(col.state.totalPages, 2);
+      assert.strictEqual(col.state.lastPage, 2);
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
     mods = [new Backbone.Model({name: "g"}), col.at(0)];
     col.reset(mods);
 
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 3);
-    strictEqual(col.at(0).get("name"), "g");
-    strictEqual(col.at(1).get("name"), "a");
-    strictEqual(col.fullCollection.at(0).get("name"), "g");
-    strictEqual(col.fullCollection.at(1).get("name"), "a");
-    strictEqual(col.fullCollection.at(2).get("name"), "b");
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 3);
+    assert.strictEqual(col.at(0).get("name"), "g");
+    assert.strictEqual(col.at(1).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "g");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "a");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "b");
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.off("reset", onReset);
     col.fullCollection.off("reset", onReset);
     onReset = function () {
-      ok(true);
-      strictEqual(col.state.totalRecords, 4);
-      strictEqual(col.state.totalPages, 2);
-      strictEqual(col.state.lastPage, 2);
+      assert.ok(true);
+      assert.strictEqual(col.state.totalRecords, 4);
+      assert.strictEqual(col.state.totalPages, 2);
+      assert.strictEqual(col.state.lastPage, 2);
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
@@ -724,40 +738,41 @@ $(document).ready(function () {
       {name: "k"}
     ]);
 
-    strictEqual(col.size(), 2);
-    strictEqual(col.fullCollection.size(), 4);
-    strictEqual(col.at(0).get("name"), "j");
-    strictEqual(col.at(1).get("name"), "h");
-    strictEqual(col.fullCollection.at(0).get("name"), "j");
-    strictEqual(col.fullCollection.at(1).get("name"), "h");
-    strictEqual(col.fullCollection.at(2).get("name"), "i");
-    strictEqual(col.fullCollection.at(3).get("name"), "k");
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.state.totalPages, 2);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.fullCollection.size(), 4);
+    assert.strictEqual(col.at(0).get("name"), "j");
+    assert.strictEqual(col.at(1).get("name"), "h");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "j");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "h");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "i");
+    assert.strictEqual(col.fullCollection.at(3).get("name"), "k");
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.trigger.reset();
+    col.trigger.resetHistory();
 
     col.off("reset", onReset);
     col.fullCollection.off("reset", onReset);
     onReset = function () {
-      ok(true);
-      ok(col.state.totalRecords === null);
-      ok(col.state.totalPages === null);
-      ok(col.state.lastPage === col.state.firstPage);
-      ok(col.state.currentPage === col.state.firstPage);
-      ok(col.length === 0);
-      ok(col.fullCollection.length === 0);
+      assert.ok(true);
+      assert.ok(col.state.totalRecords === null);
+      assert.ok(col.state.totalPages === null);
+      assert.ok(col.state.lastPage === col.state.firstPage);
+      assert.ok(col.state.currentPage === col.state.firstPage);
+      assert.ok(col.length === 0);
+      assert.ok(col.fullCollection.length === 0);
     };
     col.on("reset", onReset);
     col.fullCollection.on("reset", onReset);
 
     col.fullCollection.reset();
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
-  test("fetch", 14, function () {
+  QUnit.test("fetch", function (assert) {
+    assert.expect(14);
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-fetch"
@@ -773,13 +788,13 @@ $(document).ready(function () {
     var resetCount = 0;
     var onReset = function () {
       resetCount++;
-      ok(true);
+      assert.ok(true);
     };
 
     var fullResetCount = 0;
     var onFullReset = function () {
       fullResetCount++;
-      ok(true);
+      assert.ok(true);
     };
 
     col.on("reset", onReset);
@@ -789,13 +804,13 @@ $(document).ready(function () {
     var oldParse = col.parse;
     col.parse = function () {
       parseCount++;
-      ok(true);
+      assert.ok(true);
       return oldParse.apply(this, arguments);
     };
     col.fetch();
 
-    strictEqual(this.ajaxSettings.url, "test-client-fetch");
-    deepEqual(this.ajaxSettings.data, {
+    assert.strictEqual(this.ajaxSettings.url, "test-client-fetch");
+    assert.deepEqual(this.ajaxSettings.data, {
       "sort_by": "name",
       "order": "desc"
     });
@@ -809,18 +824,18 @@ $(document).ready(function () {
 
     col.parse = oldParse;
 
-    equal(resetCount, 1);
-    equal(fullResetCount, 1);
-    equal(parseCount, 1);
-    strictEqual(col.at(0).get("name"), "d");
-    strictEqual(col.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(0).get("name"), "d");
-    strictEqual(col.fullCollection.at(1).get("name"), "c");
-    strictEqual(col.fullCollection.at(2).get("name"), "b");
-    strictEqual(col.fullCollection.at(3).get("name"), "a");
+    assert.equal(resetCount, 1);
+    assert.equal(fullResetCount, 1);
+    assert.equal(parseCount, 1);
+    assert.strictEqual(col.at(0).get("name"), "d");
+    assert.strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(0).get("name"), "d");
+    assert.strictEqual(col.fullCollection.at(1).get("name"), "c");
+    assert.strictEqual(col.fullCollection.at(2).get("name"), "b");
+    assert.strictEqual(col.fullCollection.at(3).get("name"), "a");
   });
 
-  test("getPageByOffset - firstPage is 0", function () {
+  QUnit.test("getPageByOffset - firstPage is 0", function (assert) {
     var manyModels = [
       {"name": "a1"},
       {"name": "a2"},
@@ -837,26 +852,26 @@ $(document).ready(function () {
       },
       mode: "client"
     });
-    strictEqual(col.state.currentPage, 0);
+    assert.strictEqual(col.state.currentPage, 0);
 
     col.getPageByOffset(2);
-    strictEqual(1, col.state.currentPage);
-    strictEqual("b1", col.at(0).get("name"));
+    assert.strictEqual(1, col.state.currentPage);
+    assert.strictEqual("b1", col.at(0).get("name"));
 
     col.getPageByOffset(1);
-    strictEqual(0, col.state.currentPage);
-    strictEqual("a1", col.at(0).get("name"));
+    assert.strictEqual(0, col.state.currentPage);
+    assert.strictEqual("a1", col.at(0).get("name"));
 
     col.getPageByOffset(col.state.totalRecords - 1);
-    strictEqual(2, col.state.currentPage);
-    strictEqual("c1", col.at(0).get("name"));
+    assert.strictEqual(2, col.state.currentPage);
+    assert.strictEqual("c1", col.at(0).get("name"));
 
     sinon.stub(col, "getPage");
     col.getPageByOffset(0);
-    ok(col.getPage.calledOnce);
+    assert.ok(col.getPage.calledOnce);
   });
 
-  test("getPageByOffset - firstPage is 1", function () {
+  QUnit.test("getPageByOffset - firstPage is 1", function (assert) {
     var manyModels = [
       {"name": "a1"},
       {"name": "a2"},
@@ -873,26 +888,26 @@ $(document).ready(function () {
       },
       mode: "client"
     });
-    strictEqual(1, col.state.currentPage);
+    assert.strictEqual(1, col.state.currentPage);
 
     col.getPageByOffset(2);
-    strictEqual(2, col.state.currentPage);
-    strictEqual("b1", col.at(0).get("name"));
+    assert.strictEqual(2, col.state.currentPage);
+    assert.strictEqual("b1", col.at(0).get("name"));
 
     col.getPageByOffset(1);
-    strictEqual(1, col.state.currentPage);
-    strictEqual("a1", col.at(0).get("name"));
+    assert.strictEqual(1, col.state.currentPage);
+    assert.strictEqual("a1", col.at(0).get("name"));
 
     col.getPageByOffset(col.state.totalRecords - 1);
-    strictEqual(3, col.state.currentPage);
-    strictEqual("c1", col.at(0).get("name"));
+    assert.strictEqual(3, col.state.currentPage);
+    assert.strictEqual("c1", col.at(0).get("name"));
 
     sinon.stub(col, "getPage");
     col.getPageByOffset(0);
-    ok(col.getPage.calledOnce);
+    assert.ok(col.getPage.calledOnce);
   });
 
-  test("getPage", function () {
+  QUnit.test("getPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -901,16 +916,16 @@ $(document).ready(function () {
     });
 
     col.getPage(2);
-    strictEqual(col.size(), 1);
-    strictEqual(col.at(0).get("name"), "b");
+    assert.strictEqual(col.size(), 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
     col.getPage(1, {fetch: true});
-    ok(col.fetch.calledOnce);
+    assert.ok(col.fetch.calledOnce);
   });
 
-  test("getFirstPage", function () {
+  QUnit.test("getFirstPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -919,17 +934,17 @@ $(document).ready(function () {
     });
 
     col.getFirstPage();
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
 
     sinon.stub(col, "fetch");
 
     col.getFirstPage({fetch: true});
-    ok(col.fetch.calledOnce);
+    assert.ok(col.fetch.calledOnce);
   });
 
-  test("getPreviousPage", function () {
+  QUnit.test("getPreviousPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -939,18 +954,18 @@ $(document).ready(function () {
 
     col.getNextPage();
     col.getPreviousPage();
-    strictEqual(col.size(), 2);
-    strictEqual(col.at(0).get("name"), "a");
-    strictEqual(col.at(1).get("name"), "c");
+    assert.strictEqual(col.size(), 2);
+    assert.strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.at(1).get("name"), "c");
 
     sinon.stub(col, "fetch");
 
     col.getNextPage();
     col.getPreviousPage({fetch: true});
-    ok(col.fetch.calledOnce);
+    assert.ok(col.fetch.calledOnce);
   });
 
-  test("getNextPage", function () {
+  QUnit.test("getNextPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -959,17 +974,17 @@ $(document).ready(function () {
     });
 
     col.getNextPage();
-    strictEqual(col.size(), 1);
-    strictEqual(col.at(0).get("name"), "b");
+    assert.strictEqual(col.size(), 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
     col.getPreviousPage();
     col.getNextPage({fetch: true});
-    ok(col.fetch.calledOnce);
+    assert.ok(col.fetch.calledOnce);
   });
 
-  test("getLastPage", function () {
+  QUnit.test("getLastPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -978,16 +993,16 @@ $(document).ready(function () {
     });
 
     col.getLastPage();
-    strictEqual(col.size(), 1);
-    strictEqual(col.at(0).get("name"), "b");
+    assert.strictEqual(col.size(), 1);
+    assert.strictEqual(col.at(0).get("name"), "b");
 
     sinon.stub(col, "fetch");
 
     col.getLastPage({fetch: true});
-    ok(col.fetch.calledOnce);
+    assert.ok(col.fetch.calledOnce);
   });
 
-  test("setPageSize", function () {
+  QUnit.test("setPageSize", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2
@@ -998,22 +1013,22 @@ $(document).ready(function () {
     // decrease page size
     col.setPageSize(1);
 
-    strictEqual(col.state.pageSize, 1);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.state.lastPage, 3);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.length, 1);
-    strictEqual(col.fullCollection.length, 3);
+    assert.strictEqual(col.state.pageSize, 1);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.state.lastPage, 3);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.length, 1);
+    assert.strictEqual(col.fullCollection.length, 3);
 
     // increase page size
     col.setPageSize(3);
 
-    strictEqual(col.state.pageSize, 3);
-    strictEqual(col.state.totalPages, 1);
-    strictEqual(col.state.lastPage, 1);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.length, 3);
-    strictEqual(col.fullCollection.length, 3);
+    assert.strictEqual(col.state.pageSize, 3);
+    assert.strictEqual(col.state.totalPages, 1);
+    assert.strictEqual(col.state.lastPage, 1);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.length, 3);
+    assert.strictEqual(col.fullCollection.length, 3);
 
     col = new Backbone.PageableCollection(null, {
       state: {
@@ -1024,17 +1039,17 @@ $(document).ready(function () {
 
     col.setPageSize(1);
 
-    strictEqual(col.state.pageSize, 1);
-    strictEqual(col.state.totalPages, 0);
-    strictEqual(col.state.lastPage, null);
-    strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.pageSize, 1);
+    assert.strictEqual(col.state.totalPages, 0);
+    assert.strictEqual(col.state.lastPage, null);
+    assert.strictEqual(col.state.currentPage, 1);
 
     col.setPageSize(3);
 
-    strictEqual(col.state.pageSize, 3);
-    strictEqual(col.state.totalPages, 0);
-    strictEqual(col.state.lastPage, null);
-    strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.pageSize, 3);
+    assert.strictEqual(col.state.totalPages, 0);
+    assert.strictEqual(col.state.lastPage, null);
+    assert.strictEqual(col.state.currentPage, 1);
 
     // test again for 0-base page indices
     col = new Backbone.PageableCollection(models, {
@@ -1047,24 +1062,24 @@ $(document).ready(function () {
 
     col.setPageSize(3);
 
-    strictEqual(col.state.pageSize, 3);
-    strictEqual(col.state.totalPages, 1);
-    strictEqual(col.state.lastPage, 0);
-    strictEqual(col.state.currentPage, 0);
-    strictEqual(col.length, 3);
-    strictEqual(col.fullCollection.length, 3);
+    assert.strictEqual(col.state.pageSize, 3);
+    assert.strictEqual(col.state.totalPages, 1);
+    assert.strictEqual(col.state.lastPage, 0);
+    assert.strictEqual(col.state.currentPage, 0);
+    assert.strictEqual(col.length, 3);
+    assert.strictEqual(col.fullCollection.length, 3);
 
     col.setPageSize(1);
 
-    strictEqual(col.state.pageSize, 1);
-    strictEqual(col.state.totalPages, 3);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.state.currentPage, 0);
-    strictEqual(col.length, 1);
-    strictEqual(col.fullCollection.length, 3);
+    assert.strictEqual(col.state.pageSize, 1);
+    assert.strictEqual(col.state.totalPages, 3);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.currentPage, 0);
+    assert.strictEqual(col.length, 1);
+    assert.strictEqual(col.fullCollection.length, 3);
   });
 
-  test("issue #15", function () {
+  QUnit.test("issue #15", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2,
@@ -1074,13 +1089,13 @@ $(document).ready(function () {
     });
 
     col.fullCollection.remove(col.fullCollection.last());
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.totalRecords, 2);
-    strictEqual(col.state.lastPage, 1);
-    strictEqual(col.state.totalPages, 1);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.totalRecords, 2);
+    assert.strictEqual(col.state.lastPage, 1);
+    assert.strictEqual(col.state.totalPages, 1);
   });
 
-  test("hasNextPage and hasPreviousPage", function () {
+  QUnit.test("hasNextPage and hasPreviousPage", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 1
@@ -1088,21 +1103,21 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    strictEqual(col.hasPreviousPage(), false);
-    strictEqual(col.hasNextPage(), true);
+    assert.strictEqual(col.hasPreviousPage(), false);
+    assert.strictEqual(col.hasNextPage(), true);
 
     col.getNextPage();
 
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), true);
+    assert.strictEqual(col.hasPreviousPage(), true);
+    assert.strictEqual(col.hasNextPage(), true);
 
     col.getLastPage();
 
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), false);
+    assert.strictEqual(col.hasPreviousPage(), true);
+    assert.strictEqual(col.hasNextPage(), false);
   });
 
-  test("parsing from constructor #112", function () {
+  QUnit.test("parsing from constructor #112", function (assert) {
     var Model = Backbone.Model.extend({
       parse: function (raw) {
         return { value: raw };
@@ -1119,11 +1134,11 @@ $(document).ready(function () {
     });
 
     var col = new MyCollection([1, 2, 3], {parse: true});
-    deepEqual(col.toJSON(), [{"value": 1}, {"value": 2}]);
-    deepEqual(col.fullCollection.toJSON(), [{"value": 1}, {"value": 2}, {"value": 3}]);
+    assert.deepEqual(col.toJSON(), [{"value": 1}, {"value": 2}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{"value": 1}, {"value": 2}, {"value": 3}]);
   });
 
-   test("issue #309", function () {
+   QUnit.test("issue #309", function (assert) {
     var col = new Backbone.PageableCollection(models, {
       state: {
         pageSize: 2,
@@ -1132,22 +1147,22 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    strictEqual(col.state.totalRecords, 3);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.currentPage, 2);
-    strictEqual(col.at(0).get("name"), "b");
+    assert.strictEqual(col.state.totalRecords, 3);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.currentPage, 2);
+    assert.strictEqual(col.at(0).get("name"), "b");
     col.fullCollection.reset(models);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.at(0).get("name"), "a");
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.at(0).get("name"), "a");
    });
 
-  test("issue #340 totalRecords should not take into account of dupe models under client mode", function() {
+  QUnit.test("issue #340 totalRecords should not take into account of dupe models under client mode", function(assert) {
     var col = new Backbone.PageableCollection([{id: 1}, {id: 1}], {mode: "client"});
-    strictEqual(col.state.totalRecords, 1);
+    assert.strictEqual(col.state.totalRecords, 1);
   });
 
-  test("issue #345 setting sortKey to null should remove the query param from appearing in the query string", function () {
+  QUnit.test("issue #345 setting sortKey to null should remove the query param from appearing in the query string", function (assert) {
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-fetch",
     }))([], {
@@ -1166,7 +1181,7 @@ $(document).ready(function () {
 
     col.fetch();
 
-    deepEqual(this.ajaxSettings.data, {});
+    assert.deepEqual(this.ajaxSettings.data, {});
   });
 
 });

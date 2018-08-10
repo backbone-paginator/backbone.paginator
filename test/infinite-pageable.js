@@ -4,8 +4,8 @@ $(document).ready(function () {
 
   var col;
 
-  module("Backbone.PageableCollection - Infinite", {
-    setup: function () {
+  QUnit.module("Backbone.PageableCollection - Infinite", {
+    beforeEach: function () {
       col = new (Backbone.PageableCollection.extend({
         url: "url"
       }))([
@@ -23,17 +23,17 @@ $(document).ready(function () {
     }
   });
 
-  test("constructor", function () {
-    ok(col.fullCollection instanceof Backbone.Collection);
-    strictEqual(col.url, "url");
-    strictEqual(col.mode, "infinite");
-    strictEqual(col.state.totalRecords, 4);
-    deepEqual(col.links, {
+  QUnit.test("constructor", function (assert) {
+    assert.ok(col.fullCollection instanceof Backbone.Collection);
+    assert.strictEqual(col.url, "url");
+    assert.strictEqual(col.mode, "infinite");
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.deepEqual(col.links, {
       "1": "url",
       "2": "url"
     });
-    deepEqual(col.toJSON(), [{id: 2}, {id: 4}]);
-    deepEqual(col.fullCollection.toJSON(), [{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
+    assert.deepEqual(col.toJSON(), [{id: 2}, {id: 4}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{id: 1}, {id: 3}, {id: 2}, {id: 4}]);
 
     col = new (Backbone.PageableCollection.extend({
       url: "url"
@@ -44,10 +44,10 @@ $(document).ready(function () {
       mode: "infinite"
     });
 
-    ok(col.links[0] === "url");
+    assert.ok(col.links[0] === "url");
   });
 
-  test("parseLinks", function () {
+  QUnit.test("parseLinks", function (assert) {
     var xhr = {
       getResponseHeader: function (header) {
         if (header.toLowerCase() == "link") {
@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     var links = col.parseLinks({}, {xhr: xhr});
 
-    deepEqual(links, {
+    assert.deepEqual(links, {
       next: "https://api.github.com/user/repos?page=3&per_page=2"
     });
 
@@ -67,10 +67,10 @@ $(document).ready(function () {
       return null;
     };
     links = col.parseLinks({}, {xhr: xhr});
-    deepEqual(links, {});
+    assert.deepEqual(links, {});
   });
 
-  test("#237 url function is called with the right context", function () {
+  QUnit.test("#237 url function is called with the right context", function (assert) {
     var col = new (Backbone.PageableCollection.extend({
       name: "name",
       url: function () {
@@ -84,15 +84,17 @@ $(document).ready(function () {
 
     col.getFirstPage();
 
-    strictEqual(this.ajaxSettings.url, "/name");
+    assert.strictEqual(this.ajaxSettings.url, "/name");
 
     this.ajaxSettings.success([{"total_entries": 1}, [{id: 1}]]);
   });
 
-  test("fetch", 3, function () {
+  QUnit.test("fetch", function (assert) {
+    assert.expect(3);
+
     var oldParse = col.parse;
     col.parse = function () {
-      ok(true);
+      assert.ok(true);
       return oldParse.apply(this, arguments);
     };
 
@@ -104,14 +106,14 @@ $(document).ready(function () {
     // refetching the same page
     col.on("all", function (event) {
       if (!_.contains(["request", "sync", "reset", "pageable:state:change"], event)) {
-        ok(false);
+        assert.ok(false);
       }
     });
 
     col.fetch();
 
-    strictEqual(this.ajaxSettings.url, "url");
-    deepEqual(this.ajaxSettings.data, {
+    assert.strictEqual(this.ajaxSettings.url, "url");
+    assert.deepEqual(this.ajaxSettings.data, {
       page: 2,
       "per_page": 2
     });
@@ -124,7 +126,8 @@ $(document).ready(function () {
     col.parse = oldParse;
   });
 
-  test("get*Page", 53, function () {
+  QUnit.test("get*Page", function (assert) {
+    assert.expect(53);
 
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
@@ -135,7 +138,7 @@ $(document).ready(function () {
       mode: "infinite"
     });
 
-    throws(function () {
+    assert.throws(function () {
       col.getPage("nosuchpage");
     });
 
@@ -165,111 +168,111 @@ $(document).ready(function () {
     // test paging in the first page gets a page full of models and a link for
     // the next page
     col.getFirstPage({success: function () {
-      strictEqual(col.state.currentPage, col.state.firstPage);
-      strictEqual(col.state.totalRecords, 2);
-      strictEqual(col.state.totalPages, 1);
-      strictEqual(col.state.lastPage, 1);
-      strictEqual(col.fullCollection.length, 2);
-      deepEqual(col.links, {
+      assert.strictEqual(col.state.currentPage, col.state.firstPage);
+      assert.strictEqual(col.state.totalRecords, 2);
+      assert.strictEqual(col.state.totalPages, 1);
+      assert.strictEqual(col.state.lastPage, 1);
+      assert.strictEqual(col.fullCollection.length, 2);
+      assert.deepEqual(col.links, {
         "1": "url",
         "2": "url2"
       });
-      deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
-      deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}]);
+      assert.deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
+      assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}]);
     }});
     this.ajaxSettings.success([
       {id: 2},
       {id: 1}
     ]);
-    equal(currentPageResetEventCount, 1);
-    equal(fullCollectionAddEventCount, 2);
-    equal(fullCollectionRemoveEventCount, 0);
-    equal(fullCollectionResetEventCount, 0);
-    equal(col.parse.callCount, 1);
+    assert.equal(currentPageResetEventCount, 1);
+    assert.equal(fullCollectionAddEventCount, 2);
+    assert.equal(fullCollectionRemoveEventCount, 0);
+    assert.equal(fullCollectionResetEventCount, 0);
+    assert.equal(col.parse.callCount, 1);
     currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
-    col.parse.reset();
-    col.parseLinks.reset();
+    col.parse.resetHistory();
+    col.parseLinks.resetHistory();
 
     // test paging for a page that has a link but no models results in a fetch
     col.parseLinks.returns({next: "url3"});
     col.getNextPage({success: function () {
-      strictEqual(col.state.currentPage, 2);
-      strictEqual(col.state.totalRecords, 4);
-      strictEqual(col.state.totalPages, 2);
-      strictEqual(col.state.lastPage, 2);
-      strictEqual(col.fullCollection.length, 4);
-      deepEqual(col.links, {
+      assert.strictEqual(col.state.currentPage, 2);
+      assert.strictEqual(col.state.totalRecords, 4);
+      assert.strictEqual(col.state.totalPages, 2);
+      assert.strictEqual(col.state.lastPage, 2);
+      assert.strictEqual(col.fullCollection.length, 4);
+      assert.deepEqual(col.links, {
         "1": "url",
         "2": "url2",
         "3": "url3"
       });
-      deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
-      deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+      assert.deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
+      assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
     }});
     this.ajaxSettings.success([
       {id: 3},
       {id: 4}
     ]);
-    equal(currentPageResetEventCount, 1);
-    equal(fullCollectionAddEventCount, 2);
-    equal(fullCollectionRemoveEventCount, 0);
-    equal(fullCollectionResetEventCount, 0);
-    equal(col.parse.callCount, 1);
+    assert.equal(currentPageResetEventCount, 1);
+    assert.equal(fullCollectionAddEventCount, 2);
+    assert.equal(fullCollectionRemoveEventCount, 0);
+    assert.equal(fullCollectionResetEventCount, 0);
+    assert.equal(col.parse.callCount, 1);
     currentPageResetEventCount = 0;
     fullCollectionAddEventCount = 0;
     fullCollectionRemoveEventCount = 0;
     fullCollectionResetEventCount = 0;
-    col.parse.reset();
-    col.parseLinks.reset();
+    col.parse.resetHistory();
+    col.parseLinks.resetHistory();
 
     // test paging backward use cache
     col.getPreviousPage();
-    strictEqual(col.parseLinks.called, false);
-    strictEqual(col.state.currentPage, 1);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.fullCollection.length, 4);
-    deepEqual(col.links, {
+    assert.strictEqual(col.parseLinks.called, false);
+    assert.strictEqual(col.state.currentPage, 1);
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.fullCollection.length, 4);
+    assert.deepEqual(col.links, {
       "1": "url",
       "2": "url2",
       "3": "url3"
     });
-    deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
-    deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
-    equal(currentPageResetEventCount, 1);
-    equal(fullCollectionAddEventCount, 0);
-    equal(fullCollectionRemoveEventCount, 0);
-    equal(fullCollectionResetEventCount, 0);
+    assert.deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+    assert.equal(currentPageResetEventCount, 1);
+    assert.equal(fullCollectionAddEventCount, 0);
+    assert.equal(fullCollectionRemoveEventCount, 0);
+    assert.equal(fullCollectionResetEventCount, 0);
     currentPageResetEventCount = 0;
 
     // test paging to last page
     col.getLastPage();
-    strictEqual(col.parseLinks.called, false);
-    strictEqual(col.state.currentPage, 2);
-    strictEqual(col.state.totalRecords, 4);
-    strictEqual(col.state.totalPages, 2);
-    strictEqual(col.state.lastPage, 2);
-    strictEqual(col.fullCollection.length, 4);
-    deepEqual(col.links, {
+    assert.strictEqual(col.parseLinks.called, false);
+    assert.strictEqual(col.state.currentPage, 2);
+    assert.strictEqual(col.state.totalRecords, 4);
+    assert.strictEqual(col.state.totalPages, 2);
+    assert.strictEqual(col.state.lastPage, 2);
+    assert.strictEqual(col.fullCollection.length, 4);
+    assert.deepEqual(col.links, {
       "1": "url",
       "2": "url2",
       "3": "url3"
     });
-    deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
-    deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
-    equal(currentPageResetEventCount, 1);
-    equal(fullCollectionAddEventCount, 0);
-    equal(fullCollectionRemoveEventCount, 0);
-    equal(fullCollectionResetEventCount, 0);
+    assert.deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
+    assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
+    assert.equal(currentPageResetEventCount, 1);
+    assert.equal(fullCollectionAddEventCount, 0);
+    assert.equal(fullCollectionRemoveEventCount, 0);
+    assert.equal(fullCollectionResetEventCount, 0);
 
     col.parseLinks.restore();
   });
 
-  test("hasNextPage and hasPreviousPage", function () {
+  QUnit.test("hasNextPage and hasPreviousPage", function (assert) {
     var col = new (Backbone.PageableCollection.extend({
       url: "url"
     }))([
@@ -283,18 +286,18 @@ $(document).ready(function () {
       mode: "infinite"
     });
 
-    strictEqual(col.hasPreviousPage(), false);
-    strictEqual(col.hasNextPage(), true);
+    assert.strictEqual(col.hasPreviousPage(), false);
+    assert.strictEqual(col.hasNextPage(), true);
 
     col.getNextPage();
 
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), true);
+    assert.strictEqual(col.hasPreviousPage(), true);
+    assert.strictEqual(col.hasNextPage(), true);
 
     col.getLastPage();
 
-    strictEqual(col.hasPreviousPage(), true);
-    strictEqual(col.hasNextPage(), false);
+    assert.strictEqual(col.hasPreviousPage(), true);
+    assert.strictEqual(col.hasNextPage(), false);
   });
 
 });

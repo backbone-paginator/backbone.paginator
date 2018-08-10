@@ -4,9 +4,9 @@ $(document).ready(function () {
 
   var col;
 
-  module("Backbone.PageableCollection - switchMode", {
+  QUnit.module("Backbone.PageableCollection - switchMode", {
 
-    setup: function () {
+    beforeEach: function () {
       col = new Backbone.PageableCollection([
         {name: "a"},
         {name: "c"},
@@ -20,20 +20,20 @@ $(document).ready(function () {
 
   });
 
-  test("switchMode", function () {
+  QUnit.test("switchMode", function (assert) {
 
     sinon.stub(col, "fetch");
     sinon.spy(col, "trigger");
 
     col.switchMode("client");
 
-    strictEqual(col.mode, "client");
-    ok(col.fullCollection instanceof Backbone.Collection);
-    ok(col.fetch.calledOnce);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.mode, "client");
+    assert.ok(col.fullCollection instanceof Backbone.Collection);
+    assert.ok(col.fetch.calledOnce);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.fetch.reset();
-    col.trigger.reset();
+    col.fetch.resetHistory();
+    col.trigger.resetHistory();
 
     var comparator = col.fullCollection.comparator = function (model) {
       return model.get("name");
@@ -41,32 +41,32 @@ $(document).ready(function () {
 
     col.switchMode("server");
 
-    strictEqual(col.mode, "server");
-    ok(_.isUndefined(col.fullCollection));
-    ok(col.fetch.calledOnce);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.mode, "server");
+    assert.ok(_.isUndefined(col.fullCollection));
+    assert.ok(col.fetch.calledOnce);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.fetch.reset();
-    col.trigger.reset();
+    col.fetch.resetHistory();
+    col.trigger.resetHistory();
 
     col.state.totalRecords = 20;
     col.switchMode("client", {fetch: false, resetState: false});
 
-    strictEqual(col.state.totalRecords, 20);
-    strictEqual(col.fullCollection.comparator, comparator);
-    ok(col.fetch.notCalled);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.state.totalRecords, 20);
+    assert.strictEqual(col.fullCollection.comparator, comparator);
+    assert.ok(col.fetch.notCalled);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-    col.fetch.reset();
-    col.trigger.reset();
+    col.fetch.resetHistory();
+    col.trigger.resetHistory();
 
     col.switchMode("infinite");
 
-    strictEqual(col.mode, "infinite");
-    strictEqual(col.state.totalRecords, null);
-    ok(col.fullCollection);
-    ok(col.fetch.calledOnce);
-    ok(col.trigger.calledWith("pageable:state:change", col.state));
+    assert.strictEqual(col.mode, "infinite");
+    assert.strictEqual(col.state.totalRecords, null);
+    assert.ok(col.fullCollection);
+    assert.ok(col.fetch.calledOnce);
+    assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
   });
 
 });
