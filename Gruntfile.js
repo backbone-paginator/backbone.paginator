@@ -29,13 +29,6 @@ module.exports = function (grunt) {
       ]
     },
 
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        singleRun: true
-      }
-    },
-
     documentation: {
       "default": {
         files: {
@@ -74,7 +67,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-documentation");
-  grunt.loadNpmTasks("grunt-karma");
 
   grunt.registerTask("default", ["clean", "karma", "documentation", "uglify"]);
 };
