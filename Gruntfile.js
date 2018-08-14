@@ -41,19 +41,6 @@ module.exports = function (grunt) {
       }
     },
 
-    uglify: {
-      options: {
-        mangle: true,
-        compress: {},
-        preserveComments: "some"
-      },
-      "default": {
-        files: {
-          "lib/backbone.paginator.min.js": ["lib/backbone.paginator.js"]
-        }
-      }
-    },
-
     connect: {
       server: {
         options: {
@@ -64,7 +51,6 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks("grunt-contrib-clean");
-  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-connect");
   grunt.loadNpmTasks("grunt-documentation");
 

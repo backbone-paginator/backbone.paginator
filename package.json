@@ -20,6 +20,11 @@
     "underscore": "^1.9.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "babel-eslint": "^8.2.6",
+    "babel-minify": "^0.4.3",
     "eslint": "^5.3.0",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-compat": "^2.5.1",
@@ -27,7 +32,6 @@
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-uglify": "^3.4.0",
     "grunt-documentation": "^1.2.3",
     "jquery": "^3.3.1",
     "karma": "^2.0.5",
@@ -41,6 +45,7 @@
     "sinon": "^6.1.4"
   },
   "scripts": {
+    "build": "babel lib/backbone.paginator.js --out-file=lib/backbone.paginator.min.js --no-comments --compact=true --presets=minify --minified --source-type=script",
     "lint": "eslint ./lib/backbone.paginator.js test/**/*.js",
     "format": "eslint --fix ./lib/backbone.paginator.js test/**/*.js",
     "test": "karma start --single-run --browsers Chrome,Firefox"
