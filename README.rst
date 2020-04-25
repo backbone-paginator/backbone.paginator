@@ -1,7 +1,7 @@
 backbone.paginator
 ==================
 
-|travis-status|_
+|ci-status|_
 |cdnjs-version|_
 
 A pageable, drop-in replacement for Backbone.Collection called
@@ -680,7 +680,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-.. |travis-status| image:: https://travis-ci.org/backbone-paginator/backbone.paginator.png
-.. _travis-status: https://travis-ci.org/backbone-paginator/backbone.paginator
+.. |ci-status| image:: https://github.com/backbone-paginator/backbone.paginator/workflows/CI/badge.svg?event=push
+.. _ci-status: https://github.com/backbone-paginator/backbone.paginator/actions?query=branch%3Amaster
 .. |cdnjs-version| image:: https://img.shields.io/cdnjs/v/backbone.paginator.svg
 .. _cdnjs-version: https://cdnjs.com/libraries/backbone.paginator
