@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: actions/cache@v1
+      id: cache-node-modules
+      with:
+        path: node_modules
+        key: node-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          node-${{ matrix.node-version }}-
+    - run: npm install
+      if: steps.cache-node-modules.outputs.cache-hit != 'true'
+    - run: npm test -- --browsers ChromeHeadless,FirefoxHeadless --reporters=dots,coverage
+      env:
+        CI: true
