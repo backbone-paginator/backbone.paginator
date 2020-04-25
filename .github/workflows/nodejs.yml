@@ -28,4 +28,4 @@ jobs:
     - run: npm test
       env:
         CI: true
-        DISPLAY: :99.0 
+        DISPLAY: :0 
