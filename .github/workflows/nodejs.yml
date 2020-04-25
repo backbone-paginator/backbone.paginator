@@ -24,8 +24,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: export DISPLAY=:99.0
     - run: npm install
+      env:
+        DISPLAY: :99.0
     - run: npm test
       env:
         CI: true
