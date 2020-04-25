@@ -25,8 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-      env:
-        DISPLAY: :99.0
     - run: npm test
       env:
         CI: true
+        DISPLAY: :99.0 
