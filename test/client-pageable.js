@@ -22,15 +22,11 @@ $(document).ready(function () {
         return model.get("name");
       };
 
-      this.xhr = sinon.useFakeXMLHttpRequest();
-      var requests = this.requests = [];
-      this.xhr.onCreate = function (xhr) {
-        requests.push(xhr);
-      }
+      this.mockXHR.install(this);
     },
 
     afterEach: function () {
-      this.xhr.restore();
+      this.mockXHR.uninstall(this);
     }
   });
 
