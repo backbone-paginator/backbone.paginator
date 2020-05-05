@@ -1470,10 +1470,10 @@
     collection.add({id: 1, a: 1}, {merge: true}); // do sort, model change
     assert.strictEqual(onSort.callCount, 2);
     collection.add({id: 1, b: 1}, {merge: true}); // do sort, model change
-    assert.strictEqual(onSort.callCount, 3);
     collection.add({id: 1, a: 1}, {merge: true}); // don't sort, no model change
     collection.add(collection.models); // don't sort, nothing new
     collection.add(collection.models, {merge: true}); // don't sort
+    assert.strictEqual(onSort.callCount, 3);
   });
 
   QUnit.test('Attach options to collection.', function(assert) {
