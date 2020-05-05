@@ -469,7 +469,6 @@
 
   QUnit.test('remove same model in multiple collection', function(assert) {
     assert.expect(16);
-    var counter = 0;
     var onRemove = sinon.stub();
 
     function assertModel(model) {
