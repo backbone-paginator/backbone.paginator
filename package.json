@@ -53,7 +53,8 @@
     "pretest": "npm run lint",
     "test": "karma start --single-run",
     "preversion": "npm test",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run build"
   },
   "browserslist": [
     "> 5%"
