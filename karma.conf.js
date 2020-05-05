@@ -15,7 +15,6 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/qunit/qunit/qunit.css',
       'node_modules/sinon/pkg/sinon.js',
       'node_modules/jquery/dist/jquery.js',
       'node_modules/underscore/underscore.js',
