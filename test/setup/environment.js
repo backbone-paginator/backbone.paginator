@@ -38,6 +38,8 @@
     Backbone.emulateJSON = emulateJSON;
     history.pushState = pushState;
     history.replaceState = replaceState;
+
+    sinon.restore();
   });
 
 })();
