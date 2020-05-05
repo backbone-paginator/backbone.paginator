@@ -30,7 +30,6 @@ jobs:
           node-${{ matrix.node-version }}-
     - run: npm install
       if: steps.cache-node-modules.outputs.cache-hit != 'true'
-    - run: npm run build
     - run: npm test -- --browsers ChromeHeadless,FirefoxHeadless --reporters=dots,coverage
       env:
         CI: true
