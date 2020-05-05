@@ -576,14 +576,13 @@
 
   QUnit.test('ensure fetch only parses once', function(assert) {
     assert.expect(1);
-    sinon.spy(Backbone, 'sync');
 
     var collection = new Backbone.Collection;
     sinon.spy(collection, 'parse');
 
     collection.url = '/test';
     collection.fetch();
-    Backbone.sync.getCall(0).args[2].success([]);
+    this.requests.shift().respond(200, {}, '[]');
     assert.equal(collection.parse.callCount, 1);
   });
 
