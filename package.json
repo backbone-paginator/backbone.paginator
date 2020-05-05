@@ -47,10 +47,15 @@
     "underscore": "^1.9.1"
   },
   "scripts": {
-    "build": "babel lib/backbone.paginator.js --out-file=lib/backbone.paginator.min.js --no-comments --compact=true --presets=minify --minified --source-type=script",
-    "lint": "eslint ./lib/backbone.paginator.js test/**/*.js",
-    "format": "eslint --fix ./lib/backbone.paginator.js test/**/*.js",
-    "test": "karma start --single-run"
+    "build": "./contrib/build.sh",
+    "lint": "eslint ./src/backbone.paginator.js test/**/*.js",
+    "format": "eslint --fix ./src/backbone.paginator.js test/**/*.js",
+    "pretest": "npm run lint && npm run build",
+    "test": "karma start --single-run",
+    "posttest": "rm -rf ./lib",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm run build"
   },
   "browserslist": [
     "> 5%"
