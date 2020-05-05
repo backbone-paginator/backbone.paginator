@@ -19,16 +19,6 @@
       env.ajaxSettings = settings;
     };
 
-    // Capture the arguments to Backbone.sync for comparison.
-    Backbone.sync = function (method, model, options) {
-      env.syncArgs = {
-        method: method,
-        model: model,
-        options: options
-      };
-      sync.apply(this, arguments);
-    };
-
   });
 
   QUnit.testDone(function () {

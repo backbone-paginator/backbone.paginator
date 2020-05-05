@@ -516,15 +516,18 @@
 
   QUnit.test('fetch', function(assert) {
     assert.expect(4);
+
+    sinon.spy(Backbone, 'sync');
+
     var collection = new Backbone.Collection;
     collection.url = '/test';
     collection.fetch();
-    assert.equal(this.syncArgs.method, 'read');
-    assert.equal(this.syncArgs.model, collection);
-    assert.equal(this.syncArgs.options.parse, true);
+    assert.equal(Backbone.sync.getCall(0).args[0], 'read');
+    assert.equal(Backbone.sync.getCall(0).args[1], collection);
+    assert.equal(Backbone.sync.getCall(0).args[2].parse, true);
 
     collection.fetch({parse: false});
-    assert.equal(this.syncArgs.options.parse, false);
+    assert.equal(Backbone.sync.getCall(1).args[2].parse, false);
   });
 
   QUnit.test('fetch with an error response triggers an error event', function(assert) {
@@ -555,25 +558,25 @@
 
   QUnit.test('ensure fetch only parses once', function(assert) {
     assert.expect(1);
+    sinon.spy(Backbone, 'sync');
+
     var collection = new Backbone.Collection;
-    var counter = 0;
-    collection.parse = function(models) {
-      counter++;
-      return models;
-    };
+    sinon.spy(collection, 'parse');
+
     collection.url = '/test';
     collection.fetch();
-    this.syncArgs.options.success([]);
-    assert.equal(counter, 1);
+    Backbone.sync.getCall(0).args[2].success([]);
+    assert.equal(collection.parse.callCount, 1);
   });
 
   QUnit.test('create', function(assert) {
     assert.expect(4);
     var collection = new Backbone.Collection;
     collection.url = '/test';
+    sinon.spy(Backbone, 'sync');
     var model = collection.create({label: 'f'}, {wait: true});
-    assert.equal(this.syncArgs.method, 'create');
-    assert.equal(this.syncArgs.model, model);
+    assert.equal(Backbone.sync.getCall(0).args[0], 'create');
+    assert.equal(Backbone.sync.getCall(0).args[1], model);
     assert.equal(model.get('label'), 'f');
     assert.equal(model.collection, collection);
   });
