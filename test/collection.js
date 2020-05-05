@@ -261,7 +261,6 @@
       assert.equal(m, model);
     }
 
-    onAdd.withArgs(m).callsFake(assertModel);
     onAdd.onFirstCall().callsFake(function(model, collection) {
       assertModel(model);
       assert.equal(collection, col1);
