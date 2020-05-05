@@ -2,7 +2,10 @@
 
 rm -d ./lib
 mkdir "lib"
-cp ./src/backbone.paginator.js ./lib/
+
+./node_modules/.bin/babel src/backbone.paginator.js \
+  --out-file=lib/backbone.paginator.js \
+  --source-type=module
 
 ./node_modules/.bin/babel lib/backbone.paginator.js \
   --out-file=lib/backbone.paginator.min.js \
