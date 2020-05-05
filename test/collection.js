@@ -12,8 +12,13 @@
       e         = null;
       col       = new Backbone.Collection([a, b, c, d]);
       otherCol  = new Backbone.Collection();
-    }
 
+      this.mockXHR.install(this);
+    },
+
+    afterEach() {
+      this.mockXHR.uninstall(this);
+    }
   });
 
   QUnit.test('new and sort', function(assert) {
@@ -620,7 +625,7 @@
     };
 
     collection.create({}, {success: success});
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '{}');
   });
 
   QUnit.test('create with wait:true should not call collection.parse', function(assert) {
@@ -635,7 +640,7 @@
     var collection = new Collection;
 
     collection.create({}, {wait: true});
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '{}');
   });
 
   QUnit.test('a failing create returns model with errors', function(assert) {
@@ -1088,12 +1093,12 @@
       url: 'test',
       model: Backbone.Model.extend({
         parse: function(resp) {
-          assert.strictEqual(resp, model);
+          assert.deepEqual(resp, model);
         }
       })
     });
     new Collection().fetch();
-    this.ajaxSettings.success([model]);
+    this.requests.shift().respond(200, {}, JSON.stringify([model]));
   });
 
   QUnit.test("`sort` shouldn't always fire on `add`", function(assert) {
@@ -1414,7 +1419,7 @@
     };
 
     collection.fetch({success: onSuccess});
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '[]');
   });
 
   QUnit.test('`add` only `sort`s when necessary', function(assert) {
@@ -1495,7 +1500,7 @@
         assert.strictEqual(resp, 'response');
       }
     });
-    this.ajaxSettings.success('response');
+    this.requests.shift().respond(200, {}, '"response"');
   });
 
   QUnit.test('#2612 - nested `parse` works with `Collection#set`', function(assert) {
