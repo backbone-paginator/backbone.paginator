@@ -52,7 +52,8 @@
     "format": "eslint --fix ./src/backbone.paginator.js test/**/*.js",
     "pretest": "npm run lint",
     "test": "karma start --single-run",
-    "preversion": "npm test"
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags"
   },
   "browserslist": [
     "> 5%"
