@@ -15,7 +15,7 @@
         var requests = testCase.requests = [];
         testCase.xhr.onCreate = function (xhr) {
           requests.push(xhr);
-        }
+        };
       },
 
       uninstall: function (testCase) {
