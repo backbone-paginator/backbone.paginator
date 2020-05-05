@@ -1,2 +1,10 @@
 api
 examples
+test
+.*
+babel.config.js
+bower.json
+CONTRIBUTING.md
+Gruntfile.js
+index.html
+karma.conf.js
