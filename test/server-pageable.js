@@ -4,7 +4,15 @@ $(document).ready(function () {
 
   // TODO: test invalid state
 
-  QUnit.module("Backbone.PageableCollection - Server");
+  QUnit.module("Backbone.PageableCollection - Server", {
+    beforeEach: function () {
+      this.mockXHR.install(this);
+    },
+
+    afterEach: function () {
+      this.mockXHR.uninstall(this);
+    }
+  });
 
   QUnit.test("parse", function (assert) {
     var resp = [{"page": 1,
@@ -275,7 +283,7 @@ $(document).ready(function () {
   });
 
   QUnit.test("fetch", function (assert) {
-    assert.expect(17);
+    assert.expect(13);
 
     var col = new (Backbone.PageableCollection.extend({
       url: function () { return "test-fetch"; }
@@ -283,24 +291,14 @@ $(document).ready(function () {
 
     col.fetch();
 
-    assert.strictEqual(this.ajaxSettings.url, "test-fetch");
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 1,
-      "per_page": 25
-    });
+    assert.strictEqual(this.requests.shift().url, "test-fetch?page=1&per_page=25");
 
     col.queryParams.order = function () { return 'order_test'; };
-    col.state.sortKey = "title",
+    col.state.sortKey = "title";
     col.fetch();
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 1,
-      "sort_by": "title",
-      "order_test": 'asc',
-      "per_page": 25
-    });
+    assert.deepEqual(this.requests.shift().url, 'test-fetch?page=1&per_page=25&sort_by=title&order_test=asc');
 
-
-    col.state.sortKey = "name",
+    col.state.sortKey = "name";
     col.state.totalRecords = 50;
     col.state.totalPages = 1;
     col.state.order = null;
@@ -312,18 +310,15 @@ $(document).ready(function () {
 
     col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
 
-    assert.strictEqual(this.ajaxSettings.url, "test-fetch-2");
-    assert.strictEqual(this.ajaxSettings.add, true);
-    assert.strictEqual(this.ajaxSettings.silent, true);
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 0,
-      "per_page": 50,
-      "sort_by": "name",
-      "access_token": 1
-    });
+    var request = this.requests.shift();
+    assert.strictEqual(request.url, "test-fetch-2?page=0&per_page=50&sort_by=name&access_token=1");
 
-
-    this.ajaxSettings.success([{"total_entries": 0}, []]);
+    request.respond(200, {}, JSON.stringify([
+      {
+        "total_entries": 0
+      },
+      []
+    ]));
     assert.strictEqual(col.state.sortKey, "name");
     assert.strictEqual(col.state.firstPage, 0);
     assert.strictEqual(col.state.order, null);
@@ -341,17 +336,14 @@ $(document).ready(function () {
     col.state.pageSize = 50;
     col.state.firstPage = 0;
     col.fetch();
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 0,
-      "per_page": 50,
-      "sort_by": ["firstSort", "secondSort"],
-      "order_test": ["asc", "desc"],
-      "access_token": 1
-    });
+    assert.deepEqual(
+        this.requests.shift().url,
+        'test-fetch?page=0&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1'
+    );
 
     col.state.page = 0;
     col.fetch({data: {page: 1}});
-    assert.deepEqual(this.ajaxSettings.data.page, 1);
+    assert.deepEqual(this.requests.shift().url, 'test-fetch?page=1&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1');
   });
 
   QUnit.test("getPage", function (assert) {
@@ -505,12 +497,7 @@ $(document).ready(function () {
     col.url = "test?a=";
     col.fetch();
 
-    assert.strictEqual(this.ajaxSettings.url, "test");
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 1,
-      "per_page": 25,
-      a: ''
-    });
+    assert.strictEqual(this.requests.shift().url, "test?a=&page=1&per_page=25");
 
   });
 
