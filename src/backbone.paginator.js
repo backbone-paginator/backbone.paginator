@@ -8,8 +8,8 @@ Copyright (c) 2016 Jimmy Yuen Ho Wong and contributors
 @license MIT
 */
 
-import _ from 'underscore';
-import Backbone from 'backbone';
+import _ from "underscore";
+import Backbone from "backbone";
 
 var _extend = _.extend;
 var _omit = _.omit;
@@ -254,17 +254,17 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
     var mode = this.mode = options.mode || this.mode || PageableProto.mode;
 
     var queryParams = _extend({}, PageableProto.queryParams, this.queryParams,
-                              options.queryParams || {});
+        options.queryParams || {});
 
     queryParams.directions = _extend({},
-                                     PageableProto.queryParams.directions,
-                                     this.queryParams.directions,
-                                     queryParams.directions);
+        PageableProto.queryParams.directions,
+        this.queryParams.directions,
+        queryParams.directions);
 
     this.queryParams = queryParams;
 
     var state = this.state = _extend({}, PageableProto.state, this.state,
-                                     options.state);
+        options.state);
 
     state.currentPage = state.currentPage == null ?
       state.firstPage :
@@ -280,8 +280,8 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
     }
 
     this.switchMode(mode, _extend({fetch: false,
-                                   resetState: false,
-                                   models: models}, options));
+      resetState: false,
+      models: models}, options));
 
     var comparator = options.comparator;
 
@@ -445,7 +445,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
             }
             else if (!pageCol.length && state.totalRecords) {
               pageCol.reset(fullCol.models.slice(pageStart - pageSize, pageEnd - pageSize),
-                            _extend({}, options, {parse: false}));
+                  _extend({}, options, {parse: false}));
             }
             fullCol.remove(model);
           }
@@ -458,7 +458,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
             pageCol.remove(model);
             if (!pageCol.length && state.totalRecords) {
               pageCol.reset(fullCol.models.slice(pageStart - pageSize, pageEnd - pageSize),
-                            _extend({}, options, {parse: false}));
+                  _extend({}, options, {parse: false}));
             }
           }
         }
@@ -491,7 +491,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
           }
           pageCol.state = pageCol._checkState(state);
           pageCol.reset(fullCol.models.slice(pageStart, pageEnd),
-                        _extend({}, options, {parse: false}));
+              _extend({}, options, {parse: false}));
         }
 
         if (!options.silent) pageCol.trigger("pageable:state:change", pageCol.state);
@@ -502,7 +502,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
         collection = model;
         if (collection === fullCol) {
           pageCol.reset(fullCol.models.slice(pageStart, pageEnd),
-                        _extend({}, options, {parse: false}));
+              _extend({}, options, {parse: false}));
         }
       }
 
@@ -848,10 +848,10 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
     options = options || {fetch: false};
 
     var state = this.state,
-    firstPage = state.firstPage,
-    currentPage = state.currentPage,
-    lastPage = state.lastPage,
-    pageSize = state.pageSize;
+      firstPage = state.firstPage,
+      currentPage = state.currentPage,
+      lastPage = state.lastPage,
+      pageSize = state.pageSize;
 
     var pageNum = index;
     switch (index) {
@@ -1144,7 +1144,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
     var queryParams = this.mode == "client" ?
         _pick(this.queryParams, "sortKey") :
         _omit(_pick(this.queryParams, _keys(PageableProto.queryParams)),
-              "order", "directions", "totalPages", "totalRecords");
+            "order", "directions", "totalPages", "totalRecords");
 
     // map the query params to the data object used by the underlying ajax lib
     // to construct the query string
@@ -1178,7 +1178,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
 
     // map extra query parameters
     var extraKvps = _pairs(_omit(this.queryParams,
-                                 _keys(PageableProto.queryParams)));
+        _keys(PageableProto.queryParams)));
     for (var i = 0; i < extraKvps.length; i++) {
       var kvp = extraKvps[i];
       var v = kvp[1];
@@ -1200,7 +1200,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
         if (mode == "client") fullCol.reset(models, opts);
         else {
           fullCol.add(models, _extend({at: fullCol.length},
-                                      _extend(opts, {parse: false})));
+              _extend(opts, {parse: false})));
           self.trigger("reset", self, opts);
         }
 
@@ -1311,7 +1311,7 @@ var PageableCollection = Backbone.PageableCollection = Backbone.Collection.exten
 
     var mode = this.mode;
     options = _extend({side: mode == "client" ? mode : "server", full: true},
-                      options);
+        options);
 
     var comparator = this._makeComparator(sortKey, order, options.sortValue);
 
