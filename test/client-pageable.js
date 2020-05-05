@@ -21,6 +21,16 @@ $(document).ready(function () {
       comparator = function (model) {
         return model.get("name");
       };
+
+      this.xhr = sinon.useFakeXMLHttpRequest();
+      var requests = this.requests = [];
+      this.xhr.onCreate = function (xhr) {
+        requests.push(xhr);
+      }
+    },
+
+    afterEach: function () {
+      this.xhr.restore();
     }
   });
 
@@ -621,13 +631,13 @@ $(document).ready(function () {
     col.fullCollection.on("sync", onSync);
 
     col.at(0).save();
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '{}');
 
     col.fullCollection.at(0).save();
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '{}');
 
     col.fullCollection.at(1).save();
-    this.ajaxSettings.success();
+    this.requests.shift().respond(200, {}, '{}');
   });
 
   QUnit.test("reset and sort", function (assert) {
@@ -772,7 +782,7 @@ $(document).ready(function () {
   });
 
   QUnit.test("fetch", function (assert) {
-    assert.expect(14);
+    assert.expect(13);
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-fetch"
@@ -809,18 +819,15 @@ $(document).ready(function () {
     };
     col.fetch();
 
-    assert.strictEqual(this.ajaxSettings.url, "test-client-fetch");
-    assert.deepEqual(this.ajaxSettings.data, {
-      "sort_by": "name",
-      "order": "desc"
-    });
+    var request = this.requests.shift();
+    assert.strictEqual(request.url, "test-client-fetch?sort_by=name&order=desc");
 
-    this.ajaxSettings.success([
+    request.respond(200, {}, JSON.stringify([
       {name: "a"},
       {name: "c"},
       {name: "d"},
       {name: "b"}
-    ]);
+    ]))
 
     col.parse = oldParse;
 
@@ -1181,7 +1188,8 @@ $(document).ready(function () {
 
     col.fetch();
 
-    assert.deepEqual(this.ajaxSettings.data, {});
+    var request = this.requests.shift();
+    assert.equal(request.url, 'test-client-fetch');
   });
 
 });
