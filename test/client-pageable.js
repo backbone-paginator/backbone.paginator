@@ -778,7 +778,7 @@ $(document).ready(function () {
   });
 
   QUnit.test("fetch", function (assert) {
-    assert.expect(13);
+    assert.expect(10);
 
     var col = new (Backbone.PageableCollection.extend({
       url: "test-client-fetch"
@@ -791,28 +791,14 @@ $(document).ready(function () {
       mode: "client"
     });
 
-    var resetCount = 0;
-    var onReset = function () {
-      resetCount++;
-      assert.ok(true);
-    };
+    var onReset = sinon.spy();
 
-    var fullResetCount = 0;
-    var onFullReset = function () {
-      fullResetCount++;
-      assert.ok(true);
-    };
+    var onFullReset = sinon.spy();
 
     col.on("reset", onReset);
     col.fullCollection.on("reset", onFullReset);
 
-    var parseCount = 0;
-    var oldParse = col.parse;
-    col.parse = function () {
-      parseCount++;
-      assert.ok(true);
-      return oldParse.apply(this, arguments);
-    };
+    sinon.spy(col, 'parse');
     col.fetch();
 
     var request = this.requests.shift();
@@ -825,11 +811,9 @@ $(document).ready(function () {
       {name: "b"}
     ]))
 
-    col.parse = oldParse;
-
-    assert.equal(resetCount, 1);
-    assert.equal(fullResetCount, 1);
-    assert.equal(parseCount, 1);
+    assert.equal(onReset.callCount, 1);
+    assert.equal(onFullReset.callCount, 1);
+    assert.equal(col.parse.callCount, 1);
     assert.strictEqual(col.at(0).get("name"), "d");
     assert.strictEqual(col.at(1).get("name"), "c");
     assert.strictEqual(col.fullCollection.at(0).get("name"), "d");

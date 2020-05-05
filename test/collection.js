@@ -23,18 +23,18 @@
 
   QUnit.test('new and sort', function(assert) {
     assert.expect(6);
-    var counter = 0;
-    col.on('sort', function(){ counter++; });
+    var onSort = sinon.spy();
+    col.on('sort', onSort);
     assert.deepEqual(col.pluck('label'), ['a', 'b', 'c', 'd']);
     col.comparator = function(m1, m2) {
       return m1.id > m2.id ? -1 : 1;
     };
     col.sort();
-    assert.equal(counter, 1);
+    assert.equal(onSort.callCount, 1);
     assert.deepEqual(col.pluck('label'), ['a', 'b', 'c', 'd']);
     col.comparator = function(model) { return model.id; };
     col.sort();
-    assert.equal(counter, 2);
+    assert.equal(onSort.callCount, 2);
     assert.deepEqual(col.pluck('label'), ['d', 'c', 'b', 'a']);
     assert.equal(col.length, 4);
   });
@@ -254,17 +254,24 @@
 
   QUnit.test('add model to multiple collections', function(assert) {
     assert.expect(10);
-    var counter = 0;
-    var m = new Backbone.Model({id: 10, label: 'm'});
-    m.on('add', function(model, collection) {
-      counter++;
+
+    var onAdd = sinon.stub();
+
+    function assertModel(model) {
       assert.equal(m, model);
-      if (counter > 1) {
-        assert.equal(collection, col2);
-      } else {
-        assert.equal(collection, col1);
-      }
+    }
+
+    onAdd.withArgs(m).callsFake(assertModel);
+    onAdd.onFirstCall().callsFake(function(model, collection) {
+      assertModel(model);
+      assert.equal(collection, col1);
     });
+    onAdd.callsFake(function(model, collection) {
+      assertModel(model);
+      assert.equal(collection, col2);
+    });
+    var m = new Backbone.Model({id: 10, label: 'm'});
+    m.on('add', onAdd);
     var col1 = new Backbone.Collection([]);
     col1.on('add', function(model, collection) {
       assert.equal(m, model);
@@ -423,16 +430,16 @@
 
   QUnit.test('events are unbound on remove', function(assert) {
     assert.expect(3);
-    var counter = 0;
     var dj = new Backbone.Model();
     var emcees = new Backbone.Collection([dj]);
-    emcees.on('change', function(){ counter++; });
+    var onChange = sinon.spy();
+    emcees.on('change', onChange);
     dj.set({name: 'Kool'});
-    assert.equal(counter, 1);
+    assert.equal(onChange.callCount, 1);
     emcees.reset([]);
     assert.equal(dj.collection, undefined);
     dj.set({name: 'Shadow'});
-    assert.equal(counter, 1);
+    assert.equal(onChange.callCount, 1);
   });
 
   QUnit.test('remove in multiple collections', function(assert) {
@@ -463,16 +470,22 @@
   QUnit.test('remove same model in multiple collection', function(assert) {
     assert.expect(16);
     var counter = 0;
-    var m = new Backbone.Model({id: 5, title: 'Othello'});
-    m.on('remove', function(model, collection) {
-      counter++;
+    var onRemove = sinon.stub();
+
+    function assertModel(model) {
       assert.equal(m, model);
-      if (counter > 1) {
-        assert.equal(collection, col1);
-      } else {
-        assert.equal(collection, col2);
-      }
+    }
+
+    onRemove.onFirstCall().callsFake(function(model, collection) {
+      assertModel(model);
+      assert.equal(collection, col2);
     });
+    onRemove.callsFake(function (model, collection) {
+      assertModel(model);
+      assert.equal(collection, col1);
+    });
+    var m = new Backbone.Model({id: 5, title: 'Othello'});
+    m.on('remove', onRemove);
     var col1 = new Backbone.Collection([m]);
     col1.on('remove', function(model, collection) {
       assert.equal(m, model);
@@ -487,12 +500,12 @@
     col2.remove(m);
     assert.ok(col2.length === 0);
     assert.ok(col1.length === 1);
-    assert.equal(counter, 1);
+    assert.equal(onRemove.callCount, 1);
     assert.equal(col1, m.collection);
     col1.remove(m);
     assert.equal(null, m.collection);
     assert.ok(col1.length === 0);
-    assert.equal(counter, 2);
+    assert.equal(onRemove.callCount, 2);
   });
 
   QUnit.test('model destroy removes from all collections', function(assert) {
@@ -1588,34 +1601,25 @@
   QUnit.test('_addReference binds all collection events & adds to the lookup hashes', function(assert) {
     assert.expect(8);
 
-    var calls = {add: 0, remove: 0};
+    var collection = new Backbone.Collection();
 
-    var Collection = Backbone.Collection.extend({
+    sinon.spy(collection, '_addReference');
+    sinon.spy(collection, '_removeReference');
 
-      _addReference: function(model) {
-        Backbone.Collection.prototype._addReference.apply(this, arguments);
-        calls.add++;
-        assert.equal(model, this._byId[model.id]);
-        assert.equal(model, this._byId[model.cid]);
-        assert.equal(model._events.all.length, 1);
-      },
-
-      _removeReference: function(model) {
-        Backbone.Collection.prototype._removeReference.apply(this, arguments);
-        calls.remove++;
-        assert.equal(this._byId[model.id], void 0);
-        assert.equal(this._byId[model.cid], void 0);
-        assert.equal(model.collection, void 0);
-      }
-
-    });
-
-    var collection = new Collection();
     var model = collection.add({id: 1});
-    collection.remove(model);
+    var invocationModel = collection._addReference.getCall(0).args[0];
+    assert.equal(invocationModel, collection._byId[invocationModel.id]);
+    assert.equal(invocationModel, collection._byId[invocationModel.cid]);
+    assert.equal(invocationModel._events.all.length, 1);
 
-    assert.equal(calls.add, 1);
-    assert.equal(calls.remove, 1);
+    collection.remove(model);
+    invocationModel = collection._removeReference.getCall(0).args[0];
+    assert.equal(collection._byId[invocationModel.id], void 0);
+    assert.equal(collection._byId[invocationModel.cid], void 0);
+    assert.equal(invocationModel.collection, void 0);
+
+    assert.equal(collection._addReference.callCount, 1);
+    assert.equal(collection._removeReference.callCount, 1);
   });
 
   QUnit.test('Do not allow duplicate models to be `add`ed or `set`', function(assert) {

@@ -158,25 +158,17 @@ $(document).ready(function () {
     sinon.spy(col, "parse");
     sinon.stub(col, "parseLinks").returns({next: "url2", last: "lastUrl"});
 
-    var currentPageResetEventCount = 0;
-    col.on("reset", function () {
-      currentPageResetEventCount++;
-    });
+    var currentPageResetEventCount = sinon.spy();
+    col.on("reset", currentPageResetEventCount);
 
-    var fullCollectionAddEventCount = 0;
-    col.fullCollection.on("add", function () {
-      fullCollectionAddEventCount++;
-    });
+    var fullCollectionAddEventCount = sinon.spy();
+    col.fullCollection.on("add", fullCollectionAddEventCount);
 
-    var fullCollectionRemoveEventCount = 0;
-    col.fullCollection.on("remove", function () {
-      fullCollectionRemoveEventCount++;
-    });
+    var fullCollectionRemoveEventCount = sinon.spy();
+    col.fullCollection.on("remove", fullCollectionRemoveEventCount);
 
-    var fullCollectionResetEventCount = 0;
-    col.fullCollection.on("reset", function () {
-      fullCollectionResetEventCount++;
-    });
+    var fullCollectionResetEventCount = sinon.spy();
+    col.fullCollection.on("reset", fullCollectionResetEventCount);
 
     // test paging in the first page gets a page full of models and a link for
     // the next page
@@ -197,15 +189,15 @@ $(document).ready(function () {
       {id: 2},
       {id: 1}
     ]));
-    assert.equal(currentPageResetEventCount, 1);
-    assert.equal(fullCollectionAddEventCount, 2);
-    assert.equal(fullCollectionRemoveEventCount, 0);
-    assert.equal(fullCollectionResetEventCount, 0);
+    assert.equal(currentPageResetEventCount.callCount, 1);
+    assert.equal(fullCollectionAddEventCount.callCount, 2);
+    assert.equal(fullCollectionRemoveEventCount.callCount, 0);
+    assert.equal(fullCollectionResetEventCount.callCount, 0);
     assert.equal(col.parse.callCount, 1);
-    currentPageResetEventCount = 0;
-    fullCollectionAddEventCount = 0;
-    fullCollectionRemoveEventCount = 0;
-    fullCollectionResetEventCount = 0;
+    currentPageResetEventCount.resetHistory();
+    fullCollectionAddEventCount.resetHistory();
+    fullCollectionRemoveEventCount.resetHistory();
+    fullCollectionResetEventCount.resetHistory();
     col.parse.resetHistory();
     col.parseLinks.resetHistory();
 
@@ -229,15 +221,15 @@ $(document).ready(function () {
       {id: 3},
       {id: 4}
     ]));
-    assert.equal(currentPageResetEventCount, 1);
-    assert.equal(fullCollectionAddEventCount, 2);
-    assert.equal(fullCollectionRemoveEventCount, 0);
-    assert.equal(fullCollectionResetEventCount, 0);
+    assert.equal(currentPageResetEventCount.callCount, 1);
+    assert.equal(fullCollectionAddEventCount.callCount, 2);
+    assert.equal(fullCollectionRemoveEventCount.callCount, 0);
+    assert.equal(fullCollectionResetEventCount.callCount, 0);
     assert.equal(col.parse.callCount, 1);
-    currentPageResetEventCount = 0;
-    fullCollectionAddEventCount = 0;
-    fullCollectionRemoveEventCount = 0;
-    fullCollectionResetEventCount = 0;
+    currentPageResetEventCount.resetHistory();
+    fullCollectionAddEventCount.resetHistory();
+    fullCollectionRemoveEventCount.resetHistory();
+    fullCollectionResetEventCount.resetHistory();
     col.parse.resetHistory();
     col.parseLinks.resetHistory();
 
@@ -256,11 +248,11 @@ $(document).ready(function () {
     });
     assert.deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
     assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
-    assert.equal(currentPageResetEventCount, 1);
-    assert.equal(fullCollectionAddEventCount, 0);
-    assert.equal(fullCollectionRemoveEventCount, 0);
-    assert.equal(fullCollectionResetEventCount, 0);
-    currentPageResetEventCount = 0;
+    assert.equal(currentPageResetEventCount.callCount, 1);
+    assert.equal(fullCollectionAddEventCount.callCount, 0);
+    assert.equal(fullCollectionRemoveEventCount.callCount, 0);
+    assert.equal(fullCollectionResetEventCount.callCount, 0);
+    currentPageResetEventCount.resetHistory();
 
     // test paging to last page
     col.getLastPage();
@@ -277,10 +269,10 @@ $(document).ready(function () {
     });
     assert.deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
     assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
-    assert.equal(currentPageResetEventCount, 1);
-    assert.equal(fullCollectionAddEventCount, 0);
-    assert.equal(fullCollectionRemoveEventCount, 0);
-    assert.equal(fullCollectionResetEventCount, 0);
+    assert.equal(currentPageResetEventCount.callCount, 1);
+    assert.equal(fullCollectionAddEventCount.callCount, 0);
+    assert.equal(fullCollectionRemoveEventCount.callCount, 0);
+    assert.equal(fullCollectionResetEventCount.callCount, 0);
 
     col.parseLinks.restore();
   });
