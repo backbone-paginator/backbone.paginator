@@ -548,13 +548,14 @@
   });
 
   QUnit.test('fetch with an error response triggers an error event', function(assert) {
-    assert.expect(1);
+    var onError = sinon.spy();
     var collection = new Backbone.Collection();
-    collection.on('error', function() {
-      assert.ok(true);
+    collection.on('error', onError);
+    collection.fetch({
+      url: 'test'
     });
-    collection.sync = function(method, model, options) { options.error(); };
-    collection.fetch();
+    this.requests.shift().error();
+    assert.strictEqual(onError.callCount, 1);
   });
 
   QUnit.test('#3283 - fetch with an error response calls error with context', function(assert) {
@@ -641,18 +642,17 @@
   });
 
   QUnit.test('create with wait:true should not call collection.parse', function(assert) {
-    assert.expect(0);
+    var parse = sinon.spy();
     var Collection = Backbone.Collection.extend({
       url: '/test',
-      parse: function() {
-        assert.ok(false);
-      }
+      parse: parse
     });
 
     var collection = new Collection;
 
     collection.create({}, {wait: true});
     this.requests.shift().respond(200, {}, '{}');
+    assert.strictEqual(parse.callCount, 0);
   });
 
   QUnit.test('a failing create returns model with errors', function(assert) {
@@ -903,22 +903,23 @@
     });
 
     var collection = new Collection;
-    collection.on('invalid', function() { assert.ok(true); });
+    var onInvalid = sinon.spy();
+    collection.on('invalid', onInvalid);
 
     collection.add([{id: 1}, {id: 2}, {id: 3}, {id: 4}, {id: 5}, {id: 6}], {validate: true});
     assert.deepEqual(collection.pluck('id'), [1, 2, 4, 5, 6]);
+    assert.strictEqual(onInvalid.callCount, 1);
   });
 
   QUnit.test('Invalid models are discarded with validate:true.', function(assert) {
-    assert.expect(5);
+    assert.expect(4);
     var collection = new Backbone.Collection;
-    collection.on('test', function() { assert.ok(true); });
     collection.model = Backbone.Model.extend({
       validate: function(attrs){ if (!attrs.valid) return 'invalid'; }
     });
     var model = new collection.model({id: 1, valid: true});
     collection.add([model, {id: 2}], {validate: true});
-    model.trigger('test');
+
     assert.ok(collection.get(model.cid));
     assert.ok(collection.get(1));
     assert.ok(!collection.get(2));
@@ -1039,12 +1040,16 @@
   });
 
   QUnit.test('#1447 - create with wait adds model.', function(assert) {
-    assert.expect(1);
     var collection = new Backbone.Collection;
     var model = new Backbone.Model;
-    model.sync = function(method, m, options){ options.success(); };
-    collection.on('add', function(){ assert.ok(true); });
-    collection.create(model, {wait: true});
+    var onAdd = sinon.spy();
+    collection.on('add', onAdd);
+    collection.create(model, {
+      wait: true,
+      url: 'test'
+    });
+    this.requests.shift().respond(200, {}, '{}');
+    assert.strictEqual(onAdd.callCount, 1);
   });
 
   QUnit.test('#1448 - add sorts collection after merge.', function(assert) {
@@ -1114,15 +1119,16 @@
   });
 
   QUnit.test("`sort` shouldn't always fire on `add`", function(assert) {
-    assert.expect(1);
     var collection = new Backbone.Collection([{id: 1}, {id: 2}, {id: 3}], {
       comparator: 'id'
     });
-    collection.sort = function(){ assert.ok(true); };
+    sinon.spy(collection, 'sort');
     collection.add([]);
     collection.add({id: 1});
     collection.add([{id: 2}, {id: 3}]);
     collection.add({id: 4});
+
+    assert.strictEqual(collection.sort.callCount, 1);
   });
 
   QUnit.test('#1407 parse option on constructor parses collection and models', function(assert) {
@@ -1348,12 +1354,13 @@
   });
 
   QUnit.test('#1894 - Push should not trigger a sort', function(assert) {
-    assert.expect(0);
+    var sort = sinon.spy();
     var Collection = Backbone.Collection.extend({
       comparator: 'id',
-      sort: function() { assert.ok(false); }
+      sort: sort
     });
     new Collection().push({id: 1});
+    assert.strictEqual(sort.callCount, 0);
   });
 
   QUnit.test('#2428 - push duplicate models, return the correct one', function(assert) {
@@ -1374,12 +1381,13 @@
   });
 
   QUnit.test('#1894 - `sort` can optionally be turned off', function(assert) {
-    assert.expect(0);
+    var sort = sinon.spy();
     var Collection = Backbone.Collection.extend({
       comparator: 'id',
-      sort: function() { assert.ok(false); }
+      sort: sort
     });
     new Collection().add({id: 1}, {sort: false});
+    assert.strictEqual(sort.callCount, 0);
   });
 
   QUnit.test('#1915 - `parse` data in the right order in `set`', function(assert) {
@@ -1435,13 +1443,15 @@
   });
 
   QUnit.test('`add` only `sort`s when necessary', function(assert) {
-    assert.expect(2);
     var collection = new (Backbone.Collection.extend({
       comparator: 'a'
     }))([{id: 1}, {id: 2}, {id: 3}]);
-    collection.on('sort', function() { assert.ok(true); });
+    var onSort = sinon.spy();
+    collection.on('sort', onSort);
     collection.add({id: 4}); // do sort, new model
+    assert.strictEqual(onSort.callCount, 1);
     collection.add({id: 1, a: 1}, {merge: true}); // do sort, comparator change
+    assert.strictEqual(onSort.callCount, 2);
     collection.add({id: 1, b: 1}, {merge: true}); // don't sort, no comparator change
     collection.add({id: 1, a: 1}, {merge: true}); // don't sort, no comparator change
     collection.add(collection.models); // don't sort, nothing new
@@ -1449,16 +1459,19 @@
   });
 
   QUnit.test('`add` only `sort`s when necessary with comparator function', function(assert) {
-    assert.expect(3);
     var collection = new (Backbone.Collection.extend({
       comparator: function(m1, m2) {
         return m1.get('a') > m2.get('a') ? 1 : (m1.get('a') < m2.get('a') ? -1 : 0);
       }
     }))([{id: 1}, {id: 2}, {id: 3}]);
-    collection.on('sort', function() { assert.ok(true); });
+    var onSort = sinon.spy();
+    collection.on('sort', onSort);
     collection.add({id: 4}); // do sort, new model
+    assert.strictEqual(onSort.callCount, 1);
     collection.add({id: 1, a: 1}, {merge: true}); // do sort, model change
+    assert.strictEqual(onSort.callCount, 2);
     collection.add({id: 1, b: 1}, {merge: true}); // do sort, model change
+    assert.strictEqual(onSort.callCount, 3);
     collection.add({id: 1, a: 1}, {merge: true}); // don't sort, no model change
     collection.add(collection.models); // don't sort, nothing new
     collection.add(collection.models, {merge: true}); // don't sort
@@ -1764,39 +1777,36 @@
   });
 
   QUnit.test('#3199 - Order changing should trigger a sort', function(assert) {
-    assert.expect(1);
     var one = new Backbone.Model({id: 1});
     var two = new Backbone.Model({id: 2});
     var three = new Backbone.Model({id: 3});
     var collection = new Backbone.Collection([one, two, three]);
-    collection.on('sort', function() {
-      assert.ok(true);
-    });
+    var onSort = sinon.spy();
+    collection.on('sort', onSort);
     collection.set([{id: 3}, {id: 2}, {id: 1}]);
+    assert.strictEqual(onSort.callCount, 1);
   });
 
   QUnit.test('#3199 - Adding a model should trigger a sort', function(assert) {
-    assert.expect(1);
     var one = new Backbone.Model({id: 1});
     var two = new Backbone.Model({id: 2});
     var three = new Backbone.Model({id: 3});
     var collection = new Backbone.Collection([one, two, three]);
-    collection.on('sort', function() {
-      assert.ok(true);
-    });
+    var onSort = sinon.spy();
+    collection.on('sort', onSort);
     collection.set([{id: 1}, {id: 2}, {id: 3}, {id: 0}]);
+    assert.strictEqual(onSort.callCount, 1);
   });
 
   QUnit.test('#3199 - Order not changing should not trigger a sort', function(assert) {
-    assert.expect(0);
     var one = new Backbone.Model({id: 1});
     var two = new Backbone.Model({id: 2});
     var three = new Backbone.Model({id: 3});
     var collection = new Backbone.Collection([one, two, three]);
-    collection.on('sort', function() {
-      assert.ok(false);
-    });
+    var onSort = sinon.spy();
+    collection.on('sort', onSort);
     collection.set([{id: 1}, {id: 2}, {id: 3}]);
+    assert.strictEqual(onSort.callCount, 0);
   });
 
   QUnit.test('add supports negative indexes', function(assert) {
@@ -1816,31 +1826,35 @@
   });
 
   QUnit.test('adding multiple models triggers `update` event once', function(assert) {
-    assert.expect(1);
     var collection = new Backbone.Collection;
-    collection.on('update', function() { assert.ok(true); });
+    var onUpdate = sinon.spy();
+    collection.on('update', onUpdate);
     collection.add([{id: 1}, {id: 2}, {id: 3}]);
+    assert.strictEqual(onUpdate.callCount, 1);
   });
 
   QUnit.test('removing models triggers `update` event once', function(assert) {
-    assert.expect(1);
     var collection = new Backbone.Collection([{id: 1}, {id: 2}, {id: 3}]);
-    collection.on('update', function() { assert.ok(true); });
+    var onUpdate = sinon.spy();
+    collection.on('update', onUpdate);
     collection.remove([{id: 1}, {id: 2}]);
+    assert.strictEqual(onUpdate.callCount, 1);
   });
 
   QUnit.test('remove does not trigger `update` when nothing removed', function(assert) {
-    assert.expect(0);
+    var onUpdate = sinon.spy();
     var collection = new Backbone.Collection([{id: 1}, {id: 2}]);
-    collection.on('update', function() { assert.ok(false); });
+    collection.on('update', onUpdate);
     collection.remove([{id: 3}]);
+    assert.strictEqual(onUpdate.callCount, 0);
   });
 
   QUnit.test('set triggers `set` event once', function(assert) {
-    assert.expect(1);
     var collection = new Backbone.Collection([{id: 1}, {id: 2}]);
-    collection.on('update', function() { assert.ok(true); });
+    var onUpdate = sinon.spy();
+    collection.on('update', onUpdate);
     collection.set([{id: 1}, {id: 3}]);
+    assert.strictEqual(onUpdate.callCount, 1);
   });
 
   QUnit.test('set does not trigger `update` event when nothing added nor removed', function(assert) {

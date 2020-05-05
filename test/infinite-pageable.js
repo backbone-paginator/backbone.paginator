@@ -106,25 +106,22 @@ $(document).ready(function () {
   });
 
   QUnit.test("fetch", function (assert) {
-    assert.expect(2);
-
-    var oldParse = col.parse;
-    col.parse = function () {
-      assert.ok(true);
-      return oldParse.apply(this, arguments);
-    };
+    sinon.spy(col, 'parse');
 
     col.parseLinks = function () {
       return {first: "url-1", next: "url-2"};
     };
 
-    // makes sure collection events on the current page are not suppressed when
-    // refetching the same page
-    col.on("all", function (event) {
+    var shouldNotBeCalled = sinon.spy();
+    var onAll = sinon.stub().callsFake(function(event) {
       if (!_.contains(["request", "sync", "reset", "pageable:state:change"], event)) {
-        assert.ok(false);
+        shouldNotBeCalled();
       }
     });
+
+    // makes sure collection events on the current page are not suppressed when
+    // refetching the same page
+    col.on("all", onAll);
 
     col.fetch();
 
@@ -136,7 +133,8 @@ $(document).ready(function () {
       {id: 3}
     ]));
 
-    col.parse = oldParse;
+    assert.strictEqual(col.parse.callCount, 1);
+    assert.strictEqual(shouldNotBeCalled.callCount, 0);
   });
 
   QUnit.test("get*Page", function (assert) {
