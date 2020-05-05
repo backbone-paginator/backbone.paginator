@@ -1,7 +1,5 @@
 (function () {
 
-  var emulateHTTP = Backbone.emulateHTTP;
-  var emulateJSON = Backbone.emulateJSON;
   var history = window.history;
   var pushState = history.pushState;
   var replaceState = history.replaceState;
@@ -29,8 +27,6 @@
   });
 
   QUnit.testDone(function () {
-    Backbone.emulateHTTP = emulateHTTP;
-    Backbone.emulateJSON = emulateJSON;
     history.pushState = pushState;
     history.replaceState = replaceState;
 
