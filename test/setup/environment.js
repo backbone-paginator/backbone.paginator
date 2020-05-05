@@ -8,8 +8,6 @@
   var pushState = history.pushState;
   var replaceState = history.replaceState;
 
-  QUnit.config.noglobals = true;
-
   QUnit.testStart(function () {
     var env = QUnit.config.current.testEnvironment;
 

@@ -25,6 +25,11 @@ module.exports = function(config) {
       'test/*.js'
     ],
 
+    client: {
+      qunit: {
+        noglobals: true
+      }
+    },
 
     // list of files to exclude
     exclude: [
