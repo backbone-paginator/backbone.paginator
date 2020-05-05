@@ -986,7 +986,6 @@
     assert.expect(4);
     var collection = new Backbone.Collection;
     collection.url = '/test';
-    Backbone.ajax = function(settings){ settings.success(); };
 
     collection.on('request', function(obj, xhr, options) {
       assert.ok(obj === collection, "collection has correct 'request' event after fetching");
@@ -995,6 +994,7 @@
       assert.ok(obj === collection, "collection has correct 'sync' event after fetching");
     });
     collection.fetch();
+    this.requests.shift().respond(200, {}, '[]');
     collection.off();
 
     collection.on('request', function(obj, xhr, options) {
@@ -1004,6 +1004,7 @@
       assert.ok(obj === collection.get(1), "collection has correct 'sync' event after one of its models save");
     });
     collection.create({id: 1});
+    this.requests.shift().respond(200, {}, '[]');
     collection.off();
   });
 
@@ -1011,9 +1012,6 @@
     assert.expect(2);
     var collection = new Backbone.Collection;
     collection.url = '/test';
-    Backbone.ajax = function(settings) {
-      settings.success.call(settings.context);
-    };
     var obj = {};
     var options = {
       context: obj,
@@ -1023,7 +1021,9 @@
     };
 
     collection.fetch(options);
+    this.requests.shift().respond(200, {}, '[]');
     collection.create({id: 1}, options);
+    this.requests.shift().respond(200, {}, '[]');
   });
 
   QUnit.test('#1447 - create with wait adds model.', function(assert) {
