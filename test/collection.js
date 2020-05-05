@@ -510,25 +510,27 @@
   QUnit.test('model destroy removes from all collections', function(assert) {
     assert.expect(3);
     var m = new Backbone.Model({id: 5, title: 'Othello'});
-    m.sync = function(method, model, options) { options.success(); };
     var col1 = new Backbone.Collection([m]);
     var col2 = new Backbone.Collection([m]);
-    m.destroy();
+    m.destroy({
+      url: 'test'
+    });
+    this.requests.shift().respond(204, {}, '{}');
     assert.ok(col1.length === 0);
     assert.ok(col2.length === 0);
     assert.equal(undefined, m.collection);
   });
 
   QUnit.test('Collection: non-persisted model destroy removes from all collections', function(assert) {
-    assert.expect(3);
     var m = new Backbone.Model({title: 'Othello'});
-    m.sync = function(method, model, options) { throw 'should not be called'; };
+    sinon.spy(m, 'sync');
     var col1 = new Backbone.Collection([m]);
     var col2 = new Backbone.Collection([m]);
     m.destroy();
     assert.ok(col1.length === 0);
     assert.ok(col2.length === 0);
     assert.equal(undefined, m.collection);
+    assert.strictEqual(m.sync.callCount, 0);
   });
 
   QUnit.test('fetch', function(assert) {
@@ -563,15 +565,14 @@
     var collection = new Backbone.Collection();
     var obj = {};
     var options = {
+      url: 'test',
       context: obj,
       error: function() {
         assert.equal(this, obj);
       }
     };
-    collection.sync = function(method, model, opts) {
-      opts.error.call(opts.context);
-    };
     collection.fetch(options);
+    this.requests.shift().error();
   });
 
   QUnit.test('ensure fetch only parses once', function(assert) {
@@ -979,20 +980,20 @@
   });
 
   QUnit.test('#1355 - `options` is passed to success callbacks', function(assert) {
-    assert.expect(2);
     var m = new Backbone.Model({x: 1});
     var collection = new Backbone.Collection();
+    var success = sinon.spy();
     var opts = {
+      url: 'test',
       opts: true,
-      success: function(coll, resp, options) {
-        assert.ok(options.opts);
-      }
-    };
-    collection.sync = m.sync = function( method, coll, options ){
-      options.success({});
+      success: success
     };
     collection.fetch(opts);
+    this.requests.shift().respond(200, {}, '{}');
+    assert.strictEqual(success.callCount, 1);
     collection.create(m, opts);
+    this.requests.shift().respond(200, {}, '{}');
+    assert.strictEqual(success.callCount, 2);
   });
 
   QUnit.test("#1412 - Trigger 'request' and 'sync' events.", function(assert) {
