@@ -50,6 +50,7 @@
     "build": "./contrib/build.sh",
     "lint": "eslint ./src/backbone.paginator.js test/**/*.js",
     "format": "eslint --fix ./src/backbone.paginator.js test/**/*.js",
+    "pretest": "npm run lint",
     "test": "karma start --single-run",
     "preversion": "npm test"
   },
