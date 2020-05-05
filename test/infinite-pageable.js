@@ -20,6 +20,12 @@ $(document).ready(function () {
         },
         mode: "infinite"
       });
+
+      this.mockXHR.install(this);
+    },
+
+    afterEach: function () {
+      this.mockXHR.uninstall(this);
     }
   });
 
@@ -84,13 +90,23 @@ $(document).ready(function () {
 
     col.getFirstPage();
 
-    assert.strictEqual(this.ajaxSettings.url, "/name");
+    var request = this.requests.shift();
+    assert.strictEqual(request.url, "/name?page=1&per_page=25");
 
-    this.ajaxSettings.success([{"total_entries": 1}, [{id: 1}]]);
+    request.respond(200, {}, JSON.stringify([
+      {
+        "total_entries": 1
+      },
+      [
+        {
+          id: 1
+        }
+      ]
+    ]))
   });
 
   QUnit.test("fetch", function (assert) {
-    assert.expect(3);
+    assert.expect(2);
 
     var oldParse = col.parse;
     col.parse = function () {
@@ -112,16 +128,13 @@ $(document).ready(function () {
 
     col.fetch();
 
-    assert.strictEqual(this.ajaxSettings.url, "url");
-    assert.deepEqual(this.ajaxSettings.data, {
-      page: 2,
-      "per_page": 2
-    });
+    var request = this.requests.shift();
+    assert.strictEqual(request.url, "url?page=2&per_page=2");
 
-    this.ajaxSettings.success([
+    request.respond(200, {}, JSON.stringify([
       {id: 1},
       {id: 3}
-    ]);
+    ]));
 
     col.parse = oldParse;
   });
@@ -180,10 +193,10 @@ $(document).ready(function () {
       assert.deepEqual(col.toJSON(), [{id: 2}, {id: 1}]);
       assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}]);
     }});
-    this.ajaxSettings.success([
+    this.requests.shift().respond(200, {}, JSON.stringify([
       {id: 2},
       {id: 1}
-    ]);
+    ]));
     assert.equal(currentPageResetEventCount, 1);
     assert.equal(fullCollectionAddEventCount, 2);
     assert.equal(fullCollectionRemoveEventCount, 0);
@@ -212,10 +225,10 @@ $(document).ready(function () {
       assert.deepEqual(col.toJSON(), [{id: 3}, {id: 4}]);
       assert.deepEqual(col.fullCollection.toJSON(), [{id: 2}, {id: 1}, {id: 3}, {id: 4}]);
     }});
-    this.ajaxSettings.success([
+    this.requests.shift().respond(200, {}, JSON.stringify([
       {id: 3},
       {id: 4}
-    ]);
+    ]));
     assert.equal(currentPageResetEventCount, 1);
     assert.equal(fullCollectionAddEventCount, 2);
     assert.equal(fullCollectionRemoveEventCount, 0);
