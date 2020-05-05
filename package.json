@@ -48,8 +48,8 @@
   },
   "scripts": {
     "build": "./contrib/build.sh",
-    "lint": "eslint ./lib/backbone.paginator.js test/**/*.js",
-    "format": "eslint --fix ./lib/backbone.paginator.js test/**/*.js",
+    "lint": "eslint ./src/backbone.paginator.js test/**/*.js",
+    "format": "eslint --fix ./src/backbone.paginator.js test/**/*.js",
     "test": "karma start --single-run"
   },
   "browserslist": [
