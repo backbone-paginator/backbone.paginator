@@ -1,6 +1,5 @@
 (function () {
 
-  var ajax = Backbone.ajax;
   var emulateHTTP = Backbone.emulateHTTP;
   var emulateJSON = Backbone.emulateJSON;
   var history = window.history;
@@ -27,15 +26,9 @@
     // We never want to actually call these during tests.
     history.pushState = history.replaceState = function () {};
 
-    // Capture ajax settings for comparison.
-    Backbone.ajax = function (settings) {
-      env.ajaxSettings = settings;
-    };
-
   });
 
   QUnit.testDone(function () {
-    Backbone.ajax = ajax;
     Backbone.emulateHTTP = emulateHTTP;
     Backbone.emulateJSON = emulateJSON;
     history.pushState = pushState;
