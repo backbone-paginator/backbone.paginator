@@ -1,12 +1,5 @@
 const plugins = [
-    ["@babel/plugin-transform-modules-umd", {
-        "exactGlobals": true,
-        "globals": {
-            "backbone.paginator": "Backbone.PageableCollection",
-            "underscore": "_",
-            "backbone": "Backbone"
-        }
-    }]
+    "@babel/plugin-transform-runtime"
 ];
 
 const presets = [
