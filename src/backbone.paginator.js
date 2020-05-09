@@ -8,6 +8,26 @@
   @license MIT
 */
 
+/**
+ __BROWSER ONLY__
+
+ If you already have an object named `PageableCollection` attached to the
+ `Backbone` module, you can use this to return a local reference to this
+ PageableCollection class and reset the name PageableCollection to its
+ previous definition.
+
+ // The left hand side gives you a reference to this
+ // PageableCollection implementation, the right hand side
+ // resets PageableCollection to your other PageableCollection.
+ var PageableCollection = PageableCollection.noConflict();
+
+ @name noConflict
+ @memberOf {PageableCollection}
+ @function
+ @static
+ @return {PageableCollection}
+ */
+
 import _ from "underscore";
 import Backbone from "backbone";
 
