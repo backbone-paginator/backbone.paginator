@@ -16,10 +16,11 @@
  PageableCollection class and reset the name PageableCollection to its
  previous definition.
 
- // The left hand side gives you a reference to this
- // PageableCollection implementation, the right hand side
- // resets PageableCollection to your other PageableCollection.
- var PageableCollection = PageableCollection.noConflict();
+ @example
+   // The left hand side gives you a reference to this
+   // PageableCollection implementation, the right hand side
+   // resets PageableCollection to your other PageableCollection.
+   var PageableCollection = PageableCollection.noConflict();
 
  @name noConflict
  @memberOf {PageableCollection}
