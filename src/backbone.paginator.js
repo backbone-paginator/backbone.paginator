@@ -61,7 +61,7 @@ var URL_TRIM_RE = /[<>\s'"]/g;
 
 
 /**
- * State change event. Fired when PageableCollection#state gets updated
+ * State change event. Fired when {@link PageableCollection#state} gets updated
  *
  * @event pageable:state:change
  * @type {object} The PageableCollection#state object of this
@@ -105,7 +105,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @property {number} pageSize = 25 - How many records to show per
    * page. This value is __read only__ after initialization, if you want to
    * change the page size after initialization, you must call
-   * PageableCollection#setPageSize.
+   * {@link PageableCollection#setPageSize}.
    *
    * @property {number} totalPages = null - How many pages there are. This
    * value is __read only__ and it is calculated from `totalRecords`.
@@ -181,7 +181,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * If you want to initialize a collection to a different state than the
    * default, you can specify them in `options.state`. Any state parameters
    * supplied will be merged with the default. If you want to change the
-   * default mapping from PageableCollection#state keys to your server API's
+   * default mapping from {@link PageableCollection#state} keys to your server API's
    * query parameter names, you can specifiy an object hash in
    * `option.queryParams`. Likewise, any mapping provided will be merged with
    * the default. Lastly, all Backbone.Collection constructor options are also
@@ -578,7 +578,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * current page back to the first page instead of trying to be smart.
    *
    * For server mode operations, changing the page size will trigger a
-   * PageableCollection#fetch and subsequently a `reset` event.
+   * {@link PageableCollection#fetch} and subsequently a `reset` event.
    *
    * For client mode operations, changing the page size will `reset` the
    * current page by recalculating the current page boundary on the client
@@ -587,7 +587,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * If `options.fetch` is true, a fetch can be forced if the collection is in
    * client mode.
    *
-   * @param {number} pageSize - The new page size to set to PageableCollection#state.
+   * @param {number} pageSize - The new page size to set to {@link PageableCollection#state}.
    * @param {Object} options - {@link PageableCollection#fetch} options.
    * @param {boolean} options.first = false 0 Reset the current page number to
    * the first page if `true`.
@@ -627,14 +627,14 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * page from the server. Pass `false` to `options.fetch` to skip fetching.
    *
    * If switching to infinite mode, and if `options.models` is given for an
-   * array of models,PageableCollection#links will be populated with a URL per
+   * array of models, PageableCollection#links will be populated with a URL per
    * page, using the default URL for this collection.
    *
    * If switching from server to client mode, all of the pages are immediately
    * refetched. If you have too many pages, you can pass `false` to
    * `options.fetch` to skip fetching.
    *
-   * If switching to any mode from infinite mode, thePageableCollection#links
+   * If switching to any mode from infinite mode, the PageableCollection#links
    * will be deleted.
    *
    * @fires PageableCollection#pageable:state:change
@@ -761,7 +761,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Fetch the next page in server mode, or reset the current page of this
    * collection to the next page in client mode.
    *
-   * @param {Object} options {@linkPageableCollection#getPage} options.
+   * @param {Object} options {@link PageableCollection#getPage} options.
    *
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
@@ -774,7 +774,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Fetch the last page in server mode, or reset the current page of this
    * collection to the last page in client mode.
    *
-   * @param {Object} options {@linkPageableCollection#getPage} options.
+   * @param {Object} options {@link PageableCollection#getPage} options.
    *
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
@@ -792,21 +792,21 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * page. Under infinite mode, if the index is less than the current page, a
    * reset is done as in client mode. If the index is greater than the current
    * page number, a fetch is made with the results **appended**
-   * toPageableCollection#fullCollection.  The current page will then be reset
+   * to PageableCollection#fullCollection.  The current page will then be reset
    * after fetching.
    *
    * @fires PageableCollection#pageable:state:change
    *
    * @param {number|string} index - The page index to go to, or the page name to
-   * look up fromPageableCollection#links in infinite mode.
-   * @param {Object} options - {@linkPageableCollection#fetch} options or
+   * look up from PageableCollection#links in infinite mode.
+   * @param {Object} options - {@link PageableCollection#fetch} options or
    * [reset](http://backbonejs.org/#Collection-reset) options for client mode
    * when `options.fetch` is `false`.
    * @param {boolean} options.fetch = false - If true, force a
-   * {@linkPageableCollection#fetch} in client mode.
+   * {@link PageableCollection#fetch} in client mode.
    *
    * @throws {TypeError} If `index` is not a finite integer under server or
-   * client mode, or does not yield a URL fromPageableCollection#links under
+   * client mode, or does not yield a URL from PageableCollection#links under
    * infinite mode.
    *
    * @throws {RangeError} If `index` is out of bounds.
@@ -861,7 +861,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * in client mode.
    *
    * @param {number} offset
-   * @param {Object} options {@linkPageableCollection#getPage} options.
+   * @param {Object} options {@link PageableCollection#getPage} options.
    *
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
@@ -970,9 +970,9 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * default.
    *
    * **Note:** this method has been further simplified since 1.1.7. While
-   * existingPageableCollection#parse implementations will continue to work,
-   * new code is encouraged to overridePageableCollection#parseState
-   * andPageableCollection#parseRecords instead.
+   * existing PageableCollection#parse implementations will continue to work,
+   * new code is encouraged to override PageableCollection#parseState
+   * and PageableCollection#parseRecords instead.
    *
    * @fires PageableCollection#pageable:state:change
    *
@@ -995,12 +995,12 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * under infinite mode.
    *
    * This default implementation first checks whether the response has any
-   * state object as documented inPageableCollection#parse. If it exists, a
+   * state object as documented in {@link PageableCollection#parse}. If it exists, a
    * state object is returned by mapping the server state keys to this
    * pageable collection instance's query parameter keys using `queryParams`.
    *
    * It is __NOT__ neccessary to return a full state object complete with all
-   * the mappings defined inPageableCollection#queryParams. Any state object
+   * the mappings defined in {@link PageableCollection#queryParams}. Any state object
    * resulted is merged with a copy of the current pageable collection state
    * and checked for sanity before actually updating. Most of the time, simply
    * providing a new `totalRecords` value is enough to trigger a full
@@ -1052,7 +1052,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Parse server response for an array of model objects.
    *
    * This default implementation first checks whether the response has any
-   * state object as documented inPageableCollection#parse. If it exists, the
+   * state object as documented in {@link PageableCollection#parse}. If it exists, the
    * array of model objects is assumed to be the second element, otherwise the
    * entire response is returned directly.
    *
@@ -1077,7 +1077,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * The query string is constructed by translating the current pagination
    * state to your server API query parameter
-   * usingPageableCollection#queryParams. The current page will reset after
+   * using PageableCollection#queryParams. The current page will reset after
    * fetch.
    *
    * @param {Object} options - Accepts all
@@ -1193,10 +1193,10 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Like a Backbone.Collection, a PageableCollection will maintain the
    * __current page__ in sorted order on the client side if a `comparator` is
    * attached to it. If the collection is in client mode, you can attach a
-   * comparator toPageableCollection#fullCollection to have all the pages
+   * comparator to PageableCollection#fullCollection to have all the pages
    * reflect the global sorting order by specifying an option `full` to
    * `true`. You __must__ call `sort` manually
-   * orPageableCollection#fullCollection.sort after calling this method to
+   * or PageableCollection#fullCollection.sort after calling this method to
    * force a resort.
    *
    * While you can use this method to sort the current page in server mode,
@@ -1204,14 +1204,14 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * additions or removals of the records on the server since the last
    * fetch. If you want the most updated page in a global sorting order, it is
    * recommended that you set PageableCollection#state.sortKey and optionally
-   * PageableCollection#state.order, and then callPageableCollection#fetch.
+   * PageableCollection#state.order, and then call PageableCollection#fetch.
    *
    * @protected
    *
    * @param {string} sortKey = this.state.sortKey - See `state.sortKey`.
    * @param {number} order = this.state.order - See `state.order`.
    * @param {(function(Backbone.Model, string): Object) | string} sortValue -
-   * See PageableCollection#setSorting.
+   * See {@link PageableCollection#setSorting}.
    *
    * @return {function(Backbone.Model, string): number}
    *
@@ -1246,7 +1246,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Given a `sortKey` and an `order`, sets `state.sortKey` and
    * `state.order`. A comparator can be applied on the client side to sort in
    * the order defined if `options.side` is `"client"`. By default the
-   * comparator is applied to thePageableCollection#fullCollection. Set
+   * comparator is applied to the PageableCollection#fullCollection. Set
    * `options.full` to `false` to apply a comparator to the current page under
    * any mode. Setting `sortKey` to `null` removes the comparator from both
    * the current page and the full collection.
