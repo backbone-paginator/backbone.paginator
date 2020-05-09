@@ -1,6 +1,14 @@
 {
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
   "env": {
+    "es2020": true,
     "browser": true,
     "commonjs": true,
     "amd": true,
