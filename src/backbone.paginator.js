@@ -596,7 +596,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @throws {TypeError} If `pageSize` is not a finite integer.
    * @throws {RangeError} If `pageSize` is less than 1.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -649,7 +648,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @param {boolean} options.resetState = true - If 'false', the state is not
    * reset, but checked for sanity instead.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this if `options.fetch` is `false`.
    */
@@ -739,7 +737,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @param {Object} options {@linkPageableCollection#getPage} options.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -753,7 +750,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @param {Object} options {@linkPageableCollection#getPage} options.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -767,7 +763,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @param {Object} options {@linkPageableCollection#getPage} options.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -781,7 +776,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @param {Object} options {@linkPageableCollection#getPage} options.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -817,7 +811,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @throws {RangeError} If `index` is out of bounds.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -870,7 +863,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @param {number} offset
    * @param {Object} options {@linkPageableCollection#getPage} options.
    *
-   * @chainable
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
    */
@@ -1263,8 +1255,6 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * sortKey)` arguments and is used to extract a value from the model during
    * comparison sorts. If `sortValue` is not given, `model.get(sortKey)` is
    * used for sorting.
-   *
-   * @chainable
    *
    * @param {string} sortKey - See `state.sortKey`.
    * @param {number} order=this.state.order - See `state.order`.
