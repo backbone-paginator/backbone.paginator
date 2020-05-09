@@ -11,6 +11,8 @@
 import _ from "underscore";
 import Backbone from "backbone";
 
+import {finiteInt} from "./utils/finite-int";
+
 var _extend = _.extend;
 var _omit = _.omit;
 var _clone = _.clone;
@@ -30,13 +32,6 @@ var floor = Math.floor;
 var max = Math.max;
 
 var BBColProto = Backbone.Collection.prototype;
-
-function finiteInt (val, name) {
-  if (!_.isNumber(val) || _.isNaN(val) || !_.isFinite(val) || ~~val !== val) {
-    throw new TypeError("`" + name + "` must be a finite integer");
-  }
-  return val;
-}
 
 function queryStringToParams (qs) {
   var kvp, k, v, ls, params = {}, decode = decodeURIComponent;
