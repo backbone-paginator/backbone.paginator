@@ -17,10 +17,10 @@
  * previous definition.
  *
  * @example
- *   // The left hand side gives you a reference to this
- *   // PageableCollection implementation, the right hand side
- *   // resets PageableCollection to your other PageableCollection.
- *   var PageableCollection = PageableCollection.noConflict();
+ * // The left hand side gives you a reference to this
+ * // PageableCollection implementation, the right hand side
+ * // resets PageableCollection to your other PageableCollection.
+ * var PageableCollection = PageableCollection.noConflict();
  *
  * @name noConflict
  * @memberof {PageableCollection}
