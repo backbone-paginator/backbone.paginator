@@ -12,6 +12,7 @@ import _ from "underscore";
 import Backbone from "backbone";
 
 import {finiteInt} from "./utils/finite-int";
+import {queryStringToParams} from "./utils/query-string-to-params";
 
 var _extend = _.extend;
 var _omit = _.omit;
@@ -32,21 +33,6 @@ var floor = Math.floor;
 var max = Math.max;
 
 var BBColProto = Backbone.Collection.prototype;
-
-function queryStringToParams (qs) {
-  var kvp, k, v, ls, params = {}, decode = decodeURIComponent;
-  var kvps = qs.split("&");
-  for (var i = 0, l = kvps.length; i < l; i++) {
-    var param = kvps[i];
-    kvp = param.split("="), k = kvp[0], v = kvp[1];
-    if (v == null) v = true;
-    k = decode(k), v = decode(v), ls = params[k];
-    if (_isArray(ls)) ls.push(v);
-    else if (ls) params[k] = [ls, v];
-    else params[k] = v;
-  }
-  return params;
-}
 
 // hack to make sure the whatever event handlers for this event is run
 // before func is, and the event handlers that func will trigger.
