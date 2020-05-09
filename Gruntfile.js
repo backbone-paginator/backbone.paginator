@@ -32,7 +32,7 @@ module.exports = function (grunt) {
     documentation: {
       "default": {
         files: {
-          src: ["lib/backbone.paginator.js"]
+          src: ["src/backbone.paginator.js"]
         },
         options: {
           access: ['public', 'protected', 'private', 'undefined'],
