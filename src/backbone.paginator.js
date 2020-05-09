@@ -64,6 +64,7 @@ var URL_TRIM_RE = /[<>\s'"]/g;
  * State change event. Fired when {@link PageableCollection#state} gets updated
  *
  * @event pageable:state:change
+ * @memberof PageableCollection
  * @type {object} The PageableCollection#state object of this
  * PageableCollection instance
  */
