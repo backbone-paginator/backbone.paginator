@@ -13,6 +13,7 @@ import Backbone from "backbone";
 
 import {finiteInt} from "./utils/finite-int";
 import {queryStringToParams} from "./utils/query-string-to-params";
+import {runOnceAtLastHandler} from "./utils/run-once-at-last-handler";
 
 var _extend = _.extend;
 var _omit = _.omit;
@@ -33,29 +34,6 @@ var floor = Math.floor;
 var max = Math.max;
 
 var BBColProto = Backbone.Collection.prototype;
-
-// hack to make sure the whatever event handlers for this event is run
-// before func is, and the event handlers that func will trigger.
-function runOnceAtLastHandler (col, event, func) {
-  var eventHandlers = col._events[event];
-  if (eventHandlers && eventHandlers.length) {
-    var lastHandler = eventHandlers[eventHandlers.length - 1];
-    var oldCallback = lastHandler.callback;
-    lastHandler.callback = function () {
-      try {
-        oldCallback.apply(this, arguments);
-        func();
-      }
-      catch (e) {
-        throw e;
-      }
-      finally {
-        lastHandler.callback = oldCallback;
-      }
-    };
-  }
-  else func();
-}
 
 var PARAM_TRIM_RE = /[\s'"]/g;
 var URL_TRIM_RE = /[<>\s'"]/g;
