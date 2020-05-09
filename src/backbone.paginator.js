@@ -23,7 +23,7 @@
  *   var PageableCollection = PageableCollection.noConflict();
  *
  * @name noConflict
- * @memberOf {PageableCollection}
+ * @memberof {PageableCollection}
  * @function
  * @static
  * @return {PageableCollection}
