@@ -1,12 +1,12 @@
-/**
- * backbone.paginator
- * http://github.com/backbone-paginator/backbone.paginator
- *
- * Copyright (c) 2016 Jimmy Yuen Ho Wong and contributors
- *
- * @module
- * @license MIT
- */
+/*
+  backbone.paginator
+  http://github.com/backbone-paginator/backbone.paginator
+
+  Copyright (c) 2016 Jimmy Yuen Ho Wong and contributors
+
+  @module
+  @license MIT
+*/
 
 /**
  * __BROWSER ONLY__
