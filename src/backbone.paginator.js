@@ -1,11 +1,11 @@
 /*
-backbone.paginator
-http://github.com/backbone-paginator/backbone.paginator
+  backbone.paginator
+  http://github.com/backbone-paginator/backbone.paginator
 
-Copyright (c) 2016 Jimmy Yuen Ho Wong and contributors
+  Copyright (c) 2016 Jimmy Yuen Ho Wong and contributors
 
-@module
-@license MIT
+  @module
+  @license MIT
 */
 
 import _ from "underscore";
