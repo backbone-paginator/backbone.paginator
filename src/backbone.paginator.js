@@ -174,7 +174,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
   },
 
   /**
-   * Given a list of models or model attributues, bootstraps the full
+   * Given a list of models or model attributes, bootstraps the full
    * collection in client mode or infinite mode, or just the page you want in
    * server mode.
    *
@@ -182,7 +182,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * default, you can specify them in `options.state`. Any state parameters
    * supplied will be merged with the default. If you want to change the
    * default mapping from {@link PageableCollection#state} keys to your server API's
-   * query parameter names, you can specifiy an object hash in
+   * query parameter names, you can specify an object hash in
    * `option.queryParams`. Likewise, any mapping provided will be merged with
    * the default. Lastly, all Backbone.Collection constructor options are also
    * accepted.
@@ -879,7 +879,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
   },
 
   /**
-   * Overidden to make `getPage` compatible with Zepto.
+   * Overridden to make `getPage` compatible with Zepto.
    *
    * @param {string} method
    * @param {Backbone.Model|Backbone.Collection} model
@@ -999,7 +999,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * state object is returned by mapping the server state keys to this
    * pageable collection instance's query parameter keys using `queryParams`.
    *
-   * It is __NOT__ neccessary to return a full state object complete with all
+   * It is __NOT__ necessary to return a full state object complete with all
    * the mappings defined in {@link PageableCollection#queryParams}. Any state object
    * resulted is merged with a copy of the current pageable collection state
    * and checked for sanity before actually updating. Most of the time, simply
