@@ -224,13 +224,11 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @param {number} options.state.order - The order to use for sorting. Specify
    * -1 for ascending order and 1 for descending order.
    *
-   * @param {Object} options.queryParam
+   * @param {Object} options.queryParams
    */
-  constructor: function (models, options) {
+  constructor: function (models, options = {}) {
 
     BBColProto.constructor.apply(this, arguments);
-
-    options = options || {};
 
     var mode = this.mode = options.mode || this.mode || PageableProto.mode;
 
@@ -343,7 +341,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    */
   _makeCollectionEventHandler: function (pageCol, fullCol) {
 
-    return function collectionEventHandler (event, model, collection, options) {
+    return function collectionEventHandler (event, model, collection, options = {}) {
 
       var handlers = pageCol._handlers;
       _each(_keys(handlers), function (event) {
@@ -361,7 +359,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
       var pageStart = currentPage * pageSize, pageEnd = pageStart + pageSize;
 
       if (event == "add") {
-        var pageIndex, fullIndex, addAt, colToAdd, options = options || {};
+        var pageIndex, fullIndex, addAt, colToAdd;
         if (collection == fullCol) {
           fullIndex = fullCol.indexOf(model);
           if (fullIndex >= pageStart && fullIndex < pageEnd) {
@@ -982,11 +980,11 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @return {Array.<Object>} An array of model objects
    */
-  parse: function (resp, options) {
+  parse: function (resp, options = {}) {
     var newState = this.parseState(resp, _clone(this.queryParams), _clone(this.state), options);
     if (newState) {
       this.state = this._checkState(_extend({}, this.state, newState));
-      if (!(options || {}).silent) this.trigger("pageable:state:change", this.state);
+      if (!options.silent) this.trigger("pageable:state:change", this.state);
     }
     return this.parseRecords(resp, options);
   },
@@ -1087,9 +1085,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    *
    * @return {XMLHttpRequest}
    */
-  fetch: function (options) {
-
-    options = options || {};
+  fetch: function (options = {}) {
 
     var state = this._checkState(this.state);
 
@@ -1162,10 +1158,8 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
     if (mode != "server") {
       var self = this, fullCol = this.fullCollection;
       var success = options.success;
-      options.success = function (col, resp, opts) {
+      options.success = function (col, resp, opts = {}) {
 
-        // make sure the caller's intent is obeyed
-        opts = opts || {};
         if (_isUndefined(options.silent)) delete opts.silent;
         else opts.silent = options.silent;
 
