@@ -1,5 +1,6 @@
+import PageableCollection from "../src/backbone.paginator";
+
 const {test} = QUnit;
-const PageableCollection = Backbone.PageableCollection;
 
 QUnit.module("constructor", function () {
   QUnit.module("mode", {
