@@ -230,53 +230,70 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
 
     BBColProto.constructor.apply(this, arguments);
 
-    var mode = this.mode = options.mode || this.mode || PageableProto.mode;
+    const mode = this.mode = options.mode || this.mode || PageableProto.mode;
 
-    var queryParams = _extend({}, PageableProto.queryParams, this.queryParams,
-        options.queryParams || {});
+    const queryParams = {
+      ...PageableProto.queryParams,
+      ...this.queryParams,
+      ...(options.queryParams || {})
+    };
 
-    queryParams.directions = _extend({},
-        PageableProto.queryParams.directions,
-        this.queryParams.directions,
-        queryParams.directions);
+    queryParams.directions = {
+      ...PageableProto.queryParams.directions,
+      ...this.queryParams.directions,
+      ...queryParams.directions
+    };
 
     this.queryParams = queryParams;
 
-    var state = this.state = _extend({}, PageableProto.state, this.state,
-        options.state);
+    const state = this.state = {
+      ...PageableProto.state,
+      ...this.state,
+      ...options.state
+    };
 
     state.currentPage = state.currentPage == null ?
       state.firstPage :
       state.currentPage;
 
-    if (!_isArray(models)) models = models ? [models] : [];
+    if (!Array.isArray(models)) {
+      models = models ? [models] : [];
+    }
     models = models.slice();
 
-    if (mode != "server" && state.totalRecords == null && !_isEmpty(models)) {
+    if (mode !== "server" && state.totalRecords == null && !_isEmpty(models)) {
       // Can't use models.length naively here because Backbone.Collection will
       // dedupe by `idAttribute`
       state.totalRecords = this.length;
     }
 
-    this.switchMode(mode, _extend({fetch: false,
-      resetState: false,
-      models: models}, options));
+    this.switchMode(
+        mode,
+        {
+          fetch: false,
+          resetState: false,
+          models: models,
+          ...options
+        }
+    );
 
-    var comparator = options.comparator;
+    const comparator = options.comparator;
 
     if (state.sortKey && !comparator) {
       this.setSorting(state.sortKey, state.order, options);
     }
 
-    if (mode != "server") {
-      var fullCollection = this.fullCollection;
+    if (mode !== "server") {
+      const fullCollection = this.fullCollection;
 
       if (comparator && options.full) {
         this.comparator = null;
         fullCollection.comparator = comparator;
       }
 
-      if (options.full) fullCollection.sort();
+      if (options.full) {
+        fullCollection.sort();
+      }
 
       // make sure the models in the current page and full collection have the
       // same references
