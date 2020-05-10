@@ -10,12 +10,11 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['qunit'],
+    frameworks: ['qunit', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/sinon/pkg/sinon.js',
       'node_modules/jquery/dist/jquery.js',
       'node_modules/underscore/underscore.js',
       'node_modules/backbone/backbone.js',
