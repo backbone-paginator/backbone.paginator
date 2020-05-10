@@ -3,6 +3,7 @@
 
 const resolve = require("@rollup/plugin-node-resolve");
 const commonjs = require("@rollup/plugin-commonjs");
+const istanbul = require("rollup-plugin-istanbul");
 
 module.exports = function (config) {
   config.set({
@@ -47,10 +48,15 @@ module.exports = function (config) {
     rollupPreprocessor: {
       plugins: [
         resolve(),
-        commonjs()
+        commonjs(),
+        istanbul({
+          include: [
+            "src/**/*.js"
+          ]
+        })
       ],
       output: {
-        format: "umd"
+        format: "iife"
       }
     },
 

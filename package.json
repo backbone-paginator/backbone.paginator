@@ -46,6 +46,7 @@
     "karma-sinon": "^1.0.5",
     "qunit": "^2.10.0",
     "rollup": "^2.8.2",
+    "rollup-plugin-istanbul": "^2.0.1",
     "rollup-plugin-terser": "^5.3.0",
     "sinon": "^9.0.2",
     "underscore": "^1.9.1"
@@ -55,9 +56,8 @@
     "build:docs": "documentation build src/backbone.paginator.js -f html -o api -a public -a protected -a private -a undefined",
     "lint": "eslint ./src/backbone.paginator.js test/**/*.js",
     "format": "eslint --fix ./src/backbone.paginator.js test/**/*.js",
-    "pretest": "npm run lint && npm run build",
+    "pretest": "npm run lint",
     "test": "karma start --single-run",
-    "posttest": "rm -rf ./lib",
     "preversion": "npm test",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "npm run build"
