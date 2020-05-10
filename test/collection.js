@@ -1,5 +1,6 @@
 import _ from "underscore";
 import Backbone from "backbone";
+import * as mockXHR from "./helpers/mock-xhr";
 
 var a, b, c, d, e, col, otherCol;
 
@@ -14,11 +15,11 @@ QUnit.module("Backbone.Collection", {
     col = new Backbone.Collection([a, b, c, d]);
     otherCol = new Backbone.Collection();
 
-    this.mockXHR.install(this);
+    mockXHR.install(this);
   },
 
   afterEach () {
-    this.mockXHR.uninstall(this);
+    mockXHR.uninstall(this);
   }
 });
 

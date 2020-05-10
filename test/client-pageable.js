@@ -1,6 +1,7 @@
 import _ from "underscore";
 import Backbone from "backbone";
 import PageableCollection from "../src/backbone.paginator";
+import * as mockXHR from "./helpers/mock-xhr";
 
 var a, c, b, models, comparator;
 
@@ -22,11 +23,11 @@ QUnit.module("Backbone.PageableCollection - Client", {
       return model.get("name");
     };
 
-    this.mockXHR.install(this);
+    mockXHR.install(this);
   },
 
   afterEach: function () {
-    this.mockXHR.uninstall(this);
+    mockXHR.uninstall(this);
   }
 });
 

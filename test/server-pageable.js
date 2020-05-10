@@ -1,15 +1,16 @@
 import _ from "underscore";
 import PageableCollection from "../src/backbone.paginator";
+import * as mockXHR from "./helpers/mock-xhr";
 
 // TODO: test invalid state
 
 QUnit.module("Backbone.PageableCollection - Server", {
   beforeEach: function () {
-    this.mockXHR.install(this);
+    mockXHR.install(this);
   },
 
   afterEach: function () {
-    this.mockXHR.uninstall(this);
+    mockXHR.uninstall(this);
   }
 });
 

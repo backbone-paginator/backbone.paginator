@@ -1,6 +1,7 @@
 import _ from "underscore";
 import Backbone from "backbone";
 import PageableCollection from "../src/backbone.paginator";
+import * as mockXHR from "./helpers/mock-xhr";
 
 var col;
 
@@ -21,11 +22,11 @@ QUnit.module("Backbone.PageableCollection - Infinite", {
       mode: "infinite"
     });
 
-    this.mockXHR.install(this);
+    mockXHR.install(this);
   },
 
   afterEach: function () {
-    this.mockXHR.uninstall(this);
+    mockXHR.uninstall(this);
   }
 });
 
