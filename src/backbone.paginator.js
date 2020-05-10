@@ -200,7 +200,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * This collection is the internal storage for the bootstrapped or fetched
    * models. You can use this if you want to operate on all the pages.
    *
-   * @param {Array.<Object>} models
+   * @param {Array.<Backbone.Model>} models
    *
    * @param {Object} options
    *
