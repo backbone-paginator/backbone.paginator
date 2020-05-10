@@ -267,15 +267,12 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
       state.totalRecords = this.length;
     }
 
-    this.switchMode(
-        mode,
-        {
-          fetch: false,
-          resetState: false,
-          models: models,
-          ...options
-        }
-    );
+    this.switchMode(mode, {
+      fetch: false,
+      resetState: false,
+      models: models,
+      ...options
+    });
 
     const comparator = options.comparator;
 
