@@ -1,27 +1,29 @@
 // Karma configuration
 // Generated on Wed Mar 09 2016 13:20:18 GMT+0000 (GMT)
 
-module.exports = function(config) {
+const resolve = require("@rollup/plugin-node-resolve");
+const commonjs = require("@rollup/plugin-commonjs");
+const istanbul = require("rollup-plugin-istanbul");
+
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: "",
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['qunit'],
+    frameworks: ["qunit", "sinon"],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/sinon/pkg/sinon.js',
-      'node_modules/jquery/dist/jquery.js',
-      'node_modules/underscore/underscore.js',
-      'node_modules/backbone/backbone.js',
-      'lib/backbone.paginator.js',
-      'test/setup/*.js',
-      'test/*.js'
+      "test/setup/*.js",
+      {
+        pattern: "test/*.js",
+        watched: false
+      },
     ],
 
     client: {
@@ -38,18 +40,35 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'lib/backbone.paginator.js': ['coverage']
+      "src/backbone.paginator.js": ["coverage"],
+      "test/setup/*.js": ["rollup"],
+      "test/*.js": ["rollup"]
     },
 
+    rollupPreprocessor: {
+      plugins: [
+        resolve(),
+        commonjs(),
+        istanbul({
+          include: [
+            "src/**/*.js"
+          ]
+        })
+      ],
+      output: {
+        format: "iife"
+      }
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ["progress", "coverage"],
 
     coverageReporter: {
-      type: 'html',
-      dir: 'test/coverage'
+      type: "lcovonly",
+      dir: "test/coverage",
+      subdir: "lcov"
     },
 
     // web server port
@@ -71,7 +90,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox', 'Safari'],
+    browsers: ["Chrome", "Firefox", "Safari"],
 
 
     // Continuous Integration mode
@@ -83,5 +102,5 @@ module.exports = function(config) {
     concurrency: Infinity,
 
     browserNoActivityTimeout: 30000
-  })
-}
+  });
+};

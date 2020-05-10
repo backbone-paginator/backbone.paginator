@@ -33,3 +33,8 @@ jobs:
     - run: npm test -- --browsers ChromeHeadless,FirefoxHeadless --reporters=dots,coverage
       env:
         CI: true
+    - name: Report coverage
+      if: success()
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./test/coverage/lcov/lcov.info
