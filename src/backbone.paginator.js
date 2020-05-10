@@ -224,7 +224,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * @param {number} options.state.order - The order to use for sorting. Specify
    * -1 for ascending order and 1 for descending order.
    *
-   * @param {Object} options.queryParam
+   * @param {Object} options.queryParams
    */
   constructor: function (models, options) {
 
