@@ -736,7 +736,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Fetch the first page in server mode, or reset the current page of this
    * collection to the first page in client or infinite mode.
    *
-   * @param {Object} options {@linkPageableCollection#getPage} options.
+   * @param {Object} options {@link PageableCollection#getPage} options.
    *
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
@@ -749,7 +749,7 @@ var PageableCollection = Backbone.Collection.extend(/** @lends PageableCollectio
    * Fetch the previous page in server mode, or reset the current page of this
    * collection to the previous page in client or infinite mode.
    *
-   * @param {Object} options {@linkPageableCollection#getPage} options.
+   * @param {Object} options {@link PageableCollection#getPage} options.
    *
    * @return {XMLHttpRequest|PageableCollection} The XMLHttpRequest
    * from fetch or this.
