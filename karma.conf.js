@@ -1,6 +1,9 @@
 // Karma configuration
 // Generated on Wed Mar 09 2016 13:20:18 GMT+0000 (GMT)
 
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+
 module.exports = function(config) {
   config.set({
 
@@ -20,7 +23,10 @@ module.exports = function(config) {
       'node_modules/backbone/backbone.js',
       'lib/backbone.paginator.js',
       'test/setup/*.js',
-      'test/*.js'
+      {
+        pattern: "test/*.js",
+        watched: false
+      },
     ],
 
     client: {
@@ -37,9 +43,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'lib/backbone.paginator.js': ['coverage']
+      'src/backbone.paginator.js': ['coverage'],
+      'test/setup/*.js': ['rollup'],
+      'test/*.js': ['rollup']
     },
 
+    rollupPreprocessor: {
+      plugins: [
+        resolve(),
+        commonjs()
+      ],
+      output: {
+        format: 'umd'
+      }
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
