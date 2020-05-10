@@ -1,6 +1,6 @@
-import _ from 'underscore';
-import Backbone from 'backbone';
-import PageableCollection from '../src/backbone.paginator';
+import _ from "underscore";
+import Backbone from "backbone";
+import PageableCollection from "../src/backbone.paginator";
 
 var col;
 

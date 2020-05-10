@@ -1,11 +1,11 @@
-import PageableCollection from '../src/backbone.paginator';
+import PageableCollection from "../src/backbone.paginator";
 
 QUnit.module("Backbone.PageableCollection - setSorting");
 
 QUnit.test("constructor", function (assert) {
-  var comparator = function () { return 0; };
+  var comparator = function () {return 0;};
   var Col = PageableCollection.extend({
-    comparator: function () { return 1; }
+    comparator: function () {return 1;}
   });
   var col = new Col([], {
     mode: "client",
@@ -127,45 +127,45 @@ QUnit.test("setSorting", function (assert) {
 
 QUnit.test("Issue #253 Make sure the sorted result on the full collection is reflected on the current page", function (assert) {
   var col = new PageableCollection(
-    [
-      {"volume":8},
-      {"volume":6},
-      {"volume":6},
-      {"volume":3},
-      {"volume":2},
-      {"volume":2},
-      {"volume":2},
-      {"volume":1},
-      {"volume":1},
-      {"volume":1},
+      [
+        {"volume": 8},
+        {"volume": 6},
+        {"volume": 6},
+        {"volume": 3},
+        {"volume": 2},
+        {"volume": 2},
+        {"volume": 2},
+        {"volume": 1},
+        {"volume": 1},
+        {"volume": 1},
 
-      {"volume":112},
-      {"volume":38},
-      {"volume":24},
-      {"volume":22},
-      {"volume":19},
-      {"volume":13},
-      {"volume":13},
-      {"volume":10},
-      {"volume":9},
-      {"volume":9},
+        {"volume": 112},
+        {"volume": 38},
+        {"volume": 24},
+        {"volume": 22},
+        {"volume": 19},
+        {"volume": 13},
+        {"volume": 13},
+        {"volume": 10},
+        {"volume": 9},
+        {"volume": 9},
 
-      {"volume":1},
-      {"volume":1},
-      {"volume":1},
-      {"volume":1},
-      {"volume":1},
-      {"volume":1}
-    ], {
-      state: {
-        pageSize: 10
-      },
-      mode: "client"
-    });
+        {"volume": 1},
+        {"volume": 1},
+        {"volume": 1},
+        {"volume": 1},
+        {"volume": 1},
+        {"volume": 1}
+      ], {
+        state: {
+          pageSize: 10
+        },
+        mode: "client"
+      });
   col.setSorting("volume", 1, {full: true});
   col.fullCollection.sort();
-  assert.deepEqual(col.getFirstPage().pluck("volume"), [112,38,24,22,19,13,13,10,9,9]);
-  assert.deepEqual(col.getNextPage().pluck("volume"), [8,6,6,3,2,2,2,1,1,1]);
-  assert.deepEqual(col.getNextPage().pluck("volume"), [1,1,1,1,1,1]);
-  assert.deepEqual(col.fullCollection.pluck("volume"), [112,38,24,22,19,13,13,10,9,9,8,6,6,3,2,2,2,1,1,1,1,1,1,1,1,1]);
+  assert.deepEqual(col.getFirstPage().pluck("volume"), [112, 38, 24, 22, 19, 13, 13, 10, 9, 9]);
+  assert.deepEqual(col.getNextPage().pluck("volume"), [8, 6, 6, 3, 2, 2, 2, 1, 1, 1]);
+  assert.deepEqual(col.getNextPage().pluck("volume"), [1, 1, 1, 1, 1, 1]);
+  assert.deepEqual(col.fullCollection.pluck("volume"), [112, 38, 24, 22, 19, 13, 13, 10, 9, 9, 8, 6, 6, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
 });

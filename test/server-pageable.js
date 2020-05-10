@@ -1,5 +1,5 @@
-import _ from 'underscore';
-import PageableCollection from '../src/backbone.paginator';
+import _ from "underscore";
+import PageableCollection from "../src/backbone.paginator";
 
 // TODO: test invalid state
 
@@ -15,23 +15,23 @@ QUnit.module("Backbone.PageableCollection - Server", {
 
 QUnit.test("parse", function (assert) {
   var resp = [{"page": 1,
-               "per_page": 2,
-               "total_pages": 2,
-               "total_entries": 4,
-               "sort_by": "name",
-               "order": "desc"},
-              [{"name": "b"},
-               {"name": "c"},
-               {"name": "a"},
-               {"name": "a"}]];
+    "per_page": 2,
+    "total_pages": 2,
+    "total_entries": 4,
+    "sort_by": "name",
+    "order": "desc"},
+  [{"name": "b"},
+    {"name": "c"},
+    {"name": "a"},
+    {"name": "a"}]];
   var col = new PageableCollection();
   sinon.spy(col, "trigger");
 
   var models = col.parse(resp);
   assert.deepEqual(models, [{"name": "b"},
-                     {"name": "c"},
-                     {"name": "a"},
-                     {"name": "a"}]);
+    {"name": "c"},
+    {"name": "a"},
+    {"name": "a"}]);
   assert.strictEqual(col.state.currentPage, 1);
   assert.strictEqual(col.state.pageSize, 2);
   assert.strictEqual(col.state.totalPages, 2);
@@ -40,16 +40,16 @@ QUnit.test("parse", function (assert) {
   assert.strictEqual(col.state.order, 1);
   assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-  resp  = [{"name": "a"},
-           {"name": "a"},
-           {"name": "b"},
-           {"name": "c"}];
+  resp = [{"name": "a"},
+    {"name": "a"},
+    {"name": "b"},
+    {"name": "c"}];
 
   models = col.parse(resp);
   assert.deepEqual(models, [{"name": "a"},
-                     {"name": "a"},
-                     {"name": "b"},
-                     {"name": "c"}]);
+    {"name": "a"},
+    {"name": "b"},
+    {"name": "c"}]);
   assert.strictEqual(col.state.currentPage, 1);
   assert.strictEqual(col.state.pageSize, 2);
   assert.strictEqual(col.state.totalPages, 2);
@@ -58,7 +58,7 @@ QUnit.test("parse", function (assert) {
   assert.strictEqual(col.state.order, 1);
   assert.ok(col.trigger.calledWith("pageable:state:change", col.state));
 
-  resp  = [{total_entries: 6}, [{"name": "a"},
+  resp = [{total_entries: 6}, [{"name": "a"},
     {"name": "a"},
     {"name": "b"},
     {"name": "c"}]];
@@ -285,17 +285,17 @@ QUnit.test("fetch", function (assert) {
   assert.expect(13);
 
   var col = new (PageableCollection.extend({
-    url: function () { return "test-fetch"; }
+    url: function () {return "test-fetch";}
   }))();
 
   col.fetch();
 
   assert.strictEqual(this.requests.shift().url, "test-fetch?page=1&per_page=25");
 
-  col.queryParams.order = function () { return 'order_test'; };
+  col.queryParams.order = function () {return "order_test";};
   col.state.sortKey = "title";
   col.fetch();
-  assert.deepEqual(this.requests.shift().url, 'test-fetch?page=1&per_page=25&sort_by=title&order_test=asc');
+  assert.deepEqual(this.requests.shift().url, "test-fetch?page=1&per_page=25&sort_by=title&order_test=asc");
 
   col.state.sortKey = "name";
   col.state.totalRecords = 50;
@@ -304,10 +304,10 @@ QUnit.test("fetch", function (assert) {
   col.state.currentPage = 0;
   col.state.pageSize = 50;
   col.state.firstPage = 0;
-  col.queryParams.access_token = function () { return this.state.currentPage + 1; };
+  col.queryParams.access_token = function () {return this.state.currentPage + 1;};
   col.queryParams.query = null;
 
-  col.fetch({url: function () { return "test-fetch-2"; }, add: true, silent: true});
+  col.fetch({url: function () {return "test-fetch-2";}, add: true, silent: true});
 
   var request = this.requests.shift();
   assert.strictEqual(request.url, "test-fetch-2?page=0&per_page=50&sort_by=name&access_token=1");
@@ -337,12 +337,12 @@ QUnit.test("fetch", function (assert) {
   col.fetch();
   assert.deepEqual(
       this.requests.shift().url,
-      'test-fetch?page=0&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1'
+      "test-fetch?page=0&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1"
   );
 
   col.state.page = 0;
   col.fetch({data: {page: 1}});
-  assert.deepEqual(this.requests.shift().url, 'test-fetch?page=1&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1');
+  assert.deepEqual(this.requests.shift().url, "test-fetch?page=1&per_page=50&sort_by%5B%5D=firstSort&sort_by%5B%5D=secondSort&order_test%5B%5D=asc&order_test%5B%5D=desc&access_token=1");
 });
 
 QUnit.test("getPage", function (assert) {
@@ -352,7 +352,7 @@ QUnit.test("getPage", function (assert) {
     }
   });
   assert.throws(function () {
-    col.getPage('0');
+    col.getPage("0");
   }, "`index` must be a finite integer");
 
   assert.throws(function () {
@@ -475,12 +475,12 @@ QUnit.test("setPageSize", function (assert) {
   assert.strictEqual(col.state.currentPage, 1);
   assert.strictEqual(col.state.lastPage, 2);
 
-  assert.throws(function() {
+  assert.throws(function () {
     col.setPageSize(Infinity);
   }, "`pageSize` must be a finite integer");
   assert.strictEqual(col.state.pageSize, 50);
 
-  assert.throws(function() {
+  assert.throws(function () {
     col.setPageSize("foo");
   }, "`pageSize` must be a finite integer");
   assert.strictEqual(col.state.pageSize, 50);

@@ -1,6 +1,6 @@
-import _ from 'underscore';
-import Backbone from 'backbone';
-import PageableCollection from '../src/backbone.paginator';
+import _ from "underscore";
+import Backbone from "backbone";
+import PageableCollection from "../src/backbone.paginator";
 
 var col;
 
@@ -102,18 +102,18 @@ QUnit.test("#237 url function is called with the right context", function (asser
         id: 1
       }
     ]
-  ]))
+  ]));
 });
 
 QUnit.test("fetch", function (assert) {
-  sinon.spy(col, 'parse');
+  sinon.spy(col, "parse");
 
   col.parseLinks = function () {
     return {first: "url-1", next: "url-2"};
   };
 
   var shouldNotBeCalled = sinon.spy();
-  var onAll = sinon.stub().callsFake(function(event) {
+  var onAll = sinon.stub().callsFake(function (event) {
     if (!_.contains(["request", "sync", "reset", "pageable:state:change"], event)) {
       shouldNotBeCalled();
     }

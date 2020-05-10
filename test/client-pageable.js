@@ -1,6 +1,6 @@
-import _ from 'underscore';
-import Backbone from 'backbone';
-import PageableCollection from '../src/backbone.paginator';
+import _ from "underscore";
+import Backbone from "backbone";
+import PageableCollection from "../src/backbone.paginator";
 
 var a, c, b, models, comparator;
 
@@ -42,7 +42,7 @@ QUnit.test("_makeFullCollection", function (assert) {
   col.sync = sync;
 
   var fullCol = col._makeFullCollection(models,
-                                        {comparator: comparator});
+      {comparator: comparator});
 
   assert.ok(!_.isUndefined(fullCol));
   assert.ok(_.isUndefined(fullCol.constructor.prototype.comparator));
@@ -621,13 +621,13 @@ QUnit.test("sync", function (assert) {
   col.fullCollection.on("sync", onSync);
 
   col.at(0).save();
-  this.requests.shift().respond(200, {}, '{}');
+  this.requests.shift().respond(200, {}, "{}");
 
   col.fullCollection.at(0).save();
-  this.requests.shift().respond(200, {}, '{}');
+  this.requests.shift().respond(200, {}, "{}");
 
   col.fullCollection.at(1).save();
-  this.requests.shift().respond(200, {}, '{}');
+  this.requests.shift().respond(200, {}, "{}");
 
   assert.strictEqual(onSync.callCount, 5);
 });
@@ -790,7 +790,7 @@ QUnit.test("fetch", function (assert) {
   col.on("reset", onReset);
   col.fullCollection.on("reset", onFullReset);
 
-  sinon.spy(col, 'parse');
+  sinon.spy(col, "parse");
   col.fetch();
 
   var request = this.requests.shift();
@@ -801,7 +801,7 @@ QUnit.test("fetch", function (assert) {
     {name: "c"},
     {name: "d"},
     {name: "b"}
-  ]))
+  ]));
 
   assert.equal(onReset.callCount, 1);
   assert.equal(onFullReset.callCount, 1);
@@ -1099,13 +1099,13 @@ QUnit.test("hasNextPage and hasPreviousPage", function (assert) {
 QUnit.test("parsing from constructor #112", function (assert) {
   var Model = Backbone.Model.extend({
     parse: function (raw) {
-      return { value: raw };
+      return {value: raw};
     }
   });
 
   var MyCollection = PageableCollection.extend({
     model: Model,
-    mode: 'client',
+    mode: "client",
     state: {
       firstPage: 0,
       pageSize: 2
@@ -1117,7 +1117,7 @@ QUnit.test("parsing from constructor #112", function (assert) {
   assert.deepEqual(col.fullCollection.toJSON(), [{"value": 1}, {"value": 2}, {"value": 3}]);
 });
 
- QUnit.test("issue #309", function (assert) {
+QUnit.test("issue #309", function (assert) {
   var col = new PageableCollection(models, {
     state: {
       pageSize: 2,
@@ -1134,9 +1134,9 @@ QUnit.test("parsing from constructor #112", function (assert) {
   col.fullCollection.reset(models);
   assert.strictEqual(col.state.currentPage, 1);
   assert.strictEqual(col.at(0).get("name"), "a");
- });
+});
 
-QUnit.test("issue #340 totalRecords should not take into account of dupe models under client mode", function(assert) {
+QUnit.test("issue #340 totalRecords should not take into account of dupe models under client mode", function (assert) {
   var col = new PageableCollection([{id: 1}, {id: 1}], {mode: "client"});
   assert.strictEqual(col.state.totalRecords, 1);
 });
@@ -1161,5 +1161,5 @@ QUnit.test("issue #345 setting sortKey to null should remove the query param fro
   col.fetch();
 
   var request = this.requests.shift();
-  assert.equal(request.url, 'test-client-fetch');
+  assert.equal(request.url, "test-client-fetch");
 });
