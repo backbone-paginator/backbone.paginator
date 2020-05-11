@@ -4,9 +4,6 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  PACKAGE_VERSION: ''
-
 jobs:
   build:
     runs-on: ubuntu-latest
