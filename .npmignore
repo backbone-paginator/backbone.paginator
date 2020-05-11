@@ -1,6 +1,5 @@
 api
 examples
-/src
 test
 .*
 babel.config.js
@@ -9,3 +8,4 @@ CONTRIBUTING.md
 Gruntfile.js
 index.html
 karma.conf.js
+rollup.config.js
