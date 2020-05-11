@@ -26,7 +26,9 @@ jobs:
       - name: Build API docs
         run: npm run build:docs
       - name: Set package version var
-        run: echo "::set-env name=PACKAGE_VERSION::$( cat package.json | jq -r '.version' )"
+        run: |
+          echo "::set-env name=PACKAGE_VERSION::$( cat package.json | jq -r '.version' )"
+          echo "::set-output name=PACKAGE_VERSION::\"$( cat package.json | jq -r '.version' )\""
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         if: success()
@@ -43,7 +45,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: 'gh-pages'
-      - run: echo ${{ toJson(needs.build) }}
+      - run: echo ${{ toJson(needs.build.outputs) }}
       - uses: actions/download-artifact@v2
         with:
           name: docs-api-v${{ env.PACKAGE_VERSION }}
