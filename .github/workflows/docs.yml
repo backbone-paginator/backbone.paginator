@@ -35,6 +35,8 @@ jobs:
           path: api
 
   deploy:
+    needs: build
+    if: success()
     runs-on: ubuntu-latest
 
     steps:
