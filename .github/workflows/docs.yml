@@ -57,4 +57,4 @@ jobs:
           git config --local user.name "$GITHUB_ACTOR"
           git add --all
           git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" origin gh-pages-debug
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:gh-pages-debug
