@@ -45,6 +45,6 @@ jobs:
           ref: 'gh-pages'
       - uses: actions/download-artifact@v2
         with:
-          name: docs-api-v${{ env.PACKAGE_VERSION }}
+          name: docs-api-v${{ needs.build.env.PACKAGE_VERSION }}
           path: api
       - run: ls -la && ls -la api
