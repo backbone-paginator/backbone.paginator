@@ -27,5 +27,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: success()
         with:
-          name: docs-api-v${{ cat package.json | jq '.version' }}
+          name: "docs-api-v${{ cat package.json | jq '.version' }}"
           path: api
