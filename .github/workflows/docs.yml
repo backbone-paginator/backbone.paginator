@@ -28,5 +28,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: success()
         with:
-          name: "docs-api-v$PACKAGE_VERSION"
+          name: docs-api-v$PACKAGE_VERSION
           path: api
