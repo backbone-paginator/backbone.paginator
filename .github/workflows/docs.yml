@@ -58,6 +58,7 @@ jobs:
           git config --local user.name "$GITHUB_ACTOR"
           git add --all
           git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
+          git config --local --unset-all "http.https://github.com/.extraheader"
       - name: Push docs
         uses: ad-m/github-push-action@master
         with:
