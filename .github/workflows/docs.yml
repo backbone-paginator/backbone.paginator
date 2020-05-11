@@ -1,8 +1,8 @@
 name: Docs
 
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    tags: [ v* ]
 
 jobs:
   build:
@@ -47,8 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: 'gh-pages-debug'
-          persist-credentials: false
+          ref: 'gh-pages'
       - uses: actions/download-artifact@v2
         with:
           name: docs-api-v${{ needs.build.outputs.PACKAGE_VERSION }}
@@ -63,4 +62,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages-debug
+          branch: gh-pages
