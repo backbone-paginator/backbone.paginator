@@ -57,4 +57,4 @@ jobs:
           git config --local user.name "$GITHUB_ACTOR"
           git add --all
           git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
-          git log
+          git push origin gh-pages-debug
