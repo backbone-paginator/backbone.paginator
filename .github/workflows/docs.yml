@@ -20,7 +20,7 @@ jobs:
           path: node_modules
           key: node-12.x-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            node-${{ matrix.node-version }}-
+            node-12.x-
       - run: npm install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
       - name: Build API docs
