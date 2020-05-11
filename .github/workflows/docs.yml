@@ -23,9 +23,8 @@ jobs:
             node-${{ matrix.node-version }}-
       - run: npm install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-      - run: |
-        npm run build:docs
-        ::set-env name=PACKAGE_VERSION::${{ cat package.json | jq '.version' }}
+      - run: npm run build:docs
+      - run: echo "::set-env name=PACKAGE_VERSION::${{ cat package.json | jq '.version' }}"
       - uses: actions/upload-artifact@v2
         if: success()
         with:
