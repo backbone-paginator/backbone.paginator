@@ -52,9 +52,14 @@ jobs:
         with:
           name: docs-api-v${{ needs.build.outputs.PACKAGE_VERSION }}
           path: api
-      - run: |
+      - name: Commit docs
+        run: |
           git config --local user.email $GITHUB_ACTOR@users.noreply.github.com
           git config --local user.name "$GITHUB_ACTOR"
           git add --all
           git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:gh-pages-debug
+      - name: Push docs
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages-debug
