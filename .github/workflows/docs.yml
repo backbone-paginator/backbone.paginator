@@ -1,0 +1,65 @@
+name: Docs
+
+on:
+  push:
+    tags: [ v* ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      PACKAGE_VERSION: ${{ steps.set-vars.outputs.PACKAGE_VERSION }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - uses: actions/cache@v1
+        id: cache-node-modules
+        with:
+          path: node_modules
+          key: node-12.x-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            node-12.x-
+      - run: npm install
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      - name: Build API docs
+        run: npm run build:docs
+      - name: Set package version var
+        id: set-vars
+        run: |
+          echo "::set-env name=PACKAGE_VERSION::$( cat package.json | jq -r '.version' )"
+          echo "::set-output name=PACKAGE_VERSION::$( cat package.json | jq -r '.version' )"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: docs-api-v${{ env.PACKAGE_VERSION }}
+          path: api
+
+  deploy:
+    needs: build
+    if: success()
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
+      - uses: actions/download-artifact@v2
+        with:
+          name: docs-api-v${{ needs.build.outputs.PACKAGE_VERSION }}
+          path: api
+      - name: Commit docs
+        run: |
+          git config --local user.email $GITHUB_ACTOR@users.noreply.github.com
+          git config --local user.name "$GITHUB_ACTOR"
+          git add --all
+          git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
+      - name: Push docs
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
