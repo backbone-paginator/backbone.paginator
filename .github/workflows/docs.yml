@@ -33,3 +33,16 @@ jobs:
         with:
           name: docs-api-v${{ env.PACKAGE_VERSION }}
           path: api
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: 'gh-pages'
+      - uses: actions/download-artifact@v2
+        with:
+          name: docs-api-v${{ env.PACKAGE_VERSION }}
+          path: api
+      - run: ls -la && ls -la api
