@@ -25,4 +25,4 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: npm run build:docs
       - if: success()
-        run: echo package.json | jq '.["version"]'
+        run: echo package.json | jq -r '.["version"]'
