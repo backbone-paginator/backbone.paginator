@@ -52,5 +52,6 @@ jobs:
         with:
           name: docs-api-v${{ needs.build.outputs.PACKAGE_VERSION }}
           path: api
-      - run: ls -la && ls -la api
-      - run: git status
+      - run: git add --all
+      - run: git commit -m "Docs for v${{ needs.build.outputs.PACKAGE_VERSION }}"
+      - run: git log
