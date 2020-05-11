@@ -24,5 +24,8 @@ jobs:
       - run: npm install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: npm run build:docs
-      - if: success()
-        run: cat package.json | jq '.version'
+      - uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: docs-api-v{{ cat package.json | jq '.version' }}
+          path: api
